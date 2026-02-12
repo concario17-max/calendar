@@ -57,19 +57,45 @@ function splitGua(block) {
 
 const el = (id) => document.getElementById(id);
 
+const preloadedSigils = new Set();
+function preloadSigils(yaoNum) {
+  // Preload current, previous, next, and 1 week ahead
+  const targets = [yaoNum, yaoNum - 1, yaoNum + 1, yaoNum + 7];
+  targets.forEach(num => {
+    if (num < CONFIG.YAO_START || num >= CONFIG.YAO_START + CONFIG.YAO_COUNT) return;
+    if (preloadedSigils.has(num)) return;
+    const img = new Image();
+    img.src = `images/yao-${num}.png`;
+    preloadedSigils.add(num);
+  });
+}
+
 function setSigil(yaoNum) {
   const box = el("sigil");
-  box.innerHTML = "";
+  // Don't clear immediately to avoid flicker
   const img = new Image();
   img.alt = `sigil ${yaoNum}`;
+  img.className = "opacity-0 transition-opacity duration-500 ease-in-out";
   img.src = `images/yao-${yaoNum}.png`;
-  img.onload = () => box.appendChild(img);
+
+  img.onload = () => {
+    box.innerHTML = "";
+    box.appendChild(img);
+    // Request animation frame to ensure opacity-0 is rendered before removing it
+    requestAnimationFrame(() => {
+      img.classList.remove("opacity-0");
+    });
+  };
+
   img.onerror = () => {
+    box.innerHTML = "";
     const div = document.createElement("div");
     div.className = "fallback text-sm text-warm-gray-400 font-light italic";
     div.innerHTML = `해당 날짜는 비움`;
     box.appendChild(div);
   };
+
+  preloadSigils(yaoNum);
 }
 
 function setCalcChip(dayIndex) {
