@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sim-Sang Guided Daily Reflection</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "warm-gray": {
+                            50: "#f9f9f8",
+                            100: "#f2f2ef",
+                            200: "#e5e5e0",
+                            300: "#d2d2cb",
+                            400: "#b9b9b1",
+                            500: "#a0a096",
+                            600: "#85857a",
+                        },
+                        "pale-blue": {
+                            50: "#f4f7fa",
+                            100: "#e9eff5",
+                            200: "#d2dfea",
+                            300: "#adbed4",
+                        },
+                        "elegant-gold": "#c5a059",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-warm-gray-50 text-warm-gray-600 font-display;
+            }
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d2d2cb;
+            border-radius: 10px;
+        }
+        .gold-glow {
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.15);
+        }
+        .divider-line {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e5e5e0, transparent);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-warm-gray-200">
+<div class="max-w-screen-md mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-4 overflow-x-auto no-scrollbar py-2">
+<button class="flex flex-col items-center min-w-[3rem] p-1 opacity-40 hover:opacity-100 transition-opacity">
+<span class="text-[10px] uppercase tracking-tighter">Sun</span>
+<span class="text-sm font-medium">11</span>
+</button>
+<button class="flex flex-col items-center min-w-[3rem] p-1 opacity-40 hover:opacity-100 transition-opacity">
+<span class="text-[10px] uppercase tracking-tighter">Mon</span>
+<span class="text-sm font-medium">12</span>
+</button>
+<button class="flex flex-col items-center min-w-[3rem] p-1 opacity-40 hover:opacity-100 transition-opacity">
+<span class="text-[10px] uppercase tracking-tighter">Tue</span>
+<span class="text-sm font-medium">13</span>
+</button>
+<button class="flex flex-col items-center min-w-[3rem] p-1 border-b-2 border-elegant-gold">
+<span class="text-[10px] uppercase tracking-tighter text-elegant-gold font-bold">Wed</span>
+<span class="text-sm font-bold text-warm-gray-600">14</span>
+</button>
+<button class="flex flex-col items-center min-w-[3rem] p-1 opacity-40 hover:opacity-100 transition-opacity">
+<span class="text-[10px] uppercase tracking-tighter">Thu</span>
+<span class="text-sm font-medium">15</span>
+</button>
+<button class="flex flex-col items-center min-w-[3rem] p-1 opacity-40 hover:opacity-100 transition-opacity">
+<span class="text-[10px] uppercase tracking-tighter">Fri</span>
+<span class="text-sm font-medium">16</span>
+</button>
+<button class="flex flex-col items-center min-w-[3rem] p-1 opacity-40 hover:opacity-100 transition-opacity">
+<span class="text-[10px] uppercase tracking-tighter">Sat</span>
+<span class="text-sm font-medium">17</span>
+</button>
+</div>
+<div class="hidden md:flex items-center gap-2 pl-4 border-l border-warm-gray-200">
+<div class="text-right">
+<p class="text-xs font-bold text-elegant-gold uppercase tracking-widest">February 2024</p>
+<p class="text-[10px] text-warm-gray-400">Month of Reflection</p>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-screen-md mx-auto w-full px-6 py-12 space-y-24">
+<section class="text-center space-y-2">
+<h2 class="text-3xl font-light text-warm-gray-600">Wednesday Reflection</h2>
+<p class="text-sm tracking-[0.2em] uppercase text-warm-gray-400">February 14, 2024</p>
+<div class="pt-8 flex justify-center">
+<span class="material-symbols-outlined text-elegant-gold text-3xl font-extralight">expand_more</span>
+</div>
+</section>
+<section class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+<div class="flex flex-col items-center text-center">
+<div class="mb-8 p-4 bg-white rounded-full gold-glow">
+<div class="flex flex-col gap-1 w-12">
+<div class="h-1.5 w-full bg-elegant-gold rounded-full opacity-90"></div>
+<div class="flex gap-1.5 w-full">
+<div class="h-1.5 flex-1 bg-elegant-gold/40 rounded-full"></div>
+<div class="h-1.5 flex-1 bg-elegant-gold/40 rounded-full"></div>
+</div>
+<div class="h-1.5 w-full bg-elegant-gold rounded-full opacity-90"></div>
+<div class="h-1.5 w-full bg-elegant-gold rounded-full opacity-90"></div>
+<div class="flex gap-1.5 w-full">
+<div class="h-1.5 flex-1 bg-elegant-gold/40 rounded-full"></div>
+<div class="h-1.5 flex-1 bg-elegant-gold/40 rounded-full"></div>
+</div>
+<div class="flex gap-1.5 w-full">
+<div class="h-1.5 flex-1 bg-elegant-gold/40 rounded-full"></div>
+<div class="h-1.5 flex-1 bg-elegant-gold/40 rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="space-y-4 max-w-lg">
+<span class="text-xs font-bold text-elegant-gold tracking-[0.3em] uppercase">Hexagram 56</span>
+<h3 class="text-2xl font-light text-warm-gray-600">The Traveler (Lü)</h3>
+<p class="text-warm-gray-500 leading-relaxed text-lg italic">
+                        "Success through smallness. Perseverance brings good fortune to the wanderer. Fire on the mountain: The image of the Wanderer."
+                    </p>
+</div>
+</div>
+<div class="divider-line my-12"></div>
+</section>
+<section class="space-y-12">
+<div class="flex items-center justify-center gap-3">
+<span class="material-symbols-outlined text-pale-blue-300">psychology</span>
+<h4 class="text-xs font-bold uppercase tracking-[0.3em] text-warm-gray-400">Daily Emanations</h4>
+<span class="material-symbols-outlined text-pale-blue-300">psychology</span>
+</div>
+<div class="grid md:grid-cols-2 gap-12">
+<div class="space-y-4 bg-white/40 p-8 rounded-2xl border border-pale-blue-100">
+<h5 class="text-xs font-bold uppercase text-elegant-gold tracking-widest">Mental Plane</h5>
+<p class="text-warm-gray-500 leading-relaxed">
+                        Today's mental emanation encourages detachment from rigid structures. Ideas flow like water; allow them to take shape naturally without forcing logic too early.
+                    </p>
+</div>
+<div class="space-y-4 bg-white/40 p-8 rounded-2xl border border-pale-blue-100">
+<h5 class="text-xs font-bold uppercase text-elegant-gold tracking-widest">Astral Connection</h5>
+<p class="text-warm-gray-500 leading-relaxed">
+                        The astral field is sensitive. Small gestures of kindness will ripple further than usual. Guard against sudden emotional fluctuations in the late afternoon.
+                    </p>
+</div>
+</div>
+<div class="divider-line my-12"></div>
+</section>
+<section class="space-y-8">
+<div class="flex flex-col items-center text-center space-y-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-elegant-gold/10 text-elegant-gold text-[10px] font-bold tracking-widest uppercase">
+                    Week 45
+                </div>
+<h4 class="text-xl font-light text-warm-gray-600 flex items-center gap-3">
+<span class="material-icons text-elegant-gold/40">local_florist</span>
+                    Calendar of the Soul
+                    <span class="material-icons text-elegant-gold/40">local_florist</span>
+</h4>
+<div class="w-full max-w-xl relative group rounded-3xl overflow-hidden shadow-sm border border-warm-gray-200">
+<div class="absolute inset-0 opacity-10 grayscale hover:grayscale-0 transition-all duration-700" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXS8rO2euP90iNFxqWuR6Mcjtwcgtx13qBOuBJ-MuEKboNhqdR1wMHH42CL1JTIb62NeaZHMrbrM-qcY2yxMUajOixJicwZM2lsayY4NYIHCVvqSa1nU13H4Iz_2dLGLjPEfHYywtM3UYULGLVwJEepbyvvLclJvaxCeF2ZuInfC0B7lpb1fey0QCENUwpcqZfN3cCLvXBY2_noqcL-zs_eRqxxV8-CD21PbeDngX7WKcpAUv3w7vkiCue1bRDVqGMoq_B-SrJJB5O'); background-size: cover; background-position: center;"></div>
+<div class="relative z-10 bg-white/90 p-12 md:p-16">
+<p class="font-display italic text-xl md:text-2xl leading-loose text-warm-gray-600">
+                            "The power of thought grows firm<br/>
+                            In union with the spirit's birth;<br/>
+                            It lifts the senses' dull allure<br/>
+                            To clarity of full worth."
+                        </p>
+<div class="mt-8 pt-8 border-t border-warm-gray-100 flex justify-center">
+<span class="text-[10px] text-warm-gray-400 uppercase tracking-[0.4em]">Rudolf Steiner</span>
+</div>
+</div>
+</div>
+<div class="w-full max-w-sm pt-8">
+<button class="w-full p-6 group rounded-2xl border border-dashed border-warm-gray-300 hover:border-elegant-gold transition-colors text-left space-y-2">
+<div class="flex justify-between items-center text-[10px] text-warm-gray-400 uppercase tracking-widest">
+<span>Week 8 (Corresponding)</span>
+<span class="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+<p class="text-sm text-warm-gray-400 font-light truncate">"The senses' might grows dumb..."</p>
+</button>
+</div>
+</div>
+</section>
+<section class="flex flex-col items-center pt-8 pb-20">
+<button class="px-8 py-4 bg-white border border-elegant-gold text-elegant-gold hover:bg-elegant-gold hover:text-white rounded-full text-sm font-medium tracking-widest uppercase transition-all flex items-center gap-3 gold-glow">
+<span class="material-icons text-base">edit_note</span>
+                Add Journal Entry
+            </button>
+<div class="mt-12 flex items-center gap-3 opacity-30">
+<div class="w-1.5 h-1.5 rounded-full bg-elegant-gold"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-elegant-gold"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-elegant-gold"></div>
+</div>
+</section>
+</main>
+<footer class="bg-warm-gray-100 py-10 border-t border-warm-gray-200">
+<div class="max-w-screen-md mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-pale-blue-300 flex items-center justify-center text-white">
+<span class="material-icons text-xl">spa</span>
+</div>
+<h1 class="text-lg font-light tracking-wide text-warm-gray-600">Sim-Sang <span class="text-elegant-gold font-normal">Academy</span></h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right hidden sm:block">
+<p class="text-xs text-warm-gray-400">Current Guide</p>
+<p class="text-sm font-medium text-warm-gray-600">Dr. Aris Thorne</p>
+</div>
+<img class="w-10 h-10 rounded-full border border-elegant-gold/30 object-cover" data-alt="User profile photo of a man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJarrW5PErcah1n6e9J3CQpjKSOSPJ3T1tythf_ZM9DRqZD0w_Re8s7KhKjZ5gdTvvFs_Mc5S2Ez4mQP5ztLqznQVWrjE7ddyco7hyI-6ua1Bt-AOsXhhVyNpx7swKOuPdxNmT6a_eR_5GYShw2FjagxvOZqIFGGhrYXyJ7XBcPv6QbW6NzBKf1-OD-K2jgIqX2JaXigIInbXbN8c9_5rexUtUJfAgRPvFXzSN2FjdTSLBy5QxH7SlWD3T33PDfG-xNUuPv21h7zxi"/>
+</div>
+</div>
+</footer>
+
+</body></html>
