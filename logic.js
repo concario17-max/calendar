@@ -647,12 +647,8 @@ document.addEventListener("click", (e) => {
 
   // If picker is open
   if (picker && !picker.classList.contains("hidden")) {
-    const isClickInsidePicker = picker.contains(e.target);
-    const isClickOnTriggerDiv = triggerDiv && triggerDiv.contains(e.target);
-    const isClickOnTriggerInput = triggerInput && triggerInput.contains(e.target);
-
-    // If click is NOT inside picker AND NOT on any trigger
-    if (!isClickInsidePicker && !isClickOnTriggerDiv && !isClickOnTriggerInput) {
+    // If click is NOT inside picker AND NOT on the Select Date trigger
+    if (!isClickInsidePicker && !isClickOnTriggerDiv) {
       picker.classList.add("hidden");
     }
   }
