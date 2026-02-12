@@ -42,6 +42,12 @@
       },
     }
   </script>
+  <style>
+    body {
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+    }
+  </style>
   <style type="text/tailwindcss">
     @layer base {
             body {
@@ -159,7 +165,7 @@
     <section class="space-y-12">
       <div class="flex items-center justify-center gap-3">
         <span class="material-symbols-outlined text-pale-blue-300">psychology</span>
-        <h4 id="yaoTitle" class="text-xs font-bold uppercase tracking-[0.3em] text-warm-gray-400">Daily Emanations</h4>
+        <h4 class="text-xs font-bold uppercase tracking-[0.3em] text-warm-gray-400">Daily Emanations</h4>
         <span class="material-symbols-outlined text-pale-blue-300">psychology</span>
       </div>
 
@@ -172,7 +178,7 @@
              User asked to merge "Summary" and "Detail". 
              I will keep yaoBody as the main content. 
              If yaoShort is needed, it can be appended, but user said "remove Summary". -->
-        <p id="yaoShort" class="hidden">-</p>
+        <p class="hidden">-</p>
         <p id="yaoBody" class="text-warm-gray-700 leading-relaxed whitespace-pre-wrap text-left">
           -
         </p>
@@ -323,7 +329,8 @@
   </div>
 
   <!-- Error container -->
-  <div id="err" class="fixed bottom-0 left-0 right-0 bg-red-600/90 text-white p-4 text-center z-[100] empty:hidden">
+  <div id="err"
+    class="fixed bottom-0 left-0 right-0 bg-red-600/90 text-white p-4 text-center z-[100] hidden empty:hidden">
   </div>
 
   <!-- Scripts -->

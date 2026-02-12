@@ -66,8 +66,8 @@ function setSigil(yaoNum) {
   img.onload = () => box.appendChild(img);
   img.onerror = () => {
     const div = document.createElement("div");
-    div.className = "fallback";
-    div.innerHTML = `Sigil<br/><b>#${yaoNum}</b><br/>(이미지 없음)`;
+    div.className = "fallback text-sm text-warm-gray-400 font-light italic";
+    div.innerHTML = `해당 날짜는 비움`;
     box.appendChild(div);
   };
 }
@@ -81,12 +81,12 @@ function setCalcChip(dayIndex) {
 }
 
 function renderEmpty(dayIndex, msg) {
-  el("guaHeader").textContent = "빈 날";
-  el("guaMeta").textContent = msg || `dayIndex(${dayIndex})가 0~359 범위를 벗어났습니다.`;
+  el("guaHeader").textContent = "해당 날짜는 비움";
+  el("guaMeta").textContent = ""; // Hide technical range info
   el("yaoTitle").textContent = "-";
   el("yaoShort").textContent = "-";
   el("yaoBody").textContent = "-";
-  el("sigil").innerHTML = `<div class="fallback">Sigil<br/><b>#-</b><br/>(빈 날)</div>`;
+  el("sigil").innerHTML = `<div class="fallback text-sm text-warm-gray-400 font-light italic">해당 날짜는 비움</div>`;
 }
 
 function render(dayIndex, guaBlock, yaoBlock) {
@@ -213,7 +213,7 @@ function renderSoulEmpty(message) {
   const badge = el("soulBadge");
   const body = el("soulBody");
   badge.classList.add("dim");
-  badge.textContent = "비움";
+  badge.textContent = "해당 날짜는 비움";
   body.innerHTML = `<span class="text-warm-gray-400 font-bold whitespace-pre-wrap leading-relaxed">${message || "해당 날짜는 비움"}</span>`;
 }
 
@@ -226,7 +226,7 @@ function renderSoulForDate(dateObj) {
   const body = el("soulBody");
 
   if (!SOUL_GROUPS || SOUL_GROUPS.length === 0) {
-    renderSoulEmpty("데이터 없음");
+    renderSoulEmpty("해당 날짜는 비움");
     return;
   }
 
@@ -280,8 +280,7 @@ function renderSoulForDate(dateObj) {
   }
 
   // fallback: show whole group as pre-wrapped text
-  body.innerHTML = `<span class="text-warm-gray-400 font-bold whitespace-pre-wrap leading-relaxed"></span>`;
-  body.firstChild.textContent = hit.block;
+  body.innerHTML = `<span class="text-warm-gray-400 font-light italic whitespace-pre-wrap leading-relaxed">해당 날짜는 비움</span>`;
 }
 
 let GUA_MAP = null, YAO_MAP = null;
@@ -299,11 +298,7 @@ function applyDate(dateObj) {
     const guaBlock = GUA_MAP.get(guaNum);
 
     if (!yaoBlock || !guaBlock) {
-      renderEmpty(dayIndex, [
-        `데이터 누락:`,
-        `- guaNum(${guaNum}) ${guaBlock ? "OK" : "없음"}`,
-        `- yaoNum(${yaoNum}) ${yaoBlock ? "OK" : "없음"}`
-      ].join("\n"));
+      renderEmpty(dayIndex, "해당 날짜는 비움");
     } else {
       render(dayIndex, guaBlock, yaoBlock);
     }
@@ -602,8 +597,17 @@ function init() {
     // We need to ensure applyDate is called and updates currentDateStr.
     applyDate(today);
     el("err").textContent = "";
+    el("err").classList.add("hidden");
+
+    // Smooth reveal after everything is ready
+    setTimeout(() => {
+      document.body.style.opacity = "1";
+    }, 100);
   } catch (e) {
     el("err").textContent = e?.message || String(e);
+    el("err").classList.remove("hidden");
+    // Ensure page is visible even if there's an error
+    document.body.style.opacity = "1";
   }
 }
 
@@ -612,6 +616,7 @@ el("dateInput").addEventListener("change", () => {
   const d = getDateFromInput();
   if (!d) return;
   el("err").textContent = "";
+  el("err").classList.add("hidden");
   applyDate(d);
 });
 
@@ -621,6 +626,7 @@ el("dateInput").addEventListener("keydown", (ev) => {
     const d = getDateFromInput();
     if (!d) return;
     el("err").textContent = "";
+    el("err").classList.add("hidden");
     applyDate(d);
   }
 });
@@ -629,10 +635,10 @@ el("btnToday").addEventListener("click", () => {
   const today = new Date();
   setDateInput(today);
   el("err").textContent = "";
+  el("err").classList.add("hidden");
   applyDate(today);
 });
 
-// Close picker when clicking outside
 // Close picker when clicking outside
 document.addEventListener("click", (e) => {
   const picker = document.getElementById("customDatePicker");
