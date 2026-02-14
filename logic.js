@@ -40,7 +40,35 @@ function parseNumberedBlocks(text) {
 function splitYao(block) {
   const b = normalizeNewlines(block);
   const lines = b.split("\n");
-  const titleLine = (lines[0] || "").trim();
+  let titleLine = (lines[0] || "").trim();
+
+  // Pattern: [Number]. [Hanja Sentence]. [Korean Name] ...
+  // We want to break before [Korean Name]
+  // Regex to find the dot after Hanja and the start of Korean name
+  // Actually, looking at the file: "338. ... . 바파 ..."
+  // Let's look for ". " followed by Hangul or non-Hanja
+  // A safer bet might be finding the first dot that is followed by a space and then Hangul/English/Numbers that are part of the name info.
+  // Or simply: The first part is Hanja/Chinese. The second part starts with a Name.
+  // Let's try to split by ". " and check if the next part starts with Hangul?
+  // User example: "338. 九二 巽在牀下 用史巫紛若 吉 无咎. 바파 ..."
+  // The dot is full-width or half-width? In file it looks like ". " (dot space).
+  // Let's replace ". " with ".\n" if it's followed by Hangul.
+
+  // Actually, the example shows "338. ... ." (dot at end of first line)
+  // And "바파 ..." (start of second line)
+  // Converting the first occurrence of ". " that is followed by a non-Hanja/non-Number char?
+  // Exception: "338. " is at the start.
+
+  // Be careful not to break "338. "
+  // Strategy: Find the first "." that is NOT at the start.
+  // "338. 九二 ... . 바파" -> The dot after 无咎.
+
+  // Regex: 
+  // Look for a dot, followed by space, followed by Hangul or alphanumeric that looks like a name.
+  // Let's try inserting \n after the first period that comes after the initial number.
+
+  titleLine = titleLine.replace(/^(\d+\.\s+.*?\.)\s+(.*)$/, "$1\n$2");
+
   const rest = lines.slice(1).join("\n").trim();
   const paras = rest.split(/\n\s*\n/g).map(s => s.trim()).filter(Boolean);
   return { titleLine, short: paras[0] || "", body: paras.slice(1).join("\n\n") };
@@ -75,7 +103,7 @@ function setSigil(yaoNum) {
   // Don't clear immediately to avoid flicker
   const img = new Image();
   img.alt = `sigil ${yaoNum}`;
-  img.className = "opacity-0 transition-opacity duration-500 ease-in-out";
+  img.className = "w-full h-full object-contain opacity-0 transition-opacity duration-500 ease-in-out";
   img.src = `images/yao-${yaoNum}.png`;
 
   img.onload = () => {
@@ -122,7 +150,36 @@ function render(dayIndex, guaBlock, yaoBlock) {
 
   const y = splitYao(yaoBlock);
   el("yaoTitle").textContent = y.titleLine;
-  el("yaoShort").textContent = y.short || "(요약 없음)";
+
+  // Split short text at middle word boundary if long enough
+  let shortText = y.short || "(요약 없음)";
+  if (shortText.length > 20 && !shortText.includes("\n")) {
+    const middle = Math.floor(shortText.length / 2);
+    const before = shortText.lastIndexOf(" ", middle);
+    const after = shortText.indexOf(" ", middle + 1);
+
+    let splitIdx = -1;
+    if (before === -1 && after === -1) {
+      // no spaces
+    } else if (before === -1) {
+      splitIdx = after;
+    } else if (after === -1) {
+      splitIdx = before;
+    } else {
+      // closer one
+      if (middle - before < after - middle) {
+        splitIdx = before;
+      } else {
+        splitIdx = after;
+      }
+    }
+
+    if (splitIdx !== -1) {
+      shortText = shortText.substring(0, splitIdx) + "\n" + shortText.substring(splitIdx + 1);
+    }
+  }
+
+  el("yaoShort").textContent = shortText;
   el("yaoBody").textContent = y.body || "(상세 없음)";
 
   setSigil(calcYaoNum(dayIndex));

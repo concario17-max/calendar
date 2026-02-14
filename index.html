@@ -131,46 +131,52 @@
     </div>
   </header>
 
-  <main class="flex-1 max-w-screen-md mx-auto w-full px-4 py-8 space-y-16 md:px-6 md:py-12 md:space-y-24">
+  <main class="flex-1 max-w-screen-md mx-auto w-full px-4 py-8 space-y-8 md:px-6 md:py-12 md:space-y-12">
     <!-- Hero Section: Hexagram (Gua) Info Moved Here -->
-    <section class="text-center space-y-2 relative">
-      <!-- Hexagram Display -->
-      <h3 id="guaHeader" class="text-2xl md:text-3xl font-light text-warm-gray-600 transition-colors">-</h3>
-      <p id="guaMeta" class="text-sm tracking-[0.2em] uppercase text-warm-gray-400 leading-relaxed italic">-</p>
+    <!-- Grouped Gua Info & Sigil for tighter vertical spacing -->
+    <div class="space-y-2">
+      <section class="text-center space-y-2 relative">
+        <!-- Hexagram Display -->
+        <h3 id="guaHeader" class="text-2xl md:text-3xl font-light text-warm-gray-600 transition-colors">-</h3>
+        <p id="guaMeta"
+          class="text-sm tracking-[0.2em] uppercase text-warm-gray-400 leading-relaxed italic whitespace-pre-wrap">-</p>
 
-      <div class="pt-8 flex justify-center">
-        <span class="material-symbols-outlined text-elegant-gold text-3xl font-extralight">expand_more</span>
-      </div>
-    </section>
-
-    <!-- Hexagram Sigil & Detailed Text Section -->
-    <section class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-      <div class="flex flex-col items-center text-center">
-        <!-- Sigil Image Container -->
-        <div id="sigil"
-          class="mb-6 md:mb-8 p-4 bg-white rounded-2xl gold-glow flex justify-center items-center min-w-[170px] min-h-[170px]">
-          <!-- Image will be injected here by logic.js -->
+        <div class="pt-2 flex justify-center">
+          <span class="material-symbols-outlined text-elegant-gold text-3xl font-extralight">expand_more</span>
         </div>
+      </section>
 
-        <div class="space-y-4 max-w-lg">
-          <!-- Detailed Hexagram Display (Moved Here) -->
-          <h3 id="yaoTitle" class="text-xl font-light text-warm-gray-600 transition-colors">-</h3>
-          <p id="yaoShort" class="text-sm tracking-[0.05em] text-warm-gray-700 leading-relaxed italic px-4">-</p>
+      <!-- Hexagram Sigil & Detailed Text Section -->
+      <section class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+        <div class="flex flex-col items-center text-center">
+          <!-- Sigil Image Container -->
+          <div id="sigil"
+            class="mb-6 md:mb-8 p-2 bg-white rounded-2xl gold-glow flex justify-center items-center w-full max-w-[450px] aspect-square">
+            <!-- Image will be injected here by logic.js -->
+          </div>
+
+          <div class="space-y-4 max-w-lg">
+            <!-- Detailed Hexagram Display (Moved Here) -->
+            <h3 id="yaoTitle"
+              class="text-xl font-light text-warm-gray-600 transition-colors whitespace-pre-wrap leading-relaxed">-</h3>
+            <p id="yaoShort"
+              class="text-sm tracking-[0.05em] text-warm-gray-700 leading-relaxed italic px-4 whitespace-pre-wrap">-</p>
+          </div>
         </div>
-      </div>
-      <div class="divider-line my-12"></div>
-    </section>
+        <div class="divider-line my-3"></div>
+      </section>
+    </div>
 
     <!-- Daily Emanations (Yao) -->
-    <section class="space-y-12">
-      <div class="flex items-center justify-center gap-3">
+    <section class="space-y-6">
+      <div class="flex items-center justify-center gap-2">
         <span class="material-symbols-outlined text-pale-blue-300">psychology</span>
-        <h4 class="text-xs font-bold uppercase tracking-[0.3em] text-warm-gray-400">Daily Emanations</h4>
+        <h4 class="text-xs font-bold uppercase tracking-[0.3em] text-warm-gray-400">Daily spiritual beings</h4>
         <span class="material-symbols-outlined text-pale-blue-300">psychology</span>
       </div>
 
       <!-- Merged Content Box -->
-      <div class="space-y-4 bg-white/40 p-6 md:p-8 rounded-2xl border border-pale-blue-100 h-full">
+      <div class="space-y-4 bg-white/40 p-4 md:p-6 rounded-2xl border border-pale-blue-100 h-full">
         <!-- Summary removed as requested -->
         <!-- <h5 class="text-xs font-bold uppercase text-elegant-gold tracking-widest">Detailed Context</h5> -->
 
@@ -184,11 +190,11 @@
         </p>
       </div>
 
-      <div class="divider-line my-12"></div>
+      <div class="divider-line my-3"></div>
     </section>
 
     <!-- Calendar of the Soul -->
-    <section class="space-y-8">
+    <section class="space-y-3">
       <div class="flex flex-col items-center text-center space-y-6">
         <!-- Week Badge -->
         <div id="soulBadge"
@@ -222,13 +228,13 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="flex flex-col items-center pt-8 pb-20">
+    <section class="flex flex-col items-center pt-0 pb-10">
       <button onclick="openJournal()"
         class="px-8 py-4 bg-white border border-elegant-gold text-elegant-gold hover:bg-elegant-gold hover:text-white rounded-full text-sm font-medium tracking-widest uppercase transition-all flex items-center gap-3 gold-glow">
         <span class="material-icons text-base">edit_note</span>
         Add Journal Entry
       </button>
-      <div class="mt-12 flex items-center gap-3 opacity-30">
+      <div class="mt-6 flex items-center gap-3 opacity-30">
         <div class="w-1.5 h-1.5 rounded-full bg-elegant-gold"></div>
         <div class="w-1.5 h-1.5 rounded-full bg-elegant-gold"></div>
         <div class="w-1.5 h-1.5 rounded-full bg-elegant-gold"></div>
@@ -237,7 +243,7 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-warm-gray-100 py-5 md:py-10 border-t border-warm-gray-200">
+  <footer class="bg-warm-gray-100 py-6 border-t border-warm-gray-200">
     <div class="max-w-screen-md mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
       <div class="flex items-center gap-4">
         <div class="flex items-center justify-center text-elegant-gold/70">
