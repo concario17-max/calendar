@@ -150,36 +150,7 @@ function render(dayIndex, guaBlock, yaoBlock) {
 
   const y = splitYao(yaoBlock);
   el("yaoTitle").textContent = y.titleLine;
-
-  // Split short text at middle word boundary if long enough
-  let shortText = y.short || "(요약 없음)";
-  if (shortText.length > 20 && !shortText.includes("\n")) {
-    const middle = Math.floor(shortText.length / 2);
-    const before = shortText.lastIndexOf(" ", middle);
-    const after = shortText.indexOf(" ", middle + 1);
-
-    let splitIdx = -1;
-    if (before === -1 && after === -1) {
-      // no spaces
-    } else if (before === -1) {
-      splitIdx = after;
-    } else if (after === -1) {
-      splitIdx = before;
-    } else {
-      // closer one
-      if (middle - before < after - middle) {
-        splitIdx = before;
-      } else {
-        splitIdx = after;
-      }
-    }
-
-    if (splitIdx !== -1) {
-      shortText = shortText.substring(0, splitIdx) + "\n" + shortText.substring(splitIdx + 1);
-    }
-  }
-
-  el("yaoShort").textContent = shortText;
+  el("yaoShort").textContent = y.short || "(요약 없음)";
   el("yaoBody").textContent = y.body || "(상세 없음)";
 
   setSigil(calcYaoNum(dayIndex));
