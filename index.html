@@ -5,7 +5,10 @@
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Sim-Sang Guided Daily Reflection</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&amp;display=swap"
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..800;1,200..800&family=Inter:wght@200;300;400;500;600;700&display=swap"
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link
@@ -26,6 +29,9 @@
               400: "#b9b9b1",
               500: "#a0a096",
               600: "#85857a",
+              700: "#63635a",
+              800: "#4a4a43",
+              900: "#31312c",
             },
             "pale-blue": {
               50: "#f4f7fa",
@@ -33,10 +39,13 @@
               200: "#d2dfea",
               300: "#adbed4",
             },
-            "elegant-gold": "#c5a059",
+            "elegant-gold": "#B8860B",
+            "ray-dark": "#0A0A0A",
+            "ray-light": "#FCFBF9",
           },
           fontFamily: {
-            "display": ["Inter", "sans-serif"]
+            "display": ["Inter", "sans-serif"],
+            "serif": ["Crimson Pro", "serif"]
           },
         },
       },
@@ -51,7 +60,10 @@
   <style type="text/tailwindcss">
     @layer base {
             body {
-                @apply bg-warm-gray-50 text-warm-gray-600 font-display;
+                @apply bg-ray-light text-warm-gray-600 font-display transition-colors duration-500 ease-in-out;
+            }
+            .dark body {
+                @apply bg-ray-dark text-warm-gray-300;
             }
         }
         ::-webkit-scrollbar {
@@ -61,15 +73,18 @@
             background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: #d2d2cb;
+            @apply bg-warm-gray-300 dark:bg-warm-gray-700;
             border-radius: 10px;
         }
         .gold-glow {
-            box-shadow: 0 0 15px rgba(197, 160, 89, 0.15);
+            box-shadow: 0 0 20px rgba(184, 134, 11, 0.15);
+        }
+        .dark .gold-glow {
+            box-shadow: 0 0 25px rgba(184, 134, 11, 0.3);
         }
         .divider-line {
             height: 1px;
-            background: linear-gradient(to right, transparent, #e5e5e0, transparent);
+            @apply bg-gradient-to-r from-transparent via-warm-gray-200 dark:via-warm-gray-800 to-transparent;
         }
         .date-picker-hidden {
             opacity: 0;
@@ -81,149 +96,150 @@
 
 <body class="flex flex-col min-h-screen">
   <!-- Header -->
-  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-warm-gray-200">
+  <header
+    class="sticky top-0 z-50 bg-white/80 dark:bg-ray-dark/80 backdrop-blur-md border-b border-warm-gray-200 dark:border-warm-gray-800 transition-colors duration-500">
     <div class="max-w-screen-md mx-auto px-4 h-16 md:px-6 md:h-20 flex items-center justify-between">
       <div class="flex items-center gap-4 relative">
         <div onclick="toggleDatePicker()" class="flex flex-col cursor-pointer group">
           <span
-            class="text-sm uppercase tracking-wide text-elegant-gold font-bold group-hover:text-warm-gray-600 transition-colors">Select
+            class="text-sm uppercase tracking-wide text-elegant-gold font-bold group-hover:text-warm-gray-600 dark:group-hover:text-warm-gray-300 transition-colors">Select
             Date</span>
         </div>
         <button id="btnToday"
-          class="text-[10px] font-bold text-warm-gray-700 hover:text-elegant-gold uppercase tracking-widest border border-warm-gray-200 rounded px-2 py-1 ml-2 transition-colors">Today</button>
+          class="text-[10px] font-bold text-warm-gray-700 dark:text-warm-gray-400 hover:text-elegant-gold dark:hover:text-elegant-gold uppercase tracking-widest border border-warm-gray-200 dark:border-warm-gray-700 rounded px-2 py-1 ml-2 transition-colors">Today</button>
+        <button id="themeToggle" onclick="toggleTheme()" title="Toggle Dark Mode"
+          class="ml-2 text-warm-gray-600 dark:text-warm-gray-400 hover:text-elegant-gold dark:hover:text-elegant-gold transition-colors flex items-center justify-center">
+          <span class="material-icons text-sm" id="themeIcon">dark_mode</span>
+        </button>
         <input type="text" id="dateInput" readonly
-          class="border border-warm-gray-300 rounded-md p-2 text-base bg-transparent focus:outline-none focus:ring-1 focus:ring-elegant-gold/50 focus:border-elegant-gold uppercase text-warm-gray-700 w-32 md:w-28 text-center">
+          class="border border-warm-gray-300 dark:border-warm-gray-700 rounded-md p-2 text-base bg-transparent focus:outline-none focus:ring-1 focus:ring-elegant-gold/50 focus:border-elegant-gold uppercase text-warm-gray-700 dark:text-warm-gray-200 w-32 md:w-28 text-center transition-colors">
 
         <!-- Custom Date Picker Dropdown -->
         <div id="customDatePicker"
-          class="absolute top-14 left-0 z-50 hidden bg-white/90 backdrop-blur-md border border-elegant-gold/30 shadow-xl rounded-xl p-4 w-64 animate-in fade-in zoom-in-95 duration-200">
+          class="absolute top-14 left-0 z-50 hidden bg-white/95 dark:bg-warm-gray-900/95 backdrop-blur-md border border-elegant-gold/30 shadow-2xl rounded-xl p-4 w-64 animate-in fade-in zoom-in-95 duration-300">
           <div class="flex justify-between items-center mb-4">
-            <button onclick="changeMonth(-1)" class="text-warm-gray-700 hover:text-elegant-gold transition-colors">
+            <button onclick="changeMonth(-1)"
+              class="text-warm-gray-700 dark:text-warm-gray-400 hover:text-elegant-gold transition-colors">
               <span class="material-icons text-sm">chevron_left</span>
             </button>
-            <span id="pickerMonthYear" class="text-sm font-bold text-warm-gray-600 uppercase tracking-widest"></span>
-            <button onclick="changeMonth(1)" class="text-warm-gray-700 hover:text-elegant-gold transition-colors">
+            <span id="pickerMonthYear"
+              class="text-sm font-bold text-warm-gray-600 dark:text-warm-gray-300 uppercase tracking-widest"></span>
+            <button onclick="changeMonth(1)"
+              class="text-warm-gray-700 dark:text-warm-gray-400 hover:text-elegant-gold transition-colors">
               <span class="material-icons text-sm">chevron_right</span>
             </button>
           </div>
           <div class="grid grid-cols-7 text-center mb-2">
-            <span class="text-[10px] text-warm-gray-700 font-bold">S</span>
-            <span class="text-[10px] text-warm-gray-700 font-bold">M</span>
-            <span class="text-[10px] text-warm-gray-700 font-bold">T</span>
-            <span class="text-[10px] text-warm-gray-700 font-bold">W</span>
-            <span class="text-[10px] text-warm-gray-700 font-bold">T</span>
-            <span class="text-[10px] text-warm-gray-700 font-bold">F</span>
-            <span class="text-[10px] text-warm-gray-700 font-bold">S</span>
+            <span class="text-[10px] text-warm-gray-700 dark:text-warm-gray-500 font-bold">S</span>
+            <span class="text-[10px] text-warm-gray-700 dark:text-warm-gray-500 font-bold">M</span>
+            <span class="text-[10px] text-warm-gray-700 dark:text-warm-gray-500 font-bold">T</span>
+            <span class="text-[10px] text-warm-gray-700 dark:text-warm-gray-500 font-bold">W</span>
+            <span class="text-[10px] text-warm-gray-700 dark:text-warm-gray-500 font-bold">T</span>
+            <span class="text-[10px] text-warm-gray-700 dark:text-warm-gray-500 font-bold">F</span>
+            <span class="text-[10px] text-warm-gray-700 dark:text-warm-gray-500 font-bold">S</span>
           </div>
-          <div id="pickerGrid" class="grid grid-cols-7 gap-1 text-center text-xs">
+          <div id="pickerGrid"
+            class="grid grid-cols-7 gap-1 text-center text-xs text-warm-gray-700 dark:text-warm-gray-300">
             <!-- Days generated by JS -->
           </div>
         </div>
       </div>
 
-      <div class="hidden md:flex items-center gap-2 pl-4 border-l border-warm-gray-200">
+      <div
+        class="hidden md:flex items-center gap-2 pl-4 border-l border-warm-gray-200 dark:border-warm-gray-800 transition-colors">
         <div class="text-right">
-          <!-- Moved Date Display Here -->
           <h2 id="dateDisplay" class="text-xs font-bold text-elegant-gold uppercase tracking-widest">Loading...</h2>
-          <p id="dateDisplaySub" class="text-[10px] text-warm-gray-700">Loading...</p>
+          <p id="dateDisplaySub" class="text-[10px] text-warm-gray-700 dark:text-warm-gray-400">Loading...</p>
         </div>
       </div>
     </div>
   </header>
 
-  <main class="flex-1 max-w-screen-md mx-auto w-full px-4 py-8 space-y-8 md:px-6 md:py-12 md:space-y-12">
-    <!-- Hero Section: Hexagram (Gua) Info Moved Here -->
-    <!-- Grouped Gua Info & Sigil for tighter vertical spacing -->
-    <div class="space-y-2">
-      <section class="text-center space-y-2 relative">
-        <!-- Hexagram Display -->
-        <h3 id="guaHeader" class="text-2xl md:text-3xl font-light text-warm-gray-600 transition-colors">-</h3>
+  <main class="flex-1 max-w-screen-md mx-auto w-full px-4 py-8 space-y-8 md:px-6 md:py-12 md:space-y-16">
+    <div class="space-y-4">
+      <section class="text-center space-y-4 relative">
+        <h3 id="guaHeader"
+          class="text-3xl md:text-4xl font-serif font-light text-warm-gray-800 dark:text-warm-gray-100 transition-colors">
+          -</h3>
         <p id="guaMeta"
-          class="text-sm tracking-[0.2em] uppercase text-warm-gray-400 leading-relaxed italic whitespace-pre-wrap break-keep"
+          class="text-sm tracking-[0.2em] uppercase text-warm-gray-500 dark:text-warm-gray-400 leading-relaxed italic whitespace-pre-wrap break-keep"
           style="text-wrap: balance;">-</p>
 
-        <div class="pt-2 flex justify-center">
-          <span class="material-symbols-outlined text-elegant-gold text-3xl font-extralight">expand_more</span>
+        <div class="pt-4 flex justify-center">
+          <span
+            class="material-symbols-outlined text-elegant-gold text-3xl font-extralight animate-pulse">expand_more</span>
         </div>
       </section>
 
-      <!-- Hexagram Sigil & Detailed Text Section -->
-      <section class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+      <section class="space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-1000 ease-out">
         <div class="flex flex-col items-center text-center">
-          <!-- Sigil Image Container -->
           <div id="sigil"
-            class="mb-6 md:mb-8 p-2 bg-white rounded-2xl gold-glow flex justify-center items-center w-full max-w-[450px] aspect-square">
-            <!-- Image will be injected here by logic.js -->
+            class="mb-8 p-3 bg-white dark:bg-warm-gray-800 rounded-3xl gold-glow flex justify-center items-center w-full max-w-[400px] aspect-square transition-all duration-700 hover:scale-105">
           </div>
 
-          <div class="space-y-4 max-w-lg">
-            <!-- Detailed Hexagram Display (Moved Here) -->
+          <div class="space-y-6 max-w-xl">
             <h3 id="yaoTitle"
-              class="text-xl font-light text-warm-gray-600 transition-colors whitespace-pre-wrap leading-relaxed break-keep"
+              class="text-2xl font-serif font-light text-warm-gray-800 dark:text-warm-gray-100 transition-colors whitespace-pre-wrap leading-relaxed break-keep"
               style="text-wrap: balance;">-</h3>
             <p id="yaoShort"
-              class="text-sm tracking-[0.05em] text-warm-gray-700 leading-relaxed italic px-4 whitespace-pre-wrap break-keep"
+              class="text-sm tracking-[0.05em] text-warm-gray-600 dark:text-warm-gray-400 leading-relaxed italic px-4 whitespace-pre-wrap break-keep"
               style="text-wrap: balance;">-</p>
           </div>
         </div>
-        <div class="divider-line my-3"></div>
+        <div class="divider-line my-4"></div>
       </section>
     </div>
 
     <!-- Daily Emanations (Yao) -->
-    <section class="space-y-6">
-      <div class="flex items-center justify-center gap-2">
-        <span class="material-symbols-outlined text-pale-blue-300">psychology</span>
-        <h4 class="text-xs font-bold uppercase tracking-[0.3em] text-warm-gray-400">Daily spiritual beings</h4>
-        <span class="material-symbols-outlined text-pale-blue-300">psychology</span>
+    <section class="space-y-8">
+      <div class="flex items-center justify-center gap-3">
+        <span class="material-symbols-outlined text-pale-blue-300 dark:text-elegant-gold/40">psychology</span>
+        <h4 class="text-xs font-bold uppercase tracking-[0.3em] text-warm-gray-500 dark:text-warm-gray-400">Daily
+          spiritual beings</h4>
+        <span class="material-symbols-outlined text-pale-blue-300 dark:text-elegant-gold/40">psychology</span>
       </div>
 
-      <!-- Merged Content Box -->
-      <div class="space-y-4 bg-white/40 p-4 md:p-6 rounded-2xl border border-pale-blue-100 h-full">
-        <!-- Summary removed as requested -->
-        <!-- <h5 class="text-xs font-bold uppercase text-elegant-gold tracking-widest">Detailed Context</h5> -->
-
-        <!-- We can display yaoShort and yaoBody together or just yaoBody. 
-             User asked to merge "Summary" and "Detail". 
-             I will keep yaoBody as the main content. 
-             If yaoShort is needed, it can be appended, but user said "remove Summary". -->
+      <div
+        class="space-y-4 bg-white/60 dark:bg-warm-gray-900/60 backdrop-blur-sm p-6 md:p-8 rounded-[2rem] border border-pale-blue-100 dark:border-warm-gray-800 shadow-sm hover:shadow-md dark:shadow-none transition-all duration-500">
         <p class="hidden">-</p>
-        <p id="yaoBody" class="text-warm-gray-700 leading-relaxed whitespace-pre-wrap text-left">
+        <p id="yaoBody"
+          class="text-warm-gray-800 dark:text-warm-gray-200 leading-relaxed whitespace-pre-wrap text-left font-serif text-lg">
           -
         </p>
       </div>
 
-      <div class="divider-line my-3"></div>
+      <div class="divider-line my-4"></div>
     </section>
 
     <!-- Calendar of the Soul -->
-    <section class="space-y-3">
-      <div class="flex flex-col items-center text-center space-y-6">
-        <!-- Week Badge -->
+    <section class="space-y-4">
+      <div class="flex flex-col items-center text-center space-y-8">
         <div id="soulBadge"
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-elegant-gold/10 text-elegant-gold text-[10px] font-bold tracking-widest uppercase">
+          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-elegant-gold/10 dark:bg-elegant-gold/20 text-elegant-gold text-[10px] font-bold tracking-widest uppercase">
           -
         </div>
-        <!-- Title -->
-        <h4 class="text-xl font-light text-warm-gray-600 flex items-center gap-3">
-          <span class="material-icons text-elegant-gold/40">local_florist</span>
+        <h4
+          class="text-2xl font-serif font-light text-warm-gray-800 dark:text-warm-gray-100 flex items-center gap-3 transition-colors">
+          <span class="material-icons text-elegant-gold/60">local_florist</span>
           Calendar of the Soul
-          <span class="material-icons text-elegant-gold/40">local_florist</span>
+          <span class="material-icons text-elegant-gold/60">local_florist</span>
         </h4>
 
-        <!-- Soul Content Card -->
-        <div class="w-full max-w-xl relative group rounded-3xl overflow-hidden shadow-sm border border-warm-gray-200">
-          <div class="absolute inset-0 opacity-10 grayscale hover:grayscale-0 transition-all duration-700"
+        <div
+          class="w-full max-w-2xl relative group rounded-[2.5rem] overflow-hidden shadow-md dark:shadow-xl dark:shadow-black/50 border border-warm-gray-200 dark:border-warm-gray-800 transition-all duration-500">
+          <div
+            class="absolute inset-0 opacity-10 dark:opacity-20 grayscale hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
             style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXS8rO2euP90iNFxqWuR6Mcjtwcgtx13qBOuBJ-MuEKboNhqdR1wMHH42CL1JTIb62NeaZHMrbrM-qcY2yxMUajOixJicwZM2lsayY4NYIHCVvqSa1nU13H4Iz_2dLGLjPEfHYywtM3UYULGLVwJEepbyvvLclJvaxCeF2ZuInfC0B7lpb1fey0QCENUwpcqZfN3cCLvXBY2_noqcL-zs_eRqxxV8-CD21PbeDngX7WKcpAUv3w7vkiCue1bRDVqGMoq_B-SrJJB5O'); background-size: cover; background-position: center;">
           </div>
-          <div class="relative z-10 bg-white/90 p-6 md:p-16">
-            <!-- Verse Text -->
+          <div
+            class="relative z-10 bg-white/90 dark:bg-ray-dark/90 backdrop-blur-sm p-8 md:p-16 transition-colors duration-500">
             <div id="soulBody"
-              class="font-display italic text-xl md:text-2xl leading-loose text-warm-gray-600 whitespace-pre-wrap">
+              class="font-serif italic text-xl md:text-3xl leading-loose text-warm-gray-800 dark:text-warm-gray-100 whitespace-pre-wrap">
               -
             </div>
-            <div class="mt-8 pt-8 border-t border-warm-gray-100 flex justify-center">
-              <span class="text-[10px] text-warm-gray-400 uppercase tracking-[0.4em]">Rudolf Steiner</span>
+            <div class="mt-10 pt-8 border-t border-warm-gray-200 dark:border-warm-gray-800 flex justify-center">
+              <span class="text-[10px] text-warm-gray-500 dark:text-warm-gray-400 uppercase tracking-[0.4em]">Rudolf
+                Steiner</span>
             </div>
           </div>
         </div>
@@ -231,99 +247,95 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="flex flex-col items-center pt-0 pb-10">
+    <section class="flex flex-col items-center pt-8 pb-16">
       <button onclick="openJournal()"
-        class="px-8 py-4 bg-white border border-elegant-gold text-elegant-gold hover:bg-elegant-gold hover:text-white rounded-full text-sm font-medium tracking-widest uppercase transition-all flex items-center gap-3 gold-glow">
-        <span class="material-icons text-base">edit_note</span>
+        class="px-10 py-5 bg-white dark:bg-warm-gray-900 border border-elegant-gold text-elegant-gold hover:bg-elegant-gold hover:text-white dark:hover:text-ray-dark rounded-full text-sm font-bold tracking-widest uppercase transition-all duration-300 ease-out flex items-center gap-3 gold-glow hover:scale-105">
+        <span class="material-icons text-lg">edit_note</span>
         Add Journal Entry
       </button>
-      <div class="mt-6 flex items-center gap-3 opacity-30">
-        <div class="w-1.5 h-1.5 rounded-full bg-elegant-gold"></div>
-        <div class="w-1.5 h-1.5 rounded-full bg-elegant-gold"></div>
-        <div class="w-1.5 h-1.5 rounded-full bg-elegant-gold"></div>
+      <div class="mt-8 flex items-center gap-3 opacity-40">
+        <div class="w-2 h-2 rounded-full bg-elegant-gold"></div>
+        <div class="w-1.5 h-1.5 rounded-full bg-elegant-gold/70"></div>
+        <div class="w-1 h-1 rounded-full bg-elegant-gold/50"></div>
       </div>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer class="bg-warm-gray-100 py-6 border-t border-warm-gray-200">
+  <footer
+    class="bg-warm-gray-100 dark:bg-warm-gray-900 py-8 border-t border-warm-gray-200 dark:border-warm-gray-800 transition-colors duration-500">
     <div class="max-w-screen-md mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
       <div class="flex items-center gap-4">
-        <div class="flex items-center justify-center text-elegant-gold/70">
-          <span class="material-symbols-outlined text-2xl font-light">self_improvement</span>
+        <div class="flex items-center justify-center text-elegant-gold/80">
+          <span class="material-symbols-outlined text-3xl font-light">self_improvement</span>
         </div>
-        <h1 class="text-xl font-extralight tracking-[0.1em] text-warm-gray-600 leading-none">
+        <h1
+          class="text-2xl font-serif font-light tracking-[0.1em] text-warm-gray-800 dark:text-warm-gray-200 leading-none">
           Sim-Sang <span class="text-elegant-gold font-light">Calendar</span>
         </h1>
       </div>
-      <div class="hidden sm:flex items-center gap-4">
-        <div class="text-right">
-          <div class="text-xs text-warm-gray-700">Contact</div>
-          <div class="text-sm font-medium text-warm-gray-600">roadsea@naver.com</div>
-        </div>
-        <div
-          class="hidden md:flex w-10 h-10 rounded-full border border-elegant-gold/20 items-center justify-center text-elegant-gold/50">
-          <span class="material-icons text-xl">mail_outline</span>
+      <div class="flex items-center gap-6">
+        <div class="text-center md:text-right">
+          <div class="text-[10px] uppercase tracking-widest text-warm-gray-500 dark:text-warm-gray-400">Contact</div>
+          <div class="text-sm font-medium text-warm-gray-700 dark:text-warm-gray-300">roadsea@naver.com</div>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Journal Modal (Hidden by default) -->
+  <!-- Journal Modal -->
   <div id="journalModal" class="fixed inset-0 z-[60] hidden">
-    <!-- Backdrop -->
-    <div class="absolute inset-0 bg-warm-gray-600/30 backdrop-blur-sm transition-opacity" onclick="closeJournal()">
+    <div class="absolute inset-0 bg-warm-gray-800/40 dark:bg-black/60 backdrop-blur-md transition-opacity"
+      onclick="closeJournal()">
     </div>
 
-    <!-- Modal Content -->
     <div
-      class="absolute inset-x-4 top-[5%] md:top-[15%] max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl p-6 md:p-10 border border-warm-gray-100 flex flex-col gap-6 animate-in slide-in-from-bottom-4 duration-300">
+      class="absolute inset-x-4 top-[5%] md:top-[10%] max-w-2xl mx-auto bg-white dark:bg-warm-gray-900 rounded-[2rem] shadow-2xl p-6 md:p-10 border border-warm-gray-200 dark:border-warm-gray-800 flex flex-col gap-8 animate-in slide-in-from-bottom-8 duration-300 ease-out">
 
-      <!-- Header -->
       <div class="flex items-start justify-between">
         <div>
-          <h3 class="text-xl font-display font-light text-warm-gray-600">오늘의 명상 기록</h3>
-          <p id="journalDate" class="text-xs font-bold uppercase tracking-widest text-elegant-gold mt-1">Downloading...
+          <h3 class="text-2xl font-serif font-light text-warm-gray-800 dark:text-warm-gray-100">오늘의 명상 기록</h3>
+          <p id="journalDate" class="text-xs font-bold uppercase tracking-widest text-elegant-gold mt-2">Downloading...
           </p>
         </div>
-        <button onclick="closeJournal()" class="text-warm-gray-400 hover:text-warm-gray-600 transition-colors">
+        <button onclick="closeJournal()"
+          class="text-warm-gray-500 dark:text-warm-gray-400 hover:text-warm-gray-800 dark:hover:text-warm-gray-100 transition-colors">
           <span class="material-icons">close</span>
         </button>
       </div>
 
-      <!-- Guided Question -->
-      <div class="bg-warm-gray-50/50 p-4 rounded-xl border border-warm-gray-100">
-        <p id="journalQuestion" class="text-sm text-warm-gray-500 italic leading-relaxed">
+      <div
+        class="bg-warm-gray-50/50 dark:bg-ray-dark/50 p-5 rounded-2xl border border-warm-gray-200 dark:border-warm-gray-800 shadow-inner">
+        <p id="journalQuestion"
+          class="text-sm text-warm-gray-600 dark:text-warm-gray-300 italic leading-relaxed font-serif">
           Loading reflection question...
         </p>
       </div>
 
-      <!-- Text Area -->
       <textarea id="journalEntry"
-        class="w-full h-64 p-4 bg-transparent border border-warm-gray-200 rounded-xl focus:border-elegant-gold focus:ring-1 focus:ring-elegant-gold resize-none font-display text-warm-gray-600 placeholder:text-warm-gray-300 leading-relaxed"
+        class="w-full h-64 p-5 bg-transparent border border-warm-gray-300 dark:border-warm-gray-700 rounded-2xl focus:border-elegant-gold focus:ring-1 focus:ring-elegant-gold resize-none font-display text-warm-gray-800 dark:text-warm-gray-200 placeholder:text-warm-gray-400 dark:placeholder:text-warm-gray-600 leading-relaxed transition-colors"
         placeholder="여기에 생각과 느낌을 자유롭게 기록해보세요..."></textarea>
 
-      <!-- Footer Actions -->
-      <div class="flex flex-col-reverse md:flex-row items-center justify-between pt-2 gap-4">
+      <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-6">
         <div class="flex gap-4 w-full md:w-auto justify-center">
           <button onclick="downloadJournalToday()"
-            class="text-xs font-bold uppercase tracking-widest text-warm-gray-400 hover:text-elegant-gold transition-colors flex items-center gap-2">
-            <span class="material-icons text-sm">download</span>
+            class="text-xs font-bold uppercase tracking-widest text-warm-gray-500 dark:text-warm-gray-400 hover:text-elegant-gold dark:hover:text-elegant-gold transition-colors flex items-center gap-2">
+            <span class="material-icons text-[16px]">download</span>
             오늘 기록
           </button>
           <button onclick="downloadJournalAll()"
-            class="text-xs font-bold uppercase tracking-widest text-warm-gray-400 hover:text-elegant-gold transition-colors flex items-center gap-2">
-            <span class="material-icons text-sm">folder_zip</span>
+            class="text-xs font-bold uppercase tracking-widest text-warm-gray-500 dark:text-warm-gray-400 hover:text-elegant-gold dark:hover:text-elegant-gold transition-colors flex items-center gap-2">
+            <span class="material-icons text-[16px]">folder_zip</span>
             전체 기록
           </button>
         </div>
         <div class="flex gap-3 w-full md:w-auto">
           <button onclick="closeJournal()"
-            class="flex-1 md:flex-none px-6 py-2.5 rounded-full text-sm font-medium text-warm-gray-500 hover:bg-warm-gray-50 transition-colors">
+            class="flex-1 md:flex-none px-6 py-3 rounded-full text-sm font-bold tracking-wider text-warm-gray-600 dark:text-warm-gray-400 hover:bg-warm-gray-100 dark:hover:bg-warm-gray-800 transition-colors">
             취소
           </button>
           <button onclick="saveJournal()"
-            class="flex-1 md:flex-none px-8 py-2.5 bg-elegant-gold text-white rounded-full text-sm font-medium shadow-lg shadow-elegant-gold/20 hover:shadow-xl hover:-translate-y-0.5 transition-all">
+            class="flex-1 md:flex-none px-8 py-3 bg-elegant-gold text-white dark:text-ray-dark rounded-full text-sm font-bold tracking-wider shadow-lg shadow-elegant-gold/20 hover:shadow-xl hover:-translate-y-1 transition-all">
             저장하기
           </button>
         </div>
@@ -332,20 +344,51 @@
   </div>
 
   <!-- Toast Notification -->
-  <div id="toast" class="fixed top-6 left-1/2 -translate-x-1/2 z-[70] hidden opacity-0 transition-opacity duration-500">
+  <div id="toast" class="fixed top-8 left-1/2 -translate-x-1/2 z-[70] hidden opacity-0 transition-opacity duration-500">
     <div
-      class="bg-white/90 backdrop-blur-md border border-elegant-gold/30 shadow-xl shadow-elegant-gold/10 px-8 py-4 rounded-full flex items-center gap-3">
-      <span class="material-icons text-elegant-gold text-xl">check_circle</span>
-      <span id="toastMessage" class="text-sm font-medium text-warm-gray-600 tracking-wide">저장되었습니다</span>
+      class="bg-white/95 dark:bg-warm-gray-900/95 backdrop-blur-md border border-elegant-gold/40 shadow-2xl shadow-elegant-gold/10 px-8 py-4 rounded-full flex items-center gap-3">
+      <span class="material-icons text-elegant-gold text-2xl animate-pulse">check_circle</span>
+      <span id="toastMessage"
+        class="text-sm font-bold text-warm-gray-800 dark:text-warm-gray-100 tracking-wide">저장되었습니다</span>
     </div>
   </div>
 
   <!-- Error container -->
   <div id="err"
-    class="fixed bottom-0 left-0 right-0 bg-red-600/90 text-white p-4 text-center z-[100] hidden empty:hidden">
+    class="fixed bottom-0 left-0 right-0 bg-red-600 text-white p-4 text-center z-[100] hidden empty:hidden shadow-lg font-bold">
   </div>
 
   <!-- Scripts -->
+  <script>
+    // Theme toggling script
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        icon.textContent = 'dark_mode';
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.remove('light');
+        html.classList.add('dark');
+        icon.textContent = 'light_mode';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    // Initialize theme
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+      document.addEventListener('DOMContentLoaded', () => {
+        const icon = document.getElementById('themeIcon');
+        if (icon) icon.textContent = 'light_mode';
+      });
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
+  </script>
   <script src="data.js"></script>
   <script src="logic.js" defer></script>
 </body>
