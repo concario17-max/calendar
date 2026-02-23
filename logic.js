@@ -324,7 +324,7 @@ function renderSoulForDate(dateObj) {
   const sections = parseWeekSectionsFromGroupBlock(hit.block);
   if (sections.length >= 2) {
     const grid = document.createElement("div");
-    grid.className = "grid grid-cols-1 gap-6";
+    grid.className = "grid grid-cols-1 md:grid-cols-2 gap-6";
     // 불변성(Immutability) 규칙 적용: 배열 수정 방지하고 복사하여 루프 순회함
     [...sections].slice(0, 2).forEach(sec => {
       grid.appendChild(buildSoulCard(sec));
