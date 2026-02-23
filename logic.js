@@ -168,7 +168,7 @@ function render(dayIndex, guaBlock, yaoBlock) {
 
   const y = splitYao(yaoBlock);
   el("yaoTitle").textContent = y.titleLine;
-  el("yaoShort").textContent = y.short || "(요약 없음)";
+  el("yaoShort").innerHTML = applySentenceBalance(y.short || "(요약 없음)");
   el("yaoBody").textContent = y.body || "(상세 없음)";
 
   setSigil(calcYaoNum(dayIndex));
