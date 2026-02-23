@@ -133,11 +133,38 @@ function renderEmpty() {
   el("sigil").innerHTML = `<div class="fallback text-sm text-warm-gray-400 font-light italic">해당 날짜는 비움</div>`;
 }
 
+// 문장 중간 지점의 공백을 찾아 줄바꿈 태그(<br>)로 치환하여 시각적 균형을 맞춤
+function applySentenceBalance(text) {
+  const escapeHtml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const safe = escapeHtml(String(text || ""));
+
+  return safe.replace(/\(([^)]+)\)/g, (match, inner) => {
+    // 길이가 25자 미만이면 줄바꿈하지 않음
+    if (inner.length < 25) return match;
+
+    const mid = Math.floor(inner.length / 2);
+    let best = -1, min = Infinity;
+
+    // 중간에 가장 가까운 띄어쓰기를 찾음
+    for (let i = 0; i < inner.length; i++) {
+      if (inner[i] === ' ') {
+        const diff = Math.abs(i - mid);
+        if (diff < min) { min = diff; best = i; }
+      }
+    }
+
+    if (best !== -1) {
+      return "(" + inner.substring(0, best) + "<br>" + inner.substring(best + 1) + ")";
+    }
+    return match;
+  });
+}
+
 // 실제 데이터를 DOM에 그림
 function render(dayIndex, guaBlock, yaoBlock) {
   const g = splitGua(guaBlock);
   el("guaHeader").textContent = g.header;
-  el("guaMeta").textContent = g.meta;
+  el("guaMeta").innerHTML = applySentenceBalance(g.meta);
 
   const y = splitYao(yaoBlock);
   el("yaoTitle").textContent = y.titleLine;
