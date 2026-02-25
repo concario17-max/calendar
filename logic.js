@@ -317,7 +317,7 @@ function buildSoulCard(sec) {
   top.appendChild(spanRange);
 
   const txt = document.createElement("div");
-  txt.className = "whitespace-pre-wrap leading-relaxed text-[15px] font-serif text-warm-gray-800 dark:text-warm-gray-200 mt-4";
+  txt.className = "whitespace-pre-wrap break-keep leading-relaxed text-[15px] font-serif text-warm-gray-800 dark:text-warm-gray-200 mt-4";
   txt.textContent = sec.text || "";
 
   card.appendChild(top);
