@@ -316,11 +316,28 @@ function buildSoulCard(sec) {
   top.appendChild(spanWeek);
   top.appendChild(spanRange);
 
-  const txt = document.createElement("div");
-  txt.className = "whitespace-pre-wrap break-keep leading-relaxed text-[15px] font-serif text-warm-gray-800 dark:text-warm-gray-200 mt-4";
-  txt.textContent = sec.text || "";
-
   card.appendChild(top);
+
+  let contentStr = sec.text || "";
+  let seasonStr = "";
+  // Check if text starts with a season name followed by linebreaks
+  const seasonMatch = contentStr.match(/^(봄|여름|가을|겨울)\s*\n+/);
+  if (seasonMatch) {
+    seasonStr = seasonMatch[1];
+    contentStr = contentStr.substring(seasonMatch[0].length).trim();
+  }
+
+  const txt = document.createElement("div");
+  txt.className = "whitespace-pre-wrap break-keep leading-relaxed text-[15px] md:text-[16px] font-serif text-warm-gray-800 dark:text-warm-gray-200 mt-2";
+
+  if (seasonStr) {
+    // Escape generic HTML from contentStr just in case
+    const safeContent = contentStr.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    txt.innerHTML = `<div class="text-[13px] md:text-sm font-bold text-warm-gray-500 dark:text-warm-gray-400 mb-5 tracking-[0.4em] uppercase">${seasonStr}</div>` + safeContent;
+  } else {
+    txt.textContent = contentStr;
+  }
+
   card.appendChild(txt);
   return card;
 }
