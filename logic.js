@@ -300,7 +300,7 @@ function renderSoulEmpty(message) {
 function buildSoulCard(sec) {
   const card = document.createElement("div");
   // 다크모드 대응을 위한 메타디자인 적용함
-  card.className = "space-y-4 bg-white/60 dark:bg-warm-gray-900/60 p-8 rounded-2xl border border-pale-blue-100 dark:border-warm-gray-800 h-full text-center transition-colors";
+  card.className = "space-y-4 bg-white/70 dark:bg-ray-dark/70 backdrop-blur-xl p-8 rounded-[2rem] border border-elegant-gold/20 shadow-md hover:shadow-lg dark:shadow-2xl dark:shadow-black/50 h-full text-center transition-all duration-500";
 
   const top = document.createElement("div");
   top.className = "flex justify-between items-baseline mb-2 gap-2";
