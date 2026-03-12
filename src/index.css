@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --elegant-gold: #B8860B;
+    --elegant-gold-light: #FCFBF9;
+    --ray-dark: #0A0A0A;
+    --warm-gray-50: #F9F8F6;
+    --warm-gray-100: #F2F0ED;
+    --warm-gray-200: #E5E1DB;
+    --warm-gray-300: #D1C9BE;
+    --warm-gray-400: #A39684;
+    --warm-gray-500: #8E7F6A;
+    --warm-gray-600: #766653;
+    --warm-gray-700: #5D5041;
+    --warm-gray-800: #443B30;
+    --warm-gray-900: #2C261F;
+  }
+
+  .dark {
+    --ray-dark: #0A0A0A;
+    --elegant-gold: #D4AF37;
+  }
+
+  body {
+    @apply bg-warm-gray-50 text-warm-gray-900 dark:bg-ray-dark dark:text-warm-gray-100 transition-colors duration-700 antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-warm-gray-300/50 rounded-full transition-colors;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-warm-gray-700/50;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-elegant-gold/50;
+  }
+
+  /* Hidden Date Input Elements */
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="date"]::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-clear-button {
+    display: none;
+    -webkit-appearance: none;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/70 dark:bg-ray-dark/70 backdrop-blur-xl border border-white/20 dark:border-white/5;
+  }
+}
+
+@layer utilities {
+  .text-gold {
+    color: var(--elegant-gold);
+  }
+  .bg-gold {
+    background-color: var(--elegant-gold);
+  }
+  .border-gold {
+    border-color: var(--elegant-gold);
+  }
+  
+  .gold-glow {
+    box-shadow: 0 0 20px rgba(184, 134, 11, 0.2);
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, currentColor, transparent);
+    @apply opacity-10 my-6;
+  }
+}
