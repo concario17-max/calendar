@@ -157,7 +157,16 @@
 
 4. **검증 및 마감** [x]
     - [x] 다양한 모바일 해상도(320px ~ 430px)에서 레이아웃 테스트. [x]
-    - [x] 다크모드 버튼 및 달력 팝업의 시각적 안정성 최종 확인. [x]
+### Phase 21: 타이포그래피 흐름 최적화 (Natural Typography) [x]
+인위적인 줄바꿈 로직을 제거하고, 띄어쓰기 기준의 자연스러운 줄바꿈을 적용함.
+
+1. **자동 줄바꿈 로직 제거 및 스타일 적용 (Natural Wrap)** [x]
+    - [x] `IChingSection.tsx`: `applySentenceBalance` 함수 호출부 제거. [x]
+    - [x] `IChingSection.tsx`: 본문 영역에 `break-keep` (단어 단위 줄바꿈) 스타일 적용. [x]
+
+2. **검증 및 마감** [x]
+    - [x] 줄바꿈 없이 텍스트가 자연스럽게 이어지는지 확인. [x]
+    - [x] 단어 중간에서 줄바꿈이 일어나지 않는지(띄어쓰기 유지) 확인. [x]
 ### Phase 7: 빌드 오류 긴급 복구 (Build Failure Fix)
 - [x] [RESEARCH] [research.md](file:///c:/Users/PT/Desktop/calendar/research.md) 작성 및 원인 분석 완료.
 - [x] [MODIFY] [tailwind.config.js](file:///c:/Users/PT/Desktop/calendar/tailwind.config.js) 

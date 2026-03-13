@@ -50,7 +50,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
         </div>
       ) : (
         <div className="text-center py-12 bg-white/50 dark:bg-ray-dark/50 rounded-[2rem] border border-dashed border-warm-gray-200 dark:border-warm-gray-800">
-          <span className="text-warm-gray-500 font-display italic whitespace-pre-wrap leading-loose">
+          <span className="text-warm-gray-500 font-display italic whitespace-pre-wrap leading-loose break-keep">
             해당 구절이 없습니다.
           </span>
         </div>
