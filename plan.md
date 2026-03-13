@@ -105,6 +105,24 @@
     - [x] 이미지 최적화: `public/images/` 내 PNG 자산을 WebP로 변환 및 지연 로딩(`loading="lazy"`) 고도화.
     - [x] SEO 및 메타 데이터: `index.html`에 고품질 Open Graph 메타 정보 및 구조화된 데이터(JSON-LD) 추가.
     - [x] `npm run build`를 통한 청크(Chunk) 사이즈 최적화 확인.
+### Phase 18: 가독성 극대화 (Pretendard & High-Contrast Finish) [x]
+명조체를 제거하고 현대적인 프리텐다드 서체와 고대비 색상을 적용하여 가독성을 최상으로 끌어올림.
+
+1. **디자인 시스템 업데이트 (Design Tokens)** [x]
+    - [x] `tailwind.config.js`: `#2D2C2A` 색상을 `ray-body` 토큰으로 추가. [x]
+    - [x] `index.css`: 고딕 서체에 최적화된 전역 자간(`tracking-tight`) 및 행간(`leading-relaxed`) 유틸리티 정의. [x]
+
+2. **컴포넌트 서체 전환 (Typography Shift)** [x]
+    - [x] `IChingSection.tsx`: 모든 `font-serif` 클래스를 `font-display` (Pretendard)로 교체. [x]
+    - [x] `SoulCalendarSection.tsx`: 모든 `font-serif` 클래스를 `font-display` (Pretendard)로 교체. [x]
+
+3. **고대비 색상 적용 (Color Refinement)** [x]
+    - [x] 본문 해설 및 메타 텍스트의 연한 회색(`text-warm-gray-600` 등)을 `text-ray-body` (#2D2C2A)로 전면 교체. [x]
+    - [x] 다크모드에서의 텍스트 대비 재점검 및 최적화 (`text-warm-gray-100` 등). [x]
+
+4. **최종 마감 (Final Polish)** [x]
+    - [x] 불필요한 서체 로드(`index.html` 내 Gowun Batang 등) 제거 또는 주석 처리 검토. [x]
+    - [x] 전체 레이아웃의 시각적 균형(Visual Balance) 재조정. [x]
 ### Phase 7: 빌드 오류 긴급 복구 (Build Failure Fix)
 - [x] [RESEARCH] [research.md](file:///c:/Users/PT/Desktop/calendar/research.md) 작성 및 원인 분석 완료.
 - [x] [MODIFY] [tailwind.config.js](file:///c:/Users/PT/Desktop/calendar/tailwind.config.js) 

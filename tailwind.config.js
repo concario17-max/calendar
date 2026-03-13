@@ -8,6 +8,7 @@ export default {
                 'elegant-gold': '#B8860B',
                 'ray-dark': '#0A0A0A',
                 'ray-light': '#FCFBF9',
+                'ray-body': '#2D2C2A',
                 'warm-gray': {
                     50: '#F9F8F6',
                     100: '#F2F0ED',

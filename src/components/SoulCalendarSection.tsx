@@ -11,7 +11,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
     <section className="relative animate-fade-in-up stagger-2">
       <div className="text-center mb-10">
         <div className="inline-block group">
-          <h2 className="text-3xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-wide mb-3 transition-transform duration-500 group-hover:scale-105">
+          <h2 className="text-3xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-tight mb-3 transition-transform duration-500 group-hover:scale-105">
             Calendar of the Soul
           </h2>
           <div className="flex items-center justify-center gap-4">
@@ -38,7 +38,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
                   <div className="font-bold text-sm text-warm-gray-600 dark:text-warm-gray-300 group-hover:text-elegant-gold transition-colors">{sec.week}주</div>
                   <div className="text-xs text-warm-gray-400 dark:text-warm-gray-500 font-bold whitespace-nowrap uppercase tracking-widest">{sec.range}</div>
                 </div>
-                <div className="whitespace-pre-wrap break-keep leading-[1.8] text-[15px] md:text-[16px] font-serif text-warm-gray-800 dark:text-warm-gray-200 mt-2 tracking-[0.01em] transition-colors duration-500 group-hover:text-ray-dark dark:group-hover:text-white">
+                <div className="whitespace-pre-wrap break-keep leading-relaxed text-[15px] md:text-[16px] font-display text-ray-body dark:text-warm-gray-200 mt-2 tracking-tight transition-colors duration-500 group-hover:text-ray-dark dark:group-hover:text-white">
                   {season && (
                     <div className="text-[13px] md:text-sm font-bold text-warm-gray-500 dark:text-warm-gray-400 mb-5 tracking-[0.4em] uppercase group-hover:text-elegant-gold transition-colors">{season}</div>
                   )}
@@ -50,7 +50,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
         </div>
       ) : (
         <div className="text-center py-12 bg-white/50 dark:bg-ray-dark/50 rounded-[2rem] border border-dashed border-warm-gray-200 dark:border-warm-gray-800">
-          <span className="text-warm-gray-500 font-serif italic whitespace-pre-wrap leading-loose">
+          <span className="text-warm-gray-500 font-display italic whitespace-pre-wrap leading-loose">
             해당 구절이 없습니다.
           </span>
         </div>

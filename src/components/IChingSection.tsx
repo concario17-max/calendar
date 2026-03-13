@@ -18,7 +18,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, y
         <div className="w-16 h-16 border-2 border-dashed border-warm-gray-400 rounded-full flex items-center justify-center mb-4">
           <Telescope className="text-warm-gray-400 w-8 h-8" />
         </div>
-        <p className="font-serif italic text-warm-gray-600 dark:text-warm-gray-400">해당 날짜는 비움</p>
+        <p className="font-display italic text-warm-gray-600 dark:text-warm-gray-400">해당 날짜는 비움</p>
       </div>
     );
   }
@@ -52,12 +52,12 @@ export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, y
           <div className="border-b border-warm-gray-200 dark:border-warm-gray-800 pb-8">
             <div className="flex items-center gap-3 mb-4">
               <div className="h-6 w-1 bg-elegant-gold rounded-full shadow-[0_0_8px_rgba(184,134,11,0.5)]"></div>
-              <h2 className="text-xl md:text-2xl font-bold font-serif tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400">
+              <h2 className="text-xl md:text-2xl font-bold font-display tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400">
                 {guaData.header}
               </h2>
             </div>
             <p 
-              className="text-base md:text-lg text-warm-gray-600 dark:text-warm-gray-300 font-serif leading-relaxed italic"
+              className="text-base md:text-lg text-ray-body dark:text-warm-gray-300 font-display leading-relaxed italic"
               dangerouslySetInnerHTML={{ __html: applySentenceBalance(guaData.meta) }}
             />
           </div>
@@ -68,19 +68,19 @@ export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, y
               Today's Reflection
             </div>
             
-            <h3 className="text-2xl md:text-[1.75rem] font-bold font-serif leading-snug text-warm-gray-800 dark:text-white/90">
+            <h3 className="text-2xl md:text-[1.75rem] font-bold font-display tracking-tight leading-snug text-warm-gray-800 dark:text-white/90">
               {yaoData.titleLine}
             </h3>
             
             <div className="relative">
               <div className="absolute inset-y-0 left-0 w-1 bg-elegant-gold/30 rounded-full"></div>
               <p 
-                className="text-lg md:text-xl text-elegant-gold font-serif italic font-medium leading-relaxed pl-6 py-2"
+                className="text-lg md:text-xl text-elegant-gold font-display italic font-medium leading-relaxed pl-6 py-2"
                 dangerouslySetInnerHTML={{ __html: applySentenceBalance(yaoData.short) }}
               />
             </div>
 
-            <div className="pt-4 text-warm-gray-700/90 dark:text-warm-gray-200/90 font-serif whitespace-pre-wrap leading-[1.8] text-[15px] md:text-[16px] tracking-wide">
+            <div className="pt-4 text-ray-body/90 dark:text-warm-gray-200/90 font-display whitespace-pre-wrap leading-relaxed text-[15px] md:text-[16px] tracking-tight">
               {yaoData.body}
             </div>
           </div>
