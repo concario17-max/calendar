@@ -68,6 +68,24 @@
     - [x] 크롬 개발자 도구(Performance tab)를 통해 FOUT 소거 여부 데이터 기반 검정.
     - [x] `plan.md` 및 `task.md` 상태 업데이트.
 
+### Phase 16: 한국어 본문 가독성 최적화 (Premium Typography) [x]
+'영혼의 달력' 구절을 포함한 한국어 텍스트의 심미성과 가독성을 극대화함.
+
+1. **고급 한국어 서체 도입 (Premium Font Selection)**
+    - [x] `index.html`에 명조 계열 프리미엄 서체(`Gowun Batang`) 추가.
+    - [x] 한국어 가독성에 최적화된 `Pretendard Variable` 설정을 본문용으로 재검토.
+
+2. **타이포그래피 세밀 조정 (Micro-Typography)**
+    - [x] `MainContent.tsx` 내 본문 영역의 `line-height`를 `1.8`로 확장하여 여백 확보.
+    - [x] 한국어 특유의 공간감을 고려한 `letter-spacing` (자간) 미세 조정 (`tracking-[0.01em]`).
+    - [x] 폰트 굵기(`font-weight`)를 컨텐트 중요도에 따라 최적화.
+
+3. **시각적 일관성 검증 (Visual Consistency)**
+    - [x] 다크 모드와 라이트 모드 각각에서 한국어 텍스트의 명암비 및 가독성 전수 검사.
+    - [x] 모바일 환경에서의 가독성(글자 크기 및 줄 간격) 재정렬.
+
+4. **최종 확정 및 문서화**
+    - [x] `plan.md` 완료 표시 및 최종 커밋.
 ### Phase 7: 빌드 오류 긴급 복구 (Build Failure Fix)
 - [x] [RESEARCH] [research.md](file:///c:/Users/PT/Desktop/calendar/research.md) 작성 및 원인 분석 완료.
 - [x] [MODIFY] [tailwind.config.js](file:///c:/Users/PT/Desktop/calendar/tailwind.config.js) 

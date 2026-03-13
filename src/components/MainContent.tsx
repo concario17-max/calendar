@@ -104,7 +104,7 @@ export const MainContent: React.FC<MainContentProps> = ({
                   />
                 </div>
 
-                <div className="pt-4 text-warm-gray-700/90 dark:text-warm-gray-200/90 font-display font-light whitespace-pre-wrap leading-loose text-[15px] md:text-[16px] tracking-wide">
+                <div className="pt-4 text-warm-gray-700/90 dark:text-warm-gray-200/90 font-serif whitespace-pre-wrap leading-[1.8] text-[15px] md:text-[16px] tracking-wide">
                   {yaoData.body}
                 </div>
               </div>
@@ -144,7 +144,7 @@ export const MainContent: React.FC<MainContentProps> = ({
                     <div className="font-bold text-sm text-warm-gray-600 dark:text-warm-gray-300 group-hover:text-elegant-gold transition-colors">{sec.week}주</div>
                     <div className="text-xs text-warm-gray-400 dark:text-warm-gray-500 font-bold whitespace-nowrap uppercase tracking-widest">{sec.range}</div>
                   </div>
-                  <div className="whitespace-pre-wrap break-keep leading-relaxed text-[15px] md:text-[16px] font-serif text-warm-gray-800 dark:text-warm-gray-200 mt-2">
+                  <div className="whitespace-pre-wrap break-keep leading-[1.8] text-[15px] md:text-[16px] font-serif text-warm-gray-800 dark:text-warm-gray-200 mt-2 tracking-[0.01em]">
                     {season && (
                       <div className="text-[13px] md:text-sm font-bold text-warm-gray-500 dark:text-warm-gray-400 mb-5 tracking-[0.4em] uppercase">{season}</div>
                     )}

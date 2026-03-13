@@ -42,7 +42,7 @@ export default {
             },
             fontFamily: {
                 "display": ["'Pretendard Variable'", "Pretendard", "Inter", "system-ui", "sans-serif"],
-                "serif": ["'Crimson Pro'", "'Noto Serif KR'", "Georgia", "serif"]
+                "serif": ["'Crimson Pro'", "'Gowun Batang'", "'Noto Serif KR'", "Georgia", "serif"]
             },
         },
     },
