@@ -14,7 +14,7 @@ export const Header: React.FC<HeaderProps> = ({ selectedDate, onDateChange }) =>
     <header className="sticky top-0 z-40 bg-warm-gray-50/80 dark:bg-ray-dark/80 backdrop-blur-xl border-b border-warm-gray-200/50 dark:border-warm-gray-800/50 transition-colors duration-300">
       <div className="max-w-4xl mx-auto px-4 py-3 flex flex-row justify-between items-center gap-2">
         {/* Brand Area */}
-        <div className="flex items-center gap-2 flex-shrink-0 order-1 sm:order-2">
+        <div className="flex items-center gap-2 flex-shrink-0 order-2 sm:order-1">
           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-elegant-gold to-yellow-600 flex items-center justify-center shadow-lg gold-glow">
             <Telescope className="text-white w-5 h-5 sm:w-6 sm:h-6" />
           </div>
@@ -24,8 +24,8 @@ export const Header: React.FC<HeaderProps> = ({ selectedDate, onDateChange }) =>
         </div>
 
         {/* Date and Theme Controls */}
-        <div className="flex items-center gap-2 order-2 sm:order-1">
-          <div className="flex items-center bg-white/50 dark:bg-warm-gray-800/50 p-1 rounded-full border border-warm-gray-200/50 dark:border-warm-gray-700/50 shadow-inner overflow-hidden">
+        <div className="flex items-center gap-2 order-1 sm:order-2">
+          <div className="flex items-center bg-white/50 dark:bg-warm-gray-800/50 p-1 rounded-full border border-warm-gray-200/50 dark:border-warm-gray-700/50 shadow-inner">
             <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
             <button 
               onClick={() => onDateChange(new Date())}

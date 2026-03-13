@@ -111,6 +111,18 @@
 4. **최종 시스템 안정화**:
     - [x] `npx tsc -b` 및 `npm run build`를 통한 시스템 전체 안정성 확인.
 
+### Phase 13: 상단바 최종 조정 및 버그 수정 (UI Final Polish) - COMPLETE
+- [x] **헤더 레이아웃 위치 스왑**:
+    - [x] [MODIFY] [Header.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/Header.tsx)
+        - 브랜드 영역(`order-2 sm:order-1`)과 컨트롤 영역(`order-1 sm:order-2`)의 `order` 클래스를 반전시켜 웹 좌측, 모바일 우측 배치를 구현함.
+- [x] **달력 버튼(DatePicker) 버그 수정**:
+    - [x] [MODIFY] [Header.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/Header.tsx)
+        - 컨트롤 영역을 감싸는 `div`에서 `overflow-hidden` 클래스를 제거하여 `absolute` 팝업이 가려지지 않도록 함.
+- [x] **전수 검증 및 빌드**:
+    - [x] 웹과 모바일 기기별 상단바 위치 최종 확인.
+    - [x] 달력 버튼 클릭 시 팝업이 정상적으로 노출되고 날짜 선택 기능이 작동하는지 확인.
+    - [x] `npm run build`를 통한 최종 무결성 확인.
+
 ## 3. 검증 결과
 - **단위 테스트**: 25개 테스트 전체 통과 (Vitest).
 - **타입 체크**: `npx tsc -b` 에러 없음.
