@@ -95,11 +95,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
     );
   };
 
-  const handleNativeInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.value) return;
-    const [y, m, d] = e.target.value.split("-").map(Number);
-    onDateChange(new Date(y, m - 1, d));
-  };
 
   return (
     <div className="relative flex items-center" ref={containerRef}>
@@ -109,17 +104,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
         title="Select Date"
       >
         <CalendarDays className="text-elegant-gold w-5 h-5 group-hover:scale-110 transition-transform" />
-        
-        {/* Native Date Input Trigger (Hidden) */}
-        <input 
-          type="date" 
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer text-[0px]"
-          value={selectedDate.toISOString().split('T')[0]}
-          onChange={handleNativeInputChange}
-          onClick={(e) => {
-              e.preventDefault(); 
-          }}
-        />
       </div>
 
       {isOpen && renderCalendar()}

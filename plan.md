@@ -87,6 +87,23 @@
 - [x] **최종 전체 시스템 점검**:
     - [x] 모든 기기(Web/Mobile)에서의 레이아웃 및 심미성 최종 확인.
 
+### Phase 10: UI/UX 회귀 복구 및 세부 기능 고도화 (Fix & Polish)
+- [ ] **웹 헤더 레이아웃 복원 (Web Header Restoration)**:
+    - [ ] [MODIFY] [Header.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/Header.tsx)
+        - 웹(`sm` 이상): 좌측에 날짜 선택기, 우측에 타이틀이 오도록 레이아웃 복구.
+        - 모바일: 타이틀이 좌측에 오는 현재의 최적화된 한 줄 레이아웃 유지.
+- [x] **달력 상호작용 개선 (DatePicker UX)**:
+    - [x] [MODIFY] [DatePicker.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/DatePicker.tsx)
+        - 달력에서 날짜 클릭 시 즉시 닫히도록 로직 강화.
+        - 하단의 불필요한 액션 버튼 제거(네이티브 팝업 간섭 배제) 및 즉시 선택 인터페이스 확정.
+- [x] **웹 전용 하단 여백 보강 (Web Layout Polish)**:
+    - [x] [MODIFY] [MainContent.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/MainContent.tsx)
+        - 웹 환경(`md` 이상)에서 하단 여백을 `pb-48`로 대폭 확장하여 버튼과의 간섭 완벽 차단.
+- [x] **데이터 정규화 및 텍스트 수정 (Data & Text Refinement)**:
+    - [x] "인간과 세상이." 문구가 포함된 구절의 오타 및 줄바꿈 가독성 개선.
+- [ ] **최종 크로스 디바이스 검증**:
+    - [ ] 웹과 모바일 각각의 레이아웃 의도대로 작동하는지 최종 확인.
+
 ## 3. 검증 결과
 - **단위 테스트**: 25개 테스트 전체 통과 (Vitest).
 - **타입 체크**: `npx tsc -b` 에러 없음.

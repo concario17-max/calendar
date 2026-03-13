@@ -55,7 +55,7 @@ export const MainContent: React.FC<MainContentProps> = ({
   };
 
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-36 mt-4 space-y-12 animate-fade-in relative z-10">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-36 md:pb-48 mt-4 space-y-12 animate-fade-in relative z-10">
       
       {/* 주역(I Ching) 섹션 */}
       <section className="bg-white/80 dark:bg-ray-dark/80 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-14 shadow-xl border border-elegant-gold/10 transition-colors duration-300 relative overflow-hidden group">
