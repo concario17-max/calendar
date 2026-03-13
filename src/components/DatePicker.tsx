@@ -102,17 +102,11 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
   };
 
   return (
-    <div className="relative flex items-center gap-3" ref={containerRef}>
-      <button 
-        onClick={() => onDateChange(new Date())}
-        className="px-4 py-2 text-sm font-medium text-warm-gray-600 dark:text-warm-gray-400 hover:text-elegant-gold dark:hover:text-elegant-gold transition-colors bg-white/50 dark:bg-ray-dark/50 backdrop-blur-sm rounded-full border border-warm-gray-200 dark:border-warm-gray-800 hover:border-elegant-gold/50"
-      >
-        Today
-      </button>
-
+    <div className="relative flex items-center" ref={containerRef}>
       <div 
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-3 bg-white/80 dark:bg-ray-dark/80 backdrop-blur-md px-5 py-2.5 rounded-full shadow-sm cursor-pointer hover:shadow-md transition-all border border-warm-gray-200 dark:border-warm-gray-800 group"
+        className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-elegant-gold/10 cursor-pointer transition-all group"
+        title="Select Date"
       >
         <CalendarDays className="text-elegant-gold w-5 h-5 group-hover:scale-110 transition-transform" />
         

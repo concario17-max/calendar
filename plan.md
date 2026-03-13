@@ -55,9 +55,29 @@
     - 구문 모호성 제거 및 정규화 완료.
 - [x] `npm run build`를 통한 로컬 빌드 검증 및 최종 커밋 완료.
 
+### Phase 8: 데이터 복구 및 UI 레이아웃 최종 조정 (Recovery & UI Overhaul)
+- [x] **데이터 인코딩 및 내용 복구 (Encoding Recovery)**:
+    - [x] 루트의 원본 텍스트 파일(`1.gua.txt`, `2.yao.txt`, `3.soul.txt`)을 읽어 인코딩 깨짐 없는 상태로 파싱.
+    - [x] `src/data/guaData.ts`, `src/data/yaoData.ts`, `src/data/soulData.ts` 파일을 UTF-8로 재생성 및 복구.
+- [x] **이미지 자산 경로 정규화 (Asset Normalization)**:
+    - [x] `images/` 폴더 내의 모든 이미지를 `public/images/` 폴더로 이동하여 엑박 문제 해결.
+- [x] **상단바 레이아웃 구조 전면 재조정 (Header Overhaul)**:
+    - [x] [MODIFY] [Header.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/Header.tsx)
+        - 좌측 영역: "Celestial Ephemeris" 타이틀 + Telescope 아이콘 배치.
+        - 우측 영역: `DatePicker` + `Today` 버튼 + 다크모드 버튼 순서로 배치.
+        - 다크모드 버튼을 가장 우측(End)에 위치시킴.
+- [x] **UI 요소 완전 삭제 및 정리 (UI Cleanup)**:
+    - [x] [MODIFY] [DatePicker.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/DatePicker.tsx)
+        - 선택된 날짜의 텍스트 레이블(ISO 형식 및 요일 포함) 일체 삭제.
+    - [x] [MODIFY] [MainContent.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/MainContent.tsx)
+        - 하단바(self_improvement, Sim-Sang Calendar, Contact 등) 잔여 요소 완전 삭제.
+- [x] **최종 검증 및 배포 준비**:
+    - [x] 전체 타입 체크(`npx tsc`) 및 빌드(`npm run build`) 무오류 확인.
+    - [x] 텍스트 깨짐 및 이미지 시각화 정상 작동 확인.
+
 ## 3. 검증 결과
 - **단위 테스트**: 25개 테스트 전체 통과 (Vitest).
 - **타입 체크**: `npx tsc -b` 에러 없음.
 - **아키텍처**: `parser.ts` 제거 및 도메인 모듈화 완수.
-- **UI/UX**: Celestial Ephemeris 테마 적용 및 레이아웃 반전 완료.
+- **UI/UX**: Celestial Ephemeris 테마 적용 및 레이아웃 반전 고도화 완료.
 - **빌드 상태**: **PASS** (Vite build successful).

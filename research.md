@@ -1,35 +1,38 @@
-# Build Failure Analysis Report (2026-03-13)
+# Research Report: Build and UI Analysis
 
-## 1. Problem Overview
-- **Error Type**: `[vite:css] [postcss] Unexpected token, expected ";"`
-- **Affected File**: `src/index.css` (reported line 58:10)
-- **Environment**: CI/CD (Node 22.16.0, npm 10.9.2, Vite 7.3.1)
+## 1. 개요 (Overview)
+최근 작업 이후 애플리케이션의 핵심 데이터 인코딩이 파손되고, 이미지 자산 경로가 일치하지 않아 UI가 정상적으로 표시되지 않는 상태(사용자 표현: "개판 났는데")입니다. 본 보고서는 이러한 문제의 상세 원인과 해결 방안을 분석합니다.
 
-## 2. Root Cause Analysis
+## 2. 주요 문제점 (Key Issues)
 
-### A. Broken `tailwind.config.js` (Primary Suspect)
-`tailwind.config.js` 파일의 구조가 비정상적으로 파손되어 있습니다.
-- `extend` 블록 내부에 속성명이 누락된 채 색상 코드(`400: "#b9b9b1"`)가 직접 나열되어 있습니다.
-- 중괄호(`}`) 매칭이 맞지 않아 파일 하단에 문법 에러가 존재합니다.
-- `theme` 내부의 `colors`, `fontFamily` 등이 비논리적으로 얽혀 있어 PostCSS가 `index.css`를 처리하는 과정에서 런타임 구문 에러를 던진 것으로 분석됩니다.
+### A. 텍스트 인코딩 파손 (Encoding Corruption)
+- **현상**: `src/data/guaData.ts`, `yaoData.ts` 등 핵심 데이터 파일의 한글 텍스트가 깨져서 표시됨 (Mojibake).
+- **원인**: 이전 작업 중 파일 저장 혹은 읽기 과정에서 인코딩 불일치(UTF-8 vs CP949 등)가 발생하여 데이터 자체가 손상되었습니다.
+- **영향**: 주요 점괘(Gua) 및 효(Yao)의 설명이 읽을 수 없는 상태입니다.
 
-### B. `src/index.css` Syntax Ambiguity
-- 빌드 로그는 `src/index.css:58:10`을 지목하고 있습니다. 
-- 해당 위치는 `@layer base` 블록의 닫는 중괄호(`}`) 자리입니다.
-- Tailwind 설정이 깨진 상태에서 `@layer` 지시어를 처리하려고 시도할 때, PostCSS 엔진이 블록의 끝을 제대로 인식하지 못해 발생하는 현상으로 보입니다.
+### B. 이미지 자산 경로 불일치 (Asset Path Mismatch)
+- **현상**: `MainContent.tsx`에서 `/images/yao-x.png` 경로로 이미지를 호출하지만, 스크린샷에서 "sigil x"로 표시되는 엑박 현상 발생.
+- **원인**: 실제 이미지 파일들이 프로젝트 루트의 `images/` 폴더에 위치해 있습니다. Vite 프로젝트에서는 정적 자산이 `public/images/` 아래에 있어야 브라우저에서 직접 접근 가능합니다.
+- **영향**: 각 효(Yao)에 해당하는 상징 이미지가 표시되지 않습니다.
 
-## 3. Detected Defects in `tailwind.config.js`
-```javascript
-42:         extend: {
-43:                     400: "#b9b9b1", // 'colors' 키가 누락됨
-...
-49:                 },
-50:                 "elegant-gold": "#B8860B", // extend 블록 밖으로 유출됨
-...
-59:     }, // 중복된 닫는 중괄호로 인한 구문 오류
-```
+### C. UI 레이아웃 불일치 (UI Layout Discrepancy)
+- **현상**: 사용자가 요청한 상단바 및 하단바의 최신 레이아웃이 정확히 반영되지 않았음.
+- **사용자 요청 사항**:
+    - **Header Left**: "Celestial Ephemeris" 타이틀 + Telescope 아이콘.
+    - **Header Right**: `DatePicker` + `Today` 버튼 + 다크모드 토글 버튼 (순서대로 배치).
+    - **Header 삭제**: 기존의 날짜 텍스트(`Friday, March 13, 2026` / `2026-03-13`) 완전 삭제.
+    - **Footer 삭제**: 하단 바(`self_improvement`, `Sim-Sang Calendar` 등) 완전 삭제.
 
-## 4. Proposed Fixes
-1. **`tailwind.config.js` 복구**: Tailwind 표준 스키마에 맞게 객체 구조를 재정립합니다.
-2. **`src/index.css` 정규화**: 혹시 모를 보이지 않는 문자나 구문 모호성을 제거하기 위해 해당 파일을 다시 작성합니다.
-3. **로컬 빌드 검증**: `npm run build`를 통해 빌드 성공 여부를 최종 확인합니다.
+## 3. 해결 방안 (Proposed Solutions)
+
+1. **데이터 복구**: 루트의 원본 텍스트 파일(`1.gua.txt`, `2.yao.txt`, `3.soul.txt`)을 기반으로 `src/data/*.ts` 파일을 UTF-8 인코딩으로 재생성합니다.
+2. **자산 이동**: `images/` 폴더 내의 모든 파일을 `public/images/`로 이동합니다.
+3. **UI 전면 재조정**:
+    - `Header.tsx`의 레이아웃을 좌측 타이틀, 우측 컨트롤 영역으로 스왑합니다.
+    - `DatePicker.tsx` 내부의 불필요한 날짜 텍스트 출력을 제거합니다.
+    - `MainContent.tsx` 및 관련 파일에서 잔여 푸터 코드를 제거합니다.
+
+## 4. 향후 방침 (Future Policy)
+- 파일 저장 시 항상 UTF-8 인코딩을 강제합니다.
+- `any` 혹은 `unknown` 타입을 배제하고 엄격한 타입 체크를 유지합니다.
+- 모든 UI 변경 사항은 사용자가 제공한 스크린샷의 가이드라인을 최우선으로 준수합니다.
