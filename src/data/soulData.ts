@@ -16,9 +16,7 @@ export const SOUL_TEXT = `CoTS Verses for Weeks 52 and 1
 
  
 
-부활절 (4월 7-13)
-
-봄
+1주 (4월 7-13) 부활절 / 봄
 
  
 
@@ -58,7 +56,7 @@ CoTS Verses for Weeks 51 and 2
 
  
 
-2 주 (4월 14-20)
+2주 (4월 14-20)
 
  
 
@@ -375,7 +373,7 @@ CoTS Verses for Weeks 42 and 11
 
  
 
-성요한 절기 (6월 24)
+12주 (6월 24-29) 성요한 절기 
 
  
 
@@ -439,9 +437,9 @@ CoTS Verses for Weeks 39 and 14
 
  
 
-14 주 (7월 7-13)
+14 주 (7월 7-13) 여름
 
-여름
+
 
  
 
@@ -458,7 +456,7 @@ CoTS Verses for Weeks 39 and 14
 
 CoTS Verses for Weeks 38 and 15
 
-크리스마스 (12월 22-28)
+38주 (12월 22-28) 크리스마스
 
  
 
@@ -492,9 +490,8 @@ CoTS Verses for Weeks 38 and 15
 
 CoTS Verses for Weeks 37 and 16
 
-37 주 (12월 15-21)
+37 주 (12월 15-21) 겨울
 
-겨울
 
  
 
@@ -819,9 +816,9 @@ CoTS Verses for Weeks 28 and 25
 
 CoTS Verses for Weeks 27 and 26
 
-27 주 (10월 6-12)
+27 주 (10월 6-12) 가을
 
-가을
+
 
  
 
@@ -847,7 +844,7 @@ CoTS Verses for Weeks 27 and 26
 
  
 
-미카엘마스 (9월 2 9 -10월 5)
+26 주 (9월 29 -10월 5) 미카엘마스 
 
  
 

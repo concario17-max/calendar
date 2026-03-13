@@ -109,7 +109,7 @@ function parseSingleGroup(lines: string[], start: number, end: number): SoulGrou
 export function parseWeekSectionsFromGroupBlock(block: string): SoulSection[] {
   const t = normalizeNewlines(block);
   const lines = t.split('\n');
-  const headerRe = /^\s*(\d{1,2})\s*주\s*\(([^)]+)\)\s*$/;
+  const headerRe = /^\s*(\d{1,2})\s*주\s*\(([^)]+)\)/;
   
   const heads = lines.reduce((acc: { idx: number; week: number; range: string }[], line, i) => {
     const m = line.match(headerRe);
