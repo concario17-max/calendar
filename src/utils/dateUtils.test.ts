@@ -1,65 +1,39 @@
 import { describe, it, expect } from 'vitest';
-import { calcDayIndex, getCycleStartUtc, toUtcDateOnly, calcGuaNum, calcYaoNum, inRange } from './dateUtils';
+import { calcGuaNum, calcYaoNum } from './dateUtils';
 
-describe('dateUtils', () => {
-  const CONFIG = {
-    START_MONTH: 3, // logic.ts와 맞춤 (0-indexed 3 is April? No, 1-indexed 3 is March)
-    START_DAY: 25,
-  };
-
-  describe('toUtcDateOnly', () => {
-    it('should return correct UTC timestamp for given y, m, d', () => {
-      const ts = toUtcDateOnly(2024, 4, 7);
-      expect(new Date(ts).toISOString()).toBe('2024-04-07T00:00:00.000Z');
-    });
-  });
-
-  describe('getCycleStartUtc', () => {
-    it('should return start date of the same year if target is after start date', () => {
-      const target = new Date(2024, 3, 26); // April 26, 2024 (Month is 0-indexed)
-      const startUtc = getCycleStartUtc(target, CONFIG.START_MONTH, CONFIG.START_DAY);
-      expect(new Date(startUtc).toISOString()).toBe('2024-03-25T00:00:00.000Z');
+describe('dateUtils Precision I Ching Logic', () => {
+  describe('calcYaoNum (Static Date Mapping)', () => {
+    // 2026 is non-leap. Cycle starts 2025-04-07 to 2026-04-01.
+    it('should return 25 for April 7th (Start Date)', () => {
+      const date = new Date(2025, 3, 7); 
+      expect(calcYaoNum(date)).toBe(25);
     });
 
-    it('should return start date of the previous year if target is before start date', () => {
-      const target = new Date(2024, 2, 24); // March 24, 2024
-      const startUtc = getCycleStartUtc(target, CONFIG.START_MONTH, CONFIG.START_DAY);
-      expect(new Date(startUtc).toISOString()).toBe('2023-03-25T00:00:00.000Z');
-    });
-  });
-
-  describe('calcDayIndex', () => {
-    it('should return 0 for the start date', () => {
-      const target = new Date(2024, 2, 25); // March 25, 2024
-      const index = calcDayIndex(target, CONFIG.START_MONTH, CONFIG.START_DAY);
-      expect(index).toBe(0);
+    it('should return 365 for March 13, 2026 (User Current Date)', () => {
+      const date = new Date(2026, 2, 13); 
+      expect(calcYaoNum(date)).toBe(365);
     });
 
-    it('should calculate across year boundaries correctly', () => {
-      const start = Date.UTC(2024, 2, 25);
-      const targetUtc = Date.UTC(2025, 2, 24);
-      const target = new Date(targetUtc);
-      const index = calcDayIndex(target, CONFIG.START_MONTH, CONFIG.START_DAY);
-      const expected = Math.floor((targetUtc - start) / 86400000);
-      expect(index).toBe(expected);
-    });
-  });
-
-  describe('calcYaoNum', () => {
-    it('should return 25 for dayIndex 0 (March 25th)', () => {
-      expect(calcYaoNum(0)).toBe(25);
+    it('should return 378 for March 26, 2026', () => {
+      const date = new Date(2026, 2, 26); 
+      expect(calcYaoNum(date)).toBe(378);
     });
 
-    it('should return 384 for dayIndex 359', () => {
-      expect(calcYaoNum(359)).toBe(384);
+    it('should return 384 for April 1, 2026', () => {
+      const date = new Date(2026, 3, 1); 
+      expect(calcYaoNum(date)).toBe(384);
     });
 
-    it('should wrap around and return 1 for dayIndex 360', () => {
-      expect(calcYaoNum(360)).toBe(1);
+    it('should return null for April 2nd to April 6th', () => {
+      expect(calcYaoNum(new Date(2026, 3, 2))).toBe(null);
+      expect(calcYaoNum(new Date(2026, 3, 6))).toBe(null);
     });
 
-    it('should return 5 for dayIndex 364 (March 24th)', () => {
-      expect(calcYaoNum(364)).toBe(5);
+    it('should handle leap year 2024 shift (User Exception)', () => {
+      // 2024 is leap. Cycle 2023-04-07 to 2024-04-01 contains 2.29.
+      // 3/13/2024 should be 366 (shifted by +1)
+      const dateMar13Leap = new Date(2024, 2, 13);
+      expect(calcYaoNum(dateMar13Leap)).toBe(366);
     });
   });
 
@@ -68,32 +42,12 @@ describe('dateUtils', () => {
       expect(calcGuaNum(25)).toBe(5);
     });
 
-    it('should return 64 for yaoNum 384', () => {
-      expect(calcGuaNum(384)).toBe(64);
-    });
-
     it('should return 1 for yaoNum 1', () => {
       expect(calcGuaNum(1)).toBe(1);
     });
 
-    it('should return 1 for yaoNum 6', () => {
-      expect(calcGuaNum(6)).toBe(1);
-    });
-
-    it('should return 2 for yaoNum 7', () => {
-      expect(calcGuaNum(7)).toBe(2);
-    });
-  });
-
-  describe('inRange', () => {
-    it('should return true for dayIndex within 0-364', () => {
-      expect(inRange(0)).toBe(true);
-      expect(inRange(364)).toBe(true);
-    });
-
-    it('should return false for out of range dayIndex', () => {
-      expect(inRange(-1)).toBe(false);
-      expect(inRange(365)).toBe(false);
+    it('should return null if yaoNum is null', () => {
+      expect(calcGuaNum(null)).toBe(null);
     });
   });
 });

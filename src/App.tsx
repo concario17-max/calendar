@@ -8,8 +8,6 @@ function App() {
   const {
     selectedDate,
     setSelectedDate,
-    dayIndex,
-    isValidRange,
     yaoNum,
     guaNum,
     guaData,
@@ -39,8 +37,6 @@ function App() {
       <div className="flex-1 relative">
         <div className="absolute top-0 left-0 w-full h-[50vh] bg-gradient-to-b from-warm-gray-100 to-transparent dark:from-warm-gray-900 -z-10 transition-colors duration-300"></div>
         <MainContent 
-          dayIndex={dayIndex}
-          isValidRange={isValidRange}
           yaoNum={yaoNum}
           guaNum={guaNum}
           guaData={guaData}

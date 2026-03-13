@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import type { GuaData, YaoData, SoulSection, SoulGroup } from '../types';
 
 interface MainContentProps {
-  dayIndex: number;
-  isValidRange: boolean;
   yaoNum: number | null;
   guaNum: number | null;
   guaData: GuaData | null;
@@ -14,18 +12,18 @@ interface MainContentProps {
 }
 
 export const MainContent: React.FC<MainContentProps> = ({
-  isValidRange, yaoNum, guaData, yaoData, hitSoulGroup, soulSections, onOpenJournal
+  yaoNum, guaData, yaoData, hitSoulGroup, soulSections, onOpenJournal
 }) => {
   const [sigilSrc, setSigilSrc] = useState<string | null>(null);
 
   useEffect(() => {
-    if (yaoNum !== null && isValidRange) {
+    if (yaoNum !== null) {
       const src = `/images/yao-${yaoNum}.png`;
       setSigilSrc(src);
     } else {
       setSigilSrc(null);
     }
-  }, [yaoNum, isValidRange]);
+  }, [yaoNum]);
 
   const renderEmpty = () => (
     <div className="flex flex-col items-center justify-center space-y-4 py-20 opacity-50">
@@ -62,7 +60,7 @@ export const MainContent: React.FC<MainContentProps> = ({
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-elegant-gold to-transparent opacity-20 group-hover:opacity-40 transition-opacity"></div>
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-elegant-gold opacity-5 dark:opacity-5 blur-3xl rounded-full"></div>
         
-        {isValidRange && guaData && yaoData ? (
+        {yaoData && guaData ? (
           <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
             
             {/* Sigil Image */}

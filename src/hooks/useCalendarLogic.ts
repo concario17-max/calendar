@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { GUA_TEXT, YAO_TEXT, SOUL_TEXT } from '../data';
 import { 
-  parseNumberedBlocks, parseSoulGroups, calcDayIndex, inRange, 
+  parseNumberedBlocks, parseSoulGroups, 
   calcYaoNum, calcGuaNum, splitGua, splitYao, 
   isInRangeMD, parseWeekSectionsFromGroupBlock
 } from '../utils/logic';
@@ -21,11 +21,8 @@ export function useCalendarLogic() {
     }
   }, []);
 
-  const dayIndex = calcDayIndex(selectedDate, 3, 25);
-  const isValidRange = inRange(dayIndex);
-  
-  const yaoNum = isValidRange ? calcYaoNum(dayIndex) : null;
-  const guaNum = yaoNum !== null ? calcGuaNum(yaoNum) : null;
+  const yaoNum = calcYaoNum(selectedDate);
+  const guaNum = calcGuaNum(yaoNum);
 
   const rawGua = guaNum !== null ? GUA_MAP.get(guaNum) : undefined;
   const rawYao = yaoNum !== null ? YAO_MAP.get(yaoNum) : undefined;
@@ -42,8 +39,6 @@ export function useCalendarLogic() {
   return {
     selectedDate,
     setSelectedDate,
-    dayIndex,
-    isValidRange,
     yaoNum,
     guaNum,
     guaData,

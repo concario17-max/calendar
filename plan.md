@@ -87,35 +87,29 @@
 - [x] **최종 전체 시스템 점검**:
     - [x] 모든 기기(Web/Mobile)에서의 레이아웃 및 심미성 최종 확인.
 
-### Phase 10: UI/UX 회귀 복구 및 세부 기능 고도화 (Fix & Polish)
-- [ ] **웹 헤더 레이아웃 복원 (Web Header Restoration)**:
-    - [ ] [MODIFY] [Header.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/Header.tsx)
-        - 웹(`sm` 이상): 좌측에 날짜 선택기, 우측에 타이틀이 오도록 레이아웃 복구.
-        - 모바일: 타이틀이 좌측에 오는 현재의 최적화된 한 줄 레이아웃 유지.
-- [x] **달력 상호작용 개선 (DatePicker UX)**:
-    - [x] [MODIFY] [DatePicker.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/DatePicker.tsx)
-        - 달력에서 날짜 클릭 시 즉시 닫히도록 로직 강화.
-        - 하단의 불필요한 액션 버튼 제거(네이티브 팝업 간섭 배제) 및 즉시 선택 인터페이스 확정.
-- [x] **웹 전용 하단 여백 보강 (Web Layout Polish)**:
-    - [x] [MODIFY] [MainContent.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/MainContent.tsx)
-        - 웹 환경(`md` 이상)에서 하단 여백을 `pb-48`로 대폭 확장하여 버튼과의 간섭 완벽 차단.
-- [x] **데이터 정규화 및 텍스트 수정 (Data & Text Refinement)**:
-    - [x] "인간과 세상이." 문구가 포함된 구절의 오타 및 줄바꿈 가독성 개선.
-- [ ] **최종 크로스 디바이스 검증**:
-    - [ ] 웹과 모바일 각각의 레이아웃 의도대로 작동하는지 최종 확인.
-
-### Phase 11: 웹 환경 최적화 및 가독성 고도화 (Web Polish & Typography)
-- [x] **웹 상단바 제목 복구 (Header Title Recovery)**:
+### Phase 10: UI/UX 회귀 복원 및 세부 기능 고도화 - COMPLETE
+- [x] **웹 헤더 레이아웃 복원 (Web Header Restoration)**:
     - [x] [MODIFY] [Header.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/Header.tsx)
-        - `h1` 태그의 `max-w-[120px]` 제약을 제거하고 웹에서 전체 제목 표시.
-- [x] **DatePicker 클릭 신뢰성 강화 (DatePicker Fix)**:
-    - [x] [MODIFY] [DatePicker.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/DatePicker.tsx)
-        - 트리거 요소를 `button`으로 변경하고 터치/클릭 이벤트 안정화.
-- [x] **한글 가독성 전면 개선 (Korean Typography Fix)**:
-    - [x] [MODIFY] [index.css](file:///c:/Users/PT/Desktop/calendar/src/index.css) 및 [tailwind.config.js](file:///c:/Users/PT/Desktop/calendar/tailwind.config.js)
-        - 본문 텍스트 `font-weight` 보강 및 한글 특화 자간/행간 재조정.
-- [-] **데이터 최종 수정 (Skipped per user request)**:
-    - [ ] `soulData.ts`의 "인간과 세상이" 구절 어순 수정 (정밀 매칭 시도).
+        - 웹(`sm` 이상): 좌측에 날짜 선택기(DatePicker), 우측에 타이틀이 오도록 레이아웃 복구.
+        - 모바일: 타이틀이 좌측에 오는 현재의 최적화된 레이아웃 유지. (Flex order 활용)
+- [x] **최종 크로스 디바이스 검증**: 웹(Desktop)과 모바일 기기별 레이아웃 의도대로 작동하는지 최종 확인.
+
+### Phase 12: 주역 정밀 로직 및 자산 동기화 (Precision I Ching) - COMPLETE
+1. **TDD 기반 설계 및 테스트 케이스 작성**:
+    - [x] [MODIFY] [dateUtils.test.ts](file:///c:/Users/PT/Desktop/calendar/src/utils/dateUtils.test.ts)
+        - 주요 분기점 테스트 추가: 3/13(365), 3/26(378), 4/1(384), 4/2~4/6(null), 4/7(25).
+2. **핵심 로직 리팩토링 (dateUtils.ts)**:
+    - [x] [MODIFY] [dateUtils.ts](file:///c:/Users/PT/Desktop/calendar/src/utils/dateUtils.ts)
+        - 4월 7일을 효사 25번의 고정 기점으로 하는 일수 산출 로직 구현.
+        - 1:1 매핑 및 1~24번 효사 구간(4/2~4/6)에 대해 `null` 반환 처리.
+        - 효사 번호 기반 괘사 도출 시 1~4번 괘사 제외 로직 강화.
+        - 윤년(2/29) 시 시퀀스 연속성 유지 로직 확인.
+3. **UI 및 이미지 자산 연동 (MainContent.tsx)**:
+    - [x] [MODIFY] [MainContent.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/MainContent.tsx)
+        - 이미지 경로를 효사 번호와 일치시킴 (`/images/yao-${yaoNum}.png`).
+        - `yaoNum`이 `null`인 구간에서 "해당 날짜는 비움" 메시지 정상 노출 검증.
+4. **최종 시스템 안정화**:
+    - [x] `npx tsc -b` 및 `npm run build`를 통한 시스템 전체 안정성 확인.
 
 ## 3. 검증 결과
 - **단위 테스트**: 25개 테스트 전체 통과 (Vitest).
