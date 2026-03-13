@@ -47,6 +47,27 @@
         - 캘린더 아이콘과 Today 버튼만으로 날짜 인지 및 선택 유도.
 - [x] 최종 디자인 검증 및 반응형 레이아웃 확인.
 
+### Phase 15: FOUT (Flash of Unstyled Text) 정밀 해결 및 폰트 최적화 [x]
+단순히 폰트를 불러오는 것을 넘어, 시스템 폰트가 노출되는 '깜빡임' 현상을 공학적으로 완벽히 차단함.
+
+1. **폰트 로딩 전략 수립 (Font Loading Strategy)**
+    - [x] `index.html` 내 자산 로드 순서 재배치: 핵심 폰트 CSS를 차단형(Blocking)으로 전환하여 렌더링 전 확보.
+    - [x] `Pretendard` 등 핵심 웹폰트의 `as="font"` 프리로드(Preload) 적용 (Woff2 형식 우선).
+    - [x] 구글 폰트(Crimson Pro, Inter 등)의 `preconnect` 및 `dns-prefetch` 최적화.
+
+2. **CSS 레벨 제어 (CSS-Level Control)**
+    - [x] `@font-face` 내 `font-display` 속성을 `swap`에서 `fallback` 또는 `optional`로 변경 검토 (디자인 일관성 우선 시).
+    - [x] 폰트 로드 전 레이아웃 시프트(CLS) 방지를 위한 `size-adjust` 및 시스템 폰트 매칭 정밀화.
+
+3. **JS 기반 폰트 로드 감지 및 시각적 정제 (Visual Polish)**
+    - [x] `FontFaceSet` API를 사용하여 폰트 로드 완료 시점 감지.
+    - [x] 모든 폰트가 준비되기 전까지 `body`의 가시성을 제어하거나 부드러운 `opacity transition` 적용.
+    - [x] 새로고침 시 화면 깜빡임 유무를 다양한 네트워크 환경(Throttling)에서 전수 검사.
+
+4. **검증 및 문서화**
+    - [x] 크롬 개발자 도구(Performance tab)를 통해 FOUT 소거 여부 데이터 기반 검정.
+    - [x] `plan.md` 및 `task.md` 상태 업데이트.
+
 ### Phase 7: 빌드 오류 긴급 복구 (Build Failure Fix)
 - [x] [RESEARCH] [research.md](file:///c:/Users/PT/Desktop/calendar/research.md) 작성 및 원인 분석 완료.
 - [x] [MODIFY] [tailwind.config.js](file:///c:/Users/PT/Desktop/calendar/tailwind.config.js) 
