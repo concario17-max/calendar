@@ -21,11 +21,37 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
         setIsOpen(false);
       }
     };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isOpen) return;
+      
+      const newDate = new Date(selectedDate);
+      if (e.key === 'ArrowLeft') {
+        newDate.setDate(newDate.getDate() - 1);
+        onDateChange(newDate);
+      } else if (e.key === 'ArrowRight') {
+        newDate.setDate(newDate.getDate() + 1);
+        onDateChange(newDate);
+      } else if (e.key === 'ArrowUp') {
+        newDate.setDate(newDate.getDate() - 7);
+        onDateChange(newDate);
+      } else if (e.key === 'ArrowDown') {
+        newDate.setDate(newDate.getDate() + 7);
+        onDateChange(newDate);
+      } else if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
     }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen]);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, selectedDate, onDateChange]);
 
   const changeMonth = (offset: number) => {
     const newDate = new Date(pickerDate);
@@ -61,9 +87,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
         <button
           key={`day-${d}`}
           onClick={() => handleDateClick(d)}
-          className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+          className={`w-8 h-8 rounded-full flex items-center justify-center transition-all active-scale ${
             isSelected 
-              ? 'bg-elegant-gold text-white font-bold'
+              ? 'bg-elegant-gold text-white font-bold ring-2 ring-elegant-gold/30'
               : 'text-warm-gray-600 dark:text-warm-gray-400 hover:bg-elegant-gold hover:text-white dark:hover:text-ray-dark'
           }`}
         >
@@ -99,8 +125,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
   return (
     <div className="relative flex items-center" ref={containerRef}>
       <button 
-        onClick={() => setIsOpen(true)}
-        className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-elegant-gold/10 cursor-pointer transition-all group outline-none focus-visible:ring-2 focus-visible:ring-elegant-gold/50"
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-elegant-gold/10 cursor-pointer transition-all group outline-none focus-visible:ring-2 focus-visible:ring-elegant-gold/50 active-scale"
         title="Select Date"
       >
         <CalendarDays className="text-elegant-gold w-5 h-5 group-hover:scale-110 transition-transform" />

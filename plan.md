@@ -86,6 +86,25 @@
 
 4. **최종 확정 및 문서화**
     - [x] `plan.md` 완료 표시 및 최종 커밋.
+### Phase 17: 웹 및 모바일 통합 최적화 (Hybrid Excellence Optimization) [x]
+플랫폼별 사용자 경험을 극대화하고 시스템 성능을 최상으로 끌어올림.
+
+1. **컴포넌트 구조 고도화 (Atomic UI Refactoring)**
+    - [x] `MainContent.tsx` 분리: `IChingSection.tsx` 및 `SoulCalendarSection.tsx`로 추출하여 관심사 분격.
+    - [x] 애니메이션 로직을 커스텀 훅(`useEntryAnimation`) 또는 CSS 유틸리티로 추상화.
+
+2. **모바일 인터랙션 최적화 (Mobile First Refinement)**
+    - [x] 터치 피드백 강화: 버튼 및 카드 클릭 시 시각적 활성 상태(`:active`) 디테일링.
+    - [x] 모바일 전용 UI 조정: 뷰포트 높이(`dvh/svh`) 대응 및 하단 안전 영역(Safe Area) 패딩 보강.
+
+3. **웹 및 데스크탑 인터랙티브 강화 (Premium Interactivity)**
+    - [x] 키보드 내비게이션: `DatePicker` 및 주요 섹션에 대한 단축키 지원.
+    - [x] 마우스 동역학 효과: 배경 또는 주요 요소에 미세한 마우스 트래킹 효과 추가.
+
+4. **성능 및 인프라 최적화 (Performance & Foundation)**
+    - [x] 이미지 최적화: `public/images/` 내 PNG 자산을 WebP로 변환 및 지연 로딩(`loading="lazy"`) 고도화.
+    - [x] SEO 및 메타 데이터: `index.html`에 고품질 Open Graph 메타 정보 및 구조화된 데이터(JSON-LD) 추가.
+    - [x] `npm run build`를 통한 청크(Chunk) 사이즈 최적화 확인.
 ### Phase 7: 빌드 오류 긴급 복구 (Build Failure Fix)
 - [x] [RESEARCH] [research.md](file:///c:/Users/PT/Desktop/calendar/research.md) 작성 및 원인 분석 완료.
 - [x] [MODIFY] [tailwind.config.js](file:///c:/Users/PT/Desktop/calendar/tailwind.config.js) 

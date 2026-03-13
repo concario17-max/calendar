@@ -29,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({ selectedDate, onDateChange }) =>
             <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
             <button 
               onClick={() => onDateChange(new Date())}
-              className="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-warm-gray-600 dark:text-warm-gray-300 hover:text-elegant-gold dark:hover:text-elegant-gold transition-all hover:bg-elegant-gold/10 rounded-full whitespace-nowrap"
+              className="px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-warm-gray-600 dark:text-warm-gray-300 hover:text-elegant-gold dark:hover:text-elegant-gold transition-all hover:bg-elegant-gold/10 rounded-full whitespace-nowrap active-scale"
             >
               Today
             </button>
@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({ selectedDate, onDateChange }) =>
           
           <button 
             onClick={toggleTheme}
-            className="p-2 sm:p-2.5 rounded-full bg-white/50 dark:bg-warm-gray-800/50 border border-warm-gray-200 dark:border-warm-gray-700 hover:border-elegant-gold/50 dark:hover:border-elegant-gold/50 transition-all text-warm-gray-600 dark:text-warm-gray-300 hover:text-elegant-gold dark:hover:text-elegant-gold shadow-sm hover:shadow-md"
+            className="p-2 sm:p-2.5 rounded-full bg-white/50 dark:bg-warm-gray-800/50 border border-warm-gray-200 dark:border-warm-gray-700 hover:border-elegant-gold/50 dark:hover:border-elegant-gold/50 transition-all text-warm-gray-600 dark:text-warm-gray-300 hover:text-elegant-gold dark:hover:text-elegant-gold shadow-sm hover:shadow-md active-scale"
             aria-label="Toggle theme"
           >
             {isDark ? <Sun size={18} className="sm:w-5 sm:h-5" /> : <Moon size={18} className="sm:w-5 sm:h-5" />}
