@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { calcDayIndex, getCycleStartUtc, toUtcDateOnly } from './dateUtils';
+import { calcDayIndex, getCycleStartUtc, toUtcDateOnly, calcGuaNum, calcYaoNum, inRange } from './dateUtils';
 
 describe('dateUtils', () => {
   const CONFIG = {
@@ -42,6 +42,58 @@ describe('dateUtils', () => {
       const index = calcDayIndex(target, CONFIG.START_MONTH, CONFIG.START_DAY);
       const expected = Math.floor((targetUtc - start) / 86400000);
       expect(index).toBe(expected);
+    });
+  });
+
+  describe('calcYaoNum', () => {
+    it('should return 25 for dayIndex 0 (March 25th)', () => {
+      expect(calcYaoNum(0)).toBe(25);
+    });
+
+    it('should return 384 for dayIndex 359', () => {
+      expect(calcYaoNum(359)).toBe(384);
+    });
+
+    it('should wrap around and return 1 for dayIndex 360', () => {
+      expect(calcYaoNum(360)).toBe(1);
+    });
+
+    it('should return 5 for dayIndex 364 (March 24th)', () => {
+      expect(calcYaoNum(364)).toBe(5);
+    });
+  });
+
+  describe('calcGuaNum', () => {
+    it('should return 5 for yaoNum 25', () => {
+      expect(calcGuaNum(25)).toBe(5);
+    });
+
+    it('should return 64 for yaoNum 384', () => {
+      expect(calcGuaNum(384)).toBe(64);
+    });
+
+    it('should return 1 for yaoNum 1', () => {
+      expect(calcGuaNum(1)).toBe(1);
+    });
+
+    it('should return 1 for yaoNum 6', () => {
+      expect(calcGuaNum(6)).toBe(1);
+    });
+
+    it('should return 2 for yaoNum 7', () => {
+      expect(calcGuaNum(7)).toBe(2);
+    });
+  });
+
+  describe('inRange', () => {
+    it('should return true for dayIndex within 0-364', () => {
+      expect(inRange(0)).toBe(true);
+      expect(inRange(364)).toBe(true);
+    });
+
+    it('should return false for out of range dayIndex', () => {
+      expect(inRange(-1)).toBe(false);
+      expect(inRange(365)).toBe(false);
     });
   });
 });

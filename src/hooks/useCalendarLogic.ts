@@ -21,11 +21,11 @@ export function useCalendarLogic() {
     }
   }, []);
 
-  const dayIndex = calcDayIndex(selectedDate);
+  const dayIndex = calcDayIndex(selectedDate, 3, 25);
   const isValidRange = inRange(dayIndex);
   
   const yaoNum = isValidRange ? calcYaoNum(dayIndex) : null;
-  const guaNum = isValidRange ? calcGuaNum(dayIndex) : null;
+  const guaNum = yaoNum !== null ? calcGuaNum(yaoNum) : null;
 
   const rawGua = guaNum !== null ? GUA_MAP.get(guaNum) : undefined;
   const rawYao = yaoNum !== null ? YAO_MAP.get(yaoNum) : undefined;

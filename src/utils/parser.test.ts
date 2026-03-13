@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { 
   parseNumberedBlocks, splitYao, splitGua, 
-  parseSoulGroups, parseWeekSectionsFromGroupBlock 
-} from './parser';
+  parseSoulGroups 
+} from './logic';
 
 describe('parser', () => {
   describe('parseNumberedBlocks', () => {

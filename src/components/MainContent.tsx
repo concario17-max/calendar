@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GuaData, YaoData, SoulSection, SoulGroup } from '../types';
+import type { GuaData, YaoData, SoulSection, SoulGroup } from '../types';
 
 interface MainContentProps {
   dayIndex: number;

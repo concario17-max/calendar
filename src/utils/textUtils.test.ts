@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { applySentenceBalance, generateGuidedQuestion } from './textUtils';
+import { applySentenceBalance, generateGuidedQuestion } from './logic';
 
 describe('textUtils', () => {
   describe('applySentenceBalance', () => {

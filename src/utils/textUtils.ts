@@ -33,3 +33,26 @@ export function applySentenceBalance(text: string): string {
     return match;
   });
 }
+
+/**
+ * 번호가 매겨진 텍스트 블록 파싱 (Map 반환)
+ * re: /^(\d+)\.\s/mg
+ */
+export function parseNumberedBlocks(text: string): Map<number, string> {
+  const t = normalizeNewlines(text);
+  const re = /^(\d+)\.\s/mg;
+  const starts: { num: number; idx: number }[] = [];
+  let m: RegExpExecArray | null;
+  
+  while ((m = re.exec(t)) !== null) {
+    starts.push({ num: Number(m[1]), idx: m.index });
+  }
+  
+  const map = new Map<number, string>();
+  for (let i = 0; i < starts.length; i++) {
+    const start = starts[i];
+    const end = (i + 1 < starts.length) ? starts[i + 1].idx : t.length;
+    map.set(start.num, t.slice(start.idx, end).trim());
+  }
+  return map;
+}

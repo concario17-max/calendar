@@ -12,13 +12,16 @@ export function splitYao(block: string): YaoData {
   const rest = lines.slice(1).join('\n').trim();
   const paras = rest.split(/\n\s*\n/g).map((s: string) => s.trim()).filter(Boolean);
   return { titleLine, short: paras[0] || '', body: paras.slice(1).join('\n\n') };
-}export function generateGuidedQuestion(yaoTitle: string): string {
-  let cleanTitle = yaoTitle.split('(')[0];
-  cleanTitle = cleanTitle.replace(/^\d+\.\s*/, '');
-  cleanTitle = cleanTitle.replace(/[\u3000-\u303F\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF]+/g, '');
-  cleanTitle = cleanTitle.replace(/[.]/g, '').trim();
+}
 
-  if (!cleanTitle) cleanTitle = yaoTitle.split('(')[0].trim();
+export function generateGuidedQuestion(yaoTitle: string): string {
+  let cleanTitle = yaoTitle.replace(/[\u3000-\u303F\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF]+/g, '');
+  cleanTitle = cleanTitle.replace(/^\d+\.\s*/, '');
+  cleanTitle = cleanTitle.replace(/[().]/g, '').trim();
+
+  if (!cleanTitle) {
+    cleanTitle = yaoTitle.split('(')[0].replace(/^\d+\.\s*/, '').trim() || yaoTitle.trim();
+  }
 
   const questions = [
     `"${cleanTitle}"의 상징을 묵상하며, 오늘 당신의 상황과 어떻게 연결될까요?`,
