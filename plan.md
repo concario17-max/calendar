@@ -29,7 +29,26 @@
 - [x] `useCalendarLogic.ts`의 타입 에러 소거 확인.
 - [x] Ray 표준에 따른 자동 Git Commit/Push 실행.
 
+### Phase 6: UI 리팩토링 고도화 (Celestial Ephemeris)
+- [x] UI 개선 작업 세분화 및 계획 수립.
+- [x] [MODIFY] [MainContent.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/MainContent.tsx)
+    - "Add Journal Entry" 버튼은 유지.
+    - 하단 푸터 텍스트 영역(Sim-Sang Calendar, Contact, roadsea@naver.com 등) 일체 제거 확인.
+- [x] [MODIFY] [Header.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/Header.tsx)
+    - 타이틀을 "Celestial Ephemeris"로 변경하고 `Telescope` 아이콘(Lucide) 적용.
+    - **레이아웃 반전**: 
+        - [좌측]: 날짜 선택기(DatePicker) 및 Today 버튼 배치.
+        - [우측]: 타이틀("Celestial Ephemeris") 및 로고 배치.
+        - [최우측]: 다크모드 전환 버튼 고정 배치.
+- [x] [MODIFY] [DatePicker.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/DatePicker.tsx)
+    - 이미지 속 삭제 요청 사항 반영:
+        - "FRIDAY, MARCH 13, 2026" 텍스트 삭제.
+        - "2026-03-13" (ISO) 텍스트 삭제.
+        - 캘린더 아이콘과 Today 버튼만으로 날짜 인지 및 선택 유도.
+- [x] 최종 디자인 검증 및 반응형 레이아웃 확인.
+
 ## 3. 검증 결과
 - **단위 테스트**: 25개 테스트 전체 통과 (Vitest).
 - **타입 체크**: `npx tsc -b` 에러 없음.
 - **아키텍처**: `parser.ts` 제거 및 도메인 모듈화 완수.
+- **UI/UX**: Celestial Ephemeris 테마 및 레이아웃 반전 적용 완료.

@@ -115,14 +115,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
         className="flex items-center gap-3 bg-white/80 dark:bg-ray-dark/80 backdrop-blur-md px-5 py-2.5 rounded-full shadow-sm cursor-pointer hover:shadow-md transition-all border border-warm-gray-200 dark:border-warm-gray-800 group"
       >
         <CalendarDays className="text-elegant-gold w-5 h-5 group-hover:scale-110 transition-transform" />
-        <div className="flex flex-col">
-          <span className="text-sm font-bold text-ray-dark dark:text-warm-gray-100">
-            {selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' })}
-          </span>
-          <span className="text-[10px] text-warm-gray-400 font-medium uppercase tracking-wider">
-            {selectedDate.toISOString().split('T')[0]}
-          </span>
-        </div>
         
         {/* Native Date Input Trigger (Hidden) */}
         <input 
