@@ -15,13 +15,14 @@ export function splitYao(block: string): YaoData {
 }
 
 export function generateGuidedQuestion(yaoTitle: string): string {
-  let cleanTitle = yaoTitle.replace(/[\u3000-\u303F\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF]+/g, '');
+  const lines = yaoTitle.split('\n');
+  const nameLine = lines.length > 1 ? lines[lines.length - 1] : lines[0];
+  
+  // 첫 번째 괄호 '(' 또는 슬래시 '/' 이전의 텍스트만 추출 (이름만 남김)
+  let cleanTitle = nameLine.split('(')[0].split('/')[0].trim();
+  
+  // 맨 앞의 숫자와 마침표 제거 (예: "28. ")
   cleanTitle = cleanTitle.replace(/^\d+\.\s*/, '');
-  cleanTitle = cleanTitle.replace(/[().]/g, '').trim();
-
-  if (!cleanTitle) {
-    cleanTitle = yaoTitle.split('(')[0].replace(/^\d+\.\s*/, '').trim() || yaoTitle.trim();
-  }
 
   const questions = [
     `"${cleanTitle}"의 상징을 묵상하며, 오늘 당신의 상황과 어떻게 연결될까요?`,

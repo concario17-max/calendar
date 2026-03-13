@@ -26,11 +26,12 @@ describe('textUtils', () => {
       expect(question).toMatch(/[?]$/);
     });
 
-    it('should clean Chinese characters from title', () => {
-      const title = '20. 震 (Thunder)';
+    it('should extract name correctly from multi-line Yao title', () => {
+      const title = '28. 六四 需于血.\n루르히 (3/28)(4° 양자리) 사랑';
       const question = generateGuidedQuestion(title);
-      expect(question).not.toContain('震');
-      expect(question).toContain('Thunder');
+      expect(question).toContain('루르히');
+      expect(question).not.toContain('3/28');
+      expect(question).not.toContain('양자리');
     });
   });
 });
