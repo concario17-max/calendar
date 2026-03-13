@@ -1,38 +1,40 @@
-# Research Report: Build and UI Analysis
+# Research Report: UI/UX Refinement Analysis
 
 ## 1. 개요 (Overview)
-최근 작업 이후 애플리케이션의 핵심 데이터 인코딩이 파손되고, 이미지 자산 경로가 일치하지 않아 UI가 정상적으로 표시되지 않는 상태(사용자 표현: "개판 났는데")입니다. 본 보고서는 이러한 문제의 상세 원인과 해결 방안을 분석합니다.
+긴급 데이터 복구 완료 후, 실사용성 개선을 위한 UI/UX 정밀 리서치를 수행했습니다. 사용자의 추가 피드백(하단 버튼 겹침, 모바일 레이아웃 협소, 폰트 가독성, 특정 섹션의 심미성)을 바탕으로 분석을 진행했습니다.
 
-## 2. 주요 문제점 (Key Issues)
+## 2. 주요 문제점 및 분석 (Key Issues)
 
-### A. 텍스트 인코딩 파손 (Encoding Corruption)
-- **현상**: `src/data/guaData.ts`, `yaoData.ts` 등 핵심 데이터 파일의 한글 텍스트가 깨져서 표시됨 (Mojibake).
-- **원인**: 이전 작업 중 파일 저장 혹은 읽기 과정에서 인코딩 불일치(UTF-8 vs CP949 등)가 발생하여 데이터 자체가 손상되었습니다.
-- **영향**: 주요 점괘(Gua) 및 효(Yao)의 설명이 읽을 수 없는 상태입니다.
+### A. 하단 플로팅 버튼 겹침 (Floating Button Overlap)
+- **현상**: "Add Journal Entry" 버튼이 고정 위치(`fixed`)에 있어 본문 하단 텍스트를 가림.
+- **원인**: `MainContent.tsx` 하단에 버튼을 위한 충분한 여백(Padding/Margin)이 확보되지 않았습니다.
+- **영향**: 모바일 및 좁은 화면에서 주요 정보를 읽는 데 방해가 됩니다.
 
-### B. 이미지 자산 경로 불일치 (Asset Path Mismatch)
-- **현상**: `MainContent.tsx`에서 `/images/yao-x.png` 경로로 이미지를 호출하지만, 스크린샷에서 "sigil x"로 표시되는 엑박 현상 발생.
-- **원인**: 실제 이미지 파일들이 프로젝트 루트의 `images/` 폴더에 위치해 있습니다. Vite 프로젝트에서는 정적 자산이 `public/images/` 아래에 있어야 브라우저에서 직접 접근 가능합니다.
-- **영향**: 각 효(Yao)에 해당하는 상징 이미지가 표시되지 않습니다.
+### B. 모바일 상단바 레이아웃 (Mobile Header Stacking)
+- **현상**: 모바일 화면에서 상단바 요소들이 두 줄로 쌓여 공간을 과도하게 차지함.
+- **원인**: `flex-col` 설정으로 인해 타이틀 영역과 컨트롤 영역이 수직 배치됩니다.
+- **영향**: 가독 가능 영역이 좁아지고 답답한 인상을 줍니다.
 
-### C. UI 레이아웃 불일치 (UI Layout Discrepancy)
-- **현상**: 사용자가 요청한 상단바 및 하단바의 최신 레이아웃이 정확히 반영되지 않았음.
-- **사용자 요청 사항**:
-    - **Header Left**: "Celestial Ephemeris" 타이틀 + Telescope 아이콘.
-    - **Header Right**: `DatePicker` + `Today` 버튼 + 다크모드 토글 버튼 (순서대로 배치).
-    - **Header 삭제**: 기존의 날짜 텍스트(`Friday, March 13, 2026` / `2026-03-13`) 완전 삭제.
-    - **Footer 삭제**: 하단 바(`self_improvement`, `Sim-Sang Calendar` 등) 완전 삭제.
+### C. 폰트 및 가독성 (Typography & Readability)
+- **현상**: 현재 적용된 폰트가 특정 환경에서 가독성이 떨어지거나 조화롭지 않음.
+- **분석**: `Crimson Pro`와 `Inter`가 적용되어 있으나, 한글 폰트(`Pretendard`, `Noto Serif KR`)와의 매끄러운 연동 및 굵기 조절이 더 필요합니다.
+
+### D. 효사(Yao) 섹션 스타일 (Yao Display Aesthetics)
+- **현상**: 본문 텍스트가 순수 검정색으로 표시되어 전체적인 "Celestial" 테마와 어울리지 않고 투박함.
+- **분석**: 고급스러운 테마를 위해 텍스트 색상을 부드럽게 조정하고, 배경 혹은 경계선에 테마 컬러를 반영한 스타일링이 누락되었습니다.
 
 ## 3. 해결 방안 (Proposed Solutions)
 
-1. **데이터 복구**: 루트의 원본 텍스트 파일(`1.gua.txt`, `2.yao.txt`, `3.soul.txt`)을 기반으로 `src/data/*.ts` 파일을 UTF-8 인코딩으로 재생성합니다.
-2. **자산 이동**: `images/` 폴더 내의 모든 파일을 `public/images/`로 이동합니다.
-3. **UI 전면 재조정**:
-    - `Header.tsx`의 레이아웃을 좌측 타이틀, 우측 컨트롤 영역으로 스왑합니다.
-    - `DatePicker.tsx` 내부의 불필요한 날짜 텍스트 출력을 제거합니다.
-    - `MainContent.tsx` 및 관련 파일에서 잔여 푸터 코드를 제거합니다.
+1. **레이아웃 개선**:
+    - `MainContent` 하단에 대폭적인 패딩(`pb-32` 이상)을 추가하여 버튼과의 간섭을 차단합니다.
+    - `Header`를 모바일에서도 `flex-row`를 유지하도록 변경하고, 아이콘 크기 및 텍스트를 최적화하여 한 줄 배치를 강제합니다.
+2. **타이포그래피 업그레이드**:
+    - 가독성이 극대화된 `Pretendard Variable`을 메인 본문 폰트로 확정하고, `font-feature-settings`를 최적화합니다.
+    - 줄 간격(leading)과 자간(tracking)을 정밀 조정합니다.
+3. **심미성 고도화**:
+    - 효사(Yao) 본문 텍스트에 `warm-gray` 톤의 깊이 있는 색상을 적용합니다.
+    - 텍스트 박스에 미세한 그라데이션 혹은 테마 색상이 가미된 보더 스타일을 추가하여 "고급스러운" 느낌을 구현합니다.
 
 ## 4. 향후 방침 (Future Policy)
-- 파일 저장 시 항상 UTF-8 인코딩을 강제합니다.
-- `any` 혹은 `unknown` 타입을 배제하고 엄격한 타입 체크를 유지합니다.
-- 모든 UI 변경 사항은 사용자가 제공한 스크린샷의 가이드라인을 최우선으로 준수합니다.
+- 모든 UI 변경은 "One-line on Mobile" 원칙을 준수합니다.
+- 'Celestial' 테마의 핵심 색상(`elegant-gold`, `warm-gray`)을 적극 활용하여 프리미엄 품질을 유지합니다.

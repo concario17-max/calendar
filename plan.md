@@ -75,6 +75,18 @@
     - [x] 전체 타입 체크(`npx tsc`) 및 빌드(`npm run build`) 무오류 확인.
     - [x] 텍스트 깨짐 및 이미지 시각화 정상 작동 확인.
 
+### Phase 9: UI/UX 고도화 및 품질 개선 (Refinement)
+- [x] **전역 타이포그래피 개선 (Typography Optimization)**:
+    - [x] `tailwind.config.js` 및 `index.css` 수정하여 `Pretendard Variable` 기반의 고가독성 환경 구축.
+- [x] **모바일 헤더 최적화 (Mobile Header)**:
+    - [x] `Header.tsx` 수정하여 모바일에서도 강제 한 줄(`flex-row`) 배치 및 심미성 유지.
+- [x] **하단 레이아웃 충돌 해결 (Layout Polish)**:
+    - [x] `MainContent.tsx` 하단 여백 추가하여 "Add Journal Entry" 버튼이 본문을 가리는 문제 해결.
+- [x] **효사 섹션 프리미엄 디자인 적용 (Premium Aesthetic)**:
+    - [x] 효사 본문 텍스트 색상 및 박스 스타일을 Celestial 테마에 맞춰 더욱 고급스럽게 리디자인.
+- [x] **최종 전체 시스템 점검**:
+    - [x] 모든 기기(Web/Mobile)에서의 레이아웃 및 심미성 최종 확인.
+
 ## 3. 검증 결과
 - **단위 테스트**: 25개 테스트 전체 통과 (Vitest).
 - **타입 체크**: `npx tsc -b` 에러 없음.

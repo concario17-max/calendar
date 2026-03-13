@@ -41,8 +41,8 @@ export default {
                 }
             },
             fontFamily: {
-                "display": ["Inter", "'Pretendard Variable'", "Pretendard", "sans-serif"],
-                "serif": ["Crimson Pro", "'Noto Serif KR'", "serif"]
+                "display": ["'Pretendard Variable'", "Pretendard", "Inter", "system-ui", "sans-serif"],
+                "serif": ["'Crimson Pro'", "'Noto Serif KR'", "Georgia", "serif"]
             },
         },
     },

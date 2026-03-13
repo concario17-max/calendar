@@ -55,7 +55,7 @@ export const MainContent: React.FC<MainContentProps> = ({
   };
 
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 mt-4 space-y-12 animate-fade-in relative z-10">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-36 mt-4 space-y-12 animate-fade-in relative z-10">
       
       {/* 주역(I Ching) 섹션 */}
       <section className="bg-white/80 dark:bg-ray-dark/80 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-14 shadow-xl border border-elegant-gold/10 transition-colors duration-300 relative overflow-hidden group">
@@ -68,7 +68,7 @@ export const MainContent: React.FC<MainContentProps> = ({
             {/* Sigil Image */}
             <div className="w-full md:w-1/3 flex-shrink-0 relative">
               <div className="absolute inset-0 bg-gradient-to-tr from-warm-gray-100 to-transparent dark:from-warm-gray-800 rounded-3xl transform rotate-3 scale-105 opacity-50"></div>
-              <div className="relative aspect-square rounded-3xl bg-warm-gray-50 dark:bg-warm-gray-900 border border-warm-gray-200 dark:border-warm-gray-800 shadow-inner flex items-center justify-center p-6 overflow-hidden">
+              <div className="relative aspect-square rounded-3xl bg-warm-gray-50 dark:bg-warm-gray-900 border border-warm-gray-200 dark:border-warm-gray-800 shadow-inner flex items-center justify-center p-6 overflow-hidden transition-transform duration-500 hover:scale-105">
                 {sigilSrc ? (
                   <img 
                     src={sigilSrc} 
@@ -86,33 +86,36 @@ export const MainContent: React.FC<MainContentProps> = ({
               {/* Gua */}
               <div className="border-b border-warm-gray-200 dark:border-warm-gray-800 pb-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="h-6 w-1 bg-elegant-gold rounded-full"></div>
-                  <h2 className="text-xl md:text-2xl font-bold font-serif tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-warm-gray-800 to-warm-gray-500 dark:from-warm-gray-100 dark:to-warm-gray-400">
+                  <div className="h-6 w-1 bg-elegant-gold rounded-full shadow-[0_0_8px_rgba(184,134,11,0.5)]"></div>
+                  <h2 className="text-xl md:text-2xl font-bold font-serif tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400">
                     {guaData.header}
                   </h2>
                 </div>
                 <p 
-                  className="text-base md:text-lg text-warm-gray-600 dark:text-warm-gray-300 font-serif leading-relaxed"
+                  className="text-base md:text-lg text-warm-gray-600 dark:text-warm-gray-300 font-serif leading-relaxed italic"
                   dangerouslySetInnerHTML={{ __html: formatText(guaData.meta) }}
                 />
               </div>
 
               {/* Yao */}
               <div className="space-y-6 pt-2">
-                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-elegant-gold/10 border border-elegant-gold/20 text-elegant-gold text-sm font-bold tracking-widest uppercase">
+                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-elegant-gold/10 border border-elegant-gold/20 text-elegant-gold text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase">
                   Today's Reflection
                 </div>
                 
-                <h3 className="text-2xl md:text-[1.75rem] font-bold font-serif leading-snug text-warm-gray-900 dark:text-white">
+                <h3 className="text-2xl md:text-[1.75rem] font-bold font-serif leading-snug text-warm-gray-800 dark:text-white/90">
                   {yaoData.titleLine}
                 </h3>
                 
-                <p 
-                  className="text-lg md:text-xl text-elegant-gold font-serif italic font-medium leading-relaxed bg-elegant-gold/5 p-6 rounded-2xl border-l-4 border-l-elegant-gold"
-                  dangerouslySetInnerHTML={{ __html: formatText(yaoData.short) }}
-                />
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 w-1 bg-elegant-gold/30 rounded-full"></div>
+                  <p 
+                    className="text-lg md:text-xl text-elegant-gold font-serif italic font-medium leading-relaxed pl-6 py-2"
+                    dangerouslySetInnerHTML={{ __html: formatText(yaoData.short) }}
+                  />
+                </div>
 
-                <div className="pt-4 text-warm-gray-600 dark:text-warm-gray-300 font-serif whitespace-pre-wrap leading-loose text-[15px] md:text-base">
+                <div className="pt-4 text-warm-gray-700/90 dark:text-warm-gray-200/90 font-display font-light whitespace-pre-wrap leading-loose text-[15px] md:text-[16px] tracking-wide">
                   {yaoData.body}
                 </div>
               </div>

@@ -26,8 +26,10 @@
 
   body {
     @apply bg-warm-gray-50 text-warm-gray-900 dark:bg-ray-dark dark:text-warm-gray-100 transition-colors duration-700 antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
     -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.011em;
+    line-height: 1.6;
   }
 
   /* Custom Scrollbar */
