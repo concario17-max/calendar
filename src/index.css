@@ -25,6 +25,13 @@
     --elegant-gold: #D4AF37;
   }
 
+  html, body {
+    @apply overflow-x-hidden;
+    touch-action: pan-y;
+    width: 100%;
+    position: relative;
+  }
+
   body {
     @apply bg-warm-gray-50 text-warm-gray-900 dark:bg-ray-dark dark:text-warm-gray-100 transition-colors duration-700 antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01", "kern";

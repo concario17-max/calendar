@@ -99,12 +99,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
     }
     
     return (
-      <div className="absolute top-14 left-0 sm:left-auto sm:right-0 mt-2 bg-white dark:bg-ray-dark/95 backdrop-blur-xl border border-warm-gray-200 dark:border-warm-gray-800 rounded-[2rem] shadow-2xl p-6 w-[320px] z-50 transition-all duration-300 transform scale-100 opacity-100">
+      <div className="fixed inset-x-4 top-20 sm:absolute sm:inset-auto sm:right-0 sm:top-14 mt-2 bg-white dark:bg-ray-dark/95 backdrop-blur-2xl border border-warm-gray-200 dark:border-warm-gray-800 rounded-[2rem] shadow-2xl p-6 w-auto sm:w-[320px] z-50 transition-all duration-300 transform scale-100 opacity-100">
         <div className="flex justify-between items-center mb-6 px-2">
           <button onClick={() => changeMonth(-1)} className="p-2 hover:bg-warm-gray-100 dark:hover:bg-warm-gray-800 rounded-full transition-colors text-warm-gray-600 dark:text-warm-gray-400">
             <ChevronLeft size={20} />
           </button>
-          <span className="font-bold font-serif text-lg tracking-wide text-warm-gray-800 dark:text-warm-gray-200">
+          <span className="font-bold font-display text-lg tracking-tight text-warm-gray-800 dark:text-warm-gray-200">
             {monthNames[m]} {y}
           </span>
           <button onClick={() => changeMonth(1)} className="p-2 hover:bg-warm-gray-100 dark:hover:bg-warm-gray-800 rounded-full transition-colors text-warm-gray-600 dark:text-warm-gray-400">

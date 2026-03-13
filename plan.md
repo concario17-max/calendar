@@ -140,6 +140,24 @@
 4. **검증 및 마감** [x]
     - [x] 모바일 상단바 정렬 및 버튼 겹침 현상 해결 여부 확인. [x]
     - [x] 저널 모달 내 한글 가독성 최종 확인. [x]
+### Phase 20: 모바일 사용성 완성 (Full Mobile Stability) [x]
+모바일 환경에서의 레이아웃 이탈 및 가시성 문제를 해결하여 최종적인 안정성을 확보함.
+
+1. **상단바 요소 정렬 및 잘림 방지 (Header Refinement)** [x]
+    - [x] `Header.tsx`: 모바일에서 브랜딩 텍스트 크기 축소 (`text-lg` -> `text-base`). [x]
+    - [x] 컨트롤 영역의 간격(`gap-1`) 조정 및 여백 최적화. [x]
+
+2. **달력 위치 및 너비 최적화 (DatePicker Positioning)** [x]
+    - [x] `DatePicker.tsx`: 모바일에서 팝업이 화면 밖으로 나가지 않도록 `fixed center` 레이아웃 또는 위치 자동 보정 로직 적용. [x]
+    - [x] 팝업 너비를 뷰포트 너비에 비례하게 조정 (`max-w-[calc(100vw-2rem)]`). [x]
+
+3. **가로 스크롤 방지 및 화면 고정 (Viewport Locking)** [x]
+    - [x] `index.css`: `html`, `body`에 `overflow-x-hidden` 및 `touch-action: pan-y` 적용. [x]
+    - [x] 레이아웃 하단 및 사이드에서 뷰포트를 초과하는 요소 전수 점검 및 수정. [x]
+
+4. **검증 및 마감** [x]
+    - [x] 다양한 모바일 해상도(320px ~ 430px)에서 레이아웃 테스트. [x]
+    - [x] 다크모드 버튼 및 달력 팝업의 시각적 안정성 최종 확인. [x]
 ### Phase 7: 빌드 오류 긴급 복구 (Build Failure Fix)
 - [x] [RESEARCH] [research.md](file:///c:/Users/PT/Desktop/calendar/research.md) 작성 및 원인 분석 완료.
 - [x] [MODIFY] [tailwind.config.js](file:///c:/Users/PT/Desktop/calendar/tailwind.config.js) 
