@@ -98,13 +98,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
 
   return (
     <div className="relative flex items-center" ref={containerRef}>
-      <div 
+      <button 
         onClick={() => setIsOpen(true)}
-        className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-elegant-gold/10 cursor-pointer transition-all group"
+        className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-elegant-gold/10 cursor-pointer transition-all group outline-none focus-visible:ring-2 focus-visible:ring-elegant-gold/50"
         title="Select Date"
       >
         <CalendarDays className="text-elegant-gold w-5 h-5 group-hover:scale-110 transition-transform" />
-      </div>
+      </button>
 
       {isOpen && renderCalendar()}
     </div>

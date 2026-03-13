@@ -104,6 +104,19 @@
 - [ ] **최종 크로스 디바이스 검증**:
     - [ ] 웹과 모바일 각각의 레이아웃 의도대로 작동하는지 최종 확인.
 
+### Phase 11: 웹 환경 최적화 및 가독성 고도화 (Web Polish & Typography)
+- [x] **웹 상단바 제목 복구 (Header Title Recovery)**:
+    - [x] [MODIFY] [Header.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/Header.tsx)
+        - `h1` 태그의 `max-w-[120px]` 제약을 제거하고 웹에서 전체 제목 표시.
+- [x] **DatePicker 클릭 신뢰성 강화 (DatePicker Fix)**:
+    - [x] [MODIFY] [DatePicker.tsx](file:///c:/Users/PT/Desktop/calendar/src/components/DatePicker.tsx)
+        - 트리거 요소를 `button`으로 변경하고 터치/클릭 이벤트 안정화.
+- [x] **한글 가독성 전면 개선 (Korean Typography Fix)**:
+    - [x] [MODIFY] [index.css](file:///c:/Users/PT/Desktop/calendar/src/index.css) 및 [tailwind.config.js](file:///c:/Users/PT/Desktop/calendar/tailwind.config.js)
+        - 본문 텍스트 `font-weight` 보강 및 한글 특화 자간/행간 재조정.
+- [-] **데이터 최종 수정 (Skipped per user request)**:
+    - [ ] `soulData.ts`의 "인간과 세상이" 구절 어순 수정 (정밀 매칭 시도).
+
 ## 3. 검증 결과
 - **단위 테스트**: 25개 테스트 전체 통과 (Vitest).
 - **타입 체크**: `npx tsc -b` 에러 없음.
