@@ -47,20 +47,23 @@ function App() {
         />
       </div>
 
-      <JournalModal 
-        isOpen={isJournalOpen}
-        onClose={() => setIsJournalOpen(false)}
-        selectedDate={selectedDate}
-        yaoTitle={yaoData?.titleLine || ""}
-      />
+      {isJournalOpen && (
+        <JournalModal 
+          key={selectedDate.toISOString().split('T')[0]}
+          isOpen={isJournalOpen}
+          onClose={() => setIsJournalOpen(false)}
+          selectedDate={selectedDate}
+          yaoTitle={yaoData?.titleLine || ""}
+        />
+      )}
 
       {/* Toast Notification */}
       <div 
-        className={`fixed top-6 left-1/2 transform -translate-x-1/2 z-[100] transition-all duration-500 ease-in-out ${toastMessage ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
+        className={`fixed top-6 left-1/2 transform -translate-x-1/2 z-[100] transition-all duration-700 ease-in-out ${toastMessage ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8 pointer-events-none'}`}
       >
-        <div className="bg-elegant-gold text-white dark:text-ray-dark font-bold px-6 py-3 rounded-full shadow-xl shadow-elegant-gold/20 flex items-center gap-3 border border-yellow-400 dark:border-yellow-600">
+        <div className="bg-elegant-gold text-white dark:text-ray-dark font-bold px-8 py-4 rounded-full shadow-2xl shadow-elegant-gold/30 flex items-center gap-3 border border-yellow-400/50 dark:border-white/20 backdrop-blur-md animate-fade-in-up">
           <span className="material-icons opacity-90 text-[20px]">check_circle</span>
-          <span className="tracking-wide text-sm md:text-base">{toastMessage}</span>
+          <span className="tracking-widest text-sm md:text-base uppercase font-bold">{toastMessage}</span>
         </div>
       </div>
     </div>

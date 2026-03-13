@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import type { GuaData, YaoData, SoulSection, SoulGroup } from '../types';
 
 interface MainContentProps {
@@ -14,16 +14,7 @@ interface MainContentProps {
 export const MainContent: React.FC<MainContentProps> = ({
   yaoNum, guaData, yaoData, hitSoulGroup, soulSections, onOpenJournal
 }) => {
-  const [sigilSrc, setSigilSrc] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (yaoNum !== null) {
-      const src = `/images/yao-${yaoNum}.png`;
-      setSigilSrc(src);
-    } else {
-      setSigilSrc(null);
-    }
-  }, [yaoNum]);
+  const sigilSrc = yaoNum !== null ? `/images/yao-${yaoNum}.png` : null;
 
   const renderEmpty = () => (
     <div className="flex flex-col items-center justify-center space-y-4 py-20 opacity-50">
@@ -53,10 +44,10 @@ export const MainContent: React.FC<MainContentProps> = ({
   };
 
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-36 md:pb-48 mt-4 space-y-12 animate-fade-in relative z-10">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-36 md:pb-48 mt-4 space-y-12 animate-fade-in-up relative z-10">
       
       {/* 주역(I Ching) 섹션 */}
-      <section className="bg-white/80 dark:bg-ray-dark/80 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-14 shadow-xl border border-elegant-gold/10 transition-colors duration-300 relative overflow-hidden group">
+      <section className="bg-white/80 dark:bg-ray-dark/80 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-14 shadow-xl border border-elegant-gold/10 transition-colors duration-300 relative overflow-hidden group animate-fade-in-up stagger-1">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-elegant-gold to-transparent opacity-20 group-hover:opacity-40 transition-opacity"></div>
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-elegant-gold opacity-5 dark:opacity-5 blur-3xl rounded-full"></div>
         
@@ -123,7 +114,7 @@ export const MainContent: React.FC<MainContentProps> = ({
       </section>
 
       {/* 영혼의 달력 (Calendar of the Soul) 섹션 */}
-      <section className="relative">
+      <section className="relative animate-fade-in-up stagger-2">
         <div className="text-center mb-10">
           <div className="inline-block">
             <h2 className="text-3xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-wide mb-3">
@@ -148,7 +139,7 @@ export const MainContent: React.FC<MainContentProps> = ({
               const content = seasonMatch ? sec.text.substring(seasonMatch[0].length).trim() : sec.text;
 
               return (
-                <div key={i} className="space-y-4 bg-white/70 dark:bg-ray-dark/70 backdrop-blur-xl p-8 rounded-[2rem] border border-elegant-gold/20 shadow-md hover:shadow-lg dark:shadow-2xl dark:shadow-black/50 h-full text-center transition-all duration-500 hover:-translate-y-1 group">
+                <div key={i} className={`space-y-4 bg-white/70 dark:bg-ray-dark/70 backdrop-blur-xl p-8 rounded-[2rem] border border-elegant-gold/20 shadow-md hover:shadow-lg dark:shadow-2xl dark:shadow-black/50 h-full text-center transition-all duration-500 hover:-translate-y-1 group animate-fade-in-up stagger-${i + 3}`}>
                   <div className="flex justify-between items-baseline mb-2 gap-2">
                     <div className="font-bold text-sm text-warm-gray-600 dark:text-warm-gray-300 group-hover:text-elegant-gold transition-colors">{sec.week}주</div>
                     <div className="text-xs text-warm-gray-400 dark:text-warm-gray-500 font-bold whitespace-nowrap uppercase tracking-widest">{sec.range}</div>

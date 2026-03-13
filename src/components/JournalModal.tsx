@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { X, Save, Download } from 'lucide-react';
 import { generateGuidedQuestion } from '../utils/logic';
 
@@ -10,27 +10,17 @@ interface JournalModalProps {
 }
 
 export const JournalModal: React.FC<JournalModalProps> = ({ isOpen, onClose, selectedDate, yaoTitle }) => {
-  const [entry, setEntry] = useState('');
-  const [question, setQuestion] = useState('');
-
   const dateStr = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
 
-  useEffect(() => {
-    if (isOpen) {
-      const savedKey = `journal_${dateStr}`;
-      const savedQuestionKey = `journal_q_${dateStr}`;
-      
-      const savedEntry = localStorage.getItem(savedKey) || '';
-      const savedQuestion = localStorage.getItem(savedQuestionKey);
-      
-      setEntry(savedEntry);
-      if (savedQuestion) {
-        setQuestion(savedQuestion);
-      } else {
-        setQuestion(generateGuidedQuestion(yaoTitle));
-      }
-    }
-  }, [isOpen, dateStr, yaoTitle]);
+  const [entry, setEntry] = useState(() => {
+    const savedKey = `journal_${dateStr}`;
+    return localStorage.getItem(savedKey) || '';
+  });
+  const [question] = useState(() => {
+    const savedQuestionKey = `journal_q_${dateStr}`;
+    const savedQuestion = localStorage.getItem(savedQuestionKey);
+    return savedQuestion || generateGuidedQuestion(yaoTitle);
+  });
 
   const handleSave = () => {
     localStorage.setItem(`journal_${dateStr}`, entry);
