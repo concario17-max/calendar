@@ -26,13 +26,13 @@ export const MainContent: React.FC<MainContentProps> = ({
       <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
 
       {/* 일기 작성 모달 트리거 */}
-      <div className="fixed bottom-8 sm:bottom-12 left-1/2 transform -translate-x-1/2 z-30 pointer-events-none w-full max-w-4xl px-4 flex justify-center">
+      <div className="flex justify-center pt-8 border-t border-warm-gray-200/30 dark:border-warm-gray-800/30">
         <button 
           onClick={onOpenJournal}
-          className="pointer-events-auto bg-ray-dark dark:bg-white text-white dark:text-ray-dark hover:bg-elegant-gold dark:hover:bg-elegant-gold px-8 py-4 rounded-full font-bold shadow-xl shadow-ray-dark/20 dark:shadow-white/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 flex items-center gap-3 w-full sm:w-auto justify-center max-w-sm active:scale-95 active:shadow-inner"
+          className="bg-ray-dark dark:bg-white text-white dark:text-ray-dark hover:bg-elegant-gold dark:hover:bg-elegant-gold px-10 py-5 rounded-2xl font-bold shadow-2xl shadow-ray-dark/20 dark:shadow-white/20 transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 flex items-center gap-3 w-full sm:w-auto justify-center max-w-sm active:scale-95 active-scale font-display"
         >
           <span className="material-icons opacity-80 text-xl">auto_awesome</span>
-          <span>Add Journal Entry</span>
+          <span className="tracking-tight">Add Journal Entry</span>
         </button>
       </div>
 

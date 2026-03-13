@@ -63,7 +63,7 @@ export const JournalModal: React.FC<JournalModalProps> = ({ isOpen, onClose, sel
         {/* Header */}
         <div className="px-6 py-5 border-b border-warm-gray-100 dark:border-warm-gray-800 flex justify-between items-center bg-warm-gray-50/50 dark:bg-warm-gray-900/50">
           <div className="flex flex-col">
-            <h3 className="text-xl font-serif font-bold text-warm-gray-800 dark:text-warm-gray-200">
+            <h3 className="text-xl font-display font-bold text-warm-gray-800 dark:text-warm-gray-200 tracking-tight">
               Journal Entry
             </h3>
             <span className="text-xs font-bold text-warm-gray-400 dark:text-warm-gray-500 uppercase tracking-widest mt-1">
@@ -85,14 +85,14 @@ export const JournalModal: React.FC<JournalModalProps> = ({ isOpen, onClose, sel
               <div className="w-1.5 h-1.5 rounded-full bg-elegant-gold"></div>
               GUIDED REFLECTION
             </h4>
-            <p className="text-warm-gray-700 dark:text-warm-gray-300 font-serif md:text-lg leading-relaxed">
+            <p className="text-warm-gray-800 dark:text-warm-gray-200 font-display text-base md:text-[17px] leading-relaxed tracking-tight">
               {question}
             </p>
           </div>
           
           <div className="relative">
             <div className="absolute top-4 left-4 w-12 h-12 flex items-center justify-center opacity-10 pointer-events-none">
-              <span className="font-serif italic text-6xl text-elegant-gold">“</span>
+              <span className="font-display italic text-6xl text-elegant-gold">“</span>
             </div>
             <textarea 
               value={entry}

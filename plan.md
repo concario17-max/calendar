@@ -123,6 +123,23 @@
 4. **최종 마감 (Final Polish)** [x]
     - [x] 불필요한 서체 로드(`index.html` 내 Gowun Batang 등) 제거 또는 주석 처리 검토. [x]
     - [x] 전체 레이아웃의 시각적 균형(Visual Balance) 재조정. [x]
+### Phase 19: UX 디테일 강화 (Premium UX Polish) [x]
+사용자 피드백을 반영하여 모바일 레이아웃 및 저널 기능의 가독성을 최적화함.
+
+1. **상단바 모바일 레이아웃 조정 (Header Fix)** [x]
+    - [x] `Header.tsx`: 모바일에서 제목(Brand)을 왼쪽(`order-1`), 컨트롤을 오른쪽(`order-2`)으로 재배치. [x]
+
+2. **저널 버튼 가독성 개선 (Button Re-positioning)** [x]
+    - [x] `MainContent.tsx`: 모바일에서 저널 버튼이 본문을 가리지 않도록 `fixed` 위치 조정 또는 레이아웃 흐름 하단으로 이동. [x]
+    - [x] 모바일/웹별 조건부 스타일링 최적화. [x]
+
+3. **저널 모달 가독성 통일 (Typography Consistency)** [x]
+    - [x] `JournalModal.tsx`: 성찰 질문(`GUIDED REFLECTION`) 영역의 서체를 `font-serif`에서 `font-display`(Pretendard)로 변경. [x]
+    - [x] 한글 질문의 가독성을 위한 자간/행간 재조정. [x]
+
+4. **검증 및 마감** [x]
+    - [x] 모바일 상단바 정렬 및 버튼 겹침 현상 해결 여부 확인. [x]
+    - [x] 저널 모달 내 한글 가독성 최종 확인. [x]
 ### Phase 7: 빌드 오류 긴급 복구 (Build Failure Fix)
 - [x] [RESEARCH] [research.md](file:///c:/Users/PT/Desktop/calendar/research.md) 작성 및 원인 분석 완료.
 - [x] [MODIFY] [tailwind.config.js](file:///c:/Users/PT/Desktop/calendar/tailwind.config.js) 
