@@ -17,7 +17,7 @@ export const MainContent: React.FC<MainContentProps> = ({
   yaoNum, guaData, yaoData, hitSoulGroup, soulSections, onOpenJournal
 }) => {
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-16 md:pb-24 mt-4 space-y-16 animate-fade-in-up relative z-10 safe-bottom">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 pb-28 md:pb-24 mt-4 space-y-16 animate-fade-in-up relative z-10 safe-bottom">
       
       {/* 주역(I Ching) 섹션 */}
       <IChingSection yaoNum={yaoNum} guaData={guaData} yaoData={yaoData} />
