@@ -6,7 +6,7 @@ interface SoulCalendarSectionProps {
   soulSections: SoulSection[];
 }
 
-function extractSectionBadge(text: string): { badge: string | null; content: string } {
+function extractSectionMeta(text: string): { badge: string | null; content: string } {
   const trimmed = text.trim();
   const lines = trimmed.split('\n').map((line) => line.trim()).filter(Boolean);
   const firstLine = lines[0] || '';
@@ -15,10 +15,6 @@ function extractSectionBadge(text: string): { badge: string | null; content: str
     /^(봄|여름|가을|겨울)$/i,
     /^(부활절\s*\/\s*봄)$/i,
     /^(성요한 절기)$/i,
-    /^(여름)$/i,
-    /^(가을)$/i,
-    /^(겨울)$/i,
-    /^(봄)$/i,
     /^(크리스마스)$/i,
     /^(가을)$/i,
   ];
@@ -37,49 +33,67 @@ function extractSectionBadge(text: string): { badge: string | null; content: str
 export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSoulGroup, soulSections }) => {
   return (
     <section className="relative animate-fade-in-up stagger-2">
-      <div className="text-center mb-10">
-        <div className="inline-block group">
-          <h2 className="text-3xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-tight mb-3 transition-transform duration-500 group-hover:scale-105">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 md:mb-10">
+        <div>
+          <div className="text-[11px] tracking-[0.18em] text-elegant-gold mb-2">
+            CALENDAR OF THE SOUL
+          </div>
+          <h2 className="text-[1.85rem] sm:text-[2.2rem] font-display font-semibold tracking-[-0.05em] text-warm-gray-900 dark:text-white text-balance">
             영혼의 달력
           </h2>
-          <div className="flex items-center justify-center gap-4">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-elegant-gold opacity-50 group-hover:opacity-100 transition-opacity"></div>
-            <span className="text-sm font-bold text-elegant-gold tracking-[0.3em]">
-              {hitSoulGroup ? hitSoulGroup.weeksLabel : '해당 날짜 항목 없음'}
-            </span>
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-elegant-gold opacity-50 group-hover:opacity-100 transition-opacity"></div>
-          </div>
+          <p className="text-sm sm:text-[15px] text-warm-gray-600 dark:text-warm-gray-300 mt-2 tracking-[-0.01em]">
+            주차와 계절의 흐름을 따라 오늘의 본문을 읽습니다.
+          </p>
+        </div>
+
+        <div className="self-start md:self-auto inline-flex items-center gap-3 rounded-full border border-elegant-gold/15 bg-elegant-gold/[0.08] px-4 py-2 text-sm text-elegant-gold tracking-[0.08em]">
+          <span className="w-2 h-2 rounded-full bg-elegant-gold"></span>
+          <span>{hitSoulGroup ? hitSoulGroup.weeksLabel : '해당 날짜 항목 없음'}</span>
         </div>
       </div>
 
       {soulSections.length >= 2 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-elegant-gold opacity-5 blur-3xl rounded-full pointer-events-none"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-elegant-gold opacity-[0.06] blur-3xl rounded-full pointer-events-none"></div>
           {soulSections.slice(0, 2).map((sec, i) => {
-            const { badge, content } = extractSectionBadge(sec.text);
+            const { badge, content } = extractSectionMeta(sec.text);
 
             return (
-              <div
+              <article
                 key={i}
-                className={`space-y-4 bg-white/70 dark:bg-ray-dark/70 backdrop-blur-xl p-8 rounded-[2rem] border border-elegant-gold/20 shadow-md hover:shadow-2xl dark:shadow-2xl dark:shadow-black/50 h-full text-center transition-all duration-700 hover:-translate-y-2 group animate-fade-in-up stagger-${i + 3}`}
+                className={`relative h-full rounded-[2rem] border border-elegant-gold/16 bg-white/76 dark:bg-ray-dark/76 backdrop-blur-xl p-6 sm:p-7 shadow-md hover:shadow-2xl dark:shadow-2xl dark:shadow-black/50 transition-all duration-700 hover:-translate-y-1.5 group animate-fade-in-up stagger-${i + 3}`}
               >
-                <div className="flex justify-between items-baseline mb-2 gap-2">
-                  <div className="font-bold text-sm text-warm-gray-600 dark:text-warm-gray-300 group-hover:text-elegant-gold transition-colors">
-                    {sec.week}주
+                <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-elegant-gold to-transparent opacity-40"></div>
+
+                <div className="flex items-start justify-between gap-3 mb-5">
+                  <div>
+                    <div className="text-[11px] tracking-[0.18em] text-warm-gray-500 dark:text-warm-gray-400 mb-2">
+                      WEEK
+                    </div>
+                    <h3 className="text-[1.45rem] font-display font-semibold tracking-[-0.05em] text-warm-gray-900 dark:text-white">
+                      {sec.week}주
+                    </h3>
                   </div>
-                  <div className="text-xs text-warm-gray-400 dark:text-warm-gray-500 font-bold whitespace-nowrap tracking-widest">
-                    {sec.range}
+                  <div className="text-right">
+                    <div className="text-[11px] tracking-[0.18em] text-warm-gray-500 dark:text-warm-gray-400 mb-2">
+                      RANGE
+                    </div>
+                    <div className="text-sm text-warm-gray-700 dark:text-warm-gray-200 tracking-[-0.01em]">
+                      {sec.range}
+                    </div>
                   </div>
                 </div>
-                <div className="whitespace-pre-wrap break-keep leading-relaxed text-[15px] md:text-[16px] font-display text-ray-body dark:text-warm-gray-200 mt-2 tracking-tight transition-colors duration-500 group-hover:text-ray-dark dark:group-hover:text-white">
-                  {badge && (
-                    <div className="text-[13px] md:text-sm font-bold text-warm-gray-500 dark:text-warm-gray-400 mb-5 tracking-[0.2em] group-hover:text-elegant-gold transition-colors">
-                      {badge}
-                    </div>
-                  )}
+
+                {badge && (
+                  <div className="inline-flex items-center rounded-full border border-elegant-gold/15 bg-elegant-gold/[0.08] px-3 py-1 text-[12px] tracking-[0.08em] text-elegant-gold mb-5">
+                    {badge}
+                  </div>
+                )}
+
+                <div className="text-[15px] md:text-[16px] leading-8 md:leading-[2.02] font-display text-ray-body dark:text-warm-gray-200 tracking-[-0.01em] whitespace-pre-wrap break-keep text-block-flow">
                   {content}
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
