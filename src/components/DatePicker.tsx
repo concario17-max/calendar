@@ -127,7 +127,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-elegant-gold/10 cursor-pointer transition-all group outline-none focus-visible:ring-2 focus-visible:ring-elegant-gold/50 active-scale"
-        title="Select Date"
+        title="날짜 선택"
       >
         <CalendarDays className="text-elegant-gold w-5 h-5 group-hover:scale-110 transition-transform" />
       </button>

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { 
-  parseNumberedBlocks, splitYao, splitGua, 
-  parseSoulGroups 
+import {
+  parseNumberedBlocks, splitYao, splitGua,
+  parseSoulGroups
 } from './logic';
 
 describe('parser', () => {
@@ -44,16 +44,16 @@ describe('parser', () => {
     it('should parse complex soul calendar text into groups', () => {
       const text = `
 CoTS Verses for Weeks 1 and 2
-(4월 7-20)
+(4/7-20)
 ...
 CoTS Verses for Weeks 3
-(4월 21-27)
+(4/21-27)
 ...
 `;
       const groups = parseSoulGroups(text);
       expect(groups.length).toBe(2);
-      expect(groups[0].weeksLabel).toBe('Weeks 1 & 2');
-      expect(groups[1].weeksLabel).toBe('Weeks 3');
+      expect(groups[0].weeksLabel).toBe('1주 · 2주');
+      expect(groups[1].weeksLabel).toBe('3주');
     });
   });
 });

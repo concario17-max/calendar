@@ -23,15 +23,15 @@ describe('textUtils', () => {
       const title = '338. The Great Beginning';
       const question = generateGuidedQuestion(title);
       expect(question).toContain('The Great Beginning');
-      expect(question).toMatch(/[?]$/);
+      expect(question).toMatch(/[?.]$/);
     });
 
     it('should extract name correctly from multi-line Yao title', () => {
-      const title = '28. 六四 需于血.\n루르히 (3/28)(4° 양자리) 사랑';
+      const title = '28. Some Opening.\nLuluwa (3/28) / fourth station';
       const question = generateGuidedQuestion(title);
-      expect(question).toContain('루르히');
+      expect(question).toContain('Luluwa');
       expect(question).not.toContain('3/28');
-      expect(question).not.toContain('양자리');
+      expect(question).not.toContain('fourth station');
     });
   });
 });

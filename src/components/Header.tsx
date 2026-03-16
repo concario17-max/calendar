@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ selectedDate, onDateChange }) =>
             <Telescope className="text-white w-4.5 h-4.5 sm:w-6 sm:h-6" />
           </div>
           <h1 className="text-base sm:text-2xl font-display font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-elegant-gold to-yellow-600 truncate">
-            Celestial Ephemeris
+            심상 달력
           </h1>
         </div>
 
@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({ selectedDate, onDateChange }) =>
               onClick={() => onDateChange(new Date())}
               className="px-2 sm:px-3 py-1 text-[9px] sm:text-xs font-bold uppercase tracking-wider text-warm-gray-600 dark:text-warm-gray-300 hover:text-elegant-gold dark:hover:text-elegant-gold transition-all hover:bg-elegant-gold/10 rounded-full whitespace-nowrap active-scale"
             >
-              Today
+              오늘
             </button>
           </div>
           
