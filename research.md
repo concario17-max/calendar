@@ -1,105 +1,100 @@
-# Calendar Project Research Report
+# Calendar 프로젝트 조사 보고서
 
-Last reviewed commit: `d45028c`
-Report updated: 2026-03-16
+기준 커밋: `d45028c`  
+최종 갱신: 2026-03-16
 
-## 1. Executive Summary
+## 1. 요약
 
-This project is a single-page React application that maps a selected date to:
+이 프로젝트는 선택한 날짜를 기준으로 다음 3가지를 보여주는 단일 페이지 앱이다.
 
-1. an I Ching `yaoNum`
-2. a derived `guaNum`
-3. a matching `Calendar of the Soul` weekly section
+1. I Ching `yaoNum`
+2. `yaoNum`으로부터 계산한 `guaNum`
+3. `Calendar of the Soul` 주간 본문
 
-The app does not use any external API for content lookup. Its domain data lives inside the repository in three large text files:
+핵심 특징은 외부 API 없이 저장소 안의 정적 텍스트 원문만으로 동작한다는 점이다.  
+실제 도메인 데이터는 아래 3개 파일이다.
 
 - `1.gua.txt`
 - `2.yao.txt`
 - `3.soul.txt`
 
-Those source files are converted into TypeScript string constants in `src/data/*.ts`, then parsed in the browser at runtime.
+이 파일들을 `src/data/*.ts`의 문자열 상수로 변환한 뒤, 브라우저 런타임에서 파싱해서 화면에 표시한다.
 
-The major work completed during this review was:
+이번 정리 작업으로 완료된 핵심 항목은 다음과 같다.
 
-1. code-layer mojibake cleanup
-2. restoration of the text source files from healthy git history
-3. regeneration of `src/data/*.ts`
-4. Korean UI label normalization
-5. improvement of soul-calendar parsing so section headers and subtitles survive the restored source format
+1. 코드 레벨 문자 깨짐 정리
+2. git 히스토리에서 정상 원문 복구
+3. `src/data/*.ts` 재생성
+4. UI 라벨 한국어 통일
+5. `영혼의 달력` 파싱 및 표시 개선
+6. 미사용 파일 정리
 
-Current build and test status is healthy.
+현재 빌드와 테스트는 모두 통과한다.
 
-## 2. Stack and Runtime Model
-
-### 2.1 Tech stack
+## 2. 기술 스택
 
 - React 19
 - TypeScript 5.9
 - Vite 7
 - Tailwind CSS 3
 - Vitest + jsdom
-- `lucide-react` icons
+- `lucide-react`
 
-### 2.2 Core runtime shape
+앱은 라우터 없는 단일 화면 구조다.
 
-Entry flow:
+진입 흐름:
 
-`index.html`
--> `src/main.tsx`
--> `App`
--> `useCalendarLogic`
--> rendered sections
+`index.html`  
+-> `src/main.tsx`  
+-> `App`  
+-> `useCalendarLogic`  
+-> 화면 섹션 렌더
 
-There is no router and no multi-page navigation. The whole experience is one stateful screen.
+## 3. 주요 폴더와 역할
 
-## 3. Repository Structure
+### `src/`
 
-### 3.1 Application code
+- `main.tsx`
+  - 앱 마운트
+- `App.tsx`
+  - 최상위 조합
+  - 토스트
+  - 저널 모달 상태 관리
+- `components/`
+  - 헤더, 날짜 선택기, 본문 섹션, 저널 모달
+- `hooks/`
+  - 날짜 기반 계산과 테마 토글
+- `utils/`
+  - 파싱, 날짜 계산, soul 범위 계산
+- `types/`
+  - 파싱 결과 타입
+- `data/`
+  - 생성된 문자열 상수
 
-- `src/main.tsx`
-  - mounts the app
-- `src/App.tsx`
-  - top-level orchestration
-  - toast display
-  - journal modal state
-- `src/components/`
-  - presentational sections and modal UI
-- `src/hooks/`
-  - theme logic and date-to-content mapping
-- `src/utils/`
-  - parsing, numbering, range matching
-- `src/types/`
-  - typed parsing outputs
-- `src/data/`
-  - generated string constants
-
-### 3.2 Source-of-truth content files
+### 루트 데이터 파일
 
 - `1.gua.txt`
 - `2.yao.txt`
 - `3.soul.txt`
 
-These are the real content database for the app.
+이 3개가 이 앱의 실제 콘텐츠 원본이다.
 
-### 3.3 Generation script
+### 생성 스크립트
 
 - `convert_data.cjs`
-  - converts the root text files into:
-    - `src/data/guaData.ts`
-    - `src/data/yaoData.ts`
-    - `src/data/soulData.ts`
+  - 루트 txt 파일을 `src/data/guaData.ts`, `src/data/yaoData.ts`, `src/data/soulData.ts`로 변환
 
-### 3.4 Static assets
+### 정적 이미지
 
-- `public/images/yao-25.png` through `public/images/yao-384.png`
+- `public/images/yao-25.png` ~ `public/images/yao-384.png`
 
-These images are referenced directly by `yaoNum`.
+각 `yaoNum`에 대응하는 이미지가 직접 연결된다.
 
-## 4. How the App Works
+## 4. 현재 런타임 구조
 
-## 4.1 Top-level state
+`useCalendarLogic()`이 앱의 핵심 도메인 허브다.
 
-`useCalendarLogic()` produces:
+이 훅이 제공하는 값:
 
 - `selectedDate`
 - `setSelectedDate`
@@ -110,171 +105,158 @@ These images are referenced directly by `yaoNum`.
 - `hitSoulGroup`
 - `soulSections`
 
-`App.tsx` additionally owns:
+`App.tsx`에서 따로 관리하는 값:
 
 - `isJournalOpen`
 - `toastMessage`
 
-## 4.2 Date selection
+즉, 앱은 날짜 하나를 중심으로 계산 결과와 화면 표시를 구성한다.
 
-The header contains a custom date picker.
+## 5. 날짜 계산 규칙
 
-Behavior:
+### `calcYaoNum(date)`
 
-- open calendar popover
-- move month with chevrons
-- choose a date
-- keyboard arrows move by day or week while open
-- `Escape` closes
-- outside click closes
+규칙:
 
-The `Today` button resets to `new Date()`.
+- 기준 시작일: 매년 4월 7일
+- 유효 구간: 360일
+- 반환 범위: `25..384`
+- 4월 2일 ~ 4월 6일은 `null`
 
-## 4.3 Theme
+결과 예시:
 
-`useTheme()` reads:
+- 4/7 -> 25
+- 다음 해 4/1 -> 384
+- 4/2 ~ 4/6 -> 없음
 
-1. `localStorage.theme`
-2. system dark-mode preference if no saved value exists
+### `calcGuaNum(yaoNum)`
 
-It toggles the `dark` class on `document.documentElement`.
+공식:
 
-## 4.4 Journal
+`Math.floor((yaoNum - 1) / 6) + 1`
 
-The journal is browser-local only.
+즉, 6개 yao가 1개 gua를 이룬다.
 
-Storage keys:
+## 6. 데이터 파싱 방식
+
+### `parseNumberedBlocks`
+
+`gua`, `yao`는 번호 시작 블록으로 자른다.
+
+정규식:
+
+`/^(\d+)\.\s/mg`
+
+반환형:
+
+`Map<number, string>`
+
+### `splitGua`
+
+- 첫 줄 -> `header`
+- 나머지 -> `meta`
+
+### `splitYao`
+
+- 첫 줄 -> `titleLine`
+- 첫 문단 -> `short`
+- 나머지 문단 -> `body`
+
+### `parseSoulGroups`
+
+`CoTS Verses for Weeks ...` 라인을 그룹 시작으로 인식한다.
+
+추출 항목:
+
+- 표시 라벨
+- 주차 번호
+- 날짜 범위
+- 원문 블록
+
+### `parseWeekSectionsFromGroupBlock`
+
+주간 헤더를 다시 쪼개서 카드용 섹션을 만든다.
+
+최근 개선 사항:
+
+- `1주 (4월 7-13) 부활절 / 봄` 같은 줄의 꼬리 정보가 보존됨
+- `weeksLabel`이 영어가 아니라 `52주 · 1주` 같은 한국어 형식으로 표시됨
+
+## 7. UI 구조
+
+### Header
+
+포함 기능:
+
+- 브랜드 표시
+- 날짜 선택
+- 오늘 버튼
+- 테마 토글
+
+### I Ching 섹션
+
+표시 내용:
+
+- `guaData.header`
+- `guaData.meta`
+- `yaoData.titleLine`
+- `yaoData.short`
+- `yaoData.body`
+- 대응 이미지 `/images/yao-${yaoNum}.png`
+
+### 영혼의 달력 섹션
+
+표시 내용:
+
+- 현재 soul 그룹 라벨
+- 최대 2개의 주간 카드
+- 복구된 원문 형식에 맞춘 부제 표시
+
+### 저널 모달
+
+기능:
+
+- 날짜별 기록 작성
+- 로컬 저장
+- TXT 다운로드
+- 안내 질문 표시
+
+저장 키:
 
 - `journal_YYYY-MM-DD`
 - `journal_q_YYYY-MM-DD`
 
-Capabilities:
+## 8. 이번에 복구한 핵심 문제
 
-- write per-date journal text
-- save locally
-- download a `.txt` export
-- show a guided prompt derived from the selected yao title
+가장 중요했던 문제는 원문과 코드 문자열이 깨져 보이는 상태였다.
 
-## 5. Domain Logic
+확인 결과:
 
-## 5.1 Parsing at startup
+- 저장소 현재본만 손상된 것이 아니었고
+- git 히스토리 안에 정상 원문이 남아 있었음
 
-`useCalendarLogic()` parses the source text once via `useMemo([])`:
+복구 기준:
 
-- `parseNumberedBlocks(GUA_TEXT)`
-- `parseNumberedBlocks(YAO_TEXT)`
-- `parseSoulGroups(SOUL_TEXT)`
+- `1.gua.txt` -> `cab8715`
+- `2.yao.txt` -> `cab8715`
+- `3.soul.txt` -> `5bc6bd4`
 
-That creates:
+복구 후:
 
-- `GUA_MAP`
-- `YAO_MAP`
-- `SOUL_GROUPS`
+- 루트 txt 복원
+- `convert_data.cjs` 재실행
+- `src/data/*.ts` 재생성
 
-## 5.2 Date to yao
+중요한 점:
 
-`calcYaoNum(date)` uses a fixed cycle:
+PowerShell 콘솔에서는 인코딩 때문에 여전히 글자가 이상하게 보일 수 있다.  
+하지만 Node/Vite 기준으로 파일을 읽었을 때는 정상 텍스트가 확인되었고, 실제 앱도 그 경로를 사용한다.
 
-- cycle start: April 7
-- active span: 360 days
-- valid mapping: `25..384`
-- April 2 through April 6 return `null`
+## 9. UI 정리 결과
 
-This means the app intentionally leaves a gap before the yearly cycle restarts.
+현재 화면 라벨은 한국어로 통일했다.
 
-## 5.3 Yao to gua
-
-`calcGuaNum(yaoNum)` uses:
-
-`Math.floor((yaoNum - 1) / 6) + 1`
-
-So each gua corresponds to six yao values.
-
-## 5.4 Soul calendar matching
-
-For the selected month/day:
-
-1. the app finds the matching soul group
-2. then splits that group into weekly sections
-3. then renders the first two sections of the matched group
-
-This is why the soul section is effectively a two-card view.
-
-## 6. Current Parsing Rules
-
-## 6.1 `parseNumberedBlocks`
-
-Used for `gua` and `yao`.
-
-Boundary pattern:
-
-`/^(\d+)\.\s/mg`
-
-Output:
-
-`Map<number, string>`
-
-## 6.2 `splitGua`
-
-Output:
-
-- first line -> `header`
-- remaining lines -> `meta`
-
-## 6.3 `splitYao`
-
-Output:
-
-- `titleLine`
-- `short`
-- `body`
-
-The first paragraph after the title becomes `short`, and the remaining paragraphs become `body`.
-
-## 6.4 `parseSoulGroups`
-
-Group title detection:
-
-`CoTS Verses for Weeks ...`
-
-For each group it extracts:
-
-- label
-- week numbers
-- date ranges
-- raw block text
-
-## 6.5 `parseWeekSectionsFromGroupBlock`
-
-Recent improvement:
-
-- restored Korean source format is now respected
-- trailing text after a weekly date header is preserved
-- lines like `1주 (4월 7-13) 부활절 / 봄` keep the subtitle instead of losing it
-
-## 6.6 `extractWeeksLabel`
-
-Recent improvement:
-
-- labels now render in Korean style
-- example: `52주 · 1주`
-
-instead of the earlier English `Weeks 52 & 1`
-
-## 7. UI Status After Cleanup
-
-## 7.1 What was fixed
-
-The UI was normalized to Korean in visible labels such as:
-
-- app title
-- button labels
-- empty states
-- journal actions
-- toast copy
-- section headings
-
-Examples now used in UI:
+예:
 
 - `심상 달력`
 - `오늘`
@@ -283,92 +265,73 @@ Examples now used in UI:
 - `저널 기록`
 - `저장하기`
 - `취소`
+- `TXT 다운로드`
 
-## 7.2 Soul section improvements
+즉, 이전처럼 영어/깨진 문자열이 섞인 상태는 크게 줄었다.
 
-The soul section now aims to preserve subtitle lines such as:
+## 10. 미사용 파일 정리
 
-- `부활절 / 봄`
-- `성요한 절기`
-- seasonal markers when they appear as standalone leading lines
+삭제 완료:
 
-This was a direct result of restoring the source text and updating the parser.
+- `src/App.css`
+- `generate_data.js`
 
-## 8. Data Recovery Findings
+이유:
 
-This review confirmed that the broken source text seen in the working tree was not the only version available.
+- `src/App.css`는 import되지 않는 Vite 템플릿 잔재
+- `generate_data.js`는 현재 데이터 생성 구조와 맞지 않는 레거시 스크립트
 
-Healthy historical content existed in git:
+## 11. 검증 결과
 
-- `1.gua.txt` restored from `cab8715`
-- `2.yao.txt` restored from `cab8715`
-- `3.soul.txt` restored from `5bc6bd4`
+확인 완료:
 
-After restoration, `convert_data.cjs` was rerun to regenerate:
+- `npm run build` 통과
+- `npm test -- --run` 통과
+- 25개 테스트 전부 통과
+- 개발 서버 `http://127.0.0.1:4173` 응답 `200`
 
-- `src/data/guaData.ts`
-- `src/data/yaoData.ts`
-- `src/data/soulData.ts`
+즉, 현재 상태는 배포 가능한 수준이다.
 
-Important note:
+## 12. 현재 강점
 
-PowerShell console output may still display mojibake depending on terminal encoding, but Node/Vite file reads were verified to contain healthy text. Since the app and build pipeline use Node-based reads, that is the relevant validation path.
+1. 외부 API 없이 완결된 구조
+2. 핵심 로직이 `utils`에 모여 있어 테스트 가능
+3. 날짜 계산이 UTC day-only 기준이라 안정적
+4. 원문 복구 후 콘텐츠 신뢰도가 크게 개선됨
+5. 한국어 UI로 톤이 정리됨
 
-## 9. Testing Status
+## 13. 남은 리스크
 
-Current automated status:
+1. 터미널 인코딩 때문에 수동 점검 시 혼동 가능
+2. UI 통합 테스트는 아직 없음
+3. 번들 크기 경고가 남아 있음
+4. soul 카드가 최대 2개만 보이도록 제한돼 있음
 
-- build passes
-- all 25 tests pass
+## 14. 추천 후속 작업
 
-Main test coverage areas:
+우선순위 추천:
 
-- date mapping
-- gua/yao math
-- newline normalization
-- numbered block parsing
-- soul group parsing
-- guided question extraction
+1. 날짜별 UI 스냅샷 또는 통합 테스트 추가
+2. soul 섹션이 2개만 보이는 정책이 맞는지 확인
+3. 큰 텍스트 상수들을 분리 로딩할지 검토
+4. 필요하면 배포 자동화 또는 운영 문서 추가
 
-## 10. Strengths
+## 15. 최종 평가
 
-1. Clear separation between source content, parsing, and presentation
-2. No server dependency for the core product behavior
-3. UTC-based day mapping avoids many timezone boundary errors
-4. Most important business logic is testable in utility functions
-5. Journal persistence is simple and understandable
+이 프로젝트는 일반적인 React 페이지라기보다, 날짜 기반 텍스트 매핑 앱에 가깝다.
 
-## 11. Remaining Risks
+핵심은 다음 세 가지다.
 
-1. Terminal encoding can still make healthy files appear broken during manual inspection
-2. Not all UI behavior is covered by component-level tests
-3. `App.css` is still a leftover template artifact and appears unused
-4. `generate_data.js` appears legacy and may confuse future maintenance
-5. Bundle size remains large because large text constants are shipped inside the JS bundle
+- 날짜 계산
+- 원문 파싱
+- 그 결과를 보여주는 단일 화면 UI
 
-## 12. Recommended Next Steps
+정리 이전에는 문자 깨짐이 가장 큰 리스크였지만, 현재는 다음 상태까지 회복됐다.
 
-Recommended order:
+- 원문 복구 완료
+- 데이터 상수 재생성 완료
+- 한국어 UI 정리 완료
+- soul 파싱 개선 완료
+- 테스트/빌드 검증 완료
 
-1. Update or replace `research.md`-adjacent process docs that still assume the old broken state
-2. Remove or archive unused legacy files like `App.css` and `generate_data.js` after confirming they are not needed
-3. Add at least one integration test around soul-section rendering using restored Korean source text
-4. Consider moving large content out of JS constants if bundle size becomes a real issue
-
-## 13. Final Assessment
-
-The project is in much better shape than it first appeared.
-
-At the start of the investigation, the most serious concern was widespread text corruption. After reviewing history and restoring the real source files, the app now has:
-
-- restored domain text
-- regenerated data constants
-- normalized Korean UI labels
-- stronger soul-calendar parsing
-- passing build and test validation
-
-The codebase should now be understood primarily as:
-
-`date-driven text mapping application`
-
-rather than a generic React UI project.
+현재 기준으로는 유지보수 가능한 상태이며, 바로 다음 단계는 선택적 품질 향상 작업이다.
