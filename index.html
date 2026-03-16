@@ -5,7 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Celestial Ephemeris - a contemplative tool for the I Ching and Rudolf Steiner's Calendar of the Soul." />
-    <meta name="keywords" content="I Ching, Calendar of the Soul, Rudolf Steiner, Celestial Ephemeris, contemplation, meditation" />
+    <meta name="keywords" content="I Ching, Rudolf Steiner, Calendar of the Soul, Celestial Ephemeris, contemplation" />
 
     <meta property="og:title" content="Celestial Ephemeris" />
     <meta property="og:description" content="A contemplative tool for the I Ching and Rudolf Steiner's Calendar of the Soul." />
@@ -26,13 +26,11 @@
     <div id="root"></div>
 
     <script>
-      // Fade the app in after fonts load for a smoother first paint.
       document.fonts.ready.then(() => {
         document.body.classList.remove('opacity-0');
         document.body.classList.add('opacity-100');
       });
 
-      // Fallback in case the font-loading promise stalls.
       setTimeout(() => {
         document.body.classList.remove('opacity-0');
         document.body.classList.add('opacity-100');
