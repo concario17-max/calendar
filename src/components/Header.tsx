@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({ selectedDate, onDateChange }) =>
           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-elegant-gold to-yellow-600 flex items-center justify-center shadow-lg gold-glow flex-shrink-0">
             <Telescope className="text-white w-4.5 h-4.5 sm:w-6 sm:h-6" />
           </div>
-          <h1 className="text-base sm:text-2xl font-display font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-elegant-gold to-yellow-600 truncate">
+          <h1 className="text-lg sm:text-[2rem] font-brand font-semibold tracking-[0.02em] text-transparent bg-clip-text bg-gradient-to-r from-elegant-gold to-yellow-600 truncate">
             Celestial Ephemeris
           </h1>
         </div>

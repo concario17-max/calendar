@@ -49,7 +49,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, y
           <div className="border-b border-warm-gray-200 dark:border-warm-gray-800 pb-8">
             <div className="flex items-center gap-3 mb-4">
               <div className="h-6 w-1 bg-elegant-gold rounded-full shadow-[0_0_8px_rgba(184,134,11,0.5)]"></div>
-              <h2 className="text-xl md:text-2xl font-bold font-display tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 break-keep">
+              <h2 className="text-xl md:text-[1.9rem] font-bold font-brand tracking-[0.01em] text-transparent bg-clip-text bg-gradient-to-r from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 break-keep leading-tight">
                 {guaData.header}
               </h2>
             </div>
@@ -63,7 +63,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, y
               오늘의 묵상
             </div>
 
-            <h3 className="text-2xl md:text-[1.75rem] font-bold font-display tracking-tight leading-snug text-warm-gray-800 dark:text-white/90 break-keep">
+            <h3 className="text-2xl md:text-[1.85rem] font-semibold font-brand tracking-[0.01em] leading-snug text-warm-gray-800 dark:text-white/90 break-keep">
               {yaoData.titleLine}
             </h3>
 

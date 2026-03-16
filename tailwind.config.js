@@ -43,6 +43,7 @@ export default {
             },
             fontFamily: {
                 "display": ["'Pretendard Variable'", "Pretendard", "Inter", "system-ui", "sans-serif"],
+                "brand": ["'Cormorant Garamond'", "'Crimson Pro'", "'Times New Roman'", "serif"],
                 "serif": ["'Crimson Pro'", "'Gowun Batang'", "'Noto Serif KR'", "Georgia", "serif"]
             },
         },

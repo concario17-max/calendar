@@ -39,7 +39,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
     <section className="relative animate-fade-in-up stagger-2">
       <div className="text-center mb-10">
         <div className="inline-block group">
-          <h2 className="text-3xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-tight mb-3 transition-transform duration-500 group-hover:scale-105">
+          <h2 className="text-3xl md:text-[2.2rem] font-brand font-semibold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-[0.02em] leading-none mb-3 transition-transform duration-500 group-hover:scale-105">
             Rudolf Steiner&apos;s Calendar of the Soul
           </h2>
           <div className="flex items-center justify-center gap-4">
