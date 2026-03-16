@@ -39,7 +39,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
             CALENDAR OF THE SOUL
           </div>
           <h2 className="text-[1.85rem] sm:text-[2.2rem] font-display font-semibold tracking-[-0.05em] text-warm-gray-900 dark:text-white text-balance">
-            영혼의 달력
+            Rudolf Steiner's Calendar of the Soul
           </h2>
           <p className="text-sm sm:text-[15px] text-warm-gray-600 dark:text-warm-gray-300 mt-2 tracking-[-0.01em]">
             주차와 계절의 흐름을 따라 오늘의 본문을 읽습니다.

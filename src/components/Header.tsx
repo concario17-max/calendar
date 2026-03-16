@@ -28,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({ selectedDate, onDateChange }) =>
               DAILY I CHING & SOUL CALENDAR
             </div>
             <h1 className="text-lg sm:text-[1.75rem] leading-none font-display font-semibold tracking-[-0.03em] text-transparent bg-clip-text bg-gradient-to-r from-elegant-gold to-yellow-600 truncate">
-              심상 달력
+              Celestial Ephemeris
             </h1>
             <p className="hidden sm:block text-sm text-warm-gray-600 dark:text-warm-gray-300 mt-1 truncate">
               {dateLabel}
