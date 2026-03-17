@@ -63,7 +63,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, y
               오늘의 묵상
             </div>
 
-            <h3 className="text-2xl md:text-[1.85rem] font-semibold font-brand tracking-[0.01em] leading-snug text-warm-gray-800 dark:text-white/90 break-keep">
+            <h3 className="text-[1.65rem] md:text-[2rem] font-display font-bold tracking-tight leading-snug text-warm-gray-800 dark:text-white/95 break-keep">
               {yaoData.titleLine}
             </h3>
 

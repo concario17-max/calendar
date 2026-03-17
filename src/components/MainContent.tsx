@@ -25,7 +25,7 @@ export const MainContent: React.FC<MainContentProps> = ({
       <div className="flex justify-center pt-8 border-t border-warm-gray-200/30 dark:border-warm-gray-800/30">
         <button
           onClick={onOpenJournal}
-          className="bg-ray-dark dark:bg-white text-white dark:text-ray-dark hover:bg-elegant-gold dark:hover:bg-elegant-gold px-10 py-5 rounded-2xl font-bold shadow-2xl shadow-ray-dark/20 dark:shadow-white/20 transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 flex items-center gap-3 w-full sm:w-auto justify-center max-w-sm active:scale-95 active-scale font-display"
+          className="bg-warm-gray-800 dark:bg-warm-gray-100 text-white dark:text-ray-dark hover:bg-warm-gray-700 dark:hover:bg-white px-10 py-5 rounded-2xl font-bold shadow-2xl shadow-warm-gray-900/15 dark:shadow-white/15 transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 flex items-center gap-3 w-full sm:w-auto justify-center max-w-sm active:scale-95 active-scale font-display border border-warm-gray-700/60 dark:border-warm-gray-200"
         >
           <span className="material-icons opacity-80 text-xl">auto_awesome</span>
           <span className="tracking-tight">Add Journal Entry</span>
