@@ -1,18 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Celestial Ephemeris favicon">
-  <defs>
-    <linearGradient id="gold" x1="14" y1="12" x2="50" y2="52" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#d7a426" />
-      <stop offset="1" stop-color="#b8860b" />
-    </linearGradient>
-  </defs>
-
-  <circle cx="32" cy="32" r="27" fill="url(#gold)" />
-
+  <circle cx="32" cy="32" r="27" fill="#c99212" />
   <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M22 29.5 39.5 24l2.5 7.5-17.5 5.5z" stroke-width="3.2" />
-    <path d="m20 31-4-4.5" stroke-width="3" />
-    <path d="m28.5 38 4.5 8" stroke-width="3" />
-    <path d="m22.5 40.5 10-3" stroke-width="3" />
-    <circle cx="44.5" cy="25.5" r="5.5" stroke-width="3" />
+    <path d="M21 31 37.5 26l2.5 7-16.5 5z" stroke-width="4.2" />
+    <path d="m19 31-3.5-3.5" stroke-width="3.8" />
+    <path d="m28 39.5 3.8 7" stroke-width="3.8" />
+    <path d="m22.5 40.5 9-2.8" stroke-width="3.8" />
+    <circle cx="43.5" cy="27" r="6.2" stroke-width="4.2" />
   </g>
 </svg>
