@@ -1,23 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Celestial Ephemeris favicon">
   <defs>
-    <radialGradient id="bg" cx="32" cy="24" r="30" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#f2c24d" />
-      <stop offset="0.62" stop-color="#c7961f" />
-      <stop offset="1" stop-color="#8b6510" />
-    </radialGradient>
-    <linearGradient id="metal" x1="18" y1="12" x2="44" y2="42" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#fff7dd" />
-      <stop offset="1" stop-color="#f0d48a" />
+    <linearGradient id="gold" x1="14" y1="12" x2="50" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d7a426" />
+      <stop offset="1" stop-color="#b8860b" />
     </linearGradient>
   </defs>
 
-  <circle cx="32" cy="32" r="29" fill="url(#bg)" />
-  <circle cx="32" cy="32" r="28" fill="none" stroke="#f7e3ad" stroke-opacity="0.55" />
+  <circle cx="32" cy="32" r="27" fill="url(#gold)" />
 
-  <path d="M23 18h8l10 12-8 7-10-12z" fill="none" stroke="url(#metal)" stroke-width="3.2" stroke-linejoin="round" />
-  <path d="M28 50l5-13" fill="none" stroke="url(#metal)" stroke-width="3" stroke-linecap="round" />
-  <path d="M22 19l-6-6" fill="none" stroke="url(#metal)" stroke-width="2.8" stroke-linecap="round" />
-  <circle cx="32" cy="30" r="2.4" fill="#fff7dd" />
-  <circle cx="47" cy="17" r="1.6" fill="#fff7dd" />
-  <circle cx="17" cy="44" r="1.4" fill="#f9e7b8" opacity="0.9" />
+  <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 29.5 39.5 24l2.5 7.5-17.5 5.5z" stroke-width="3.2" />
+    <path d="m20 31-4-4.5" stroke-width="3" />
+    <path d="m28.5 38 4.5 8" stroke-width="3" />
+    <path d="m22.5 40.5 10-3" stroke-width="3" />
+    <circle cx="44.5" cy="25.5" r="5.5" stroke-width="3" />
+  </g>
 </svg>
