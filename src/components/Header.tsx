@@ -12,12 +12,12 @@ export const Header: React.FC<HeaderProps> = ({ selectedDate, onDateChange }) =>
 
   return (
     <header className="sticky top-0 z-40 bg-warm-gray-50/80 dark:bg-ray-dark/80 backdrop-blur-xl border-b border-warm-gray-200/50 dark:border-warm-gray-800/50 transition-colors duration-300">
-      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-3 flex flex-row justify-between items-center gap-1.5 sm:gap-4">
-        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 order-1 overflow-hidden min-w-0">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-3.5 flex flex-row justify-between items-center gap-1.5 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0 order-1 overflow-hidden min-w-0">
           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-elegant-gold to-yellow-600 flex items-center justify-center shadow-lg gold-glow flex-shrink-0">
             <Telescope className="text-white w-4.5 h-4.5 sm:w-6 sm:h-6" />
           </div>
-          <h1 className="text-lg sm:text-[2rem] font-brand font-semibold tracking-[0.02em] text-transparent bg-clip-text bg-gradient-to-r from-elegant-gold to-yellow-600 truncate">
+          <h1 className="text-[1.15rem] sm:text-[2.25rem] font-brand font-semibold tracking-[0.03em] text-transparent bg-clip-text bg-gradient-to-r from-elegant-gold to-yellow-600 truncate leading-none drop-shadow-[0_1px_0_rgba(255,255,255,0.35)]">
             Celestial Ephemeris
           </h1>
         </div>

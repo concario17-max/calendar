@@ -39,12 +39,12 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
     <section className="relative animate-fade-in-up stagger-2">
       <div className="text-center mb-10">
         <div className="inline-block group">
-          <h2 className="text-3xl md:text-[2.2rem] font-brand font-semibold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-[0.02em] leading-none mb-3 transition-transform duration-500 group-hover:scale-105">
+          <h2 className="text-[2.2rem] md:text-[2.6rem] font-brand font-semibold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-[0.015em] leading-[0.95] mb-3 transition-transform duration-500 group-hover:scale-105">
             Rudolf Steiner&apos;s Calendar of the Soul
           </h2>
           <div className="flex items-center justify-center gap-4">
             <div className="h-px w-12 bg-gradient-to-r from-transparent to-elegant-gold opacity-50 group-hover:opacity-100 transition-opacity"></div>
-            <span className="text-sm font-bold text-elegant-gold tracking-[0.3em]">
+            <span className="text-[0.72rem] md:text-[0.78rem] font-bold text-elegant-gold tracking-[0.24em]">
               {hitSoulGroup ? hitSoulGroup.weeksLabel : '해당 날짜 항목 없음'}
             </span>
             <div className="h-px w-12 bg-gradient-to-l from-transparent to-elegant-gold opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -61,19 +61,19 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
             return (
               <div
                 key={i}
-                className={`space-y-4 bg-white/70 dark:bg-ray-dark/70 backdrop-blur-xl p-8 rounded-[2rem] border border-elegant-gold/20 shadow-md hover:shadow-2xl dark:shadow-2xl dark:shadow-black/50 h-full text-center transition-all duration-700 hover:-translate-y-2 group animate-fade-in-up stagger-${i + 3}`}
+                className={`space-y-4 bg-white/72 dark:bg-ray-dark/72 backdrop-blur-xl p-8 md:p-9 rounded-[2rem] border border-elegant-gold/20 shadow-md hover:shadow-2xl dark:shadow-2xl dark:shadow-black/50 h-full text-center transition-all duration-700 hover:-translate-y-2 group animate-fade-in-up stagger-${i + 3}`}
               >
                 <div className="flex justify-between items-baseline mb-2 gap-2">
-                  <div className="font-bold text-sm text-warm-gray-600 dark:text-warm-gray-300 group-hover:text-elegant-gold transition-colors">
+                  <div className="font-bold text-[0.8rem] md:text-[0.86rem] text-warm-gray-600 dark:text-warm-gray-300 group-hover:text-elegant-gold transition-colors">
                     {sec.week}주
                   </div>
-                  <div className="text-xs text-warm-gray-400 dark:text-warm-gray-500 font-bold whitespace-nowrap tracking-widest">
+                  <div className="text-[0.68rem] md:text-[0.74rem] text-warm-gray-400 dark:text-warm-gray-500 font-bold whitespace-nowrap tracking-[0.18em]">
                     {sec.range}
                   </div>
                 </div>
-                <div className="whitespace-pre-wrap break-keep leading-relaxed text-[15px] md:text-[16px] font-display text-ray-body dark:text-warm-gray-200 mt-2 tracking-tight transition-colors duration-500 group-hover:text-ray-dark dark:group-hover:text-white">
+                <div className="whitespace-pre-wrap break-keep leading-[1.95] text-[16px] md:text-[17px] font-display text-ray-body dark:text-warm-gray-200 mt-2 tracking-[-0.01em] transition-colors duration-500 group-hover:text-ray-dark dark:group-hover:text-white">
                   {badge && (
-                    <div className="text-[13px] md:text-sm font-bold text-warm-gray-500 dark:text-warm-gray-400 mb-5 tracking-[0.2em] group-hover:text-elegant-gold transition-colors">
+                    <div className="text-[0.8rem] md:text-[0.88rem] font-bold text-warm-gray-500 dark:text-warm-gray-400 mb-5 tracking-[0.16em] group-hover:text-elegant-gold transition-colors">
                       {badge}
                     </div>
                   )}

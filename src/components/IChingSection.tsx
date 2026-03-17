@@ -53,7 +53,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, y
                 {guaData.header}
               </h2>
             </div>
-            <p className="text-base md:text-lg text-ray-body dark:text-warm-gray-300 font-display leading-relaxed italic break-keep">
+            <p className="max-w-[34rem] text-[0.96rem] md:text-[1.06rem] text-ray-body dark:text-warm-gray-300 font-display leading-relaxed italic break-keep">
               {guaData.meta}
             </p>
           </div>
@@ -63,18 +63,18 @@ export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, y
               오늘의 묵상
             </div>
 
-            <h3 className="text-[1.65rem] md:text-[2rem] font-display font-bold tracking-tight leading-snug text-warm-gray-800 dark:text-white/95 break-keep">
+            <h3 className="max-w-[22ch] text-[1.7rem] md:text-[2.1rem] font-display font-bold tracking-[-0.03em] leading-[1.28] text-warm-gray-800 dark:text-white/95 break-keep">
               {yaoData.titleLine}
             </h3>
 
             <div className="relative">
               <div className="absolute inset-y-0 left-0 w-1 bg-elegant-gold/30 rounded-full"></div>
-              <p className="text-lg md:text-xl text-elegant-gold font-display italic font-medium leading-relaxed pl-6 py-2 break-keep">
+              <p className="max-w-[28rem] text-[1.02rem] md:text-[1.16rem] text-elegant-gold font-display italic font-medium leading-[1.85] pl-6 py-2 break-keep">
                 {yaoData.short}
               </p>
             </div>
 
-            <div className="pt-4 text-ray-body/90 dark:text-warm-gray-200/90 font-display whitespace-pre-wrap leading-relaxed text-[15px] md:text-[16px] tracking-tight break-keep">
+            <div className="max-w-[35rem] pt-4 text-ray-body/90 dark:text-warm-gray-200/90 font-display whitespace-pre-wrap leading-[1.9] text-[15px] md:text-[16px] tracking-[-0.01em] break-keep">
               {yaoData.body}
             </div>
           </div>
