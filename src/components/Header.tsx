@@ -35,10 +35,10 @@ export const Header: React.FC<HeaderProps> = ({ selectedDate, onDateChange }) =>
 
           <button
             onClick={toggleTheme}
-            className="p-1.5 sm:p-2.5 rounded-full bg-white/50 dark:bg-warm-gray-800/50 border border-warm-gray-200 dark:border-warm-gray-700 hover:border-elegant-gold/50 dark:hover:border-elegant-gold/50 transition-all text-warm-gray-600 dark:text-warm-gray-300 hover:text-elegant-gold dark:hover:text-elegant-gold shadow-sm hover:shadow-md active-scale"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/50 text-warm-gray-600 shadow-sm transition-all hover:border-elegant-gold/50 hover:text-elegant-gold hover:shadow-md active-scale dark:bg-warm-gray-800/50 dark:text-warm-gray-300 dark:hover:border-elegant-gold/50 dark:hover:text-elegant-gold sm:h-11 sm:w-11 border border-warm-gray-200 dark:border-warm-gray-700"
             aria-label="Toggle theme"
           >
-            {isDark ? <Sun size={16} className="sm:w-5 sm:h-5" /> : <Moon size={16} className="sm:w-5 sm:h-5" />}
+            {isDark ? <Sun size={18} className="sm:w-5 sm:h-5" /> : <Moon size={18} className="sm:w-5 sm:h-5" />}
           </button>
         </div>
       </div>
