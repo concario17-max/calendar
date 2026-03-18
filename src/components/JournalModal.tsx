@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Save, Download, ChevronDown } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { ChevronDown, Download, Save, X } from 'lucide-react';
 import type { GuaData, SoulSection, YaoData } from '../types';
 import { GUA_TEXT, SOUL_TEXT, YAO_TEXT } from '../data';
 import { generateGuidedQuestion } from '../utils/logic';
@@ -17,12 +17,12 @@ interface JournalModalProps {
 function triggerDownload(filename: string, content: string) {
   const blob = new Blob([`\uFEFF${content}`], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = filename;
+  document.body.appendChild(anchor);
+  anchor.click();
+  document.body.removeChild(anchor);
   URL.revokeObjectURL(url);
 }
 
@@ -67,6 +67,7 @@ export const JournalModal: React.FC<JournalModalProps> = ({
 }) => {
   const dateStr = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
   const [isDownloadMenuOpen, setIsDownloadMenuOpen] = useState(false);
+  const downloadMenuRef = useRef<HTMLDivElement>(null);
 
   const [entry, setEntry] = useState(() => {
     const savedKey = `journal_${dateStr}`;
@@ -79,6 +80,29 @@ export const JournalModal: React.FC<JournalModalProps> = ({
     return savedQuestion || generateGuidedQuestion(yaoTitle);
   });
 
+  useEffect(() => {
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!downloadMenuRef.current) return;
+      if (!downloadMenuRef.current.contains(event.target as Node)) {
+        setIsDownloadMenuOpen(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsDownloadMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, []);
+
   const handleSave = () => {
     localStorage.setItem(`journal_${dateStr}`, entry);
     localStorage.setItem(`journal_q_${dateStr}`, question);
@@ -90,7 +114,7 @@ export const JournalModal: React.FC<JournalModalProps> = ({
 
   const handleDownloadCurrentPassage = () => {
     const content = buildCurrentPassageText(selectedDate, guaData, yaoData, soulSections);
-    triggerDownload(`Celestial_Ephemeris_Passage_${dateStr}.txt`, content);
+    triggerDownload(`Celestial_Ephemeris_Selected_Passages_${dateStr}.txt`, content);
     setIsDownloadMenuOpen(false);
   };
 
@@ -139,6 +163,7 @@ export const JournalModal: React.FC<JournalModalProps> = ({
           <button
             onClick={onClose}
             className="p-2 text-warm-gray-400 hover:text-elegant-gold dark:hover:text-elegant-gold bg-white dark:bg-ray-dark hover:bg-warm-gray-50 dark:hover:bg-warm-gray-800 rounded-full transition-colors shadow-sm"
+            aria-label="Close journal modal"
           >
             <X size={20} />
           </button>
@@ -161,7 +186,7 @@ export const JournalModal: React.FC<JournalModalProps> = ({
             </div>
             <textarea
               value={entry}
-              onChange={(e) => setEntry(e.target.value)}
+              onChange={(event) => setEntry(event.target.value)}
               className="w-full h-48 md:h-64 p-5 pl-14 bg-warm-gray-50/50 dark:bg-warm-gray-900/50 border border-warm-gray-200 dark:border-warm-gray-700 rounded-2xl resize-none focus:ring-1 focus:ring-elegant-gold focus:border-elegant-gold dark:focus:ring-elegant-gold dark:focus:border-elegant-gold dark:text-warm-gray-200 transition-colors font-display text-base md:text-lg leading-relaxed"
               placeholder="오늘 마음에 떠오르는 것을 적어보세요..."
             />
@@ -169,10 +194,12 @@ export const JournalModal: React.FC<JournalModalProps> = ({
         </div>
 
         <div className="bg-warm-gray-50/50 dark:bg-warm-gray-900/50 px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-warm-gray-100 dark:border-warm-gray-800">
-          <div className="relative w-full sm:w-auto">
+          <div className="relative w-full sm:w-auto" ref={downloadMenuRef}>
             <button
               onClick={() => setIsDownloadMenuOpen((open) => !open)}
               className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 text-warm-gray-600 dark:text-warm-gray-400 hover:text-elegant-gold dark:hover:text-elegant-gold font-bold text-sm transition-colors border-2 border-transparent hover:border-elegant-gold/30 rounded-xl"
+              aria-haspopup="menu"
+              aria-expanded={isDownloadMenuOpen}
             >
               <Download size={18} />
               <span>TXT 다운로드</span>
@@ -180,16 +207,21 @@ export const JournalModal: React.FC<JournalModalProps> = ({
             </button>
 
             {isDownloadMenuOpen && (
-              <div className="absolute left-0 bottom-full mb-2 w-full sm:w-72 rounded-2xl border border-warm-gray-200 dark:border-warm-gray-700 bg-white/95 dark:bg-ray-dark/95 backdrop-blur-xl shadow-2xl overflow-hidden">
+              <div
+                className="absolute left-0 bottom-full mb-2 w-full sm:w-72 rounded-2xl border border-warm-gray-200 dark:border-warm-gray-700 bg-white/95 dark:bg-ray-dark/95 backdrop-blur-xl shadow-2xl overflow-hidden"
+                role="menu"
+              >
                 <button
                   onClick={handleDownloadCurrentPassage}
                   className="w-full text-left px-4 py-3 text-sm font-bold text-warm-gray-700 dark:text-warm-gray-200 hover:bg-warm-gray-50 dark:hover:bg-warm-gray-800 transition-colors"
+                  role="menuitem"
                 >
                   이 구절 저장
                 </button>
                 <button
                   onClick={handleDownloadAllPassages}
                   className="w-full text-left px-4 py-3 text-sm font-bold text-warm-gray-700 dark:text-warm-gray-200 hover:bg-warm-gray-50 dark:hover:bg-warm-gray-800 transition-colors border-t border-warm-gray-100 dark:border-warm-gray-800"
+                  role="menuitem"
                 >
                   전체 구절 저장
                 </button>

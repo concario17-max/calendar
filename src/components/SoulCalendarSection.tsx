@@ -52,7 +52,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
         </div>
       </div>
 
-      {soulSections.length >= 2 ? (
+      {soulSections.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-elegant-gold opacity-5 blur-3xl rounded-full pointer-events-none"></div>
           {soulSections.slice(0, 2).map((sec, i) => {

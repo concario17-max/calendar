@@ -1,73 +1,129 @@
-# React + TypeScript + Vite
+# Celestial Ephemeris
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Celestial Ephemeris is a contemplative calendar app that maps each selected date to:
 
-Currently, two official plugins are available:
+1. an I Ching hexagram summary
+2. a daily yao passage
+3. Rudolf Steiner's Calendar of the Soul verses
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+It is a static React application with no backend. Source texts are bundled into the app at build time, and journal entries are stored locally in the browser.
 
-## React Compiler
+## Live Deployments
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- Primary app: [https://calendar.simsang.org](https://calendar.simsang.org)
+- Cloudflare Pages preview domain: `calendar-2ty.pages.dev`
 
-## Expanding the ESLint configuration
+Important:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `calendar.simsang.org` is the deployment target for this repository.
+- `tibet.simsang.org` belongs to a different Cloudflare Pages project and is not affected by changes in this repo.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- React 19
+- TypeScript
+- Vite 7
+- Tailwind CSS
+- Vitest + Testing Library
+- Cloudflare Pages
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Data Sources
+
+Root text files are the editable source of truth:
+
+- `1.gua.txt`
+- `2.yao.txt`
+- `3.soul.txt`
+
+The app itself reads generated TypeScript constants:
+
+- `src/data/guaData.ts`
+- `src/data/yaoData.ts`
+- `src/data/soulData.ts`
+
+To regenerate them after editing the root text files:
+
+```powershell
+node convert_data.cjs
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+To verify that generated files still match the root text files:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```powershell
+npm run check:data
 ```
+
+To scan key UI files for mojibake-style replacement characters:
+
+```powershell
+npm run check:encoding
+```
+
+## Local Development
+
+Install dependencies:
+
+```powershell
+npm install
+```
+
+Start the dev server:
+
+```powershell
+npm run dev
+```
+
+Build for production:
+
+```powershell
+npm run build
+```
+
+Run tests:
+
+```powershell
+npm test -- --run
+```
+
+## Theme Behavior
+
+- Default theme is always light on first visit.
+- If the user explicitly toggles dark mode, the preference is stored in `localStorage.theme`.
+
+## Journal Storage
+
+Journal entries are stored locally in the browser only.
+
+Storage keys:
+
+- `journal_YYYY-MM-DD`
+- `journal_q_YYYY-MM-DD`
+- `theme`
+
+There is no sync across browsers or devices.
+
+## TXT Export
+
+The journal modal supports two export modes:
+
+- `이 구절 저장`: exports only the currently selected passages
+- `전체 구절 저장`: exports all bundled source passages
+
+## Verification Checklist
+
+Before shipping changes:
+
+```powershell
+npm run build
+npm test -- --run
+npm run check:data
+npm run check:encoding
+```
+
+Then verify on the deployed site:
+
+1. branding and favicon on `calendar.simsang.org`
+2. light mode default on mobile
+3. date selection around April 1 to April 7
+4. journal save and TXT export menu
+5. soul section rendering for a date with two verses

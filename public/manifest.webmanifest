@@ -1,0 +1,21 @@
+{
+  "name": "Celestial Ephemeris",
+  "short_name": "Ephemeris",
+  "description": "A contemplative calendar for I Ching passages and Rudolf Steiner's Calendar of the Soul.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f9f8f6",
+  "theme_color": "#f9f8f6",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

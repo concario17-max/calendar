@@ -18,7 +18,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, y
           <Telescope className="text-warm-gray-400 w-8 h-8" />
         </div>
         <p className="font-display italic text-warm-gray-600 dark:text-warm-gray-400">
-          이 날짜에 해당하는 역경 항목이 없습니다.
+          이 날짜는 연간 전환 구간이라 역경 항목이 연결되지 않습니다.
         </p>
       </div>
     );

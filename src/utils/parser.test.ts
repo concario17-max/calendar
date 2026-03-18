@@ -1,7 +1,10 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
-  parseNumberedBlocks, splitYao, splitGua,
-  parseSoulGroups
+  parseNumberedBlocks,
+  parseSoulGroups,
+  parseWeekSectionsFromGroupBlock,
+  splitGua,
+  splitYao,
 } from './logic';
 
 describe('parser', () => {
@@ -54,6 +57,26 @@ CoTS Verses for Weeks 3
       expect(groups.length).toBe(2);
       expect(groups[0].weeksLabel).toBe('1주 · 2주');
       expect(groups[1].weeksLabel).toBe('3주');
+    });
+  });
+
+  describe('parseWeekSectionsFromGroupBlock', () => {
+    it('should preserve trailing subtitle text after the date range', () => {
+      const block = `
+1주 (4월 7-13) 부활절 / 봄
+첫 번째 본문
+
+2주 (4월 14-20)
+두 번째 본문
+`.trim();
+
+      const sections = parseWeekSectionsFromGroupBlock(block);
+      expect(sections).toHaveLength(2);
+      expect(sections[0]).toEqual({
+        week: 1,
+        range: '4월 7-13',
+        text: '부활절 / 봄\n첫 번째 본문',
+      });
     });
   });
 });
