@@ -54,6 +54,9 @@ function App() {
           onClose={() => setIsJournalOpen(false)}
           selectedDate={selectedDate}
           yaoTitle={yaoData?.titleLine || ""}
+          guaData={guaData}
+          yaoData={yaoData}
+          soulSections={soulSections}
         />
       )}
 

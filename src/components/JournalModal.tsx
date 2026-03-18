@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { X, Save, Download } from 'lucide-react';
+import { X, Save, Download, ChevronDown } from 'lucide-react';
+import type { GuaData, SoulSection, YaoData } from '../types';
+import { GUA_TEXT, SOUL_TEXT, YAO_TEXT } from '../data';
 import { generateGuidedQuestion } from '../utils/logic';
 
 interface JournalModalProps {
@@ -7,15 +9,70 @@ interface JournalModalProps {
   onClose: () => void;
   selectedDate: Date;
   yaoTitle: string;
+  guaData: GuaData | null;
+  yaoData: YaoData | null;
+  soulSections: SoulSection[];
 }
 
-export const JournalModal: React.FC<JournalModalProps> = ({ isOpen, onClose, selectedDate, yaoTitle }) => {
+function triggerDownload(filename: string, content: string) {
+  const blob = new Blob([`\uFEFF${content}`], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function buildCurrentPassageText(
+  selectedDate: Date,
+  guaData: GuaData | null,
+  yaoData: YaoData | null,
+  soulSections: SoulSection[],
+) {
+  const dateDisplay = selectedDate.toLocaleDateString('ko-KR', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  const guaBlock = guaData
+    ? `역경\n${guaData.header}\n${guaData.meta}`
+    : '역경\n해당 날짜에 연결된 구절이 없습니다.';
+
+  const yaoBlock = yaoData
+    ? `오늘의 구절\n${yaoData.titleLine}\n\n${yaoData.short}\n\n${yaoData.body}`
+    : '오늘의 구절\n해당 날짜에 연결된 구절이 없습니다.';
+
+  const soulBlock = soulSections.length > 0
+    ? `루돌프 슈타이너의 영혼의 달력\n${soulSections
+        .map((section) => `${section.week}주 (${section.range})\n${section.text}`)
+        .join('\n\n')}`
+    : '루돌프 슈타이너의 영혼의 달력\n해당 날짜에 연결된 구절이 없습니다.';
+
+  return `날짜: ${dateDisplay}\n\n${guaBlock}\n\n${yaoBlock}\n\n${soulBlock}`;
+}
+
+export const JournalModal: React.FC<JournalModalProps> = ({
+  isOpen,
+  onClose,
+  selectedDate,
+  yaoTitle,
+  guaData,
+  yaoData,
+  soulSections,
+}) => {
   const dateStr = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
+  const [isDownloadMenuOpen, setIsDownloadMenuOpen] = useState(false);
 
   const [entry, setEntry] = useState(() => {
     const savedKey = `journal_${dateStr}`;
     return localStorage.getItem(savedKey) || '';
   });
+
   const [question] = useState(() => {
     const savedQuestionKey = `journal_q_${dateStr}`;
     const savedQuestion = localStorage.getItem(savedQuestionKey);
@@ -28,27 +85,31 @@ export const JournalModal: React.FC<JournalModalProps> = ({ isOpen, onClose, sel
 
     const toastEvent = new CustomEvent('show-toast', { detail: '저장되었습니다' });
     window.dispatchEvent(toastEvent);
-
     onClose();
   };
 
-  const handleDownloadToday = () => {
-    const dateDisplay = selectedDate.toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-    const content = `\uFEFF날짜: ${dateDisplay}\n\n안내 질문:\n${question}\n\n저널 기록:\n------------------\n${entry}`;
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `SimSang_Journal_${dateStr}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  const handleDownloadCurrentPassage = () => {
+    const content = buildCurrentPassageText(selectedDate, guaData, yaoData, soulSections);
+    triggerDownload(`Celestial_Ephemeris_Passage_${dateStr}.txt`, content);
+    setIsDownloadMenuOpen(false);
+  };
+
+  const handleDownloadAllPassages = () => {
+    const content = [
+      'Celestial Ephemeris 전체 구절',
+      '',
+      '[역경 괘 원문]',
+      GUA_TEXT,
+      '',
+      '[역경 효 원문]',
+      YAO_TEXT,
+      '',
+      '[루돌프 슈타이너의 영혼의 달력 원문]',
+      SOUL_TEXT,
+    ].join('\n');
+
+    triggerDownload('Celestial_Ephemeris_All_Passages.txt', content);
+    setIsDownloadMenuOpen(false);
   };
 
   if (!isOpen) return null;
@@ -108,13 +169,33 @@ export const JournalModal: React.FC<JournalModalProps> = ({ isOpen, onClose, sel
         </div>
 
         <div className="bg-warm-gray-50/50 dark:bg-warm-gray-900/50 px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-warm-gray-100 dark:border-warm-gray-800">
-          <button
-            onClick={handleDownloadToday}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 text-warm-gray-600 dark:text-warm-gray-400 hover:text-elegant-gold dark:hover:text-elegant-gold font-bold text-sm transition-colors border-2 border-transparent hover:border-elegant-gold/30 rounded-xl"
-          >
-            <Download size={18} />
-            <span>TXT 다운로드</span>
-          </button>
+          <div className="relative w-full sm:w-auto">
+            <button
+              onClick={() => setIsDownloadMenuOpen((open) => !open)}
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 text-warm-gray-600 dark:text-warm-gray-400 hover:text-elegant-gold dark:hover:text-elegant-gold font-bold text-sm transition-colors border-2 border-transparent hover:border-elegant-gold/30 rounded-xl"
+            >
+              <Download size={18} />
+              <span>TXT 다운로드</span>
+              <ChevronDown size={16} className={`transition-transform ${isDownloadMenuOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {isDownloadMenuOpen && (
+              <div className="absolute left-0 bottom-full mb-2 w-full sm:w-72 rounded-2xl border border-warm-gray-200 dark:border-warm-gray-700 bg-white/95 dark:bg-ray-dark/95 backdrop-blur-xl shadow-2xl overflow-hidden">
+                <button
+                  onClick={handleDownloadCurrentPassage}
+                  className="w-full text-left px-4 py-3 text-sm font-bold text-warm-gray-700 dark:text-warm-gray-200 hover:bg-warm-gray-50 dark:hover:bg-warm-gray-800 transition-colors"
+                >
+                  이 구절 저장
+                </button>
+                <button
+                  onClick={handleDownloadAllPassages}
+                  className="w-full text-left px-4 py-3 text-sm font-bold text-warm-gray-700 dark:text-warm-gray-200 hover:bg-warm-gray-50 dark:hover:bg-warm-gray-800 transition-colors border-t border-warm-gray-100 dark:border-warm-gray-800"
+                >
+                  전체 구절 저장
+                </button>
+              </div>
+            )}
+          </div>
 
           <div className="flex gap-3 w-full sm:w-auto">
             <button
