@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { MainContent } from './components/MainContent';
-import { JournalModal } from './components/JournalModal';
 import { useCalendarLogic } from './hooks/useCalendarLogic';
 
 function App() {
@@ -16,7 +15,6 @@ function App() {
     soulSections
   } = useCalendarLogic();
 
-  const [isJournalOpen, setIsJournalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -43,22 +41,8 @@ function App() {
           yaoData={yaoData}
           hitSoulGroup={hitSoulGroup}
           soulSections={soulSections}
-          onOpenJournal={() => setIsJournalOpen(true)}
         />
       </div>
-
-      {isJournalOpen && (
-        <JournalModal
-          key={selectedDate.toISOString().split('T')[0]}
-          isOpen={isJournalOpen}
-          onClose={() => setIsJournalOpen(false)}
-          selectedDate={selectedDate}
-          yaoTitle={yaoData?.titleLine || ""}
-          guaData={guaData}
-          yaoData={yaoData}
-          soulSections={soulSections}
-        />
-      )}
 
       <div
         className={`fixed top-6 left-1/2 transform -translate-x-1/2 z-[100] transition-all duration-700 ease-in-out ${toastMessage ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8 pointer-events-none'}`}
