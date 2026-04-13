@@ -1,28 +1,28 @@
 # Current Task
-- Floating upper-right controls implemented; awaiting review.
+- Removed the leftover gray top gradient/empty space after moving controls to the upper-right.
 
 # Route
 - Route A
 
 # Writer Slot
-- main: direct implementation lane for a single-file floating-control tweak
+- main: direct implementation lane for a single-file spacing cleanup
 
 # Contract Freeze
-- Goal: remove the header shell entirely and keep only the date picker, Today button, and theme toggle as a floating upper-right control cluster.
+- Goal: remove the leftover gray top fade so the page starts cleanly under the floating controls.
 - Non-goals: no data model changes, no content changes, no deployment work, no new controls.
 - Acceptance criteria:
-  - The brand/icon/title no longer appears in a top bar.
-  - The date picker, Today button, and theme toggle float on the upper-right and remain usable.
+  - The top gray gradient/empty band is removed.
+  - The page reads directly into the content area beneath the floating controls.
   - Mobile behavior stays readable and the floating cluster does not block core content.
   - Build and tests pass.
 - Risks:
-  - The floating controls may overlap content on small screens, so spacing may need a small follow-up tweak if they sit too close to the content.
+  - Removing the top fade may make the top edge feel harsher if the main content spacing is too tight.
 
 # Write Sets
-- main: src/components/Header.tsx
+- main: src/App.tsx
 
 # Reviewer
 - main verification
 
 # Last Update
-- 2026-04-13: floating upper-right controls implemented and verified
+- 2026-04-13: gray top gradient removed
