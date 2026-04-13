@@ -12,8 +12,8 @@ export const Header: React.FC<HeaderProps> = ({ selectedDate, onDateChange }) =>
 
   return (
     <header className="sticky top-0 z-40 bg-warm-gray-50/80 dark:bg-ray-dark/80 backdrop-blur-xl border-b border-warm-gray-200/50 dark:border-warm-gray-800/50 transition-colors duration-300">
-      <div className="w-full px-3 sm:px-6 lg:px-8 py-3.5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 overflow-hidden">
+      <div className="w-full px-3 sm:px-6 lg:px-8 py-3.5 grid grid-cols-1 gap-3 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:gap-6">
+        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 overflow-hidden sm:justify-self-start">
           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-elegant-gold to-yellow-600 flex items-center justify-center shadow-lg gold-glow flex-shrink-0">
             <Telescope className="text-white w-4.5 h-4.5 sm:w-6 sm:h-6" />
           </div>
@@ -22,7 +22,9 @@ export const Header: React.FC<HeaderProps> = ({ selectedDate, onDateChange }) =>
           </h1>
         </div>
 
-        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 self-end sm:self-auto">
+        <div className="hidden sm:block" aria-hidden="true" />
+
+        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 self-end sm:self-auto sm:justify-self-end">
           <div className="flex items-center bg-white/50 dark:bg-warm-gray-800/50 p-0.5 sm:p-1 rounded-full border border-warm-gray-200/50 dark:border-warm-gray-700/50 shadow-inner">
             <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
             <button
