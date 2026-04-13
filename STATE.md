@@ -1,28 +1,28 @@
 # Current Task
-- Removed the leftover gray top gradient/empty space after moving controls to the upper-right.
+- Completed: removed the left-card internal scroll trap in IChingSection so the soul section continues in the normal page flow.
 
 # Route
 - Route A
 
 # Writer Slot
-- main: direct implementation lane for a single-file spacing cleanup
+- main: direct implementation lane for a single-file reading-flow tweak
 
 # Contract Freeze
-- Goal: remove the leftover gray top fade so the page starts cleanly under the floating controls.
-- Non-goals: no data model changes, no content changes, no deployment work, no new controls.
+- Goal: remove the internal scroll trap from the left reading card so the soul section reads as part of the same page flow.
+- Non-goals: no data model changes, no copy/content rewrite, no deployment work, no header/shell changes.
 - Acceptance criteria:
-  - The top gray gradient/empty band is removed.
-  - The page reads directly into the content area beneath the floating controls.
-  - Mobile behavior stays readable and the floating cluster does not block core content.
+  - The left reading card no longer uses a fixed-height internal scroll container.
+  - The soul section sits below the reading block in the normal page flow.
+  - The existing layout language stays intact.
   - Build and tests pass.
 - Risks:
-  - Removing the top fade may make the top edge feel harsher if the main content spacing is too tight.
+  - Removing the internal scroll may increase page height on smaller desktop displays.
 
 # Write Sets
-- main: src/App.tsx
+- main: src/components/IChingSection.tsx
 
 # Reviewer
 - main verification
 
 # Last Update
-- 2026-04-13: gray top gradient removed
+- 2026-04-13: left-card scroll trap removed and verified clean

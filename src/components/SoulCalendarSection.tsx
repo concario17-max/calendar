@@ -36,47 +36,48 @@ function extractSectionBadge(text: string): { badge: string | null; content: str
 
 export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSoulGroup, soulSections }) => {
   return (
-    <section className="relative animate-fade-in-up stagger-2 pb-6 md:pb-8">
-      <div className="text-center mb-10">
-        <div className="inline-block group">
-          <h2 className="text-[2.2rem] md:text-[2.6rem] font-brand font-semibold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-[0.015em] leading-[0.95] mb-3 transition-transform duration-500 group-hover:scale-105">
+    <section className="relative animate-fade-in-up stagger-2 pb-2 md:pb-4">
+      <div className="mb-8 md:mb-9">
+        <div className="group space-y-3">
+          <h2 className="text-left text-[1.9rem] md:text-[2.3rem] font-brand font-semibold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-[0.01em] leading-[0.98] transition-transform duration-500 group-hover:translate-x-0.5">
             Rudolf Steiner&apos;s Calendar of the Soul
           </h2>
-          <div className="flex items-center justify-center gap-4">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-elegant-gold opacity-50 group-hover:opacity-100 transition-opacity"></div>
+          <div className="flex items-center justify-start gap-4">
+            <div className="h-px w-10 bg-gradient-to-r from-transparent to-elegant-gold opacity-50 group-hover:opacity-100 transition-opacity" />
             <span className="text-[0.72rem] md:text-[0.78rem] font-bold text-elegant-gold tracking-[0.24em]">
               {hitSoulGroup ? hitSoulGroup.weeksLabel : '해당 날짜 항목 없음'}
             </span>
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-elegant-gold opacity-50 group-hover:opacity-100 transition-opacity"></div>
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-elegant-gold opacity-50 group-hover:opacity-100 transition-opacity" />
           </div>
         </div>
       </div>
 
       {soulSections.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-elegant-gold opacity-5 blur-3xl rounded-full pointer-events-none"></div>
+        <div className="relative grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+          <div className="pointer-events-none absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-elegant-gold opacity-5 blur-3xl" />
           {soulSections.slice(0, 2).map((sec, i) => {
             const { badge, content } = extractSectionBadge(sec.text);
 
             return (
               <div
                 key={i}
-                className={`space-y-4 bg-white/72 dark:bg-ray-dark/72 backdrop-blur-xl p-8 md:p-9 rounded-[2rem] border border-elegant-gold/20 shadow-md hover:shadow-2xl dark:shadow-2xl dark:shadow-black/50 h-full text-center transition-all duration-700 hover:-translate-y-2 group animate-fade-in-up stagger-${i + 3}`}
+                className={`group h-full rounded-[1.8rem] border border-elegant-gold/18 bg-white/72 p-6 text-left shadow-md backdrop-blur-xl transition-all duration-700 hover:-translate-y-1.5 hover:shadow-xl dark:bg-ray-dark/72 dark:shadow-2xl dark:shadow-black/50 md:p-8 animate-fade-in-up stagger-${i + 3}`}
               >
-                <div className="flex justify-between items-baseline mb-2 gap-2">
-                  <div className="font-bold text-[0.8rem] md:text-[0.86rem] text-warm-gray-600 dark:text-warm-gray-300 group-hover:text-elegant-gold transition-colors">
+                <div className="mb-3 flex items-baseline justify-between gap-2">
+                  <div className="font-bold text-[0.8rem] md:text-[0.86rem] text-warm-gray-600 transition-colors group-hover:text-elegant-gold dark:text-warm-gray-300">
                     {sec.week}주
                   </div>
-                  <div className="text-[0.68rem] md:text-[0.74rem] text-warm-gray-400 dark:text-warm-gray-500 font-bold whitespace-nowrap tracking-[0.18em]">
+                  <div className="whitespace-nowrap text-[0.68rem] md:text-[0.74rem] font-bold tracking-[0.18em] text-warm-gray-400 dark:text-warm-gray-500">
                     {sec.range}
                   </div>
                 </div>
-                <div className="whitespace-pre-wrap break-keep leading-[1.95] text-[16px] md:text-[17px] font-display text-ray-body dark:text-warm-gray-200 mt-2 tracking-[-0.01em] transition-colors duration-500 group-hover:text-ray-dark dark:group-hover:text-white">
-                  {badge && (
-                    <div className="text-[0.8rem] md:text-[0.88rem] font-bold text-warm-gray-500 dark:text-warm-gray-400 mb-5 tracking-[0.16em] group-hover:text-elegant-gold transition-colors">
+
+                <div className="mt-2 whitespace-pre-wrap break-keep font-display text-[15.5px] leading-[1.95] tracking-[-0.01em] text-ray-body transition-colors duration-500 group-hover:text-ray-dark dark:text-warm-gray-200 dark:group-hover:text-white md:text-[16.5px]">
+                  {badge ? (
+                    <div className="mb-4 text-[0.78rem] font-bold tracking-[0.16em] text-warm-gray-500 transition-colors group-hover:text-elegant-gold dark:text-warm-gray-400 md:text-[0.84rem]">
                       {badge}
                     </div>
-                  )}
+                  ) : null}
                   {content}
                 </div>
               </div>
@@ -84,8 +85,8 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
           })}
         </div>
       ) : (
-        <div className="text-center py-12 bg-white/50 dark:bg-ray-dark/50 rounded-[2rem] border border-dashed border-warm-gray-200 dark:border-warm-gray-800">
-          <span className="text-warm-gray-500 font-display italic whitespace-pre-wrap leading-loose break-keep">
+        <div className="rounded-[1.8rem] border border-dashed border-warm-gray-200 bg-white/50 py-10 text-left dark:border-warm-gray-800 dark:bg-ray-dark/50">
+          <span className="whitespace-pre-wrap break-keep font-display italic leading-loose text-warm-gray-500">
             이 구간에 해당하는 영혼의 달력 본문을 찾지 못했습니다.
           </span>
         </div>

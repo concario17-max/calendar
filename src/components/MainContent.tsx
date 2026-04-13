@@ -15,7 +15,7 @@ export const MainContent: React.FC<MainContentProps> = ({
   yaoNum, guaData, yaoData, hitSoulGroup, soulSections
 }) => {
   return (
-    <main className="w-full max-w-none px-4 sm:px-6 lg:px-8 xl:px-10 py-8 md:py-12 pb-24 mt-4 space-y-16 animate-fade-in-up relative z-10 safe-bottom">
+    <main className="w-full max-w-none px-4 sm:px-6 lg:px-8 xl:px-10 pt-8 sm:pt-10 md:pt-12 pb-24 space-y-16 animate-fade-in-up relative z-10 safe-bottom">
       <IChingSection
         yaoNum={yaoNum}
         guaData={guaData}
