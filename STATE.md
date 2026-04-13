@@ -1,5 +1,5 @@
 # Current Task
-- Completed: removed the duplicated Commentary heading inside the commentary card and updated the affected tests.
+- Completed: restored valid SoulCalendarSection strings and tests after centering the heading block.
 
 # Route
 - Route B
@@ -8,21 +8,22 @@
 - main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: remove the duplicated Commentary heading inside the commentary card without changing the layout language.
-- Non-goals: no data model changes, no copy/content rewrite, no deployment work, no header/shell changes.
+- Goal: restore valid SoulCalendarSection strings and tests while keeping the centered heading block.
+- Non-goals: no data model changes, no deployment work, no header/shell changes.
 - Acceptance criteria:
-  - The duplicated Commentary heading is removed.
-  - The existing layout language stays intact.
+  - The SoulCalendarSection file compiles cleanly.
+  - The centered heading block stays intact.
+  - The tests match the rendered DOM.
   - Build and tests pass.
 - Risks:
-  - Removing the heading may slightly reduce visual wayfinding in the commentary card.
+  - Replacing the invalid string literals may require test expectation updates.
 
 # Write Sets
-- worker_impl: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
+- worker_impl: src/components/SoulCalendarSection.tsx, src/components/SoulCalendarSection.test.tsx
 - reviewer: layout coherence and test expectations
 
 # Reviewer
 - reviewer: layout coherence and test expectations
 
 # Last Update
-- 2026-04-13: duplicated commentary heading removed and verified clean
+- 2026-04-13: soul heading strings restored and verified clean

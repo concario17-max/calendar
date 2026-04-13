@@ -38,11 +38,11 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
   return (
     <section className="relative animate-fade-in-up stagger-2 pb-2 md:pb-4">
       <div className="mb-8 md:mb-9">
-        <div className="group space-y-3">
-          <h2 className="text-left text-[1.9rem] md:text-[2.3rem] font-brand font-semibold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-[0.01em] leading-[0.98] transition-transform duration-500 group-hover:translate-x-0.5">
+        <div className="group space-y-3 text-center">
+          <h2 className="text-center text-[1.9rem] md:text-[2.3rem] font-brand font-semibold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-[0.01em] leading-[0.98] transition-transform duration-500 group-hover:translate-x-0.5">
             Rudolf Steiner&apos;s Calendar of the Soul
           </h2>
-          <div className="flex items-center justify-start gap-4">
+          <div className="flex items-center justify-center gap-4">
             <div className="h-px w-10 bg-gradient-to-r from-transparent to-elegant-gold opacity-50 group-hover:opacity-100 transition-opacity" />
             <span className="text-[0.72rem] md:text-[0.78rem] font-bold text-elegant-gold tracking-[0.24em]">
               {hitSoulGroup ? hitSoulGroup.weeksLabel : '해당 날짜 항목 없음'}

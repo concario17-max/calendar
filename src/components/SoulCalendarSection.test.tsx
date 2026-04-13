@@ -13,13 +13,13 @@ describe('SoulCalendarSection', () => {
     render(
       <SoulCalendarSection
         hitSoulGroup={{ titleLine: 'Weeks 3', weeksLabel: '3주', weekA: 3, weekB: null, ranges: [], block: '' }}
-        soulSections={[{ week: 3, range: '4월 21-27', text: '봄\n봄의 본문' }]}
+        soulSections={[{ week: 3, range: '4월 21-27', text: '봄\nSoul body' }]}
       />,
     );
 
     expect(screen.getAllByText('3주')).toHaveLength(2);
     expect(screen.getByText('4월 21-27')).toBeInTheDocument();
     expect(screen.getByText('봄')).toBeInTheDocument();
-    expect(screen.getByText('봄의 본문')).toBeInTheDocument();
+    expect(screen.getByText('Soul body')).toBeInTheDocument();
   });
 });
