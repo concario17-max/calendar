@@ -79,9 +79,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             <div className="relative z-10 h-full min-h-0 p-6 md:p-10">
               <div className="flex items-center justify-between gap-3 mb-8">
                 <PanelBadge>Primary Verse</PanelBadge>
-                <span className="text-[0.68rem] sm:text-xs font-bold tracking-[0.22em] uppercase text-warm-gray-400 dark:text-warm-gray-500">
-                  Existing Body
-                </span>
               </div>
 
               <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
@@ -147,16 +144,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             <div className="relative z-10 h-full min-h-0 p-6 md:p-10">
               <div className="flex items-center justify-between gap-3 mb-8">
                 <PanelBadge>Commentary</PanelBadge>
-                <span className="text-[0.68rem] sm:text-xs font-bold tracking-[0.22em] uppercase text-warm-gray-400 dark:text-warm-gray-500">
-                  Scrollable
-                </span>
               </div>
 
               <div className="space-y-6">
-                <h4 className="text-[1.45rem] md:text-[1.8rem] font-display font-bold tracking-[-0.03em] leading-[1.2] text-warm-gray-800 break-keep dark:text-white/95">
-                  Commentary
-                </h4>
-
                 {commentary ? (
                   <div className="space-y-6">
                     {commentary.heading ? (
