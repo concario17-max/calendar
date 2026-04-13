@@ -13,25 +13,129 @@ interface IChingSectionProps {
 
 interface SplitCommentary {
   heading: string;
-  body: string;
+  blocks: CommentaryBlock[];
+}
+
+type CommentaryBlock =
+  | {
+      kind: 'paragraph';
+      text: string;
+    }
+  | {
+      kind: 'table';
+      rows: string[][];
+    };
+
+function splitParagraphBlocks(text: string): string[] {
+  return text
+    .split(/\n\s*\n/)
+    .map((block) => block.trim())
+    .filter(Boolean);
+}
+
+function parsePipeTableBlock(block: string): string[][] | null {
+  const rows = block
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  if (rows.length < 2) {
+    return null;
+  }
+
+  const parsedRows = rows.map((row) =>
+    row
+      .split('|')
+      .map((cell) => cell.trim())
+  );
+
+  const firstRow = parsedRows[0];
+  if (firstRow.length < 3 || !parsedRows.every((row) => row.length >= 3)) {
+    return null;
+  }
+
+  if (!parsedRows.every((row) => row.length === firstRow.length)) {
+    return null;
+  }
+
+  return parsedRows;
 }
 
 function splitCommentary(text: string): SplitCommentary {
   const trimmed = text.trim();
 
   if (trimmed.length === 0) {
-    return { heading: '', body: '' };
+    return { heading: '', blocks: [] };
   }
 
   const newlineIndex = trimmed.indexOf('\n');
   if (newlineIndex === -1) {
-    return { heading: trimmed, body: '' };
+    return { heading: trimmed, blocks: [] };
   }
 
+  const heading = trimmed.slice(0, newlineIndex).trim();
+  const body = trimmed.slice(newlineIndex + 1).trim();
+  const blocks: CommentaryBlock[] = splitParagraphBlocks(body).map((block): CommentaryBlock => {
+    const rows = parsePipeTableBlock(block);
+    return rows ? { kind: 'table', rows } : { kind: 'paragraph', text: block };
+  });
+
   return {
-    heading: trimmed.slice(0, newlineIndex).trim(),
-    body: trimmed.slice(newlineIndex + 1).trim(),
+    heading,
+    blocks,
   };
+}
+
+function renderCommentaryBlock(block: CommentaryBlock, index: number): React.ReactNode {
+  if (block.kind === 'table') {
+    const [headerRow, ...bodyRows] = block.rows;
+
+    return (
+      <div key={`table-${index}`} className="overflow-x-auto rounded-[1.5rem] border border-warm-gray-200/70 bg-white/70 dark:border-warm-gray-800 dark:bg-ray-dark/40">
+        <table className="min-w-full border-collapse text-left text-[0.95rem] md:text-[1rem]">
+          <thead className="bg-warm-gray-50/80 dark:bg-warm-gray-900/50">
+            <tr>
+              {headerRow.map((cell, cellIndex) => (
+                <th
+                  key={`table-${index}-head-${cellIndex}`}
+                  scope="col"
+                  className="border-b border-warm-gray-200 px-4 py-3 font-bold text-warm-gray-700 dark:border-warm-gray-700 dark:text-warm-gray-200"
+                >
+                  {cell}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {bodyRows.map((row, rowIndex) => (
+              <tr
+                key={`table-${index}-row-${rowIndex}`}
+                className="odd:bg-white/70 even:bg-warm-gray-50/60 dark:odd:bg-ray-dark/20 dark:even:bg-warm-gray-900/20"
+              >
+                {row.map((cell, cellIndex) => (
+                  <td
+                    key={`table-${index}-row-${rowIndex}-cell-${cellIndex}`}
+                    className="border-b border-warm-gray-200 px-4 py-3 align-top text-ray-body dark:border-warm-gray-800 dark:text-warm-gray-200"
+                  >
+                    {cell}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      key={`paragraph-${index}`}
+      className="whitespace-pre-wrap break-keep text-[15px] font-display leading-[1.95] tracking-[-0.01em] text-ray-body dark:text-warm-gray-200 md:text-[16px]"
+    >
+      {block.text}
+    </div>
+  );
 }
 
 function PanelBadge({ children }: { children: string }) {
@@ -155,11 +259,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                       </h5>
                     ) : null}
 
-                    {commentary.body ? (
-                      <div className="whitespace-pre-wrap break-keep text-[15px] font-display leading-[1.95] tracking-[-0.01em] text-ray-body dark:text-warm-gray-200 md:text-[16px]">
-                        {commentary.body}
-                      </div>
-                    ) : null}
+                    {commentary.blocks.length > 0 ? commentary.blocks.map(renderCommentaryBlock) : null}
                   </div>
                 ) : (
                   <div className="rounded-[1.5rem] border border-dashed border-warm-gray-200 bg-warm-gray-50/70 p-6 text-[0.98rem] leading-relaxed text-warm-gray-500 dark:border-warm-gray-800 dark:bg-warm-gray-900/40 dark:text-warm-gray-400">
