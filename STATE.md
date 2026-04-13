@@ -1,28 +1,27 @@
 # Current Task
-- Reduce the bottom spacing beneath the soul cards by half while keeping the current left-column nesting.
+- Align the header so the icon and title stay left and the remaining controls stay right.
 
 # Route
 - Route A
 
 # Writer Slot
-- main: direct implementation lane for a single-file spacing tweak
+- main: direct implementation lane for a single-file header alignment tweak
 
 # Contract Freeze
-- Goal: cut the bottom padding beneath the soul calendar cards roughly in half.
-- Non-goals: no layout restructuring, no data model changes, no commentary plumbing cleanup, no deployment work.
+- Goal: align the header into two clear groups, with the brand icon/title on the left and the remaining controls on the right.
+- Non-goals: no data model changes, no content changes, no deployment work.
 - Acceptance criteria:
-  - The soul card block has noticeably less bottom spacing.
-  - The current left-column nesting remains intact.
+  - The header reads as two groups: brand on the left, controls on the right.
   - Mobile behavior stays readable.
   - Build and tests pass.
 - Risks:
-  - The bottom spacing may also be influenced by surrounding container padding, so we may need to tune the section-level padding rather than only the card block.
+  - The long title may still wrap on very small screens, so spacing may need small follow-up tuning if the two-group layout compresses too much.
 
 # Write Sets
-- main: src/components/SoulCalendarSection.tsx
+- main: src/components/Header.tsx
 
 # Reviewer
 - main verification
 
 # Last Update
-- 2026-04-13: spacing tweak requested for soul cards
+- 2026-04-13: header alignment requested
