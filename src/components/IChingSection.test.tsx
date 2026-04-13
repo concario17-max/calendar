@@ -20,6 +20,21 @@ describe('IChingSection', () => {
           body: 'Body text',
           commentary: 'Commentary heading\nCommentary body',
         }}
+        hitSoulGroup={{
+          titleLine: '31. Example Soul Group',
+          weeksLabel: 'Weeks 31-33',
+          weekA: 31,
+          weekB: 33,
+          ranges: [],
+          block: '',
+        }}
+        soulSections={[
+          {
+            week: 31,
+            range: '4/13 - 4/19',
+            text: 'Soul heading\nSoul body',
+          },
+        ]}
       />,
     );
 
@@ -32,6 +47,8 @@ describe('IChingSection', () => {
     expect(screen.getByRole('heading', { level: 4, name: 'Commentary' })).toBeInTheDocument();
     expect(screen.getByText('Commentary heading')).toBeInTheDocument();
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
+    expect(screen.queryAllByText("Rudolf Steiner's Calendar of the Soul")).toHaveLength(1);
+    expect(screen.getByRole('article')).toHaveTextContent("Rudolf Steiner's Calendar of the Soul");
   });
 
   it('keeps the commentary shell visible when commentary is missing', () => {
@@ -44,6 +61,15 @@ describe('IChingSection', () => {
           short: 'Short reading',
           body: 'Body text',
         }}
+        hitSoulGroup={{
+          titleLine: '31. Example Soul Group',
+          weeksLabel: 'Weeks 31-33',
+          weekA: 31,
+          weekB: 33,
+          ranges: [],
+          block: '',
+        }}
+        soulSections={[]}
       />,
     );
 

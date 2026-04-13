@@ -1,11 +1,14 @@
 import React from 'react';
 import { Telescope } from 'lucide-react';
-import type { GuaData, YaoData } from '../types';
+import type { GuaData, SoulGroup, SoulSection, YaoData } from '../types';
+import { SoulCalendarSection } from './SoulCalendarSection';
 
 interface IChingSectionProps {
   yaoNum: number | null;
   guaData: GuaData | null;
   yaoData: YaoData | null;
+  hitSoulGroup?: SoulGroup;
+  soulSections?: SoulSection[];
 }
 
 interface SplitCommentary {
@@ -39,7 +42,13 @@ function PanelBadge({ children }: { children: string }) {
   );
 }
 
-export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, yaoData }) => {
+export const IChingSection: React.FC<IChingSectionProps> = ({
+  yaoNum,
+  guaData,
+  yaoData,
+  hitSoulGroup,
+  soulSections = [],
+}) => {
   const sigilSrc = yaoNum !== null ? `/images/yao-${yaoNum}.png` : null;
 
   if (!guaData || !yaoData) {
@@ -123,6 +132,10 @@ export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, y
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <div className="pt-12 md:pt-14">
+                <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
               </div>
             </div>
           </article>

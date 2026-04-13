@@ -1,7 +1,6 @@
 import React from 'react';
 import type { GuaData, YaoData, SoulSection, SoulGroup } from '../types';
 import { IChingSection } from './IChingSection';
-import { SoulCalendarSection } from './SoulCalendarSection';
 
 interface MainContentProps {
   yaoNum: number | null;
@@ -17,9 +16,13 @@ export const MainContent: React.FC<MainContentProps> = ({
 }) => {
   return (
     <main className="w-full max-w-none px-4 sm:px-6 lg:px-8 xl:px-10 py-8 md:py-12 pb-24 mt-4 space-y-16 animate-fade-in-up relative z-10 safe-bottom">
-      <IChingSection yaoNum={yaoNum} guaData={guaData} yaoData={yaoData} />
-
-      <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
+      <IChingSection
+        yaoNum={yaoNum}
+        guaData={guaData}
+        yaoData={yaoData}
+        hitSoulGroup={hitSoulGroup}
+        soulSections={soulSections}
+      />
     </main>
   );
 };

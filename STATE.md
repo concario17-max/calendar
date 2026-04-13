@@ -1,31 +1,31 @@
 # Current Task
-- Remove the top reading summary header from the split reading area, while keeping the left passage body and right commentary panels, and keep Rudolf Steiner's Calendar of the Soul in the normal vertical flow below.
+- Keep the right commentary panel, but move Rudolf Steiner's Calendar of the Soul back into the left reading column so it continues under the main passage instead of appearing as a separate bottom section.
 
 # Route
 - Route B
 
 # Writer Slot
 - main: planner-only until contract freeze and write sets are recorded
-- worker_feature: remove the top summary header and adjust tests if needed
+- worker_feature: move the soul section into the left reading column
 
 # Contract Freeze
-- Goal: simplify the split reading area by removing the upper `READING SUMMARY / CURRENT LINE` header card, while preserving the body/commentary split and the stacked soul section below.
-- Non-goals: no data model changes, no commentary plumbing cleanup, no redesign of soul calendar, no deployment work.
+- Goal: preserve the existing left/right split for the passage and commentary, while nesting the soul calendar directly under the main passage in the left column.
+- Non-goals: no data model changes, no commentary plumbing cleanup, no top summary header changes, no deployment work.
 - Acceptance criteria:
-  - The top summary header card is gone.
-  - The left passage body remains in place.
-  - The right commentary panel remains in place.
-  - `Rudolf Steiner's Calendar of the Soul` still appears below in the normal vertical flow.
+  - The right commentary panel stays visible.
+  - `Rudolf Steiner's Calendar of the Soul` is rendered in the left column beneath the passage, not as a separate bottom section.
+  - The left column remains the primary reading flow.
+  - Mobile behavior stays readable.
   - Build and tests pass.
 - Risks:
-  - Tests may still assert the removed header, so they will need to be updated.
+  - Layout nesting may require moving `SoulCalendarSection` into `IChingSection` or introducing a wrapper component, and tests may need to follow that structural change.
 
 # Write Sets
-- worker_feature: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx if needed
+- worker_feature: src/components/IChingSection.tsx, src/components/MainContent.tsx, src/components/IChingSection.test.tsx if needed
 - reviewer: main verification
 
 # Reviewer
 - main verification
 
 # Last Update
-- 2026-04-13: top summary header removed; build and tests passed
+- 2026-04-13: soul section nested into the left column and verified by build/tests
