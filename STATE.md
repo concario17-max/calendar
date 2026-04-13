@@ -1,35 +1,31 @@
 # Current Task
-- Full-screen 50:50 left/right layout for the entire reading area, so the existing body stays on the left and commentary stays on the right, with future data-only updates as the maintenance path.
+- Remove the top reading summary header from the split reading area, while keeping the left passage body and right commentary panels, and keep Rudolf Steiner's Calendar of the Soul in the normal vertical flow below.
 
 # Route
 - Route B
 
 # Writer Slot
 - main: planner-only until contract freeze and write sets are recorded
-- worker_shared: shared commentary data plumbing
-- worker_feature: full-width split reading layout
+- worker_feature: remove the top summary header and adjust tests if needed
 
 # Contract Freeze
-- Goal: convert the reading view into a reusable desktop split layout that renders the current verse/body on the left and commentary on the right, with mobile stacking preserved.
-- Non-goals: no redesign of unrelated sections, no changes to soul calendar behavior, no deployment work, no app-wide data migration beyond the commentary plumbing needed for the split view.
+- Goal: simplify the split reading area by removing the upper `READING SUMMARY / CURRENT LINE` header card, while preserving the body/commentary split and the stacked soul section below.
+- Non-goals: no data model changes, no commentary plumbing cleanup, no redesign of soul calendar, no deployment work.
 - Acceptance criteria:
-  - Desktop renders a full-width two-column layout that reads as the whole page split 50:50.
-  - Left panel keeps the current body content.
-  - Right panel shows commentary content.
-  - Mobile stacks vertically and remains readable.
-  - Layout is data-driven so future updates can be made by editing data, not component structure.
-  - Build and tests pass after the change.
+  - The top summary header card is gone.
+  - The left passage body remains in place.
+  - The right commentary panel remains in place.
+  - `Rudolf Steiner's Calendar of the Soul` still appears below in the normal vertical flow.
+  - Build and tests pass.
 - Risks:
-  - Existing tests/config may need restoration because the repo was rolled back to fc448dd.
-  - Terminal output can mangle Korean strings, so verification must rely on runtime rendering and tests, not console text alone.
+  - Tests may still assert the removed header, so they will need to be updated.
 
 # Write Sets
-- worker_shared: src/types/index.ts, src/hooks/useCalendarLogic.ts, src/data/yaoCommentary.ts, src/data/index.ts if needed
-- worker_feature: src/components/IChingSection.tsx, src/components/MainContent.tsx, src/components/IChingSection.test.tsx if needed
-- reviewer: Feynman
+- worker_feature: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx if needed
+- reviewer: main verification
 
 # Reviewer
-- Feynman
+- main verification
 
 # Last Update
-- 2026-04-13: implementation complete; global split layout, commentary data plumbing, and role-based tests are passing
+- 2026-04-13: top summary header removed; build and tests passed

@@ -25,9 +25,10 @@ describe('IChingSection', () => {
 
     expect(screen.getByRole('article')).toBeInTheDocument();
     expect(screen.getByRole('complementary')).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 2, name: '62. Example' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(screen.getByText('Short reading')).toBeInTheDocument();
+    expect(screen.queryByText('Reading Summary')).not.toBeInTheDocument();
+    expect(screen.queryByText('Current Line')).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 4, name: 'Commentary' })).toBeInTheDocument();
     expect(screen.getByText('Commentary heading')).toBeInTheDocument();
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
@@ -48,7 +49,6 @@ describe('IChingSection', () => {
 
     expect(screen.getByRole('article')).toBeInTheDocument();
     expect(screen.getByRole('complementary')).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 2, name: '62. Example' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 4, name: 'Commentary' })).toBeInTheDocument();
     expect(screen.getByText('Commentary is not available for this selection yet.')).toBeInTheDocument();

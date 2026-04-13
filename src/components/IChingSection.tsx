@@ -31,16 +31,6 @@ function splitCommentary(text: string): SplitCommentary {
   };
 }
 
-function getTitleSubtitle(titleLine: string): string {
-  const lines = titleLine
-    .split('\n')
-    .map((line) => line.trim())
-    .filter(Boolean);
-
-  const sourceLine = lines[lines.length - 1] ?? titleLine.trim();
-  return sourceLine.replace(/^\d+\.\s*/, '');
-}
-
 function PanelBadge({ children }: { children: string }) {
   return (
     <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-elegant-gold/10 border border-elegant-gold/20 text-elegant-gold text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase">
@@ -68,34 +58,10 @@ export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, y
   const commentaryText = yaoData.commentary?.trim() ?? '';
   const hasCommentary = commentaryText.length > 0;
   const commentary = hasCommentary ? splitCommentary(commentaryText) : null;
-  const commentarySubtitle = getTitleSubtitle(yaoData.titleLine);
 
   return (
     <section className="w-full animate-fade-in-up stagger-1">
       <div className="space-y-6">
-        <header className="rounded-[2.25rem] border border-elegant-gold/10 bg-white/80 dark:bg-ray-dark/80 backdrop-blur-xl shadow-xl px-6 py-6 md:px-8 md:py-7">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div className="space-y-2">
-              <PanelBadge>Reading Summary</PanelBadge>
-              <h2 className="text-2xl md:text-[2.25rem] font-brand font-semibold tracking-[0.015em] text-transparent bg-clip-text bg-gradient-to-r from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 break-keep leading-tight">
-                {guaData.header}
-              </h2>
-              <p className="max-w-[56rem] text-[0.96rem] md:text-[1.06rem] text-ray-body dark:text-warm-gray-300 font-display leading-relaxed italic break-keep">
-                {guaData.meta}
-              </p>
-            </div>
-
-            <div className="space-y-1 md:text-right">
-              <p className="text-[0.72rem] md:text-[0.78rem] font-bold tracking-[0.24em] uppercase text-elegant-gold">
-                Current Line
-              </p>
-              <p className="max-w-[26rem] md:ml-auto text-[0.95rem] md:text-[1rem] text-warm-gray-500 dark:text-warm-gray-400 font-display italic leading-relaxed break-keep">
-                {commentarySubtitle}
-              </p>
-            </div>
-          </div>
-        </header>
-
         <div className="grid gap-6 md:grid-cols-2 md:items-stretch">
           <article className="group relative overflow-hidden rounded-[2.5rem] bg-white/80 dark:bg-ray-dark/80 backdrop-blur-xl shadow-xl border border-elegant-gold/10 transition-colors duration-300">
             <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-elegant-gold to-transparent opacity-20" />
@@ -177,10 +143,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({ yaoNum, guaData, y
                 <h4 className="text-[1.45rem] md:text-[1.8rem] font-display font-bold tracking-[-0.03em] leading-[1.2] text-warm-gray-800 break-keep dark:text-white/95">
                   Commentary
                 </h4>
-
-                <p className="max-w-[26rem] text-[0.95rem] md:text-[1rem] font-display italic leading-relaxed break-keep text-warm-gray-500 dark:text-warm-gray-400">
-                  {commentarySubtitle}
-                </p>
 
                 {commentary ? (
                   <div className="space-y-6">
