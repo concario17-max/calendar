@@ -4,6 +4,9 @@ import react from '@vitejs/plugin-react-swc';
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    preserveSymlinks: true,
+  },
   build: {
     rollupOptions: {
       output: {
@@ -32,6 +35,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    pool: 'threads',
     setupFiles: ['./src/test/setup.ts'],
   },
 });

@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest",
+    "test": "vitest --configLoader native",
     "sync:data": "node convert_data.cjs",
     "check:data": "node scripts/check-data-sync.mjs",
     "check:encoding": "node scripts/check-encoding.mjs"

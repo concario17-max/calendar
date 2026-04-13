@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { GUA_TEXT, YAO_TEXT, SOUL_TEXT } from '../data';
+import { GUA_TEXT, YAO_TEXT, SOUL_TEXT, getYaoCommentary } from '../data';
 import { 
   parseNumberedBlocks, parseSoulGroups, 
   calcYaoNum, calcGuaNum, splitGua, splitYao, 
@@ -28,7 +28,12 @@ export function useCalendarLogic() {
   const rawYao = yaoNum !== null ? YAO_MAP.get(yaoNum) : undefined;
 
   const guaData = rawGua ? splitGua(rawGua) : null;
-  const yaoData = rawYao ? splitYao(rawYao) : null;
+  const yaoData = rawYao
+    ? {
+        ...splitYao(rawYao),
+        commentary: getYaoCommentary(yaoNum),
+      }
+    : null;
 
   // Soul Calendar
   const m = selectedDate.getMonth() + 1;

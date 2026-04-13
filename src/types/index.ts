@@ -22,6 +22,7 @@ export interface YaoData {
   titleLine: string;
   short: string;
   body: string;
+  commentary?: string;
 }
 
 export interface GuaData {
