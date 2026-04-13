@@ -1,6 +1,8 @@
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import { useState } from 'react';
 import { describe, expect, it } from 'vitest';
 import { IChingSection } from './IChingSection.tsx';
+import type { CommentarySource } from '../types';
 
 describe('IChingSection', () => {
   it('renders an empty-state message when there is no passage', () => {
@@ -118,8 +120,7 @@ describe('IChingSection', () => {
 
     expect(screen.getByRole('article')).toBeInTheDocument();
     expect(screen.getByRole('complementary')).toBeInTheDocument();
-    expect(screen.getByText('Commentary heading')).toBeInTheDocument();
-    const commentaryHeading = screen.getByText('Commentary heading');
+    const commentaryHeading = screen.getByRole('heading', { level: 5, name: 'Commentary heading' });
     const commentaryBody = commentaryHeading.nextElementSibling as HTMLElement;
 
     expect(commentaryBody).toHaveTextContent('Pipe prose | should stay plain text');
@@ -155,5 +156,56 @@ describe('IChingSection', () => {
     expect(screen.getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { level: 4, name: 'Commentary' })).not.toBeInTheDocument();
     expect(screen.getByText('Commentary is not available for this selection yet.')).toBeInTheDocument();
+  });
+
+  it('switches the rendered commentary source when the toggle is used', () => {
+    function CommentaryToggleHarness() {
+      const [commentarySource, setCommentarySource] = useState<CommentarySource>('yao');
+
+      return (
+        <IChingSection
+          commentarySource={commentarySource}
+          commentarySources={{
+            gua: [
+              'Gua Heading',
+              '',
+              '열 1 | 열 2 | 열 3',
+              'A | B | C',
+            ].join('\n'),
+            yao: 'Yao Heading\nPlain prose commentary body',
+          }}
+          onCommentarySourceChange={setCommentarySource}
+          yaoNum={369}
+          guaData={{ header: '62. Example', meta: 'Example meta' }}
+          yaoData={{
+            titleLine: '369. Example',
+            short: 'Short reading',
+            body: 'Body text',
+          }}
+          hitSoulGroup={{
+            titleLine: '31. Example Soul Group',
+            weeksLabel: 'Weeks 31-33',
+            weekA: 31,
+            weekB: 33,
+            ranges: [],
+            block: '',
+          }}
+          soulSections={[]}
+        />
+      );
+    }
+
+    render(<CommentaryToggleHarness />);
+
+    expect(screen.getByText('Yao Heading')).toBeInTheDocument();
+    expect(screen.getByText('Plain prose commentary body')).toBeInTheDocument();
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Gua' }));
+
+    expect(screen.getByText('Gua Heading')).toBeInTheDocument();
+    expect(screen.getByRole('table')).toBeInTheDocument();
+    expect(screen.getByRole('cell', { name: 'A' })).toBeInTheDocument();
+    expect(screen.queryByText('Yao Heading')).not.toBeInTheDocument();
   });
 });

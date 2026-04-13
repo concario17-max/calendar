@@ -1,5 +1,5 @@
 # Current Task
-- Completed: Tighten pipe-table detection so only real tables render as tables.
+- Completed: Implement the commentary source toggle end-to-end, including gua/yao commentary sources and the April 7 mapping.
 
 # Route
 - Route B
@@ -8,22 +8,26 @@
 - main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: render only true pipe tables as semantic tables while keeping pipe-heavy prose as normal paragraphs.
-- Non-goals: no data model changes, no deployment work, no header/shell changes.
+- Goal: let the commentary panel toggle between gua content and yao content, with the toggle placed beside the existing Commentary label, and verify the April 7 mapping (gua 5, yao 25).
+- Non-goals: no layout rewrite outside the commentary panel, no data migration away from existing text files, no deployment work.
 - Acceptance criteria:
-  - Only blocks with 3+ columns per row render as tables.
-  - Non-table commentary still renders as normal prose.
-  - The tests match the rendered DOM.
+  - Commentary can switch between gua and yao sources.
+  - The toggle sits next to the Commentary label.
+  - April 7 resolves to gua 5 and yao 25.
+  - The commentary source selection is testable and covered by tests.
+  - The April 7 mapping is covered at the hook or logic layer.
   - Build and tests pass.
 - Risks:
-  - Overly strict detection may leave a real table rendered as prose if any row is malformed.
+  - The current data model may need a minimal extension to carry both commentary sources cleanly.
+  - UI state can drift if the toggle is not wired through a single source of truth.
+  - This slice stays single-worker because the commentary source, date mapping, and rendered panel are one tightly coupled flow.
 
 # Write Sets
-- worker_impl: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
-- reviewer: table rendering and commentary layout
+- worker_impl: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx, src/hooks/useCalendarLogic.ts, src/hooks/useCalendarLogic.test.ts, src/types/index.ts, src/data/index.ts, src/data/yaoCommentary.ts, src/data/guaCommentary.ts, src/data/guaCommentary.test.ts
+- reviewer: commentary source toggle and April 7 mapping
 
 # Reviewer
-- reviewer: table rendering and commentary layout
+- reviewer: commentary source toggle and April 7 mapping
 
 # Last Update
-- 2026-04-13: pipe-table detection tightened and verified
+- 2026-04-13: commentary source toggle verified with targeted tests and build

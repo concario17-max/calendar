@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { YAO_COMMENTARY_BY_NUM, getYaoCommentary } from './yaoCommentary';
+import { YAO_25_COMMENTARY_BY_NUM, getYaoCommentary } from './yaoCommentary';
 
 describe('yao commentary registry', () => {
-  it('keeps a numeric seed slot for 31', () => {
-    expect(Object.prototype.hasOwnProperty.call(YAO_COMMENTARY_BY_NUM, 31)).toBe(true);
+  it('keeps a numeric seed slot for 25', () => {
+    expect(Object.prototype.hasOwnProperty.call(YAO_25_COMMENTARY_BY_NUM, 25)).toBe(true);
   });
 
-  it('returns the recovered 31 commentary text', () => {
-    expect(getYaoCommentary(31)).toContain('31번 오폴로곤과 무상의 지혜');
+  it('returns the recovered 25 commentary text', () => {
+    expect(getYaoCommentary(25)).toContain('모레흐와 불원소를 통한 아스트랄계의 변형과 해탈의 원리');
   });
 });

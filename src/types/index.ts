@@ -18,6 +18,13 @@ export interface SoulSection {
   text: string;
 }
 
+export type CommentarySource = 'gua' | 'yao';
+
+export interface CommentarySources {
+  gua: string;
+  yao: string;
+}
+
 export interface YaoData {
   titleLine: string;
   short: string;

@@ -7,6 +7,9 @@ function App() {
   const {
     selectedDate,
     setSelectedDate,
+    commentarySource,
+    setCommentarySource,
+    commentarySources,
     yaoNum,
     guaNum,
     guaData,
@@ -34,6 +37,9 @@ function App() {
 
       <div className="flex-1 relative">
         <MainContent
+          commentarySource={commentarySource}
+          commentarySources={commentarySources}
+          setCommentarySource={setCommentarySource}
           yaoNum={yaoNum}
           guaNum={guaNum}
           guaData={guaData}

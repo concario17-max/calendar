@@ -1,9 +1,12 @@
 import React from 'react';
 import { Telescope } from 'lucide-react';
-import type { GuaData, SoulGroup, SoulSection, YaoData } from '../types';
+import type { CommentarySource, CommentarySources, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { SoulCalendarSection } from './SoulCalendarSection';
 
 interface IChingSectionProps {
+  commentarySource?: CommentarySource;
+  commentarySources?: CommentarySources;
+  onCommentarySourceChange?: (source: CommentarySource) => void;
   yaoNum: number | null;
   guaData: GuaData | null;
   yaoData: YaoData | null;
@@ -147,6 +150,9 @@ function PanelBadge({ children }: { children: string }) {
 }
 
 export const IChingSection: React.FC<IChingSectionProps> = ({
+  commentarySource = 'yao',
+  commentarySources,
+  onCommentarySourceChange,
   yaoNum,
   guaData,
   yaoData,
@@ -168,7 +174,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     );
   }
 
-  const commentaryText = yaoData.commentary?.trim() ?? '';
+  const commentaryText = commentarySources
+    ? commentarySources[commentarySource].trim()
+    : yaoData.commentary?.trim() ?? '';
   const hasCommentary = commentaryText.length > 0;
   const commentary = hasCommentary ? splitCommentary(commentaryText) : null;
 
@@ -246,8 +254,30 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-elegant-gold opacity-5 blur-3xl dark:opacity-5" />
 
             <div className="relative z-10 h-full min-h-0 p-6 md:p-10">
-              <div className="flex items-center justify-between gap-3 mb-8">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
                 <PanelBadge>Commentary</PanelBadge>
+                <div className="inline-flex items-center rounded-full border border-warm-gray-200 bg-white/80 p-1 text-[11px] font-bold tracking-[0.18em] uppercase dark:border-warm-gray-700 dark:bg-ray-dark/70">
+                  {(['gua', 'yao'] as const).map((source) => {
+                    const isActive = commentarySource === source;
+                    const label = source === 'gua' ? 'Gua' : 'Yao';
+
+                    return (
+                      <button
+                        key={source}
+                        type="button"
+                        aria-pressed={isActive}
+                        onClick={() => onCommentarySourceChange?.(source)}
+                        className={`rounded-full px-3 py-1.5 transition-colors duration-200 ${
+                          isActive
+                            ? 'bg-elegant-gold text-white shadow-md shadow-elegant-gold/20 dark:text-ray-dark'
+                            : 'text-warm-gray-500 hover:text-warm-gray-800 dark:text-warm-gray-400 dark:hover:text-white'
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               <div className="space-y-6">
