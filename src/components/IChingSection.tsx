@@ -71,7 +71,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   return (
     <section className="w-full animate-fade-in-up stagger-1">
       <div className="space-y-6">
-        <div className="grid gap-6 md:grid-cols-2 md:items-stretch">
+        <div className="grid gap-4 md:grid-cols-2 md:gap-5 lg:gap-6 md:items-stretch">
           <article className="group relative overflow-hidden rounded-[2.5rem] bg-white/80 dark:bg-ray-dark/80 backdrop-blur-xl shadow-xl border border-elegant-gold/10 transition-colors duration-300">
             <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-elegant-gold to-transparent opacity-20" />
             <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-elegant-gold opacity-5 blur-3xl dark:opacity-5" />
@@ -144,7 +144,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-elegant-gold to-transparent opacity-20" />
             <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-elegant-gold opacity-5 blur-3xl dark:opacity-5" />
 
-            <div className="relative z-10 h-full min-h-0 p-6 md:p-10 md:h-[min(80vh,58rem)] md:overflow-y-auto">
+            <div className="relative z-10 h-full min-h-0 p-6 md:p-10">
               <div className="flex items-center justify-between gap-3 mb-8">
                 <PanelBadge>Commentary</PanelBadge>
                 <span className="text-[0.68rem] sm:text-xs font-bold tracking-[0.22em] uppercase text-warm-gray-400 dark:text-warm-gray-500">
