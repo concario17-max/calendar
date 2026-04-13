@@ -1,31 +1,28 @@
 # Current Task
-- Keep the right commentary panel, but move Rudolf Steiner's Calendar of the Soul back into the left reading column so it continues under the main passage instead of appearing as a separate bottom section.
+- Reduce the bottom spacing beneath the soul cards by half while keeping the current left-column nesting.
 
 # Route
-- Route B
+- Route A
 
 # Writer Slot
-- main: planner-only until contract freeze and write sets are recorded
-- worker_feature: move the soul section into the left reading column
+- main: direct implementation lane for a single-file spacing tweak
 
 # Contract Freeze
-- Goal: preserve the existing left/right split for the passage and commentary, while nesting the soul calendar directly under the main passage in the left column.
-- Non-goals: no data model changes, no commentary plumbing cleanup, no top summary header changes, no deployment work.
+- Goal: cut the bottom padding beneath the soul calendar cards roughly in half.
+- Non-goals: no layout restructuring, no data model changes, no commentary plumbing cleanup, no deployment work.
 - Acceptance criteria:
-  - The right commentary panel stays visible.
-  - `Rudolf Steiner's Calendar of the Soul` is rendered in the left column beneath the passage, not as a separate bottom section.
-  - The left column remains the primary reading flow.
+  - The soul card block has noticeably less bottom spacing.
+  - The current left-column nesting remains intact.
   - Mobile behavior stays readable.
   - Build and tests pass.
 - Risks:
-  - Layout nesting may require moving `SoulCalendarSection` into `IChingSection` or introducing a wrapper component, and tests may need to follow that structural change.
+  - The bottom spacing may also be influenced by surrounding container padding, so we may need to tune the section-level padding rather than only the card block.
 
 # Write Sets
-- worker_feature: src/components/IChingSection.tsx, src/components/MainContent.tsx, src/components/IChingSection.test.tsx if needed
-- reviewer: main verification
+- main: src/components/SoulCalendarSection.tsx
 
 # Reviewer
 - main verification
 
 # Last Update
-- 2026-04-13: soul section nested into the left column and verified by build/tests
+- 2026-04-13: spacing tweak requested for soul cards

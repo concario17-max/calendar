@@ -36,7 +36,7 @@ function extractSectionBadge(text: string): { badge: string | null; content: str
 
 export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSoulGroup, soulSections }) => {
   return (
-    <section className="relative animate-fade-in-up stagger-2 pb-12 md:pb-16">
+    <section className="relative animate-fade-in-up stagger-2 pb-6 md:pb-8">
       <div className="text-center mb-10">
         <div className="inline-block group">
           <h2 className="text-[2.2rem] md:text-[2.6rem] font-brand font-semibold text-transparent bg-clip-text bg-gradient-to-b from-warm-gray-800 to-warm-gray-500 dark:from-white dark:to-warm-gray-400 tracking-[0.015em] leading-[0.95] mb-3 transition-transform duration-500 group-hover:scale-105">
