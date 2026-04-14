@@ -1,5 +1,5 @@
-# Current Task
-- Completed: Implement the commentary source toggle end-to-end, including gua/yao commentary sources and the April 7 mapping.
+﻿# Current Task
+- Completed: Rebuild gua and yao commentary data from the numbered ODT files in the `괘사/` and `효사/` folders.
 
 # Route
 - Route B
@@ -8,26 +8,25 @@
 - main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: let the commentary panel toggle between gua content and yao content, with the toggle placed beside the existing Commentary label, and verify the April 7 mapping (gua 5, yao 25).
-- Non-goals: no layout rewrite outside the commentary panel, no data migration away from existing text files, no deployment work.
+- Goal: analyze the numbered ODT files in `괘사/` and `효사/`, regenerate the commentary registries from those sources, and keep the existing toggle UI working with the new number-based content.
+- Non-goals: no layout rewrite beyond the commentary source plumbing, no deployment work, no unrelated data migrations.
 - Acceptance criteria:
-  - Commentary can switch between gua and yao sources.
-  - The toggle sits next to the Commentary label.
-  - April 7 resolves to gua 5 and yao 25.
-  - The commentary source selection is testable and covered by tests.
-  - The April 7 mapping is covered at the hook or logic layer.
+  - The numbered ODT files are analyzed and mapped by the file numbers the user attached to the titles.
+  - Commentary data is regenerated from those files.
+  - The existing gua/yao toggle still switches between the two commentary sources.
+  - A representative mapping is covered by tests.
   - Build and tests pass.
 - Risks:
-  - The current data model may need a minimal extension to carry both commentary sources cleanly.
-  - UI state can drift if the toggle is not wired through a single source of truth.
-  - This slice stays single-worker because the commentary source, date mapping, and rendered panel are one tightly coupled flow.
+  - The ODT source text may need one-time extraction/normalization before it can be committed as plain data.
+  - A file-number mismatch could create wrong commentary routing if the registry is not keyed carefully.
+  - This slice stays single-worker unless the folder set fans out into clearly disjoint writing targets.
 
 # Write Sets
-- worker_impl: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx, src/hooks/useCalendarLogic.ts, src/hooks/useCalendarLogic.test.ts, src/types/index.ts, src/data/index.ts, src/data/yaoCommentary.ts, src/data/guaCommentary.ts, src/data/guaCommentary.test.ts
-- reviewer: commentary source toggle and April 7 mapping
+- worker_impl: src/data/guaCommentary.ts, src/data/yaoCommentary.ts, src/data/index.ts, src/data/guaCommentary.test.ts, src/data/yaoCommentary.test.ts, src/hooks/useCalendarLogic.ts, src/hooks/useCalendarLogic.test.ts, src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
+- reviewer: registry rebuild and number mapping
 
 # Reviewer
-- reviewer: commentary source toggle and April 7 mapping
+- reviewer: registry rebuild and number mapping
 
 # Last Update
-- 2026-04-13: commentary source toggle verified with targeted tests and build
+- 2026-04-14: numbered ODT rebuild verified and closed

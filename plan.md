@@ -1,5 +1,14 @@
 # Celestial Ephemeris Todo Plan
 
+## Numbered ODT Rebuild
+
+- [x] Inspect `괘사/괘사-1.odt` and `효사/효사-1.odt`
+- [x] Regenerate commentary titles from the number prefix in each ODT title
+- [x] Keep the gua/yao commentary toggle wired to the same numeric date mapping
+- [x] Cover one representative mapping in tests
+- [x] Run build and test verification
+- [ ] Investigate the existing encoding check failure in `src/components/IChingSection.tsx`
+
 이 문서는 `research.md`를 바탕으로 만든 실행 계획서였고, 아래 항목들은 현재 구현 완료 상태다.
 
 ## Phase 1. 문서/메타 정리 [완료]

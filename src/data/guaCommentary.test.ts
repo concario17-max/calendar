@@ -7,6 +7,6 @@ describe('gua commentary registry', () => {
   });
 
   it('returns the recovered 5 commentary text', () => {
-    expect(getGuaCommentary(5)).toContain('수괘의 진실: 신의 섭리를 수행하는 쓰임과 믿음의 길');
+    expect(getGuaCommentary(5)).toContain('05.수괘의 진실: 신의 섭리를 수행하는 쓰임과 믿음의 길');
   });
 });
