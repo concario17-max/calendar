@@ -26,6 +26,10 @@ type CommentaryBlock =
       text: string;
     }
   | {
+      kind: 'list';
+      items: string[];
+    }
+  | {
       kind: 'table';
       rows: string[][];
     };
@@ -65,6 +69,38 @@ function parsePipeTableBlock(block: string): string[][] | null {
   return parsedRows;
 }
 
+function parseListBlock(block: string): string[] | null {
+  const lines = block
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  if (lines.length < 2) {
+    return null;
+  }
+
+  const listItemPattern = /^(?:[•·∙◦‣⁃*-]|\d+[.)])\s*(.+)$/u;
+
+  const items = lines.map((line) => {
+    const match = line.match(listItemPattern);
+    if (!match) {
+      return null;
+    }
+
+    return normalizeListItemText(match[1] ?? '');
+  });
+
+  if (items.some((item) => !item || item.length === 0)) {
+    return null;
+  }
+
+  return items as string[];
+}
+
+function normalizeListItemText(text: string): string {
+  return text.replace(/\s+/g, ' ').trim();
+}
+
 function splitCommentary(text: string): SplitCommentary {
   const trimmed = text.trim();
 
@@ -81,7 +117,16 @@ function splitCommentary(text: string): SplitCommentary {
   const body = trimmed.slice(newlineIndex + 1).trim();
   const blocks: CommentaryBlock[] = splitParagraphBlocks(body).map((block): CommentaryBlock => {
     const rows = parsePipeTableBlock(block);
-    return rows ? { kind: 'table', rows } : { kind: 'paragraph', text: block };
+    if (rows) {
+      return { kind: 'table', rows };
+    }
+
+    const items = parseListBlock(block);
+    if (items) {
+      return { kind: 'list', items };
+    }
+
+    return { kind: 'paragraph', text: block };
   });
 
   return {
@@ -129,6 +174,21 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
           </tbody>
         </table>
       </div>
+    );
+  }
+
+  if (block.kind === 'list') {
+    return (
+      <ul
+        key={`list-${index}`}
+        className="space-y-3 pl-6 text-[15px] font-display leading-[1.95] tracking-[-0.01em] text-ray-body dark:text-warm-gray-200 md:text-[16px]"
+      >
+        {block.items.map((item, itemIndex) => (
+          <li key={`list-${index}-item-${itemIndex}`} className="break-keep marker:text-elegant-gold">
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
     );
   }
 

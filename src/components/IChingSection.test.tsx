@@ -15,6 +15,14 @@ vi.mock('../data', () => {
     'Commentary body',
   ].join('\n');
 
+  const guaListCommentary = [
+    'Gua List Heading',
+    '',
+    '· First list item',
+    '· Second list item',
+    '· Third list item',
+  ].join('\n');
+
   const yaoProseCommentary = ['Yao Heading', 'Plain prose commentary body'].join('\n');
   const yaoPipeProseCommentary = [
     'Yao Heading',
@@ -23,7 +31,17 @@ vi.mock('../data', () => {
   ].join('\n');
 
   return {
-    getGuaCommentary: (num: number | null) => (num === 6 ? guaCommentary : undefined),
+    getGuaCommentary: (num: number | null) => {
+      if (num === 6) {
+        return guaCommentary;
+      }
+
+      if (num === 8) {
+        return guaListCommentary;
+      }
+
+      return undefined;
+    },
     getYaoCommentary: (num: number | null) => {
       if (num === 33) {
         return yaoProseCommentary;
@@ -91,6 +109,41 @@ describe('IChingSection', () => {
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
     expect(screen.queryAllByText("Rudolf Steiner's Calendar of the Soul")).toHaveLength(1);
     expect(screen.getByRole('article')).toHaveTextContent("Rudolf Steiner's Calendar of the Soul");
+  });
+
+  it('renders bullet-marked commentary blocks as semantic lists', () => {
+    render(
+      <IChingSection
+        commentarySource="gua"
+        yaoNum={33}
+        guaNum={8}
+        guaData={{ header: '62. Example', meta: 'Example meta' }}
+        yaoData={{
+          titleLine: '33. Example',
+          short: 'Short reading',
+          body: 'Body text',
+        }}
+        hitSoulGroup={{
+          titleLine: '31. Example Soul Group',
+          weeksLabel: 'Weeks 31-33',
+          weekA: 31,
+          weekB: 33,
+          ranges: [],
+          block: '',
+        }}
+        soulSections={[]}
+      />,
+    );
+
+    const commentaryList = screen.getByRole('list');
+
+    expect(screen.getByText('Gua List Heading')).toBeInTheDocument();
+    expect(commentaryList).toBeInTheDocument();
+    expect(within(commentaryList).getAllByRole('listitem')).toHaveLength(3);
+    expect(screen.getByText('First list item')).toBeInTheDocument();
+    expect(screen.getByText('Second list item')).toBeInTheDocument();
+    expect(screen.getByText('Third list item')).toBeInTheDocument();
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
   });
 
   it('renders plain commentary prose without forcing a table', () => {
