@@ -185,7 +185,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     <section className="w-full animate-fade-in-up stagger-1">
       <div className="space-y-6">
         <div className="relative grid gap-4 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.38fr)] md:gap-6 lg:gap-8 md:items-start md:before:absolute md:before:inset-y-0 md:before:left-[42%] md:before:z-20 md:before:w-px md:before:bg-gradient-to-b md:before:from-transparent md:before:via-warm-gray-300/70 md:before:to-transparent md:before:content-[''] dark:md:before:via-warm-gray-700/60">
-          <article className="group relative overflow-hidden rounded-[2.75rem] bg-white/82 dark:bg-ray-dark/80 backdrop-blur-xl shadow-[0_24px_72px_rgba(79,63,39,0.10)] border border-elegant-gold/10 transition-colors duration-300">
+          <article className="group relative overflow-hidden rounded-[2.9rem] bg-gradient-to-b from-white/90 via-white/82 to-warm-gray-50/72 dark:from-ray-dark/86 dark:via-ray-dark/82 dark:to-warm-gray-900/50 backdrop-blur-xl shadow-[0_28px_78px_rgba(79,63,39,0.11)] border border-elegant-gold/10 transition-colors duration-300">
             <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-elegant-gold to-transparent opacity-20" />
             <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-elegant-gold opacity-5 blur-3xl dark:opacity-5" />
 
@@ -250,11 +250,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
           </article>
 
-          <aside className="relative mt-0 overflow-hidden rounded-[2.25rem] border border-elegant-gold/10 bg-warm-gray-50/85 shadow-[0_18px_54px_rgba(79,63,39,0.08)] backdrop-blur-xl transition-colors duration-300 dark:bg-ray-dark/78 md:mt-10 lg:mt-14">
+          <aside className="relative mt-0 overflow-hidden rounded-[2.25rem] border border-elegant-gold/10 bg-gradient-to-b from-warm-gray-50/90 via-white/85 to-warm-gray-100/70 shadow-[0_16px_44px_rgba(79,63,39,0.07)] backdrop-blur-xl transition-colors duration-300 dark:from-ray-dark/78 dark:via-ray-dark/74 dark:to-warm-gray-900/46 md:mt-10 lg:mt-14">
             <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-elegant-gold to-transparent opacity-20" />
             <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-elegant-gold opacity-5 blur-3xl dark:opacity-5" />
 
-            <div className="relative z-10 h-full min-h-0 p-6 md:p-8 lg:p-9">
+            <div className="relative z-10 h-full min-h-0 p-6 md:p-8 lg:p-9 md:pl-9">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
                 <PanelBadge>Commentary</PanelBadge>
                 <div className="inline-flex items-center rounded-full border border-warm-gray-200 bg-white/80 p-1 text-[11px] font-bold tracking-[0.18em] uppercase dark:border-warm-gray-700 dark:bg-ray-dark/70">
@@ -281,11 +281,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 </div>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-6 md:pr-2">
                 {commentary ? (
                   <div className="space-y-6">
                     {commentary.heading ? (
-                      <h5 className="text-[1.2rem] md:text-[1.35rem] font-display font-semibold tracking-[-0.02em] leading-[1.3] text-warm-gray-800 break-keep dark:text-white/95">
+                      <h5 className="max-w-[30ch] text-[1.08rem] md:text-[1.22rem] font-display font-semibold tracking-[-0.02em] leading-[1.35] text-warm-gray-700 break-keep dark:text-white/92">
                         {commentary.heading}
                       </h5>
                     ) : null}
