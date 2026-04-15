@@ -277,7 +277,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     : getYaoCommentary(yaoNum)?.trim() ?? '';
   const hasCommentary = commentaryText.length > 0;
   const commentary = hasCommentary ? splitCommentary(commentaryText) : null;
-  const guaExplanation = guaData.meta.trim();
+  const guaMeta = guaData.meta.trim();
 
   return (
     <section className="w-full animate-fade-in-up stagger-1">
@@ -302,6 +302,23 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                         </h3>
                       </div>
                     </div>
+
+                    {guaMeta ? (
+                      <div
+                        data-testid="reading-gua-meta"
+                        className="rounded-[2rem] border border-elegant-gold/10 bg-warm-gray-50/80 p-5 shadow-[0_16px_36px_rgba(79,63,39,0.05)] dark:bg-ray-dark/42 md:p-6"
+                      >
+                        <div className="mb-3 flex items-center gap-3">
+                          <div className="h-5 w-1 rounded-full bg-elegant-gold/80" />
+                          <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-elegant-gold/90">
+                            Anamil
+                          </span>
+                        </div>
+                        <p className="max-w-[42rem] whitespace-pre-wrap text-[0.96rem] md:text-[1.05rem] font-display leading-relaxed break-keep text-ray-body dark:text-warm-gray-300">
+                          {guaMeta}
+                        </p>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
 
@@ -343,33 +360,16 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {guaExplanation ? (
-                    <div
-                      data-testid="reading-gua-explanation"
-                      className="mt-6 rounded-[2rem] border border-elegant-gold/10 bg-white/75 p-5 shadow-[0_16px_36px_rgba(79,63,39,0.05)] dark:bg-ray-dark/42 md:mt-7 md:p-6"
-                    >
-                      <div className="mb-3 flex items-center gap-3">
-                        <div className="h-5 w-1 rounded-full bg-elegant-gold/80" />
-                        <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-elegant-gold/90">
-                          Anamil
-                        </span>
+                      <div
+                        data-testid="verse-body"
+                        className="w-full border-t border-warm-gray-200/60 pt-7 md:pt-8 dark:border-warm-gray-800/60"
+                      >
+                        <div className="max-w-none text-[15px] leading-[1.9] tracking-[-0.01em] break-keep whitespace-pre-wrap font-display text-ray-body/90 dark:text-warm-gray-200/90 md:text-[16px]">
+                          {yaoData.body}
+                        </div>
                       </div>
-                      <p className="max-w-[42rem] whitespace-pre-wrap text-[0.96rem] md:text-[1.05rem] font-display leading-relaxed break-keep text-ray-body dark:text-warm-gray-300">
-                        {guaExplanation}
-                      </p>
                     </div>
-                  ) : null}
-                </div>
-
-                <div
-                  data-testid="verse-body"
-                  className="w-full border-t border-warm-gray-200/60 pt-7 md:pt-8 dark:border-warm-gray-800/60"
-                >
-                  <div className="max-w-none text-[15px] leading-[1.9] tracking-[-0.01em] break-keep whitespace-pre-wrap font-display text-ray-body/90 dark:text-warm-gray-200/90 md:text-[16px]">
-                    {yaoData.body}
-                  </div>
                 </div>
               </div>
 
