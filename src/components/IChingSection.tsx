@@ -287,11 +287,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-elegant-gold opacity-5 blur-3xl dark:opacity-5" />
 
             <div className="relative z-10 h-full min-h-0 p-6 md:p-10">
-              <div className="flex items-center justify-between gap-3 mb-8">
-                <PanelBadge>Primary Verse</PanelBadge>
-              </div>
-
-              <div className="space-y-7">
+              <div className="space-y-6">
+                <div className="rounded-[2.4rem] border border-elegant-gold/10 bg-white/72 p-5 shadow-[0_18px_40px_rgba(79,63,39,0.06)] backdrop-blur-sm dark:bg-ray-dark/58 md:p-7">
                 <div
                   data-testid="reading-top-unit"
                   className="grid gap-5 md:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] md:items-start md:gap-8"
@@ -323,20 +320,28 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                         {guaData.meta}
                       </p>
                     </div>
+                  </div>
+                </div>
+                </div>
 
-                    <div className="space-y-3 pt-0.5">
-                      <PanelBadge>Today&apos;s Reading</PanelBadge>
+                <div
+                  data-testid="reading-verse-unit"
+                  className="rounded-[2.4rem] border border-elegant-gold/10 bg-gradient-to-b from-warm-gray-50/72 to-white/82 p-5 shadow-[0_18px_40px_rgba(79,63,39,0.05)] backdrop-blur-sm dark:from-ray-dark/58 dark:to-ray-dark/42 md:p-7"
+                >
+                  <div className="flex items-center justify-between gap-3 mb-7">
+                    <PanelBadge>Today&apos;s Reading</PanelBadge>
+                  </div>
 
-                      <h4 className="max-w-[22ch] text-[1.7rem] font-display font-bold tracking-[-0.03em] leading-[1.28] text-warm-gray-800 break-keep dark:text-white/95 md:text-[2.1rem]">
-                        {yaoData.titleLine}
-                      </h4>
+                  <div className="space-y-3 pt-0.5">
+                    <h4 className="max-w-[22ch] text-[1.7rem] font-display font-bold tracking-[-0.03em] leading-[1.28] text-warm-gray-800 break-keep dark:text-white/95 md:text-[2.1rem]">
+                      {yaoData.titleLine}
+                    </h4>
 
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/30" />
-                        <p className="max-w-[34rem] pl-6 py-2 text-[1.02rem] font-display font-medium italic leading-[1.85] break-keep text-elegant-gold md:text-[1.16rem]">
-                          {yaoData.short}
-                        </p>
-                      </div>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/30" />
+                      <p className="max-w-[34rem] pl-6 py-2 text-[1.02rem] font-display font-medium italic leading-[1.85] break-keep text-elegant-gold md:text-[1.16rem]">
+                        {yaoData.short}
+                      </p>
                     </div>
                   </div>
                 </div>
