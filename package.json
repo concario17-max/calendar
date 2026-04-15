@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "test": "vitest --configLoader native",
     "sync:data": "node convert_data.cjs",
+    "sync:commentary": "python scripts/extract_commentary.py",
     "check:data": "node scripts/check-data-sync.mjs",
     "check:encoding": "node scripts/check-encoding.mjs"
   },

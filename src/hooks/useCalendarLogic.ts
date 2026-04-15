@@ -1,11 +1,11 @@
 import { useState, useMemo } from 'react';
-import { GUA_TEXT, YAO_TEXT, SOUL_TEXT, getGuaCommentary, getYaoCommentary } from '../data';
+import { GUA_TEXT, YAO_TEXT, SOUL_TEXT } from '../data';
 import { 
   parseNumberedBlocks, parseSoulGroups, 
   calcYaoNum, calcGuaNum, splitGua, splitYao, 
   isInRangeMD, parseWeekSectionsFromGroupBlock
 } from '../utils/logic';
-import type { CommentarySource, CommentarySources } from '../types';
+import type { CommentarySource } from '../types';
 
 export function useCalendarLogic() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -32,16 +32,6 @@ export function useCalendarLogic() {
   const guaData = rawGua ? splitGua(rawGua) : null;
   const yaoData = rawYao ? splitYao(rawYao) : null;
 
-  const guaCommentary = getGuaCommentary(guaNum);
-  const yaoCommentary = getYaoCommentary(yaoNum);
-  const commentarySources: CommentarySources = useMemo(
-    () => ({
-      gua: guaCommentary ?? '',
-      yao: yaoCommentary ?? '',
-    }),
-    [guaCommentary, yaoCommentary],
-  );
-
   // Soul Calendar
   const m = selectedDate.getMonth() + 1;
   const d = selectedDate.getDate();
@@ -53,7 +43,6 @@ export function useCalendarLogic() {
     setSelectedDate,
     commentarySource,
     setCommentarySource,
-    commentarySources,
     yaoNum,
     guaNum,
     guaData,

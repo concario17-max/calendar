@@ -1,10 +1,9 @@
 import React from 'react';
-import type { CommentarySource, CommentarySources, GuaData, YaoData, SoulSection, SoulGroup } from '../types';
+import type { CommentarySource, GuaData, YaoData, SoulSection, SoulGroup } from '../types';
 import { IChingSection } from './IChingSection';
 
 interface MainContentProps {
   commentarySource: CommentarySource;
-  commentarySources: CommentarySources;
   setCommentarySource: (source: CommentarySource) => void;
   yaoNum: number | null;
   guaNum: number | null;
@@ -16,9 +15,9 @@ interface MainContentProps {
 
 export const MainContent: React.FC<MainContentProps> = ({
   commentarySource,
-  commentarySources,
   setCommentarySource,
   yaoNum,
+  guaNum,
   guaData,
   yaoData,
   hitSoulGroup,
@@ -28,9 +27,9 @@ export const MainContent: React.FC<MainContentProps> = ({
     <main className="w-full max-w-none px-4 sm:px-6 lg:px-8 xl:px-10 pt-8 sm:pt-10 md:pt-12 pb-24 space-y-16 animate-fade-in-up relative z-10 safe-bottom">
       <IChingSection
         commentarySource={commentarySource}
-        commentarySources={commentarySources}
         onCommentarySourceChange={setCommentarySource}
         yaoNum={yaoNum}
+        guaNum={guaNum}
         guaData={guaData}
         yaoData={yaoData}
         hitSoulGroup={hitSoulGroup}

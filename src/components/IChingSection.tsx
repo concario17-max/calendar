@@ -1,13 +1,14 @@
 import React from 'react';
 import { Telescope } from 'lucide-react';
-import type { CommentarySource, CommentarySources, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
+import { getGuaCommentary, getYaoCommentary } from '../data';
+import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { SoulCalendarSection } from './SoulCalendarSection';
 
 interface IChingSectionProps {
   commentarySource?: CommentarySource;
-  commentarySources?: CommentarySources;
   onCommentarySourceChange?: (source: CommentarySource) => void;
   yaoNum: number | null;
+  guaNum: number | null;
   guaData: GuaData | null;
   yaoData: YaoData | null;
   hitSoulGroup?: SoulGroup;
@@ -151,9 +152,9 @@ function PanelBadge({ children }: { children: string }) {
 
 export const IChingSection: React.FC<IChingSectionProps> = ({
   commentarySource = 'yao',
-  commentarySources,
   onCommentarySourceChange,
   yaoNum,
+  guaNum,
   guaData,
   yaoData,
   hitSoulGroup,
@@ -174,9 +175,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     );
   }
 
-  const commentaryText = commentarySources
-    ? commentarySources[commentarySource].trim()
-    : yaoData.commentary?.trim() ?? '';
+  const commentaryText = commentarySource === 'gua'
+    ? getGuaCommentary(guaNum)?.trim() ?? ''
+    : getYaoCommentary(yaoNum)?.trim() ?? '';
   const hasCommentary = commentaryText.length > 0;
   const commentary = hasCommentary ? splitCommentary(commentaryText) : null;
 
