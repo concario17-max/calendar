@@ -113,7 +113,7 @@ function parseListBlock(block: string): string[] | null {
     return null;
   }
 
-  const listItemPattern = /^(?:[?◈룐닕?╈ｂ걙*-]|\d+[.)])\s*(.+)$/u;
+  const listItemPattern = /^(?:[??�룐???�ｂ걙*-]|\d+[.)])\s*(.+)$/u;
 
   const items = lines.map((line) => {
     const match = line.match(listItemPattern);
@@ -220,7 +220,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
         {block.items.map((item, itemIndex) => (
           <li
             key={`list-${index}-item-${itemIndex}`}
-            className="relative break-keep pl-5 before:absolute before:left-0 before:top-[0.05em] before:text-elegant-gold before:content-['쨌']"
+            className="relative break-keep pl-5 before:absolute before:left-0 before:top-[0.05em] before:text-elegant-gold before:content-['�?]"
           >
             <span>{item}</span>
           </li>
@@ -266,7 +266,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
           <Telescope className="text-warm-gray-400 w-8 h-8" />
         </div>
         <p className="font-display italic text-warm-gray-600 dark:text-warm-gray-400">
-          ???좎쭨???곌컙 ?꾪솚 援ш컙?대씪 ??꼍 ??ぉ???곌껐?섏? ?딆뒿?덈떎.
+          ???좎�????곌컙 ?꾪솚 ?�ш컙??�????�???????곌껐??? ??�뒿??�떎.
         </p>
       </div>
     );
@@ -277,6 +277,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     : getYaoCommentary(yaoNum)?.trim() ?? '';
   const hasCommentary = commentaryText.length > 0;
   const commentary = hasCommentary ? splitCommentary(commentaryText) : null;
+  const guaExplanation = guaData.meta.trim();
 
   return (
     <section className="w-full animate-fade-in-up stagger-1">
@@ -289,26 +290,10 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             <div className="relative z-10 h-full min-h-0 p-6 md:p-10">
               <div className="space-y-6">
                 <div className="rounded-[2.4rem] border border-elegant-gold/10 bg-white/72 p-5 shadow-[0_18px_40px_rgba(79,63,39,0.06)] backdrop-blur-sm dark:bg-ray-dark/58 md:p-7">
-                <div
-                  data-testid="reading-top-unit"
-                  className="grid gap-5 md:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] md:items-start md:gap-8"
-                >
-                  <div className="w-full flex-shrink-0 relative">
-                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-warm-gray-100 to-transparent dark:from-warm-gray-800 transform rotate-3 scale-105 opacity-50 group-hover:rotate-0 transition-transform duration-700" />
-                    <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-warm-gray-200 bg-warm-gray-50 p-6 shadow-inner transition-all duration-700 hover:scale-105 hover:shadow-2xl dark:border-warm-gray-800 dark:bg-warm-gray-900">
-                      {sigilSrc ? (
-                        <img
-                          src={sigilSrc}
-                          alt={`sigil ${yaoNum}`}
-                          className="h-full w-full object-contain transition-all duration-700 hover:scale-110 filter dark:brightness-200 dark:contrast-125 dark:grayscale"
-                        />
-                      ) : (
-                        <span className="italic text-sm text-warm-gray-400">?쒓만???놁뒿?덈떎</span>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="relative z-10 w-full space-y-5">
+                  <div
+                    data-testid="reading-top-unit"
+                    className="space-y-5 md:space-y-6"
+                  >
                     <div className="border-b border-warm-gray-200 pb-5 dark:border-warm-gray-800">
                       <div className="mb-4 flex items-center gap-3">
                         <div className="h-6 w-1 rounded-full bg-elegant-gold shadow-[0_0_8px_rgba(184,134,11,0.5)]" />
@@ -316,34 +301,66 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                           {guaData.header}
                         </h3>
                       </div>
-                      <p className="max-w-[42rem] text-[0.96rem] md:text-[1.06rem] font-display leading-relaxed italic break-keep text-ray-body dark:text-warm-gray-300">
-                        {guaData.meta}
-                      </p>
                     </div>
                   </div>
                 </div>
-                </div>
 
-                <div
+                                <div
                   data-testid="reading-verse-unit"
                   className="rounded-[2.4rem] border border-elegant-gold/10 bg-gradient-to-b from-warm-gray-50/72 to-white/82 p-5 shadow-[0_18px_40px_rgba(79,63,39,0.05)] backdrop-blur-sm dark:from-ray-dark/58 dark:to-ray-dark/42 md:p-7"
                 >
-                  <div className="flex items-center justify-between gap-3 mb-7">
-                    <PanelBadge>Today&apos;s Reading</PanelBadge>
-                  </div>
+                  <div className="grid gap-6 md:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] md:items-start md:gap-8">
+                    <div className="w-full flex-shrink-0 relative">
+                      <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-warm-gray-100 to-transparent dark:from-warm-gray-800 transform rotate-3 scale-105 opacity-50 group-hover:rotate-0 transition-transform duration-700" />
+                      <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-warm-gray-200 bg-warm-gray-50 p-6 shadow-inner transition-all duration-700 hover:scale-105 hover:shadow-2xl dark:border-warm-gray-800 dark:bg-warm-gray-900">
+                        {sigilSrc ? (
+                          <img
+                            src={sigilSrc}
+                            alt={`sigil ${yaoNum}`}
+                            className="h-full w-full object-contain transition-all duration-700 hover:scale-110 filter dark:brightness-200 dark:contrast-125 dark:grayscale"
+                          />
+                        ) : (
+                          <span className="italic text-sm text-warm-gray-400">??�만????�뒿??�떎</span>
+                        )}
+                      </div>
+                    </div>
 
-                  <div className="space-y-3 pt-0.5">
-                    <h4 className="max-w-[22ch] text-[1.7rem] font-display font-bold tracking-[-0.03em] leading-[1.28] text-warm-gray-800 break-keep dark:text-white/95 md:text-[2.1rem]">
-                      {yaoData.titleLine}
-                    </h4>
+                    <div className="space-y-5">
+                      <div className="flex items-center justify-between gap-3">
+                        <PanelBadge>Today&apos;s Reading</PanelBadge>
+                      </div>
 
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/30" />
-                      <p className="max-w-[34rem] pl-6 py-2 text-[1.02rem] font-display font-medium italic leading-[1.85] break-keep text-elegant-gold md:text-[1.16rem]">
-                        {yaoData.short}
-                      </p>
+                      <div className="space-y-3 pt-0.5">
+                        <h4 className="max-w-[22ch] text-[1.7rem] font-display font-bold tracking-[-0.03em] leading-[1.28] text-warm-gray-800 break-keep dark:text-white/95 md:text-[2.1rem]">
+                          {yaoData.titleLine}
+                        </h4>
+
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/30" />
+                          <p className="max-w-[34rem] pl-6 py-2 text-[1.02rem] font-display font-medium italic leading-[1.85] break-keep text-elegant-gold md:text-[1.16rem]">
+                            {yaoData.short}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
+
+                  {guaExplanation ? (
+                    <div
+                      data-testid="reading-gua-explanation"
+                      className="mt-6 rounded-[2rem] border border-elegant-gold/10 bg-white/75 p-5 shadow-[0_16px_36px_rgba(79,63,39,0.05)] dark:bg-ray-dark/42 md:mt-7 md:p-6"
+                    >
+                      <div className="mb-3 flex items-center gap-3">
+                        <div className="h-5 w-1 rounded-full bg-elegant-gold/80" />
+                        <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-elegant-gold/90">
+                          Anamil
+                        </span>
+                      </div>
+                      <p className="max-w-[42rem] whitespace-pre-wrap text-[0.96rem] md:text-[1.05rem] font-display leading-relaxed break-keep text-ray-body dark:text-warm-gray-300">
+                        {guaExplanation}
+                      </p>
+                    </div>
+                  ) : null}
                 </div>
 
                 <div
@@ -372,7 +389,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 <div className="inline-flex items-center rounded-full border border-warm-gray-200 bg-white/80 p-1 text-[11px] font-bold tracking-[0.18em] uppercase dark:border-warm-gray-700 dark:bg-ray-dark/70">
                   {(['gua', 'yao'] as const).map((source) => {
                     const isActive = commentarySource === source;
-                    const label = source === 'gua' ? '괘사' : '효사';
+                    const label = source === 'gua' ? '괘사' : '?�사';
 
                     return (
                       <button
@@ -417,3 +434,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     </section>
   );
 };
+
+
+

@@ -33,3 +33,9 @@ location: git push origin main
 summary: Push retry succeeded
 details: Retried `git push origin main` after a brief connectivity failure, and the local commit `d601b3c` was published to the remote `main` branch.
 status: resolved
+
+time: 2026-04-15 21:53 KST
+location: PowerShell `npm test` / `npm run build`
+summary: PowerShell blocked npm script execution during layout verification
+details: Direct `npm` invocation in PowerShell failed because `npm.ps1` is blocked by the local execution policy. Verification completed successfully after rerunning both commands via `cmd /c npm.cmd`.
+status: resolved

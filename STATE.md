@@ -1,28 +1,28 @@
 # Current Task
-- Completed: Split the reading summary into its own card so the sigil and gua text stay together while the Today's Reading block lives separately below.
+- Completed: Move the sigil and Anamil explanation into the lower verse card while keeping the top card gua-only.
 
 # Route
-- Route A
+- Route B
 
 # Writer Slot
-- main: direct implementation lane
+- main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: split the reading summary into a separate card so the sigil and gua text stay together while the Today's Reading block becomes its own lower card.
+- Goal: keep the top card gua-only while the lower verse card contains the sigil, Today's Reading title/short/body, and any Anamil explanation tied to the verse.
 - Non-goals: no commentary routing change, no data migration, no deployment work, no unrelated typography overhaul.
 - Acceptance criteria:
-  - The sigil and gua header/meta read as one summary card.
-  - The Today's Reading title/short/body read as a separate lower card.
+  - The top card contains only the gua heading and does not carry the sigil or meta.
+  - The lower verse card contains the sigil, Today's Reading title/short/body, and the Anamil explanation if present.
   - Commentary layout and soul section behavior stay intact.
   - Build and tests pass.
 - Risks:
-  - Introducing another card can over-space the layout if vertical rhythm is not tuned carefully.
+  - The lower card can become too dense if the sigil and explanation are not spaced carefully.
 
 # Write Sets
-- main_impl: src/components/IChingSection.tsx
+- worker_summary: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
 
 # Reviewer
-- reviewer: reading summary split
+- reviewer: reading card relocation
 
 # Last Update
-- 2026-04-15: reading summary split completed
+- 2026-04-15: top card gua-only relocation implemented and verified

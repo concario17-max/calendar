@@ -73,7 +73,7 @@ describe('IChingSection', () => {
         commentarySource="gua"
         yaoNum={33}
         guaNum={6}
-        guaData={{ header: '62. Example', meta: 'Example meta' }}
+        guaData={{ header: '62. Example', meta: 'Anamil explanation' }}
         yaoData={{
           titleLine: '33. Example',
           short: 'Short reading',
@@ -102,10 +102,13 @@ describe('IChingSection', () => {
     const readingTopUnit = screen.getByTestId('reading-top-unit');
     const readingVerseUnit = screen.getByTestId('reading-verse-unit');
     const verseBody = screen.getByTestId('verse-body');
+    const readingGuaExplanation = within(readingVerseUnit).getByTestId('reading-gua-explanation');
 
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
-    expect(within(readingTopUnit).getByText('Example meta')).toBeInTheDocument();
-    expect(within(readingTopUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
+    expect(within(readingTopUnit).queryByText('Anamil explanation')).not.toBeInTheDocument();
+    expect(within(readingTopUnit).queryByRole('img', { name: 'sigil 33' })).not.toBeInTheDocument();
+    expect(within(readingVerseUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
+    expect(readingGuaExplanation).toHaveTextContent('Anamil explanation');
     expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
     expect(verseBody).toHaveTextContent('Body text');
