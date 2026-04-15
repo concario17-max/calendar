@@ -102,16 +102,16 @@ describe('IChingSection', () => {
     const readingTopUnit = screen.getByTestId('reading-top-unit');
     const readingVerseUnit = screen.getByTestId('reading-verse-unit');
     const verseBody = within(readingVerseUnit).getByTestId('verse-body');
-    const readingGuaMeta = within(readingTopUnit).getByTestId('reading-gua-meta');
 
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
-    expect(readingGuaMeta).toHaveTextContent('Anamil explanation');
+    expect(within(readingTopUnit).getByText('Anamil explanation')).toBeInTheDocument();
     expect(within(readingTopUnit).queryByRole('img', { name: 'sigil 33' })).not.toBeInTheDocument();
+    expect(within(readingTopUnit).queryByTestId('reading-gua-meta')).not.toBeInTheDocument();
     expect(within(readingTopUnit).queryByTestId('verse-body')).not.toBeInTheDocument();
     expect(within(readingVerseUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
-    expect(within(readingVerseUnit).queryByTestId('reading-gua-meta')).not.toBeInTheDocument();
     expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
+    expect(within(readingVerseUnit).queryByTestId('reading-gua-meta')).not.toBeInTheDocument();
     expect(verseBody).toHaveTextContent('Body text');
     expect(verseBody).not.toHaveTextContent('Short reading');
 

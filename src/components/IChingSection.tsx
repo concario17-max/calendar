@@ -304,20 +304,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     </div>
 
                     {guaMeta ? (
-                      <div
-                        data-testid="reading-gua-meta"
-                        className="rounded-[2rem] border border-elegant-gold/10 bg-warm-gray-50/80 p-5 shadow-[0_16px_36px_rgba(79,63,39,0.05)] dark:bg-ray-dark/42 md:p-6"
-                      >
-                        <div className="mb-3 flex items-center gap-3">
-                          <div className="h-5 w-1 rounded-full bg-elegant-gold/80" />
-                          <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-elegant-gold/90">
-                            Anamil
-                          </span>
-                        </div>
-                        <p className="max-w-[42rem] whitespace-pre-wrap text-[0.96rem] md:text-[1.05rem] font-display leading-relaxed break-keep text-ray-body dark:text-warm-gray-300">
-                          {guaMeta}
-                        </p>
-                      </div>
+                      <p className="max-w-[42rem] whitespace-pre-wrap text-[0.96rem] md:text-[1.05rem] font-display leading-relaxed break-keep text-ray-body dark:text-warm-gray-300">
+                        {guaMeta}
+                      </p>
                     ) : null}
                   </div>
                 </div>
