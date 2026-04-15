@@ -17,6 +17,9 @@ NAMESPACES = {
 }
 TITLE_RE = re.compile(r"^(?P<num>\d+)\.\s*(?P<title>.*\S)?$")
 STATUS_RE = re.compile(r"^\[.*\]$")
+LIST_START_MARKER = "[[list]]"
+LIST_END_MARKER = "[[/list]]"
+LIST_ITEM_MARKER = "[[item]]"
 
 
 def normalize_text(text: str) -> str:
@@ -53,7 +56,7 @@ def extract_table_block(table: ET.Element) -> str | None:
     return "\n".join(" | ".join(cell for cell in row) for row in normalized_rows)
 
 
-def iter_content_blocks(node: ET.Element) -> list[str]:
+def extract_node_blocks(node: ET.Element) -> list[str]:
     blocks: list[str] = []
 
     for child in list(node):
@@ -72,9 +75,40 @@ def iter_content_blocks(node: ET.Element) -> list[str]:
                 blocks.append(table_block)
             continue
 
-        blocks.extend(iter_content_blocks(child))
+        if tag == "list":
+            list_block = extract_list_block(child)
+            if list_block is not None:
+                blocks.append(list_block)
+            continue
+
+        blocks.extend(extract_node_blocks(child))
 
     return blocks
+
+
+def extract_list_item_text(item: ET.Element) -> str | None:
+    blocks = extract_node_blocks(item)
+    if not blocks:
+        return None
+
+    item_text = "\n\n".join(blocks).strip()
+    return item_text or None
+
+
+def extract_list_block(list_node: ET.Element) -> str | None:
+    items: list[str] = []
+
+    for item in list_node.findall("text:list-item", NAMESPACES):
+        item_text = extract_list_item_text(item)
+        if item_text is not None:
+            items.append(item_text)
+
+    if not items:
+        return None
+
+    return "\n".join(
+        [LIST_START_MARKER, *[f"{LIST_ITEM_MARKER} {item}" for item in items], LIST_END_MARKER]
+    )
 
 
 def extract_blocks(odt_path: Path) -> list[tuple[int, str]]:
@@ -89,7 +123,7 @@ def extract_blocks(odt_path: Path) -> list[tuple[int, str]]:
     current_number: int | None = None
     current_blocks: list[str] = []
 
-    for block_text in iter_content_blocks(office_text):
+    for block_text in extract_node_blocks(office_text):
         title_match = TITLE_RE.match(block_text)
         if title_match:
             if current_number is not None and current_blocks:

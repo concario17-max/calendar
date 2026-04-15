@@ -1,29 +1,30 @@
 # Current Task
-- Completed: Render commentary list markers as semantic `ul/li` blocks in the commentary panel.
+- Completed: Restore commentary list semantics from ODT sources using stable list markers in the generated registries.
 
 # Route
-- Route A
+- Route B
 
 # Writer Slot
-- main: direct implementation lane
+- main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: interpret the extractor's list marker format and render list-backed commentary blocks as semantic `ul/li` content.
+- Goal: preserve list semantics from ODT commentary sources so list-backed entries are emitted with stable markers in the generated registries.
 - Non-goals: no commentary routing change, no deployment work, no unrelated layout work, no broad typography redesign.
 - Acceptance criteria:
-  - Commentary entries that originate as list items render as semantic `ul/li` content.
+  - Commentary entries that originate as list items are preserved with `[[list]]` / `[[item]]` markers in the generated registry strings.
   - Existing non-list commentary paragraphs remain plain text.
   - Existing pipe-delimited table blocks remain semantic tables.
   - Build and tests pass.
 - Risks:
   - Some commentary blocks may mix list lines and prose, so detection must avoid over-applying list semantics.
-  - The marker format may need a conservative parser so tables and prose are not misclassified.
+  - The marker format must stay conservative so tables and prose are not misclassified.
 
 # Write Sets
-- main_impl: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
+- worker_shared: scripts/extract_commentary.py, src/data/guaCommentary.ts, src/data/yaoCommentary.ts, src/data/guaCommentary.test.ts, src/data/yaoCommentary.test.ts
+- worker_feature: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
 
 # Reviewer
-- reviewer: semantic commentary list rendering
+- reviewer: semantic commentary list marker preservation
 
 # Last Update
-- 2026-04-15: commentary list semantics rendering completed
+- 2026-04-15: commentary list marker restoration completed
