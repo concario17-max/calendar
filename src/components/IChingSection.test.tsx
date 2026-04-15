@@ -101,6 +101,8 @@ describe('IChingSection', () => {
     expect(screen.getByRole('complementary')).toBeInTheDocument();
     const readingTopUnit = screen.getByTestId('reading-top-unit');
     const readingVerseUnit = screen.getByTestId('reading-verse-unit');
+    const verseLayout = within(readingVerseUnit).getByTestId('verse-layout');
+    const verseTopRow = within(readingVerseUnit).getByTestId('verse-top-row');
     const verseBody = within(readingVerseUnit).getByTestId('verse-body');
 
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
@@ -112,7 +114,12 @@ describe('IChingSection', () => {
     expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
     expect(within(readingVerseUnit).queryByTestId('reading-gua-meta')).not.toBeInTheDocument();
+    expect(verseLayout).toBeInTheDocument();
+    expect(verseTopRow).toBeInTheDocument();
     expect(verseBody).toHaveTextContent('Body text');
+    expect(verseBody).toHaveClass('w-full');
+    expect(verseBody.parentElement).toBe(verseLayout);
+    expect(verseBody.closest('[data-testid="verse-top-row"]')).toBeNull();
     expect(verseBody).not.toHaveTextContent('Short reading');
 
     expect(screen.getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();

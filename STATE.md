@@ -1,5 +1,5 @@
 # Current Task
-- Completed: Remove the remaining rounded `reading-gua-meta` block so the top card shows gua heading/meta as a plain paragraph and the lower verse card keeps sigil plus Today's Reading title/short/body.
+- Completed: Move the verse body out of the sigil/title grid so it spans the full lower card width beneath the upper row, while keeping commentary and soul behavior intact.
 
 # Route
 - Route B
@@ -8,21 +8,21 @@
 - main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: show the gua header/meta in the top card and keep the lower verse card focused on the sigil, Today's Reading title/short, and the yaoData.body block without a separate Anamil card.
+- Goal: keep the top card as gua heading/meta only and make the lower verse card use a two-stage layout: upper row with sigil + Today's Reading title/short, then a full-width body block below it.
 - Non-goals: no commentary routing change, no data migration, no deployment work, no unrelated typography overhaul.
 - Acceptance criteria:
   - The top card contains the gua heading and meta as a single summary block, and does not carry the sigil.
-  - The lower verse card contains the sigil, Today's Reading title/short, and the yaoData.body block inside the same card.
+  - The lower verse card contains the sigil and Today's Reading title/short on the upper row, with the yaoData.body block spanning the lower card width beneath them.
   - Commentary layout and soul section behavior stay intact.
   - Build and tests pass.
 - Risks:
   - The lower card can become too dense if the sigil and body text are not spaced carefully.
 
 # Write Sets
-- worker_summary: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
+- worker_body: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
 
 # Reviewer
-- reviewer: reading card simplification
+- reviewer: lower body span layout
 
 # Last Update
-- 2026-04-15: removed rounded gua meta block and verified with test/build
+- 2026-04-15: lower verse body now spans the full card width beneath the upper row

@@ -113,7 +113,7 @@ function parseListBlock(block: string): string[] | null {
     return null;
   }
 
-  const listItemPattern = /^(?:[??�룐???�ｂ걙*-]|\d+[.)])\s*(.+)$/u;
+  const listItemPattern = /^(?:[??덈즾???댟節귢콡*-]|\d+[.)])\s*(.+)$/u;
 
   const items = lines.map((line) => {
     const match = line.match(listItemPattern);
@@ -220,7 +220,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
         {block.items.map((item, itemIndex) => (
           <li
             key={`list-${index}-item-${itemIndex}`}
-            className="relative break-keep pl-5 before:absolute before:left-0 before:top-[0.05em] before:text-elegant-gold before:content-['�?]"
+            className="relative break-keep pl-5 before:absolute before:left-0 before:top-[0.05em] before:text-elegant-gold before:content-['夷?]"
           >
             <span>{item}</span>
           </li>
@@ -266,7 +266,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
           <Telescope className="text-warm-gray-400 w-8 h-8" />
         </div>
         <p className="font-display italic text-warm-gray-600 dark:text-warm-gray-400">
-          ???좎�????곌컙 ?꾪솚 ?�ш컙??�????�???????곌껐??? ??�뒿??�떎.
+          ???醫롮????怨뚯퍢 ?袁れ넎 ?닌덉퍢??????瑗???????怨뚭퍙??? ??녿뮸??덈뼄.
         </p>
       </div>
     );
@@ -315,50 +315,55 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   data-testid="reading-verse-unit"
                   className="rounded-[2.4rem] border border-elegant-gold/10 bg-gradient-to-b from-warm-gray-50/72 to-white/82 p-5 shadow-[0_18px_40px_rgba(79,63,39,0.05)] backdrop-blur-sm dark:from-ray-dark/58 dark:to-ray-dark/42 md:p-7"
                 >
-                  <div className="grid gap-6 md:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] md:items-start md:gap-8">
-                    <div className="w-full flex-shrink-0 relative">
-                      <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-warm-gray-100 to-transparent dark:from-warm-gray-800 transform rotate-3 scale-105 opacity-50 group-hover:rotate-0 transition-transform duration-700" />
-                      <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-warm-gray-200 bg-warm-gray-50 p-6 shadow-inner transition-all duration-700 hover:scale-105 hover:shadow-2xl dark:border-warm-gray-800 dark:bg-warm-gray-900">
-                        {sigilSrc ? (
-                          <img
-                            src={sigilSrc}
-                            alt={`sigil ${yaoNum}`}
-                            className="h-full w-full object-contain transition-all duration-700 hover:scale-110 filter dark:brightness-200 dark:contrast-125 dark:grayscale"
-                          />
-                        ) : (
-                          <span className="italic text-sm text-warm-gray-400">??�만????�뒿??�떎</span>
-                        )}
+                  <div data-testid="verse-layout" className="space-y-6 md:space-y-7">
+                    <div
+                      data-testid="verse-top-row"
+                      className="grid gap-6 md:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] md:items-start md:gap-8"
+                    >
+                      <div className="relative w-full flex-shrink-0">
+                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-warm-gray-100 to-transparent dark:from-warm-gray-800 transform rotate-3 scale-105 opacity-50 group-hover:rotate-0 transition-transform duration-700" />
+                        <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-warm-gray-200 bg-warm-gray-50 p-6 shadow-inner transition-all duration-700 hover:scale-105 hover:shadow-2xl dark:border-warm-gray-800 dark:bg-warm-gray-900">
+                          {sigilSrc ? (
+                            <img
+                              src={sigilSrc}
+                              alt={`sigil ${yaoNum}`}
+                              className="h-full w-full object-contain transition-all duration-700 hover:scale-110 filter dark:brightness-200 dark:contrast-125 dark:grayscale"
+                            />
+                          ) : (
+                            <span className="italic text-sm text-warm-gray-400">??볥쭔????곷뮸??덈뼄</span>
+                          )}
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="space-y-5">
-                      <div className="flex items-center justify-between gap-3">
-                        <PanelBadge>Today&apos;s Reading</PanelBadge>
-                      </div>
+                      <div className="space-y-5">
+                        <div className="flex items-center justify-between gap-3">
+                          <PanelBadge>Today&apos;s Reading</PanelBadge>
+                        </div>
 
-                      <div className="space-y-3 pt-0.5">
-                        <h4 className="max-w-[22ch] text-[1.7rem] font-display font-bold tracking-[-0.03em] leading-[1.28] text-warm-gray-800 break-keep dark:text-white/95 md:text-[2.1rem]">
-                          {yaoData.titleLine}
-                        </h4>
+                        <div className="space-y-3 pt-0.5">
+                          <h4 className="max-w-[22ch] text-[1.7rem] font-display font-bold tracking-[-0.03em] leading-[1.28] text-warm-gray-800 break-keep dark:text-white/95 md:text-[2.1rem]">
+                            {yaoData.titleLine}
+                          </h4>
 
-                        <div className="relative">
-                          <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/30" />
-                          <p className="max-w-[34rem] pl-6 py-2 text-[1.02rem] font-display font-medium italic leading-[1.85] break-keep text-elegant-gold md:text-[1.16rem]">
-                            {yaoData.short}
-                          </p>
+                          <div className="relative">
+                            <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/30" />
+                            <p className="max-w-[34rem] pl-6 py-2 text-[1.02rem] font-display font-medium italic leading-[1.85] break-keep text-elegant-gold md:text-[1.16rem]">
+                              {yaoData.short}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                      <div
-                        data-testid="verse-body"
-                        className="w-full border-t border-warm-gray-200/60 pt-7 md:pt-8 dark:border-warm-gray-800/60"
-                      >
-                        <div className="max-w-none text-[15px] leading-[1.9] tracking-[-0.01em] break-keep whitespace-pre-wrap font-display text-ray-body/90 dark:text-warm-gray-200/90 md:text-[16px]">
-                          {yaoData.body}
-                        </div>
+                    <div
+                      data-testid="verse-body"
+                      className="w-full border-t border-warm-gray-200/60 pt-7 md:pt-8 dark:border-warm-gray-800/60"
+                    >
+                      <div className="max-w-none text-[15px] leading-[1.9] tracking-[-0.01em] break-keep whitespace-pre-wrap font-display text-ray-body/90 dark:text-warm-gray-200/90 md:text-[16px]">
+                        {yaoData.body}
                       </div>
                     </div>
+                  </div>
                 </div>
               </div>
 
@@ -378,7 +383,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 <div className="inline-flex items-center rounded-full border border-warm-gray-200 bg-white/80 p-1 text-[11px] font-bold tracking-[0.18em] uppercase dark:border-warm-gray-700 dark:bg-ray-dark/70">
                   {(['gua', 'yao'] as const).map((source) => {
                     const isActive = commentarySource === source;
-                    const label = source === 'gua' ? '괘사' : '?�사';
+                    const label = source === 'gua' ? '괘사' : '효사';
 
                     return (
                       <button
@@ -423,6 +428,5 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     </section>
   );
 };
-
 
 
