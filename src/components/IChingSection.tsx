@@ -318,23 +318,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   <div data-testid="verse-layout" className="space-y-6 md:space-y-7">
                     <div
                       data-testid="verse-top-row"
-                      className="grid gap-6 md:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] md:items-start md:gap-8"
+                      className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-8"
                     >
-                      <div className="relative w-full flex-shrink-0">
-                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-warm-gray-100 to-transparent dark:from-warm-gray-800 transform rotate-3 scale-105 opacity-50 group-hover:rotate-0 transition-transform duration-700" />
-                        <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-warm-gray-200 bg-warm-gray-50 p-6 shadow-inner transition-all duration-700 hover:scale-105 hover:shadow-2xl dark:border-warm-gray-800 dark:bg-warm-gray-900">
-                          {sigilSrc ? (
-                            <img
-                              src={sigilSrc}
-                              alt={`sigil ${yaoNum}`}
-                              className="h-full w-full object-contain transition-all duration-700 hover:scale-110 filter dark:brightness-200 dark:contrast-125 dark:grayscale"
-                            />
-                          ) : (
-                            <span className="italic text-sm text-warm-gray-400">??볥쭔????곷뮸??덈뼄</span>
-                          )}
-                        </div>
-                      </div>
-
                       <div className="space-y-5">
                         <div className="flex items-center justify-between gap-3">
                           <PanelBadge>Today&apos;s Reading</PanelBadge>
@@ -351,6 +336,21 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                               {yaoData.short}
                             </p>
                           </div>
+                        </div>
+                      </div>
+
+                      <div className="relative w-full flex-shrink-0 md:self-center">
+                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-warm-gray-100 to-transparent dark:from-warm-gray-800 transform rotate-3 scale-105 opacity-50 group-hover:rotate-0 transition-transform duration-700" />
+                        <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-warm-gray-200 bg-warm-gray-50 p-6 shadow-inner transition-all duration-700 hover:scale-105 hover:shadow-2xl dark:border-warm-gray-800 dark:bg-warm-gray-900">
+                          {sigilSrc ? (
+                            <img
+                              src={sigilSrc}
+                              alt={`sigil ${yaoNum}`}
+                              className="h-full w-full object-contain transition-all duration-700 hover:scale-110 filter dark:brightness-200 dark:contrast-125 dark:grayscale"
+                            />
+                          ) : (
+                            <span className="italic text-sm text-warm-gray-400">??볥쭔????곷뮸??덈뼄</span>
+                          )}
                         </div>
                       </div>
                     </div>

@@ -104,15 +104,20 @@ describe('IChingSection', () => {
     const verseLayout = within(readingVerseUnit).getByTestId('verse-layout');
     const verseTopRow = within(readingVerseUnit).getByTestId('verse-top-row');
     const verseBody = within(readingVerseUnit).getByTestId('verse-body');
+    const verseTopChildren = Array.from(verseTopRow.children) as HTMLElement[];
+    const verseLead = verseTopChildren[0]!;
+    const verseSigil = verseTopChildren[1]!;
 
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('Anamil explanation')).toBeInTheDocument();
     expect(within(readingTopUnit).queryByRole('img', { name: 'sigil 33' })).not.toBeInTheDocument();
     expect(within(readingTopUnit).queryByTestId('reading-gua-meta')).not.toBeInTheDocument();
     expect(within(readingTopUnit).queryByTestId('verse-body')).not.toBeInTheDocument();
-    expect(within(readingVerseUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
-    expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
-    expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
+    expect(verseLead).toContainElement(within(verseLead).getByRole('heading', { level: 4, name: '33. Example' }));
+    expect(verseLead).toContainElement(within(verseLead).getByText('Short reading'));
+    expect(verseSigil).toContainElement(within(verseSigil).getByRole('img', { name: 'sigil 33' }));
+    expect(verseTopChildren).toHaveLength(2);
+    expect(verseTopRow).toHaveClass('md:items-center');
     expect(within(readingVerseUnit).queryByTestId('reading-gua-meta')).not.toBeInTheDocument();
     expect(verseLayout).toBeInTheDocument();
     expect(verseTopRow).toBeInTheDocument();
@@ -302,7 +307,8 @@ describe('IChingSection', () => {
     expect(screen.getByText('Plain prose commentary body')).toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: '괘사' }));
+    const [firstToggleButton] = screen.getAllByRole('button');
+    fireEvent.click(firstToggleButton);
 
     expect(screen.getByText('Gua Heading')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();

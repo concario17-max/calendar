@@ -1,26 +1,27 @@
 # Current Task
-- In progress: Remove the horizontal divider between the gua title line and the gua meta text in the top card.
+- In progress: Swap the upper verse row so the title/short lead on the left and the sigil sits centered on the right.
 
 # Route
-- Route A
+- Route B
 
 # Writer Slot
-- main: single-file hotfix lane
+- main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: keep the top card as gua heading/meta only, but remove the visible horizontal divider between the heading line and the meta text.
+- Goal: keep the top card as gua heading/meta only and re-balance the lower verse row so the title/short lead on the left and the sigil sits centered on the right.
 - Non-goals: no commentary routing change, no data migration, no deployment work, no unrelated typography overhaul, no body layout changes.
 - Acceptance criteria:
   - The top card contains the gua heading and meta as a single summary block, and does not carry the sigil.
-  - There is no horizontal divider between the gua heading line and the gua meta text.
+  - The lower verse row places Today's Reading title/short on the left and the sigil on the right.
+  - The sigil is vertically centered in the upper verse row.
   - Commentary layout and soul section behavior stay intact.
   - Build and tests pass.
 
 # Write Sets
-- main: src/components/IChingSection.tsx
+- worker_layout: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
 
 # Reviewer
-- reviewer: top divider removal
+- reviewer: upper verse row balance
 
 # Last Update
-- 2026-04-15: removing top-card divider between gua heading and meta text
+- 2026-04-15: upper verse row rebalanced with title/short left and sigil centered right
