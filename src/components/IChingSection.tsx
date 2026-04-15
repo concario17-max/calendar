@@ -339,7 +339,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                         </div>
                       </div>
 
-                      <div className="relative w-full flex-shrink-0 md:self-center">
+                      <div className="relative w-full flex-shrink-0 md:w-[clamp(8.5rem,17vw,10.5rem)] md:justify-self-end md:self-center">
                         <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-warm-gray-100 to-transparent dark:from-warm-gray-800 transform rotate-3 scale-105 opacity-50 group-hover:rotate-0 transition-transform duration-700" />
                         <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-warm-gray-200 bg-warm-gray-50 p-6 shadow-inner transition-all duration-700 hover:scale-105 hover:shadow-2xl dark:border-warm-gray-800 dark:bg-warm-gray-900">
                           {sigilSrc ? (

@@ -118,6 +118,8 @@ describe('IChingSection', () => {
     expect(verseSigil).toContainElement(within(verseSigil).getByRole('img', { name: 'sigil 33' }));
     expect(verseTopChildren).toHaveLength(2);
     expect(verseTopRow).toHaveClass('md:items-center');
+    expect(verseSigil).toHaveClass('md:w-[clamp(8.5rem,17vw,10.5rem)]');
+    expect(verseSigil).toHaveClass('md:justify-self-end');
     expect(within(readingVerseUnit).queryByTestId('reading-gua-meta')).not.toBeInTheDocument();
     expect(verseLayout).toBeInTheDocument();
     expect(verseTopRow).toBeInTheDocument();
