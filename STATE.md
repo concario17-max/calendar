@@ -1,31 +1,27 @@
 # Current Task
-- Completed: Restored missing core summary content by recursively traversing nested ODT blocks under office:text and regenerating commentary registries.
+- Completed: Rename the commentary source toggle labels from `gua / yao` to `괘사 / 효사`.
 
 # Route
-- Route B
+- Route A
 
 # Writer Slot
-- main: planner-only lane; implementation delegated to workers
+- main: direct implementation lane
 
 # Contract Freeze
-- Goal: preserve the current commentary routing while fixing the ODT extraction pipeline so the missing summary content is captured from nested block structures.
-- Non-goals: no layout redesign, no source registry rewrite, no deployment work, no unrelated data migration.
+- Goal: localize the commentary source toggle labels so the selector reads `괘사 / 효사` instead of `gua / yao`.
+- Non-goals: no data routing change, no registry rewrite, no deployment work, no unrelated layout work.
 - Acceptance criteria:
-  - The extractor captures the summary content that currently disappears from `괘사/` and `효사/`.
-  - Existing commentary routing continues to work.
-  - Tests cover the restored summary content for at least one representative gua and yao entry.
+  - The toggle labels render as `괘사` and `효사`.
+  - Commentary routing continues to work unchanged.
   - Build and tests pass.
 - Risks:
-  - Nested ODT structures may require recursive traversal and careful normalization.
-  - Re-extraction could shift commentary block boundaries if the parser is too aggressive.
-  - Keep the change focused on extraction and regenerated data.
+  - None beyond a label mismatch if a component path is missed.
 
 # Write Sets
-- worker_extract: scripts/extract_commentary.py, src/data/guaCommentary.ts, src/data/yaoCommentary.ts, src/data/guaCommentary.test.ts, src/data/yaoCommentary.test.ts, package.json
-- reviewer: missing summary restoration and extraction coverage
+- main_impl: src/components/IChingSection.tsx
 
 # Reviewer
-- reviewer: missing summary restoration and extraction coverage
+- reviewer: toggle label localization
 
 # Last Update
-- 2026-04-15: recursive summary extraction completed and verified
+- 2026-04-15: toggle label localization completed

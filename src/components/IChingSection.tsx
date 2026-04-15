@@ -260,7 +260,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 <div className="inline-flex items-center rounded-full border border-warm-gray-200 bg-white/80 p-1 text-[11px] font-bold tracking-[0.18em] uppercase dark:border-warm-gray-700 dark:bg-ray-dark/70">
                   {(['gua', 'yao'] as const).map((source) => {
                     const isActive = commentarySource === source;
-                    const label = source === 'gua' ? 'Gua' : 'Yao';
+                    const label = source === 'gua' ? '괘사' : '효사';
 
                     return (
                       <button

@@ -224,7 +224,7 @@ describe('IChingSection', () => {
     expect(screen.getByText('Plain prose commentary body')).toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Gua' }));
+    fireEvent.click(screen.getByRole('button', { name: '괘사' }));
 
     expect(screen.getByText('Gua Heading')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
