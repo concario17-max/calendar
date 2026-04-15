@@ -118,8 +118,15 @@ describe('IChingSection', () => {
     expect(verseSigil).toContainElement(within(verseSigil).getByRole('img', { name: 'sigil 33' }));
     expect(verseTopChildren).toHaveLength(2);
     expect(verseTopRow).toHaveClass('md:items-center');
-    expect(verseSigil).toHaveClass('md:w-[clamp(8.5rem,17vw,10.5rem)]');
+    expect(verseSigil).toHaveClass('md:w-[clamp(11.5rem,19vw,14rem)]');
     expect(verseSigil).toHaveClass('md:justify-self-end');
+    expect(verseSigil).toHaveClass('md:self-center');
+    expect(verseSigil.className).not.toContain('border-warm-gray-200');
+    expect(verseSigil.className).not.toContain('bg-warm-gray-50');
+    expect(verseSigil.className).not.toContain('shadow-inner');
+    expect(verseSigil.className).not.toContain('overflow-hidden');
+    expect(verseSigil.className).not.toContain('rounded-3xl');
+    expect(verseSigil.className).not.toContain('p-6');
     expect(within(readingVerseUnit).queryByTestId('reading-gua-meta')).not.toBeInTheDocument();
     expect(verseLayout).toBeInTheDocument();
     expect(verseTopRow).toBeInTheDocument();
