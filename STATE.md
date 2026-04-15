@@ -1,5 +1,5 @@
 # Current Task
-- Completed: Added a thin central spine line to the editorial split reading layout.
+- Completed: Flipped the editorial split so commentary has the wider column while keeping the spine line.
 
 # Route
 - Route A
@@ -8,12 +8,12 @@
 - main: direct implementation lane
 
 # Contract Freeze
-- Goal: add a thin central spine line to the split reading layout so the two-column editorial structure reads more like a designed spread.
+- Goal: make the split reading layout commentary-led by widening the commentary column while preserving the editorial spine line.
 - Non-goals: no commentary data migration, no source registry rewrite, no deployment work, no global design system overhaul.
- - Acceptance criteria:
-  - The split layout gains a visible but restrained central spine line.
-  - The body side keeps the reading hierarchy clear.
+- Acceptance criteria:
   - The commentary side feels secondary but intentional.
+  - The commentary column is visibly wider than the body column.
+  - The body side keeps the reading hierarchy clear.
   - Build and tests pass.
 - Risks:
   - The spine line could become too visually heavy if its opacity or width is too high.
@@ -26,4 +26,4 @@
 - reviewer: editorial split balance and readability
 
 # Last Update
-- 2026-04-15: spine line refinement completed
+- 2026-04-15: commentary-first split balance completed
