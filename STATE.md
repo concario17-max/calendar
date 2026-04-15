@@ -1,29 +1,29 @@
 # Current Task
-- Completed: Render list-backed commentary blocks as middle-dot lists instead of exposing `[[item]]` markers.
+- Completed: Rework the reading panel so the sigil, title, and meta are grouped as one top set and the verse body expands wider below.
 
 # Route
-- Route A
+- Route B
 
 # Writer Slot
-- main: direct implementation lane
+- main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: keep the registry marker contract internal and render list-backed commentary blocks as middle-dot lists in the UI.
-- Non-goals: no commentary routing change, no deployment work, no unrelated layout work, no registry rewrite.
+- Goal: group the sigil/image, header, and meta into one visual unit, then let the verse body span a wider, clearer block below it.
+- Non-goals: no commentary routing change, no data migration, no deployment work, no unrelated typography overhaul.
 - Acceptance criteria:
-  - `[[item]]` markers never appear in rendered commentary.
-  - List-backed commentary renders as a semantic list with visible bullet/middle-dot markers.
-  - Plain paragraphs and pipe-delimited tables still render correctly.
+  - The top sigil/title/meta area reads as one cohesive set.
+  - The verse body below has more horizontal room and less visual ambiguity.
+  - Commentary layout and soul section behavior stay intact.
   - Build and tests pass.
 - Risks:
-  - The parser must distinguish registry markers from ordinary prose carefully.
-  - A list marker bug could accidentally reclassify plain paragraphs.
+  - The reflow could upset the existing editorial split balance if spacing is not tuned carefully.
 
 # Write Sets
-- main_impl: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
+- worker_feature: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
+- reviewer: reading panel regrouping
 
 # Reviewer
-- reviewer: middle-dot list rendering
+- reviewer: reading panel regrouping
 
 # Last Update
-- 2026-04-15: list marker rendering fix completed
+- 2026-04-15: reading panel regrouping completed

@@ -99,8 +99,18 @@ describe('IChingSection', () => {
 
     expect(screen.getByRole('article')).toBeInTheDocument();
     expect(screen.getByRole('complementary')).toBeInTheDocument();
+    const readingTopUnit = screen.getByTestId('reading-top-unit');
+    const verseBody = screen.getByTestId('verse-body');
+
+    expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
+    expect(within(readingTopUnit).getByText('Example meta')).toBeInTheDocument();
+    expect(within(readingTopUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
+    expect(within(readingTopUnit).getByText('Short reading')).toBeInTheDocument();
+    expect(within(readingTopUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
+    expect(verseBody).toHaveTextContent('Body text');
+    expect(verseBody).not.toHaveTextContent('Short reading');
+
     expect(screen.getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
-    expect(screen.getByText('Short reading')).toBeInTheDocument();
     expect(screen.queryByText('Reading Summary')).not.toBeInTheDocument();
     expect(screen.queryByText('Current Line')).not.toBeInTheDocument();
     expect(screen.queryByRole('heading', { level: 4, name: 'Commentary' })).not.toBeInTheDocument();

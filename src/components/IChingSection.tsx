@@ -113,7 +113,7 @@ function parseListBlock(block: string): string[] | null {
     return null;
   }
 
-  const listItemPattern = /^(?:[•·∙◦‣⁃*-]|\d+[.)])\s*(.+)$/u;
+  const listItemPattern = /^(?:[?◈룐닕?╈ｂ걙*-]|\d+[.)])\s*(.+)$/u;
 
   const items = lines.map((line) => {
     const match = line.match(listItemPattern);
@@ -220,7 +220,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
         {block.items.map((item, itemIndex) => (
           <li
             key={`list-${index}-item-${itemIndex}`}
-            className="relative break-keep pl-5 before:absolute before:left-0 before:top-[0.05em] before:text-elegant-gold before:content-['·']"
+            className="relative break-keep pl-5 before:absolute before:left-0 before:top-[0.05em] before:text-elegant-gold before:content-['쨌']"
           >
             <span>{item}</span>
           </li>
@@ -266,7 +266,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
           <Telescope className="text-warm-gray-400 w-8 h-8" />
         </div>
         <p className="font-display italic text-warm-gray-600 dark:text-warm-gray-400">
-          이 날짜는 연간 전환 구간이라 역경 항목이 연결되지 않습니다.
+          ???좎쭨???곌컙 ?꾪솚 援ш컙?대씪 ??꼍 ??ぉ???곌껐?섏? ?딆뒿?덈떎.
         </p>
       </div>
     );
@@ -291,52 +291,62 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 <PanelBadge>Primary Verse</PanelBadge>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-                <div className="w-full md:w-1/3 flex-shrink-0 relative">
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-warm-gray-100 to-transparent dark:from-warm-gray-800 transform rotate-3 scale-105 opacity-50 group-hover:rotate-0 transition-transform duration-700" />
-                  <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-warm-gray-200 bg-warm-gray-50 p-6 shadow-inner transition-all duration-700 hover:scale-105 hover:shadow-2xl dark:border-warm-gray-800 dark:bg-warm-gray-900">
-                    {sigilSrc ? (
-                      <img
-                        src={sigilSrc}
-                        alt={`sigil ${yaoNum}`}
-                        className="h-full w-full object-contain transition-all duration-700 hover:scale-110 filter dark:brightness-200 dark:contrast-125 dark:grayscale"
-                      />
-                    ) : (
-                      <span className="italic text-sm text-warm-gray-400">시길이 없습니다</span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="relative z-10 w-full space-y-8 md:w-2/3">
-                  <div className="border-b border-warm-gray-200 pb-8 dark:border-warm-gray-800">
-                    <div className="mb-4 flex items-center gap-3">
-                      <div className="h-6 w-1 rounded-full bg-elegant-gold shadow-[0_0_8px_rgba(184,134,11,0.5)]" />
-                      <h3 className="text-xl md:text-[1.9rem] font-bold font-brand leading-tight tracking-[0.01em] text-transparent bg-clip-text bg-gradient-to-r from-warm-gray-800 to-warm-gray-500 break-keep dark:from-white dark:to-warm-gray-400">
-                        {guaData.header}
-                      </h3>
+              <div className="space-y-8">
+                <div
+                  data-testid="reading-top-unit"
+                  className="grid gap-6 md:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] md:items-start md:gap-10"
+                >
+                  <div className="w-full flex-shrink-0 relative">
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-warm-gray-100 to-transparent dark:from-warm-gray-800 transform rotate-3 scale-105 opacity-50 group-hover:rotate-0 transition-transform duration-700" />
+                    <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-warm-gray-200 bg-warm-gray-50 p-6 shadow-inner transition-all duration-700 hover:scale-105 hover:shadow-2xl dark:border-warm-gray-800 dark:bg-warm-gray-900">
+                      {sigilSrc ? (
+                        <img
+                          src={sigilSrc}
+                          alt={`sigil ${yaoNum}`}
+                          className="h-full w-full object-contain transition-all duration-700 hover:scale-110 filter dark:brightness-200 dark:contrast-125 dark:grayscale"
+                        />
+                      ) : (
+                        <span className="italic text-sm text-warm-gray-400">?쒓만???놁뒿?덈떎</span>
+                      )}
                     </div>
-                    <p className="max-w-[34rem] text-[0.96rem] md:text-[1.06rem] font-display leading-relaxed italic break-keep text-ray-body dark:text-warm-gray-300">
-                      {guaData.meta}
-                    </p>
                   </div>
 
-                  <div className="space-y-6 pt-2">
-                    <PanelBadge>Today&apos;s Reading</PanelBadge>
-
-                    <h4 className="max-w-[22ch] text-[1.7rem] font-display font-bold tracking-[-0.03em] leading-[1.28] text-warm-gray-800 break-keep dark:text-white/95 md:text-[2.1rem]">
-                      {yaoData.titleLine}
-                    </h4>
-
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/30" />
-                      <p className="max-w-[28rem] pl-6 py-2 text-[1.02rem] font-display font-medium italic leading-[1.85] break-keep text-elegant-gold md:text-[1.16rem]">
-                        {yaoData.short}
+                  <div className="relative z-10 w-full space-y-6">
+                    <div className="border-b border-warm-gray-200 pb-6 dark:border-warm-gray-800">
+                      <div className="mb-4 flex items-center gap-3">
+                        <div className="h-6 w-1 rounded-full bg-elegant-gold shadow-[0_0_8px_rgba(184,134,11,0.5)]" />
+                        <h3 className="text-xl md:text-[1.9rem] font-bold font-brand leading-tight tracking-[0.01em] text-transparent bg-clip-text bg-gradient-to-r from-warm-gray-800 to-warm-gray-500 break-keep dark:from-white dark:to-warm-gray-400">
+                          {guaData.header}
+                        </h3>
+                      </div>
+                      <p className="max-w-[42rem] text-[0.96rem] md:text-[1.06rem] font-display leading-relaxed italic break-keep text-ray-body dark:text-warm-gray-300">
+                        {guaData.meta}
                       </p>
                     </div>
 
-                    <div className="pt-4 text-[15px] leading-[1.9] tracking-[-0.01em] break-keep whitespace-pre-wrap font-display text-ray-body/90 dark:text-warm-gray-200/90 md:text-[16px]">
-                      {yaoData.body}
+                    <div className="space-y-4 pt-1">
+                      <PanelBadge>Today&apos;s Reading</PanelBadge>
+
+                      <h4 className="max-w-[22ch] text-[1.7rem] font-display font-bold tracking-[-0.03em] leading-[1.28] text-warm-gray-800 break-keep dark:text-white/95 md:text-[2.1rem]">
+                        {yaoData.titleLine}
+                      </h4>
+
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/30" />
+                        <p className="max-w-[34rem] pl-6 py-2 text-[1.02rem] font-display font-medium italic leading-[1.85] break-keep text-elegant-gold md:text-[1.16rem]">
+                          {yaoData.short}
+                        </p>
+                      </div>
                     </div>
+                  </div>
+                </div>
+
+                <div
+                  data-testid="verse-body"
+                  className="w-full border-t border-warm-gray-200/60 pt-8 md:pt-10 dark:border-warm-gray-800/60"
+                >
+                  <div className="max-w-none text-[15px] leading-[1.9] tracking-[-0.01em] break-keep whitespace-pre-wrap font-display text-ray-body/90 dark:text-warm-gray-200/90 md:text-[16px]">
+                    {yaoData.body}
                   </div>
                 </div>
               </div>
