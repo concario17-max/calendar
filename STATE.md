@@ -1,14 +1,14 @@
 # Current Task
-- Completed: Rework the reading panel so the sigil, title, and meta are grouped as one top set and the verse body expands wider below.
+- Completed: Tighten the reading panel spacing so the sigil, title, and meta read as one set while the verse body stays wider below.
 
 # Route
-- Route B
+- Route A
 
 # Writer Slot
-- main: planner-only lane; implementation delegated to workers
+- main: direct implementation lane
 
 # Contract Freeze
-- Goal: group the sigil/image, header, and meta into one visual unit, then let the verse body span a wider, clearer block below it.
+- Goal: tighten the reading-panel spacing so the top sigil/title/meta reads as one unit and the verse body remains wide and readable below.
 - Non-goals: no commentary routing change, no data migration, no deployment work, no unrelated typography overhaul.
 - Acceptance criteria:
   - The top sigil/title/meta area reads as one cohesive set.
@@ -19,11 +19,10 @@
   - The reflow could upset the existing editorial split balance if spacing is not tuned carefully.
 
 # Write Sets
-- worker_feature: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
-- reviewer: reading panel regrouping
+- main_impl: src/components/IChingSection.tsx
 
 # Reviewer
-- reviewer: reading panel regrouping
+- reviewer: reading panel spacing tuning
 
 # Last Update
-- 2026-04-15: reading panel regrouping completed
+- 2026-04-15: reading panel spacing tuning completed

@@ -291,10 +291,10 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 <PanelBadge>Primary Verse</PanelBadge>
               </div>
 
-              <div className="space-y-8">
+              <div className="space-y-7">
                 <div
                   data-testid="reading-top-unit"
-                  className="grid gap-6 md:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] md:items-start md:gap-10"
+                  className="grid gap-5 md:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] md:items-start md:gap-8"
                 >
                   <div className="w-full flex-shrink-0 relative">
                     <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-warm-gray-100 to-transparent dark:from-warm-gray-800 transform rotate-3 scale-105 opacity-50 group-hover:rotate-0 transition-transform duration-700" />
@@ -311,8 +311,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     </div>
                   </div>
 
-                  <div className="relative z-10 w-full space-y-6">
-                    <div className="border-b border-warm-gray-200 pb-6 dark:border-warm-gray-800">
+                  <div className="relative z-10 w-full space-y-5">
+                    <div className="border-b border-warm-gray-200 pb-5 dark:border-warm-gray-800">
                       <div className="mb-4 flex items-center gap-3">
                         <div className="h-6 w-1 rounded-full bg-elegant-gold shadow-[0_0_8px_rgba(184,134,11,0.5)]" />
                         <h3 className="text-xl md:text-[1.9rem] font-bold font-brand leading-tight tracking-[0.01em] text-transparent bg-clip-text bg-gradient-to-r from-warm-gray-800 to-warm-gray-500 break-keep dark:from-white dark:to-warm-gray-400">
@@ -324,7 +324,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                       </p>
                     </div>
 
-                    <div className="space-y-4 pt-1">
+                    <div className="space-y-3 pt-0.5">
                       <PanelBadge>Today&apos;s Reading</PanelBadge>
 
                       <h4 className="max-w-[22ch] text-[1.7rem] font-display font-bold tracking-[-0.03em] leading-[1.28] text-warm-gray-800 break-keep dark:text-white/95 md:text-[2.1rem]">
@@ -343,7 +343,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
                 <div
                   data-testid="verse-body"
-                  className="w-full border-t border-warm-gray-200/60 pt-8 md:pt-10 dark:border-warm-gray-800/60"
+                  className="w-full border-t border-warm-gray-200/60 pt-7 md:pt-8 dark:border-warm-gray-800/60"
                 >
                   <div className="max-w-none text-[15px] leading-[1.9] tracking-[-0.01em] break-keep whitespace-pre-wrap font-display text-ray-body/90 dark:text-warm-gray-200/90 md:text-[16px]">
                     {yaoData.body}
