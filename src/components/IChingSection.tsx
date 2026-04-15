@@ -294,7 +294,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     data-testid="reading-top-unit"
                     className="space-y-5 md:space-y-6"
                   >
-                    <div className="border-b border-warm-gray-200 pb-5 dark:border-warm-gray-800">
+                    <div className="pb-5">
                       <div className="mb-4 flex items-center gap-3">
                         <div className="h-6 w-1 rounded-full bg-elegant-gold shadow-[0_0_8px_rgba(184,134,11,0.5)]" />
                         <h3 className="text-xl md:text-[1.9rem] font-bold font-brand leading-tight tracking-[0.01em] text-transparent bg-clip-text bg-gradient-to-r from-warm-gray-800 to-warm-gray-500 break-keep dark:from-white dark:to-warm-gray-400">
@@ -428,5 +428,4 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     </section>
   );
 };
-
 
