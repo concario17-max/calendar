@@ -39,3 +39,9 @@ location: PowerShell `npm test` / `npm run build`
 summary: PowerShell blocked npm script execution during layout verification
 details: Direct `npm` invocation in PowerShell failed because `npm.ps1` is blocked by the local execution policy. Verification completed successfully after rerunning both commands via `cmd /c npm.cmd`.
 status: resolved
+
+time: 2026-04-15 23:56 KST
+location: git push origin main
+summary: Push failed due to temporary GitHub connectivity error
+details: Local commit `9ced130` was created successfully, but `git push origin main` could not reach github.com over HTTPS and failed immediately. The retry succeeded moments later.
+status: resolved
