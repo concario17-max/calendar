@@ -184,7 +184,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   return (
     <section className="w-full animate-fade-in-up stagger-1">
       <div className="space-y-6">
-        <div className="grid gap-4 md:grid-cols-[minmax(0,1.38fr)_minmax(0,0.92fr)] md:gap-6 lg:gap-8 md:items-start">
+        <div className="relative grid gap-4 md:grid-cols-[minmax(0,1.38fr)_minmax(0,0.92fr)] md:gap-6 lg:gap-8 md:items-start md:before:absolute md:before:inset-y-0 md:before:left-[58%] md:before:z-20 md:before:w-px md:before:bg-gradient-to-b md:before:from-transparent md:before:via-warm-gray-300/70 md:before:to-transparent md:before:content-[''] dark:md:before:via-warm-gray-700/60">
           <article className="group relative overflow-hidden rounded-[2.75rem] bg-white/82 dark:bg-ray-dark/80 backdrop-blur-xl shadow-[0_24px_72px_rgba(79,63,39,0.10)] border border-elegant-gold/10 transition-colors duration-300">
             <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-elegant-gold to-transparent opacity-20" />
             <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-elegant-gold opacity-5 blur-3xl dark:opacity-5" />
