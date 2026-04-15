@@ -69,7 +69,41 @@ function parsePipeTableBlock(block: string): string[][] | null {
   return parsedRows;
 }
 
+function parseMarkerListBlock(block: string): string[] | null {
+  const lines = block
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  if (lines.length < 3) {
+    return null;
+  }
+
+  if (lines[0] !== '[[list]]' || lines[lines.length - 1] !== '[[/list]]') {
+    return null;
+  }
+
+  const items = lines.slice(1, -1).map((line) => {
+    if (!line.startsWith('[[item]]')) {
+      return null;
+    }
+
+    return normalizeListItemText(line.slice('[[item]]'.length));
+  });
+
+  if (items.some((item) => !item || item.length === 0)) {
+    return null;
+  }
+
+  return items as string[];
+}
+
 function parseListBlock(block: string): string[] | null {
+  const markerItems = parseMarkerListBlock(block);
+  if (markerItems) {
+    return markerItems;
+  }
+
   const lines = block
     .split('\n')
     .map((line) => line.trim())
@@ -181,10 +215,13 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
     return (
       <ul
         key={`list-${index}`}
-        className="space-y-3 pl-6 text-[15px] font-display leading-[1.95] tracking-[-0.01em] text-ray-body dark:text-warm-gray-200 md:text-[16px]"
+        className="space-y-3 pl-0 text-[15px] font-display leading-[1.95] tracking-[-0.01em] text-ray-body dark:text-warm-gray-200 md:text-[16px]"
       >
         {block.items.map((item, itemIndex) => (
-          <li key={`list-${index}-item-${itemIndex}`} className="break-keep marker:text-elegant-gold">
+          <li
+            key={`list-${index}-item-${itemIndex}`}
+            className="relative break-keep pl-5 before:absolute before:left-0 before:top-[0.05em] before:text-elegant-gold before:content-['·']"
+          >
             <span>{item}</span>
           </li>
         ))}

@@ -18,9 +18,11 @@ vi.mock('../data', () => {
   const guaListCommentary = [
     'Gua List Heading',
     '',
-    '· First list item',
-    '· Second list item',
-    '· Third list item',
+    '[[list]]',
+    '[[item]] First list item',
+    '[[item]] Second list item',
+    '[[item]] Third list item',
+    '[[/list]]',
   ].join('\n');
 
   const yaoProseCommentary = ['Yao Heading', 'Plain prose commentary body'].join('\n');
@@ -143,6 +145,7 @@ describe('IChingSection', () => {
     expect(screen.getByText('First list item')).toBeInTheDocument();
     expect(screen.getByText('Second list item')).toBeInTheDocument();
     expect(screen.getByText('Third list item')).toBeInTheDocument();
+    expect(screen.queryByText('[[item]] First list item')).not.toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
   });
 
