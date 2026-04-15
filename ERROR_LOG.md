@@ -9,3 +9,9 @@ location: PowerShell `npm test`
 summary: PowerShell blocked npm script execution
 details: Running `npm test` directly in PowerShell failed because `npm.ps1` is blocked by the local execution policy. The command was retried successfully via `cmd /c npm test`.
 status: resolved
+
+time: 2026-04-15 12:02 KST
+location: PowerShell `npm test`
+summary: PowerShell blocked direct npm test execution during verification
+details: `npm test -- --run` failed under PowerShell due to the local execution policy blocking `npm.ps1`. The test command will be run through `cmd /c npm test -- --run` instead.
+status: resolved

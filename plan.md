@@ -124,10 +124,10 @@
 
 ## Number-Routed Commentary Update
 
-- [ ] Inspect the numbered ODT files in `괘사/` and `효사/`
-- [ ] Map the embedded title numbers to commentary registry keys
-- [ ] Regenerate gua commentary content from the gua folder source
-- [ ] Regenerate yao commentary content from the yao folder source
-- [ ] Keep the commentary toggle wired to the same source selector
-- [ ] Add tests for one representative gua number and one representative yao number
-- [ ] Verify build and test output after the registry refresh
+- [x] Inspect the numbered ODT files in `괘사/` and `효사/`
+- [x] Map the embedded title numbers to commentary registry keys
+- [x] Regenerate gua commentary content from the gua folder source
+- [x] Regenerate yao commentary content from the yao folder source
+- [x] Keep the commentary toggle wired to the same source selector
+- [x] Add tests for one representative gua number and one representative yao number
+- [x] Verify build and test output after the registry refresh

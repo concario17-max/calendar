@@ -6,7 +6,10 @@ describe('yao commentary registry', () => {
     expect(Object.prototype.hasOwnProperty.call(YAO_COMMENTARY_BY_NUM, 33)).toBe(true);
   });
 
-  it('returns a non-empty commentary for 33', () => {
-    expect(getYaoCommentary(33)).toMatch(/\S/);
+  it('keeps the summary content for 33', () => {
+    const commentary = getYaoCommentary(33);
+
+    expect(commentary).toContain('핵심 요약');
+    expect(commentary).toContain('전자기적 원인');
   });
 });

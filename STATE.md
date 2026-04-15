@@ -1,29 +1,31 @@
 # Current Task
-- Completed: Polished the editorial split so the body reads like a primary plate and commentary reads like annotated marginalia.
+- Completed: Restored missing core summary content by recursively traversing nested ODT blocks under office:text and regenerating commentary registries.
 
 # Route
-- Route A
+- Route B
 
 # Writer Slot
-- main: direct implementation lane
+- main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: refine the editorial split so the body and commentary feel like a designed spread instead of two similar cards.
-- Non-goals: no commentary data migration, no source registry rewrite, no deployment work, no global design system overhaul.
- - Acceptance criteria:
-  - The body reads like the primary plate.
-  - Commentary reads like annotated marginalia.
-  - The split still feels editorial, not symmetrical.
+- Goal: preserve the current commentary routing while fixing the ODT extraction pipeline so the missing summary content is captured from nested block structures.
+- Non-goals: no layout redesign, no source registry rewrite, no deployment work, no unrelated data migration.
+- Acceptance criteria:
+  - The extractor captures the summary content that currently disappears from `괘사/` and `효사/`.
+  - Existing commentary routing continues to work.
+  - Tests cover the restored summary content for at least one representative gua and yao entry.
   - Build and tests pass.
 - Risks:
-  - The styling contrast could become too strong and feel gimmicky.
-  - Keep the change small enough to avoid reopening the routing/data work.
+  - Nested ODT structures may require recursive traversal and careful normalization.
+  - Re-extraction could shift commentary block boundaries if the parser is too aggressive.
+  - Keep the change focused on extraction and regenerated data.
 
 # Write Sets
-- main_impl: src/components/IChingSection.tsx
+- worker_extract: scripts/extract_commentary.py, src/data/guaCommentary.ts, src/data/yaoCommentary.ts, src/data/guaCommentary.test.ts, src/data/yaoCommentary.test.ts, package.json
+- reviewer: missing summary restoration and extraction coverage
 
 # Reviewer
-- reviewer: editorial split balance and readability
+- reviewer: missing summary restoration and extraction coverage
 
 # Last Update
-- 2026-04-15: editorial polish refinement completed
+- 2026-04-15: recursive summary extraction completed and verified

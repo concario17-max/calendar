@@ -6,7 +6,10 @@ describe('gua commentary registry', () => {
     expect(Object.prototype.hasOwnProperty.call(GUA_COMMENTARY_BY_NUM, 6)).toBe(true);
   });
 
-  it('returns a non-empty commentary for 6', () => {
-    expect(getGuaCommentary(6)).toMatch(/\S/);
+  it('keeps the summary content for 6', () => {
+    const commentary = getGuaCommentary(6);
+
+    expect(commentary).toContain('핵심 요약');
+    expect(commentary).toContain('진동의 왜곡');
   });
 });

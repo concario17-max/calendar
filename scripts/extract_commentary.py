@@ -53,6 +53,30 @@ def extract_table_block(table: ET.Element) -> str | None:
     return "\n".join(" | ".join(cell for cell in row) for row in normalized_rows)
 
 
+def iter_content_blocks(node: ET.Element) -> list[str]:
+    blocks: list[str] = []
+
+    for child in list(node):
+        tag = child.tag.rsplit("}", 1)[-1]
+
+        if tag == "p":
+            text = normalize_text("".join(child.itertext()))
+            if not text or STATUS_RE.match(text):
+                continue
+            blocks.append(text)
+            continue
+
+        if tag == "table":
+            table_block = extract_table_block(child)
+            if table_block is not None:
+                blocks.append(table_block)
+            continue
+
+        blocks.extend(iter_content_blocks(child))
+
+    return blocks
+
+
 def extract_blocks(odt_path: Path) -> list[tuple[int, str]]:
     with zipfile.ZipFile(odt_path) as archive:
         root = ET.fromstring(archive.read("content.xml"))
@@ -65,31 +89,16 @@ def extract_blocks(odt_path: Path) -> list[tuple[int, str]]:
     current_number: int | None = None
     current_blocks: list[str] = []
 
-    for child in office_text:
-        tag = child.tag.rsplit("}", 1)[-1]
-        block_text: str | None = None
-
-        if tag == "p":
-            text = normalize_text("".join(child.itertext()))
-            if not text:
-                continue
-            if STATUS_RE.match(text):
-                continue
-            title_match = TITLE_RE.match(text)
-            if title_match:
-                if current_number is not None and current_blocks:
-                    entries.append((current_number, "\n\n".join(current_blocks)))
-                current_number = int(title_match.group("num"))
-                current_blocks = [text]
-                continue
-            if current_number is not None:
-                current_blocks.append(text)
+    for block_text in iter_content_blocks(office_text):
+        title_match = TITLE_RE.match(block_text)
+        if title_match:
+            if current_number is not None and current_blocks:
+                entries.append((current_number, "\n\n".join(current_blocks)))
+            current_number = int(title_match.group("num"))
+            current_blocks = [block_text]
             continue
 
-        if tag == "table":
-            block_text = extract_table_block(child)
-
-        if block_text and current_number is not None:
+        if current_number is not None:
             current_blocks.append(block_text)
 
     if current_number is not None and current_blocks:
