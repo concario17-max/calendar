@@ -8,8 +8,8 @@ from xml.etree import ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parent.parent
-GUA_SOURCE = ROOT / "\uad18\uc0ac" / "\uad18\uc0ac-1.odt"
-YAO_SOURCE = ROOT / "\ud6a8\uc0ac" / "\ud6a8\uc0ac-1.odt"
+GUA_FOLDER = ROOT / "\uad18\uc0ac"
+YAO_FOLDER = ROOT / "\ud6a8\uc0ac"
 NAMESPACES = {
     "office": "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
     "text": "urn:oasis:names:tc:opendocument:xmlns:text:1.0",
@@ -56,13 +56,26 @@ def extract_table_block(table: ET.Element) -> str | None:
     return "\n".join(" | ".join(cell for cell in row) for row in normalized_rows)
 
 
+def extract_title_match(block_text: str) -> re.Match[str] | None:
+    match = TITLE_RE.match(block_text)
+    if match is not None:
+        return match
+
+    for line in block_text.splitlines():
+        line_match = TITLE_RE.match(line.strip())
+        if line_match is not None:
+            return line_match
+
+    return None
+
+
 def extract_node_blocks(node: ET.Element) -> list[str]:
     blocks: list[str] = []
 
     for child in list(node):
         tag = child.tag.rsplit("}", 1)[-1]
 
-        if tag == "p":
+        if tag in {"p", "h"}:
             text = normalize_text("".join(child.itertext()))
             if not text or STATUS_RE.match(text):
                 continue
@@ -124,7 +137,7 @@ def extract_blocks(odt_path: Path) -> list[tuple[int, str]]:
     current_blocks: list[str] = []
 
     for block_text in extract_node_blocks(office_text):
-        title_match = TITLE_RE.match(block_text)
+        title_match = extract_title_match(block_text)
         if title_match:
             if current_number is not None and current_blocks:
                 entries.append((current_number, "\n\n".join(current_blocks)))
@@ -141,15 +154,41 @@ def extract_blocks(odt_path: Path) -> list[tuple[int, str]]:
     return entries
 
 
+def folder_sort_key(path: Path) -> tuple[object, ...]:
+    parts = re.split(r"(\d+)", path.name.casefold())
+    key: list[object] = []
+    for part in parts:
+        if not part:
+            continue
+        if part.isdigit():
+            key.append(int(part))
+        else:
+            key.append(part)
+    return tuple(key)
+
+
+def extract_folder_entries(folder: Path) -> list[tuple[int, str]]:
+    odt_paths = sorted(folder.glob("*.odt"), key=folder_sort_key)
+    if not odt_paths:
+        raise RuntimeError(f"No ODT files found in {folder}")
+
+    entries: list[tuple[int, str]] = []
+    for odt_path in odt_paths:
+        entries.extend(extract_blocks(odt_path))
+    return entries
+
+
 def to_ts_template(text: str) -> str:
     escaped = text.replace("\\", "\\\\").replace("`", "\\`").replace("${", "\\${")
     return f"`{escaped}`"
 
 
-def build_registry(entries: list[tuple[int, str]]) -> OrderedDict[int, str]:
+def build_registry(entries: list[tuple[int, str]], source_label: str) -> OrderedDict[int, str]:
     registry: OrderedDict[int, list[str]] = OrderedDict()
 
     for num, text in entries:
+        if num in registry:
+            raise RuntimeError(f"Duplicate commentary number {num} found while building {source_label}")
         registry.setdefault(num, []).append(text)
 
     merged: OrderedDict[int, str] = OrderedDict()
@@ -178,8 +217,8 @@ def render_ts(var_name: str, function_name: str, registry: OrderedDict[int, str]
 
 
 def main() -> None:
-    gua_entries = build_registry(extract_blocks(GUA_SOURCE))
-    yao_entries = build_registry(extract_blocks(YAO_SOURCE))
+    gua_entries = build_registry(extract_folder_entries(GUA_FOLDER), "괘사")
+    yao_entries = build_registry(extract_folder_entries(YAO_FOLDER), "효사")
 
     (ROOT / "src" / "data" / "guaCommentary.ts").write_text(
         render_ts("GUA_COMMENTARY_BY_NUM", "getGuaCommentary", gua_entries),
