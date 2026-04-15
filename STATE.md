@@ -1,5 +1,5 @@
 # Current Task
-- Completed: Rename the commentary source toggle labels from `gua / yao` to `괘사 / 효사`.
+- Completed: Hide the fixed date picker and theme toggle header when the user scrolls down.
 
 # Route
 - Route A
@@ -8,20 +8,20 @@
 - main: direct implementation lane
 
 # Contract Freeze
-- Goal: localize the commentary source toggle labels so the selector reads `괘사 / 효사` instead of `gua / yao`.
-- Non-goals: no data routing change, no registry rewrite, no deployment work, no unrelated layout work.
+- Goal: hide the floating date picker and theme toggle header while scrolling down, and show it again near the top.
+- Non-goals: no content routing change, no commentary registry rewrite, no deployment work, no unrelated layout work.
 - Acceptance criteria:
-  - The toggle labels render as `괘사` and `효사`.
-  - Commentary routing continues to work unchanged.
+  - The fixed header controls fade out or move away when the page scrolls down.
+  - The controls reappear when the page returns near the top.
   - Build and tests pass.
 - Risks:
-  - None beyond a label mismatch if a component path is missed.
+  - The threshold could feel too eager or too sticky if the scroll state is too sensitive.
 
 # Write Sets
-- main_impl: src/components/IChingSection.tsx
+- main_impl: src/App.tsx, src/components/Header.tsx
 
 # Reviewer
-- reviewer: toggle label localization
+- reviewer: scroll-hiding header controls
 
 # Last Update
-- 2026-04-15: toggle label localization completed
+- 2026-04-15: scroll-hiding header controls completed

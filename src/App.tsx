@@ -18,6 +18,7 @@ function App() {
   } = useCalendarLogic();
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
 
   useEffect(() => {
     const handleToast = (e: Event) => {
@@ -30,9 +31,22 @@ function App() {
     return () => window.removeEventListener('show-toast', handleToast);
   }, []);
 
+  useEffect(() => {
+    const threshold = 32;
+
+    const updateHeaderState = () => {
+      setIsHeaderCollapsed(window.scrollY > threshold);
+    };
+
+    updateHeaderState();
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
+
+    return () => window.removeEventListener('scroll', updateHeaderState);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col font-display selection:bg-elegant-gold/30">
-      <Header selectedDate={selectedDate} onDateChange={setSelectedDate} />
+      <Header selectedDate={selectedDate} onDateChange={setSelectedDate} isCollapsed={isHeaderCollapsed} />
 
       <div className="flex-1 relative">
         <MainContent
