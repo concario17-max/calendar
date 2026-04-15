@@ -184,8 +184,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   return (
     <section className="w-full animate-fade-in-up stagger-1">
       <div className="space-y-6">
-        <div className="grid gap-4 md:grid-cols-2 md:gap-5 lg:gap-6 md:items-stretch">
-          <article className="group relative overflow-hidden rounded-[2.5rem] bg-white/80 dark:bg-ray-dark/80 backdrop-blur-xl shadow-xl border border-elegant-gold/10 transition-colors duration-300">
+        <div className="grid gap-4 md:grid-cols-[minmax(0,1.38fr)_minmax(0,0.92fr)] md:gap-6 lg:gap-8 md:items-start">
+          <article className="group relative overflow-hidden rounded-[2.75rem] bg-white/82 dark:bg-ray-dark/80 backdrop-blur-xl shadow-[0_24px_72px_rgba(79,63,39,0.10)] border border-elegant-gold/10 transition-colors duration-300">
             <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-elegant-gold to-transparent opacity-20" />
             <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-elegant-gold opacity-5 blur-3xl dark:opacity-5" />
 
@@ -250,11 +250,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
           </article>
 
-          <aside className="relative overflow-hidden rounded-[2.5rem] border border-elegant-gold/10 bg-white/80 shadow-xl backdrop-blur-xl transition-colors duration-300 dark:bg-ray-dark/80">
+          <aside className="relative mt-0 overflow-hidden rounded-[2.25rem] border border-elegant-gold/10 bg-warm-gray-50/85 shadow-[0_18px_54px_rgba(79,63,39,0.08)] backdrop-blur-xl transition-colors duration-300 dark:bg-ray-dark/78 md:mt-10 lg:mt-14">
             <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-elegant-gold to-transparent opacity-20" />
             <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-elegant-gold opacity-5 blur-3xl dark:opacity-5" />
 
-            <div className="relative z-10 h-full min-h-0 p-6 md:p-10">
+            <div className="relative z-10 h-full min-h-0 p-6 md:p-8 lg:p-9">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
                 <PanelBadge>Commentary</PanelBadge>
                 <div className="inline-flex items-center rounded-full border border-warm-gray-200 bg-white/80 p-1 text-[11px] font-bold tracking-[0.18em] uppercase dark:border-warm-gray-700 dark:bg-ray-dark/70">

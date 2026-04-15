@@ -1,32 +1,30 @@
-﻿# Current Task
-- Completed: Rebuilt commentary routing so gua/yao commentary is selected by the number embedded in the current verse title, using the numbered ODT source files in `괘사/` and `효사/`.
+# Current Task
+- Completed: Refined the full-width split reading layout so the gua body and commentary feel editorial instead of cheap and symmetrical.
 
 # Route
-- Route B
+- Route A
 
 # Writer Slot
-- main: planner-only lane; implementation delegated to workers
+- main: direct implementation lane
 
 # Contract Freeze
-- Goal: extract the numbered ODT contents in `괘사/` and `효사/` into plain text commentary registries keyed by the embedded title number, and render the matching commentary for the currently displayed verse.
-- Non-goals: no layout rewrite outside the commentary source plumbing, no deployment work, no unrelated data migrations.
+- Goal: make the current split reading view feel editorial by shifting from a flat 50/50 presentation to a subtly asymmetrical, annotated layout.
+- Non-goals: no commentary data migration, no source registry rewrite, no deployment work, no global design system overhaul.
 - Acceptance criteria:
-  - The current verse number selects the matching gua commentary from the numbered `괘사/` ODT source.
-  - The current verse number selects the matching yao commentary from the numbered `효사/` ODT source.
-  - The commentary panel still supports gua/yao source switching.
-  - The registry lookup is covered by tests.
+  - The split layout no longer reads as a flat 50/50 block.
+  - The commentary side feels secondary but intentional.
+  - The body side keeps the reading hierarchy clear.
   - Build and tests pass.
 - Risks:
-  - The ODT files may contain multiple numbered blocks that need one-time extraction/normalization before they can be committed as plain data.
-  - File-number mismatches could route the wrong commentary if the registry keying is not exact.
-  - This slice stays single-worker unless the folder set fans out into clearly disjoint writing targets.
+  - Overcorrecting the asymmetry could make the layout feel lopsided.
+  - Commentary typography or spacing could become too weak if the secondary panel is compressed too far.
+  - Keep the change small enough to avoid reopening the routing/data work.
 
 # Write Sets
-- worker_impl: scripts/extract_commentary.py, package.json, src/data/guaCommentary.ts, src/data/yaoCommentary.ts, src/data/index.ts, src/data/guaCommentary.test.ts, src/data/yaoCommentary.test.ts, src/hooks/useCalendarLogic.ts, src/hooks/useCalendarLogic.test.ts, src/components/IChingSection.tsx, src/components/IChingSection.test.tsx, src/components/MainContent.tsx, src/App.tsx, src/types/index.ts
-- reviewer: numbered commentary routing and registry coverage
+- main_impl: src/components/IChingSection.tsx
 
 # Reviewer
-- reviewer: numbered commentary routing and registry coverage
+- reviewer: editorial split balance and readability
 
 # Last Update
-- 2026-04-15: commentary extraction and number-based routing completed
+- 2026-04-15: editorial split refinement completed
