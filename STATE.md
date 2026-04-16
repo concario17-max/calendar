@@ -1,5 +1,5 @@
 # Current Task
-- Completed: Enlarge the sigil about 1.5x and remove its framed box so the upper verse row feels lighter and less cramped.
+- Completed: Regenerated the commentary registries from the updated `괘사-3.odt` and `효사-3.odt` source files, and updated the registry tests to assert the 3rd entries are present and readable.
 
 # Route
 - Route B
@@ -8,20 +8,18 @@
 - main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: keep the top card as gua heading/meta only and make the upper verse row feel lighter by enlarging the sigil about 1.5x and removing its framed box.
-- Non-goals: no commentary routing change, no data migration, no deployment work, no unrelated typography overhaul, no body layout changes.
+- Goal: regenerate `src/data/guaCommentary.ts` and `src/data/yaoCommentary.ts` from the updated `괘사/` and `효사/` folders, including the refreshed `3` entries.
+- Non-goals: no UI layout redesign, no commentary routing change, no deployment work, no unrelated typography overhaul.
 - Acceptance criteria:
-  - The top card contains the gua heading and meta as a single summary block, and does not carry the sigil.
-  - The lower verse row keeps Today's Reading title/short on the left and the sigil on the right.
-  - The sigil is visually larger, no longer inside a framed box, and still centered on the right.
-  - Commentary layout and soul section behavior stay intact.
+  - `괘사-3.odt` and `효사-3.odt` are incorporated into the generated commentary data.
+  - The corresponding commentary lookup returns the updated `3` entries.
   - Build and tests pass.
 
 # Write Sets
-- worker_layout: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
+- worker_data: scripts/extract_commentary.py, src/data/guaCommentary.ts, src/data/yaoCommentary.ts, related tests
 
 # Reviewer
-- reviewer: upper verse sigil size
+- reviewer: commentary source regeneration
 
 # Last Update
-- 2026-04-15: upper verse sigil box removed; build and tests passed on the larger frameless icon balance
+- 2026-04-16: completed commentary source refresh for `괘사-3` and `효사-3`
