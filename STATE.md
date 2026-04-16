@@ -1,5 +1,5 @@
 # Current Task
-- Completed: Regenerated the commentary registries from the updated `괘사-3.odt` and `효사-3.odt` source files, and updated the registry tests to assert the 3rd entries are present and readable.
+- Completed: Fix commentary list bullets so rendered commentary list markers show as visible middle dots instead of a broken pseudo-element.
 
 # Route
 - Route B
@@ -8,18 +8,18 @@
 - main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: regenerate `src/data/guaCommentary.ts` and `src/data/yaoCommentary.ts` from the updated `괘사/` and `효사/` folders, including the refreshed `3` entries.
-- Non-goals: no UI layout redesign, no commentary routing change, no deployment work, no unrelated typography overhaul.
+- Goal: replace the corrupted commentary list bullet pseudo-element in `src/components/IChingSection.tsx` with a visible middle-dot marker so rendered commentary lists display correctly.
+- Non-goals: no commentary data regeneration, no layout redesign, no routing change, no deployment work, no unrelated typography overhaul.
 - Acceptance criteria:
-  - `괘사-3.odt` and `효사-3.odt` are incorporated into the generated commentary data.
-  - The corresponding commentary lookup returns the updated `3` entries.
+  - Commentary list items render with a visible bullet or middle-dot marker in the UI.
+  - The list semantic structure remains intact.
   - Build and tests pass.
 
 # Write Sets
-- worker_data: scripts/extract_commentary.py, src/data/guaCommentary.ts, src/data/yaoCommentary.ts, related tests
+- worker_layout: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
 
 # Reviewer
-- reviewer: commentary source regeneration
+- reviewer: commentary bullet visibility
 
 # Last Update
-- 2026-04-16: completed commentary source refresh for `괘사-3` and `효사-3`
+- 2026-04-16: bullet marker rendering was corrected by replacing the corrupted pseudo-element content with a visible middle-dot marker

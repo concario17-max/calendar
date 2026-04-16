@@ -174,10 +174,12 @@ describe('IChingSection', () => {
     );
 
     const commentaryList = screen.getByRole('list');
+    const firstListItem = within(commentaryList).getAllByRole('listitem')[0];
 
     expect(screen.getByText('Gua List Heading')).toBeInTheDocument();
     expect(commentaryList).toBeInTheDocument();
     expect(within(commentaryList).getAllByRole('listitem')).toHaveLength(3);
+    expect(firstListItem).toHaveClass("before:content-['·']");
     expect(screen.getByText('First list item')).toBeInTheDocument();
     expect(screen.getByText('Second list item')).toBeInTheDocument();
     expect(screen.getByText('Third list item')).toBeInTheDocument();

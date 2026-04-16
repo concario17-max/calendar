@@ -220,7 +220,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
         {block.items.map((item, itemIndex) => (
           <li
             key={`list-${index}-item-${itemIndex}`}
-            className="relative break-keep pl-5 before:absolute before:left-0 before:top-[0.05em] before:text-elegant-gold before:content-['夷?]"
+            className="relative break-keep pl-5 before:absolute before:left-0 before:top-[0.05em] before:text-[1.15rem] before:font-bold before:leading-none before:text-elegant-gold before:content-['·']"
           >
             <span>{item}</span>
           </li>
