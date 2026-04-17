@@ -20,8 +20,6 @@ STATUS_RE = re.compile(r"^\[.*\]$")
 LIST_START_MARKER = "[[list]]"
 LIST_END_MARKER = "[[/list]]"
 LIST_ITEM_MARKER = "[[item]]"
-GUA_EXCLUDED_NUMBERS = {11, 28}
-YAO_EXCLUDED_NUMBERS = {61, 62, 63, 64, 65, 66, 191}
 
 
 def normalize_text(text: str) -> str:
@@ -221,14 +219,8 @@ def render_ts(var_name: str, function_name: str, registry: OrderedDict[int, str]
 
 
 def main() -> None:
-    gua_entries = build_registry(
-        [entry for entry in extract_folder_entries(GUA_FOLDER) if entry[0] not in GUA_EXCLUDED_NUMBERS],
-        "괘사",
-    )
-    yao_entries = build_registry(
-        [entry for entry in extract_folder_entries(YAO_FOLDER) if entry[0] not in YAO_EXCLUDED_NUMBERS],
-        "효사",
-    )
+    gua_entries = build_registry(extract_folder_entries(GUA_FOLDER), "괘사")
+    yao_entries = build_registry(extract_folder_entries(YAO_FOLDER), "효사")
 
     (ROOT / "src" / "data" / "guaCommentary.ts").write_text(
         render_ts("GUA_COMMENTARY_BY_NUM", "getGuaCommentary", gua_entries),

@@ -2,20 +2,16 @@ import { describe, expect, it } from 'vitest';
 import { YAO_COMMENTARY_BY_NUM, getYaoCommentary } from './yaoCommentary';
 
 describe('yao commentary registry', () => {
-  it('covers the refreshed yao key set with the known gaps', () => {
+  it('covers the refreshed yao key set', () => {
     const keys = Object.keys(YAO_COMMENTARY_BY_NUM)
       .map((key) => Number(key))
       .sort((left, right) => left - right);
 
-    expect(keys).toEqual(
-      Array.from({ length: 360 }, (_, index) => index + 25).filter(
-        (num) => num < 61 || num > 66,
-      ).filter((num) => num !== 191),
-    );
+    expect(keys).toEqual(Array.from({ length: 360 }, (_, index) => index + 25));
     expect(Object.prototype.hasOwnProperty.call(YAO_COMMENTARY_BY_NUM, 25)).toBe(true);
-    expect(Object.prototype.hasOwnProperty.call(YAO_COMMENTARY_BY_NUM, 61)).toBe(false);
-    expect(Object.prototype.hasOwnProperty.call(YAO_COMMENTARY_BY_NUM, 66)).toBe(false);
-    expect(Object.prototype.hasOwnProperty.call(YAO_COMMENTARY_BY_NUM, 191)).toBe(false);
+    expect(Object.prototype.hasOwnProperty.call(YAO_COMMENTARY_BY_NUM, 61)).toBe(true);
+    expect(Object.prototype.hasOwnProperty.call(YAO_COMMENTARY_BY_NUM, 66)).toBe(true);
+    expect(Object.prototype.hasOwnProperty.call(YAO_COMMENTARY_BY_NUM, 191)).toBe(true);
     expect(Object.prototype.hasOwnProperty.call(YAO_COMMENTARY_BY_NUM, 384)).toBe(true);
   });
 
