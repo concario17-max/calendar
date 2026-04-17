@@ -20,6 +20,8 @@ STATUS_RE = re.compile(r"^\[.*\]$")
 LIST_START_MARKER = "[[list]]"
 LIST_END_MARKER = "[[/list]]"
 LIST_ITEM_MARKER = "[[item]]"
+GUA_EXCLUDED_NUMBERS = {11, 28}
+YAO_EXCLUDED_NUMBERS = {61, 62, 63, 64, 65, 66, 191}
 
 
 def normalize_text(text: str) -> str:
@@ -57,14 +59,12 @@ def extract_table_block(table: ET.Element) -> str | None:
 
 
 def extract_title_match(block_text: str) -> re.Match[str] | None:
-    match = TITLE_RE.match(block_text)
-    if match is not None:
-        return match
-
     for line in block_text.splitlines():
-        line_match = TITLE_RE.match(line.strip())
-        if line_match is not None:
-            return line_match
+        stripped = line.strip()
+        if not stripped:
+            continue
+
+        return TITLE_RE.match(stripped)
 
     return None
 
@@ -109,19 +109,23 @@ def extract_list_item_text(item: ET.Element) -> str | None:
 
 
 def extract_list_block(list_node: ET.Element) -> str | None:
-    items: list[str] = []
+    header_blocks: list[str] = []
+    item_blocks: list[str] = []
+
+    for header in list_node.findall("text:list-header", NAMESPACES):
+        header_text = extract_list_item_text(header)
+        if header_text is not None:
+            header_blocks.append(header_text)
 
     for item in list_node.findall("text:list-item", NAMESPACES):
         item_text = extract_list_item_text(item)
         if item_text is not None:
-            items.append(item_text)
+            item_blocks.append(f"{LIST_ITEM_MARKER} {item_text}")
 
-    if not items:
+    if not header_blocks and not item_blocks:
         return None
 
-    return "\n".join(
-        [LIST_START_MARKER, *[f"{LIST_ITEM_MARKER} {item}" for item in items], LIST_END_MARKER]
-    )
+    return "\n".join([*header_blocks, LIST_START_MARKER, *item_blocks, LIST_END_MARKER])
 
 
 def extract_blocks(odt_path: Path) -> list[tuple[int, str]]:
@@ -217,8 +221,14 @@ def render_ts(var_name: str, function_name: str, registry: OrderedDict[int, str]
 
 
 def main() -> None:
-    gua_entries = build_registry(extract_folder_entries(GUA_FOLDER), "괘사")
-    yao_entries = build_registry(extract_folder_entries(YAO_FOLDER), "효사")
+    gua_entries = build_registry(
+        [entry for entry in extract_folder_entries(GUA_FOLDER) if entry[0] not in GUA_EXCLUDED_NUMBERS],
+        "괘사",
+    )
+    yao_entries = build_registry(
+        [entry for entry in extract_folder_entries(YAO_FOLDER) if entry[0] not in YAO_EXCLUDED_NUMBERS],
+        "효사",
+    )
 
     (ROOT / "src" / "data" / "guaCommentary.ts").write_text(
         render_ts("GUA_COMMENTARY_BY_NUM", "getGuaCommentary", gua_entries),
