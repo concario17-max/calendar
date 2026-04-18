@@ -73,6 +73,24 @@ summary: Push retry succeeded
 details: Retried git push origin main after a temporary connectivity failure, and commit 7336e67 was published to remote main.
 status: resolved
 
+time: 2026-04-18 21:25 KST
+location: git commit
+summary: Commit blocked by index.lock permission error while finalizing per-section commentary buttons
+details: `git commit -m "feat: add per-section commentary buttons"` failed once with `fatal: Unable to create 'C:/Users/roadsea/Desktop/calendar/.git/index.lock': Permission denied` after staging succeeded. Retry is pending.
+status: open
+
+time: 2026-04-18 21:25 KST
+location: git commit / git push origin main
+summary: Commit and push succeeded after retrying with elevated permissions
+details: Retried the commit with escalated permissions, created commit `24cb3da`, and pushed it to `origin/main` successfully.
+status: resolved
+
+time: 2026-04-18 21:26 KST
+location: git add ERROR_LOG.md
+summary: Stage blocked by index.lock permission error while closing error log
+details: `git add ERROR_LOG.md` failed with `fatal: Unable to create 'C:/Users/roadsea/Desktop/calendar/.git/index.lock': Permission denied` while trying to stage the error log for a follow-up docs commit.
+status: open
+
 time: 2026-04-18 16:38 KST
 location: git commit / git push origin main
 summary: Commit blocked by index lock permission error and push blocked by HTTPS connectivity
