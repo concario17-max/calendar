@@ -4,7 +4,6 @@ import { DatePicker } from './DatePicker';
 import { useTheme } from '../hooks/useTheme';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { Moon, Sun } from 'lucide-react';
-import { SoulCalendarSection } from './SoulCalendarSection';
 
 interface IChingSectionProps {
   selectedDate?: Date;
@@ -421,9 +420,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   {guaMeta}
                 </p>
               ) : null}
-            </div>
-            <div className="mt-10 border-t border-black/10 pt-8 dark:border-white/10 md:mt-12 md:pt-10">
-              <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
             </div>
           </div>
         </article>

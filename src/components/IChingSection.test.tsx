@@ -117,10 +117,6 @@ describe('IChingSection', () => {
     expect(within(readingTopUnit).getByText('Anamil explanation')).toBeInTheDocument();
     expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
-    expect(screen.getAllByText("Rudolf Steiner's Calendar of the Soul")).toHaveLength(1);
-    expect(screen.getByText('31주')).toBeInTheDocument();
-    expect(screen.getByText('4/13 - 4/19')).toBeInTheDocument();
-    expect(screen.getByText(/Soul body/)).toBeInTheDocument();
 
     expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
 
