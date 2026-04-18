@@ -1,27 +1,27 @@
 # Current Task
-- Completed: remove the left-side soul cards from the reading panel while keeping the section commentary buttons in the Today's Reading row.
+- Completed: restored the soul section header in the left reading panel while removing the soul body cards.
 
 # Route
-- Route A
-- Reason: this is a tight reading-panel-only change with a small test update, no shell rollout, and no shared asset work.
+- Route B
+- Reason: the layout change spans the reading panel and soul section component plus tests, and it reintroduces a shared section into the main page shell.
 
 # Writer Slot
-- main: direct implementation lane
+- main: planner only; implementation delegated to worker(s)
 
 # Contract Freeze
-- Goal: remove the left-side soul cards from the reading panel while keeping the section commentary buttons in the Today's Reading row.
-- Non-goals: no commentary registry updates, no data regeneration, no deployment work, no broader typography overhaul, no shell wiring changes.
+- Goal: keep the soul section header visible in the left reading panel while removing the soul body cards.
+- Non-goals: no commentary registry updates, no data regeneration, no deployment work, no broader typography overhaul, no unrelated shell redesign.
 - Acceptance criteria:
-  - The left-side soul cards are no longer rendered.
-  - The Today's Reading row buttons remain available.
-  - The right commentary panel still swaps by selected section.
-  - Build and tests pass after the deletion.
+  - The soul section header remains visible.
+  - The soul body cards are not rendered.
+  - The left reading panel retains the rest of its current layout.
+  - Build and tests pass after the adjustment.
 
 # Write Sets
-- main: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
+- worker: src/components/IChingSection.tsx, src/components/SoulCalendarSection.tsx, src/components/IChingSection.test.tsx, src/components/SoulCalendarSection.test.tsx
 
 # Reviewer
-- reviewer: soul card removal and test alignment
+- reviewer: soul header retention and card-body removal
 
 # Last Update
-- 2026-04-18: removed the left-side soul cards from the reading panel
+- 2026-04-18: restored the soul header and removed the soul body cards

@@ -88,6 +88,7 @@ function renderSection(overrides?: Partial<React.ComponentProps<typeof IChingSec
   );
 
   return {
+    leftPanel: screen.getByRole('article'),
     readingTitleRow: screen.getByTestId('reading-title-row'),
     readingTopUnit: screen.getByTestId('reading-top-unit'),
     readingVerseUnit: screen.getByTestId('reading-verse-unit'),
@@ -102,8 +103,8 @@ describe('IChingSection', () => {
     expect(screen.getByText('Reading data is not available yet.')).toBeInTheDocument();
   });
 
-  it('keeps section commentary buttons in the Today\'s Reading row and swaps the commentary panel', () => {
-    const { readingTitleRow, readingTopUnit, readingVerseUnit, readingSigilUnit } = renderSection();
+  it('keeps section commentary buttons in the Today\'s Reading row and renders the soul header in the left panel', () => {
+    const { leftPanel, readingTitleRow, readingTopUnit, readingVerseUnit, readingSigilUnit } = renderSection();
 
     expect(within(readingTitleRow).getByRole('button', { name: '효사 해설' })).toBeInTheDocument();
     expect(within(readingTitleRow).getByRole('button', { name: '괘사 해설' })).toBeInTheDocument();
@@ -111,6 +112,12 @@ describe('IChingSection', () => {
     expect(screen.queryByTestId('yao-commentary-row')).not.toBeInTheDocument();
     expect(screen.queryByTestId('gua-commentary-row')).not.toBeInTheDocument();
     expect(screen.queryByTestId('soul-commentary-row')).not.toBeInTheDocument();
+
+    expect(within(leftPanel).getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
+    expect(within(leftPanel).getByText('Weeks 31-33')).toBeInTheDocument();
+    expect(within(leftPanel).queryByText('4/13 - 4/19')).not.toBeInTheDocument();
+    expect(within(leftPanel).queryByText('Soul heading')).not.toBeInTheDocument();
+    expect(within(leftPanel).queryByText('Soul body')).not.toBeInTheDocument();
 
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
@@ -164,7 +171,7 @@ describe('IChingSection', () => {
     expect(screen.getByText('Gua List Heading')).toBeInTheDocument();
     expect(commentaryList).toHaveClass('list-disc');
     expect(within(commentaryList).getAllByRole('listitem')).toHaveLength(3);
-    expect(firstListItem).not.toHaveClass("before:content-['夷?]");
+    expect(firstListItem).not.toHaveClass("before:content-['鸚?]");
     expect(screen.getByText('First list item')).toBeInTheDocument();
     expect(screen.getByText('Second list item')).toBeInTheDocument();
     expect(screen.getByText('Third list item')).toBeInTheDocument();

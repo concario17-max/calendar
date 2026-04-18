@@ -3,13 +3,15 @@ import { describe, expect, it } from 'vitest';
 import { SoulCalendarSection } from './SoulCalendarSection';
 
 describe('SoulCalendarSection', () => {
-  it('renders a fallback when there are no verses', () => {
+  it('renders the header when there are no verses', () => {
     render(<SoulCalendarSection hitSoulGroup={undefined} soulSections={[]} />);
 
-    expect(screen.getByText('이 구간에 해당하는 영혼의 달력 본문을 찾지 못했습니다.')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
+    expect(screen.getByText('해당 날짜 항목 없음')).toBeInTheDocument();
+    expect(screen.queryByText('해당하는 영혼의 달력 본문을 찾지 못했습니다.')).not.toBeInTheDocument();
   });
 
-  it('renders a single verse card when only one section exists', () => {
+  it('keeps the soul section header visible and omits body cards', () => {
     render(
       <SoulCalendarSection
         hitSoulGroup={{ titleLine: 'Weeks 3', weeksLabel: '3주', weekA: 3, weekB: null, ranges: [], block: '' }}
@@ -17,9 +19,10 @@ describe('SoulCalendarSection', () => {
       />,
     );
 
-    expect(screen.getAllByText('3주')).toHaveLength(2);
-    expect(screen.getByText('4월 21-27')).toBeInTheDocument();
-    expect(screen.getByText('봄')).toBeInTheDocument();
-    expect(screen.getByText('Soul body')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
+    expect(screen.getByText('3주')).toBeInTheDocument();
+    expect(screen.queryByText('4월 21-27')).not.toBeInTheDocument();
+    expect(screen.queryByText('봄')).not.toBeInTheDocument();
+    expect(screen.queryByText('Soul body')).not.toBeInTheDocument();
   });
 });

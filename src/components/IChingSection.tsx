@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getGuaCommentary, getYaoCommentary } from '../data';
 import { DatePicker } from './DatePicker';
+import { SoulCalendarSection } from './SoulCalendarSection';
 import { useTheme } from '../hooks/useTheme';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { Moon, Sun } from 'lucide-react';
@@ -421,6 +422,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 </p>
               ) : null}
             </div>
+
+            <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
           </div>
         </article>
 
