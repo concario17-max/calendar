@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { IChingSection } from './IChingSection.tsx';
 
@@ -63,10 +63,10 @@ describe('IChingSection', () => {
     expect(screen.getByText('Reading data is not available yet.')).toBeInTheDocument();
   });
 
-  it('renders the left side as a background-anchored stack and commentary as plain blocks', () => {
+  it('renders section buttons that swap commentary content', () => {
     render(
       <IChingSection
-        commentarySource="gua"
+        commentarySource="yao"
         yaoNum={33}
         guaNum={6}
         guaData={{ header: '62. Example', meta: 'Anamil explanation' }}
@@ -115,37 +115,39 @@ describe('IChingSection', () => {
     expect(sigilFrame.className).toContain('max-w-[15rem]');
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(todaysReadingBadge).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '효사 해설' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '괘사 해설' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '소울 해설' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'GUA' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'YAO' })).not.toBeInTheDocument();
     expect(within(readingVerseUnit).queryByText("Today's Reading")).not.toBeInTheDocument();
     expect(todaysReadingBadge.compareDocumentPosition(readingSigilUnit) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(readingSigilUnit.nextElementSibling).toBe(readingVerseUnit);
     expect(readingVerseUnit.nextElementSibling).toBe(readingTopUnit);
-    expect(within(readingVerseUnit).queryByTestId('verse-body')).not.toBeInTheDocument();
 
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('Anamil explanation')).toBeInTheDocument();
     expect(within(readingTopUnit).queryByRole('img', { name: 'sigil 33' })).not.toBeInTheDocument();
     expect(within(readingTopUnit).getByTestId('reading-gua-meta')).toBeInTheDocument();
-    expect(within(readingTopUnit).queryByTestId('verse-body')).not.toBeInTheDocument();
     expect(commentaryReadingBody).toHaveTextContent('Body text');
+    expect(within(readingVerseUnit).queryByText('Body text')).not.toBeInTheDocument();
 
     expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
-    expect(within(readingVerseUnit).queryByText('Body text')).not.toBeInTheDocument();
     expect(commentaryReadingBody.closest('[data-testid="reading-sigil-unit"]')).toBeNull();
 
+    fireEvent.click(screen.getByRole('button', { name: '괘사 해설' }));
     expect(screen.getByText('Gua Heading')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: 'Col A' })).toBeInTheDocument();
     expect(screen.getByRole('cell', { name: 'B1' })).toBeInTheDocument();
-    expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'GUA' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'YAO' })).not.toBeInTheDocument();
-    expect(screen.queryByText('Reading Summary')).not.toBeInTheDocument();
-    expect(screen.queryByText('Current Line')).not.toBeInTheDocument();
-    expect(screen.queryByRole('heading', { level: 4, name: 'Commentary' })).not.toBeInTheDocument();
-    expect(screen.getByRole('article')).toHaveTextContent("Rudolf Steiner's Calendar of the Soul");
-    expect(screen.getByRole('article')).toHaveTextContent('Soul body');
+    expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: '소울 해설' }));
+    expect(screen.getByText('31. Example Soul Group')).toBeInTheDocument();
+    expect(screen.getByText('Soul heading')).toBeInTheDocument();
+    expect(screen.getByText('Soul body')).toBeInTheDocument();
     expect(readingTopUnit.compareDocumentPosition(soulEntry) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
@@ -172,6 +174,8 @@ describe('IChingSection', () => {
         soulSections={[]}
       />,
     );
+
+    fireEvent.click(screen.getByRole('button', { name: '괘사 해설' }));
 
     const commentaryList = screen.getByRole('list');
     const firstListItem = within(commentaryList).getAllByRole('listitem')[0];
@@ -214,6 +218,8 @@ describe('IChingSection', () => {
 
     expect(screen.getByRole('article')).toBeInTheDocument();
     expect(screen.getByRole('complementary')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '효사 해설' }));
+
     expect(screen.getByText('Yao Heading')).toBeInTheDocument();
     expect(screen.getByText('Plain prose commentary body')).toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
@@ -245,6 +251,8 @@ describe('IChingSection', () => {
 
     expect(screen.getByRole('article')).toBeInTheDocument();
     expect(screen.getByRole('complementary')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '효사 해설' }));
+
     const commentaryReadingBody = screen.getByTestId('commentary-reading-body');
     const commentaryBody = commentaryReadingBody.nextElementSibling as HTMLElement;
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { getGuaCommentary, getYaoCommentary } from '../data';
 import { DatePicker } from './DatePicker';
 import { useTheme } from '../hooks/useTheme';
@@ -23,6 +23,8 @@ interface SplitCommentary {
   heading: string;
   blocks: CommentaryBlock[];
 }
+
+type CommentaryTarget = 'gua' | 'yao' | 'soul';
 
 type CommentaryBlock =
   | {
@@ -246,6 +248,46 @@ function PanelBadge({ children }: { children: string }) {
   );
 }
 
+function CommentaryActionButton({
+  label,
+  active,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`rounded-full border px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] transition-colors duration-200 ${
+        active
+          ? 'border-elegant-gold bg-elegant-gold text-white shadow-md shadow-elegant-gold/20 dark:text-ray-dark'
+          : 'border-warm-gray-200/80 bg-white/75 text-warm-gray-500 hover:text-warm-gray-800 dark:border-warm-gray-700/80 dark:bg-ray-dark/70 dark:text-warm-gray-400 dark:hover:text-white'
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function buildSoulCommentaryText(hitSoulGroup: SoulGroup | undefined, soulSections: SoulSection[]): string {
+  if (soulSections.length === 0) {
+    return '';
+  }
+
+  const heading = hitSoulGroup?.titleLine?.trim() || 'Rudolf Steiner&apos;s Calendar of the Soul';
+  const body = soulSections
+    .slice(0, 2)
+    .map((sec) => `${sec.week}. ${sec.range}\n${sec.text.trim()}`.trim())
+    .filter(Boolean)
+    .join('\n\n');
+
+  return `${heading}\n${body}`.trim();
+}
+
 function ThemeToggleButton() {
   const { isDark, toggleTheme } = useTheme();
 
@@ -265,7 +307,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   selectedDate,
   onDateChange,
   commentarySource = 'yao',
-  onCommentarySourceChange,
   yaoNum,
   guaNum,
   guaData,
@@ -273,6 +314,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   hitSoulGroup,
   soulSections = [],
 }) => {
+  const [selectedCommentaryTarget, setSelectedCommentaryTarget] = useState<CommentaryTarget>(
+    commentarySource === 'gua' ? 'gua' : 'yao',
+  );
   const sigilSrc = yaoNum !== null ? `/images/yao-${yaoNum}.png` : null;
 
   if (!guaData || !yaoData) {
@@ -284,12 +328,13 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   }
 
   const commentaryText =
-    commentarySource === 'gua'
+    selectedCommentaryTarget === 'gua'
       ? getGuaCommentary(guaNum)?.trim() ?? ''
-      : getYaoCommentary(yaoNum)?.trim() ?? '';
+      : selectedCommentaryTarget === 'yao'
+        ? getYaoCommentary(yaoNum)?.trim() ?? ''
+        : buildSoulCommentaryText(hitSoulGroup, soulSections);
   const commentary = commentaryText.length > 0 ? splitCommentary(commentaryText) : null;
   const guaMeta = guaData.meta.trim();
-  const asphaditBody = yaoData.body.trim();
 
   return (
     <section className="flex h-full w-full flex-1 flex-col animate-fade-in-up stagger-1">
@@ -332,6 +377,18 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
             <div data-testid="reading-verse-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
               <div className="space-y-4">
+                <div
+                  data-testid="yao-commentary-row"
+                  className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-5 dark:border-white/10 md:h-16 md:flex-nowrap"
+                >
+                  <PanelBadge>효사</PanelBadge>
+                  <CommentaryActionButton
+                    label="효사 해설"
+                    active={selectedCommentaryTarget === 'yao'}
+                    onClick={() => setSelectedCommentaryTarget('yao')}
+                  />
+                </div>
+
                 <div className="space-y-3">
                   <h4 className="max-w-[22ch] break-keep font-display text-[1.7rem] font-bold leading-[1.28] tracking-[-0.03em] text-current md:text-[2.1rem]">
                     {yaoData.titleLine}
@@ -348,7 +405,19 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
 
             <div data-testid="reading-top-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
-              <div className="flex items-center gap-3">
+              <div
+                data-testid="gua-commentary-row"
+                className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-5 dark:border-white/10 md:h-16 md:flex-nowrap"
+              >
+                <PanelBadge>괘사</PanelBadge>
+                <CommentaryActionButton
+                  label="괘사 해설"
+                  active={selectedCommentaryTarget === 'gua'}
+                  onClick={() => setSelectedCommentaryTarget('gua')}
+                />
+              </div>
+
+              <div className="mt-4 flex items-center gap-3">
                 <div className="h-6 w-1 rounded-full bg-elegant-gold shadow-[0_0_8px_rgba(184,134,11,0.35)]" />
                 <h3 className="break-keep font-brand text-[1.45rem] font-bold leading-tight tracking-[0.01em] text-current md:text-[1.9rem]">
                   {guaData.header}
@@ -366,6 +435,18 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
 
             <div className="pt-6 md:pt-7">
+              <div
+                data-testid="soul-commentary-row"
+                className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-5 dark:border-white/10 md:h-16 md:flex-nowrap"
+              >
+                <PanelBadge>소울</PanelBadge>
+                <CommentaryActionButton
+                  label="소울 해설"
+                  active={selectedCommentaryTarget === 'soul'}
+                  onClick={() => setSelectedCommentaryTarget('soul')}
+                />
+              </div>
+
               <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
             </div>
           </div>
@@ -374,34 +455,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         <aside className="flex h-full min-w-0 flex-col bg-[#fbfaf5] px-6 py-6 dark:bg-[#171511] md:px-8 md:py-8 lg:px-10">
           <div className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-5 dark:border-white/10 md:h-16 md:flex-nowrap">
             <PanelBadge>Commentary</PanelBadge>
-
-            <div className="flex items-center gap-1.5">
-              {commentarySource && onCommentarySourceChange ? (
-                <div className="inline-flex items-center rounded-full border border-warm-gray-200/80 bg-white/75 p-1 text-[10px] font-bold uppercase tracking-[0.18em] dark:border-warm-gray-700/80 dark:bg-ray-dark/70">
-                  {(['gua', 'yao'] as const).map((source) => {
-                    const isActive = commentarySource === source;
-
-                    return (
-                      <button
-                        key={source}
-                        type="button"
-                        aria-pressed={isActive}
-                        onClick={() => onCommentarySourceChange(source)}
-                        className={`rounded-full px-3 py-1.5 transition-colors duration-200 ${
-                          isActive
-                            ? 'bg-elegant-gold text-white shadow-md shadow-elegant-gold/20 dark:text-ray-dark'
-                            : 'text-warm-gray-500 hover:text-warm-gray-800 dark:text-warm-gray-400 dark:hover:text-white'
-                        }`}
-                      >
-                        {source === 'gua' ? 'GUA' : 'YAO'}
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : null}
-
-              <ThemeToggleButton />
-            </div>
+            <ThemeToggleButton />
           </div>
 
           <div className="mt-6 flex-1 space-y-0">
@@ -413,12 +467,12 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   </h5>
                 ) : null}
 
-                {asphaditBody ? (
+                {selectedCommentaryTarget === 'yao' ? (
                   <div
                     data-testid="commentary-reading-body"
                     className="max-w-none whitespace-pre-wrap break-keep font-display text-[15px] leading-[1.9] tracking-[-0.01em] text-current/90 md:text-[16px]"
                   >
-                    {asphaditBody}
+                    {yaoData.body}
                   </div>
                 ) : null}
 
