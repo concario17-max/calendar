@@ -6,8 +6,6 @@ function App() {
   const {
     selectedDate,
     setSelectedDate,
-    commentarySource,
-    setCommentarySource,
     yaoNum,
     guaNum,
     guaData,
@@ -35,8 +33,6 @@ function App() {
         <MainContent
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}
-          commentarySource={commentarySource}
-          setCommentarySource={setCommentarySource}
           yaoNum={yaoNum}
           guaNum={guaNum}
           guaData={guaData}

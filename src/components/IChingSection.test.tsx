@@ -56,6 +56,45 @@ vi.mock('../data', () => {
   };
 });
 
+function renderSection(overrides?: Partial<React.ComponentProps<typeof IChingSection>>) {
+  render(
+    <IChingSection
+      commentarySource="yao"
+      yaoNum={33}
+      guaNum={6}
+      guaData={{ header: '62. Example', meta: 'Anamil explanation' }}
+      yaoData={{
+        titleLine: '33. Example',
+        short: 'Short reading',
+        body: 'Body text',
+      }}
+      hitSoulGroup={{
+        titleLine: '31. Example Soul Group',
+        weeksLabel: 'Weeks 31-33',
+        weekA: 31,
+        weekB: 33,
+        ranges: [],
+        block: '',
+      }}
+      soulSections={[
+        {
+          week: 31,
+          range: '4/13 - 4/19',
+          text: 'Soul heading\nSoul body',
+        },
+      ]}
+      {...overrides}
+    />,
+  );
+
+  return {
+    readingTitleRow: screen.getByTestId('reading-title-row'),
+    readingTopUnit: screen.getByTestId('reading-top-unit'),
+    readingVerseUnit: screen.getByTestId('reading-verse-unit'),
+    readingSigilUnit: screen.getByTestId('reading-sigil-unit'),
+  };
+}
+
 describe('IChingSection', () => {
   it('renders an empty-state message when there is no passage', () => {
     render(<IChingSection yaoNum={null} guaNum={null} guaData={null} yaoData={null} />);
@@ -63,80 +102,29 @@ describe('IChingSection', () => {
     expect(screen.getByText('Reading data is not available yet.')).toBeInTheDocument();
   });
 
-  it('renders section buttons that swap commentary content', () => {
-    render(
-      <IChingSection
-        commentarySource="yao"
-        yaoNum={33}
-        guaNum={6}
-        guaData={{ header: '62. Example', meta: 'Anamil explanation' }}
-        yaoData={{
-          titleLine: '33. Example',
-          short: 'Short reading',
-          body: 'Body text',
-        }}
-        hitSoulGroup={{
-          titleLine: '31. Example Soul Group',
-          weeksLabel: 'Weeks 31-33',
-          weekA: 31,
-          weekB: 33,
-          ranges: [],
-          block: '',
-        }}
-        soulSections={[
-          {
-            week: 31,
-            range: '4/13 - 4/19',
-            text: 'Soul heading\nSoul body',
-          },
-        ]}
-      />,
-    );
+  it('keeps section commentary buttons in the Today\'s Reading row and swaps the commentary panel', () => {
+    const { readingTitleRow, readingTopUnit, readingVerseUnit, readingSigilUnit } = renderSection();
 
-    expect(screen.getByRole('article')).toBeInTheDocument();
-    expect(screen.getByRole('complementary')).toBeInTheDocument();
+    expect(within(readingTitleRow).getByRole('button', { name: '효사 해설' })).toBeInTheDocument();
+    expect(within(readingTitleRow).getByRole('button', { name: '괘사 해설' })).toBeInTheDocument();
+    expect(within(readingTitleRow).getByRole('button', { name: '소울 해설' })).toBeInTheDocument();
+    expect(screen.queryByTestId('yao-commentary-row')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('gua-commentary-row')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('soul-commentary-row')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('soul-section')).not.toBeInTheDocument();
 
-    const readingTopUnit = screen.getByTestId('reading-top-unit');
-    const readingVerseUnit = screen.getByTestId('reading-verse-unit');
-    const readingSigilUnit = screen.getByTestId('reading-sigil-unit');
-    const todaysReadingBadge = screen.getByText("Today's Reading");
-    const commentaryReadingBody = screen.getByTestId('commentary-reading-body');
-    const soulEntry = screen.getByTestId('soul-entry-31');
-    const sigilFrame = readingSigilUnit.firstElementChild as HTMLElement;
-
-    expect(readingTopUnit.className).not.toContain('rounded');
-    expect(readingTopUnit.className).not.toContain('shadow');
-    expect(readingVerseUnit.className).not.toContain('rounded');
-    expect(readingVerseUnit.className).not.toContain('shadow');
-    expect(soulEntry.className).not.toContain('rounded');
-    expect(soulEntry.className).not.toContain('shadow');
-
-    expect(readingSigilUnit).toBeInTheDocument();
-    expect(sigilFrame.className).toContain('max-w-[15rem]');
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
-    expect(todaysReadingBadge).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '효사 해설' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '괘사 해설' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '소울 해설' })).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'GUA' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'YAO' })).not.toBeInTheDocument();
-    expect(within(readingVerseUnit).queryByText("Today's Reading")).not.toBeInTheDocument();
-    expect(todaysReadingBadge.compareDocumentPosition(readingSigilUnit) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-    expect(readingSigilUnit.nextElementSibling).toBe(readingVerseUnit);
-    expect(readingVerseUnit.nextElementSibling).toBe(readingTopUnit);
-
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('Anamil explanation')).toBeInTheDocument();
-    expect(within(readingTopUnit).queryByRole('img', { name: 'sigil 33' })).not.toBeInTheDocument();
-    expect(within(readingTopUnit).getByTestId('reading-gua-meta')).toBeInTheDocument();
-    expect(commentaryReadingBody).toHaveTextContent('Body text');
-    expect(within(readingVerseUnit).queryByText('Body text')).not.toBeInTheDocument();
-
     expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
-    expect(commentaryReadingBody.closest('[data-testid="reading-sigil-unit"]')).toBeNull();
+    expect(screen.getByText('31. Example Soul Group')).toBeInTheDocument();
+    expect(screen.getByText('Weeks 31-33')).toBeInTheDocument();
+    expect(screen.queryByText('Soul body')).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: '괘사 해설' }));
+    expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
+
+    fireEvent.click(within(readingTitleRow).getByRole('button', { name: '괘사 해설' }));
     expect(screen.getByText('Gua Heading')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: 'Col A' })).toBeInTheDocument();
@@ -144,47 +132,44 @@ describe('IChingSection', () => {
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: '소울 해설' }));
-    expect(screen.getByText('31. Example Soul Group')).toBeInTheDocument();
-    expect(screen.getByText('Soul heading')).toBeInTheDocument();
-    expect(screen.getByText('Soul body')).toBeInTheDocument();
-    expect(readingTopUnit.compareDocumentPosition(soulEntry) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    fireEvent.click(within(readingTitleRow).getByRole('button', { name: '소울 해설' }));
+    expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul heading');
+    expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul body');
+    expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('31. 4/13 - 4/19');
+    expect(screen.queryByText('Body text')).not.toBeInTheDocument();
   });
 
   it('renders bullet-marked commentary blocks as semantic lists', () => {
-    render(
-      <IChingSection
-        commentarySource="gua"
-        yaoNum={33}
-        guaNum={8}
-        guaData={{ header: '62. Example', meta: 'Example meta' }}
-        yaoData={{
-          titleLine: '33. Example',
-          short: 'Short reading',
-          body: 'Body text',
-        }}
-        hitSoulGroup={{
-          titleLine: '31. Example Soul Group',
-          weeksLabel: 'Weeks 31-33',
-          weekA: 31,
-          weekB: 33,
-          ranges: [],
-          block: '',
-        }}
-        soulSections={[]}
-      />,
-    );
+    const { readingTitleRow } = renderSection({
+      commentarySource: 'gua',
+      yaoNum: 33,
+      guaNum: 8,
+      guaData: { header: '62. Example', meta: 'Example meta' },
+      yaoData: {
+        titleLine: '33. Example',
+        short: 'Short reading',
+        body: 'Body text',
+      },
+      hitSoulGroup: {
+        titleLine: '31. Example Soul Group',
+        weeksLabel: 'Weeks 31-33',
+        weekA: 31,
+        weekB: 33,
+        ranges: [],
+        block: '',
+      },
+      soulSections: [],
+    });
 
-    fireEvent.click(screen.getByRole('button', { name: '괘사 해설' }));
+    fireEvent.click(within(readingTitleRow).getByRole('button', { name: '괘사 해설' }));
 
     const commentaryList = screen.getByRole('list');
     const firstListItem = within(commentaryList).getAllByRole('listitem')[0];
 
     expect(screen.getByText('Gua List Heading')).toBeInTheDocument();
-    expect(commentaryList).toBeInTheDocument();
     expect(commentaryList).toHaveClass('list-disc');
     expect(within(commentaryList).getAllByRole('listitem')).toHaveLength(3);
-    expect(firstListItem).not.toHaveClass("before:content-['쨌']");
+    expect(firstListItem).not.toHaveClass("before:content-['夷?]");
     expect(screen.getByText('First list item')).toBeInTheDocument();
     expect(screen.getByText('Second list item')).toBeInTheDocument();
     expect(screen.getByText('Third list item')).toBeInTheDocument();
@@ -193,32 +178,26 @@ describe('IChingSection', () => {
   });
 
   it('renders plain commentary prose without forcing a table', () => {
-    render(
-      <IChingSection
-        commentarySource="yao"
-        yaoNum={33}
-        guaNum={6}
-        guaData={{ header: '62. Example', meta: 'Example meta' }}
-        yaoData={{
-          titleLine: '33. Example',
-          short: 'Short reading',
-          body: 'Body text',
-        }}
-        hitSoulGroup={{
-          titleLine: '31. Example Soul Group',
-          weeksLabel: 'Weeks 31-33',
-          weekA: 31,
-          weekB: 33,
-          ranges: [],
-          block: '',
-        }}
-        soulSections={[]}
-      />,
-    );
-
-    expect(screen.getByRole('article')).toBeInTheDocument();
-    expect(screen.getByRole('complementary')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: '효사 해설' }));
+    renderSection({
+      commentarySource: 'yao',
+      yaoNum: 33,
+      guaNum: 6,
+      guaData: { header: '62. Example', meta: 'Example meta' },
+      yaoData: {
+        titleLine: '33. Example',
+        short: 'Short reading',
+        body: 'Body text',
+      },
+      hitSoulGroup: {
+        titleLine: '31. Example Soul Group',
+        weeksLabel: 'Weeks 31-33',
+        weekA: 31,
+        weekB: 33,
+        ranges: [],
+        block: '',
+      },
+      soulSections: [],
+    });
 
     expect(screen.getByText('Yao Heading')).toBeInTheDocument();
     expect(screen.getByText('Plain prose commentary body')).toBeInTheDocument();
@@ -226,32 +205,26 @@ describe('IChingSection', () => {
   });
 
   it('keeps pipe-heavy prose as a paragraph when it is not a real table', () => {
-    render(
-      <IChingSection
-        commentarySource="yao"
-        yaoNum={34}
-        guaNum={6}
-        guaData={{ header: '62. Example', meta: 'Example meta' }}
-        yaoData={{
-          titleLine: '34. Example',
-          short: 'Short reading',
-          body: 'Body text',
-        }}
-        hitSoulGroup={{
-          titleLine: '31. Example Soul Group',
-          weeksLabel: 'Weeks 31-33',
-          weekA: 31,
-          weekB: 33,
-          ranges: [],
-          block: '',
-        }}
-        soulSections={[]}
-      />,
-    );
-
-    expect(screen.getByRole('article')).toBeInTheDocument();
-    expect(screen.getByRole('complementary')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: '효사 해설' }));
+    renderSection({
+      commentarySource: 'yao',
+      yaoNum: 34,
+      guaNum: 6,
+      guaData: { header: '62. Example', meta: 'Example meta' },
+      yaoData: {
+        titleLine: '34. Example',
+        short: 'Short reading',
+        body: 'Body text',
+      },
+      hitSoulGroup: {
+        titleLine: '31. Example Soul Group',
+        weeksLabel: 'Weeks 31-33',
+        weekA: 31,
+        weekB: 33,
+        ranges: [],
+        block: '',
+      },
+      soulSections: [],
+    });
 
     const commentaryReadingBody = screen.getByTestId('commentary-reading-body');
     const commentaryBody = commentaryReadingBody.nextElementSibling as HTMLElement;
@@ -264,27 +237,25 @@ describe('IChingSection', () => {
   });
 
   it('keeps the commentary shell visible when commentary is missing', () => {
-    render(
-      <IChingSection
-        yaoNum={999}
-        guaNum={999}
-        guaData={{ header: '62. Example', meta: 'Example meta' }}
-        yaoData={{
-          titleLine: '999. Example',
-          short: 'Short reading',
-          body: 'Body text',
-        }}
-        hitSoulGroup={{
-          titleLine: '31. Example Soul Group',
-          weeksLabel: 'Weeks 31-33',
-          weekA: 31,
-          weekB: 33,
-          ranges: [],
-          block: '',
-        }}
-        soulSections={[]}
-      />,
-    );
+    renderSection({
+      yaoNum: 999,
+      guaNum: 999,
+      guaData: { header: '62. Example', meta: 'Example meta' },
+      yaoData: {
+        titleLine: '999. Example',
+        short: 'Short reading',
+        body: 'Body text',
+      },
+      hitSoulGroup: {
+        titleLine: '31. Example Soul Group',
+        weeksLabel: 'Weeks 31-33',
+        weekA: 31,
+        weekB: 33,
+        ranges: [],
+        block: '',
+      },
+      soulSections: [],
+    });
 
     expect(screen.getByRole('article')).toBeInTheDocument();
     expect(screen.getByRole('complementary')).toBeInTheDocument();

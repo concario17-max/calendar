@@ -1,12 +1,10 @@
 import React from 'react';
-import type { CommentarySource, GuaData, YaoData, SoulSection, SoulGroup } from '../types';
+import type { GuaData, YaoData, SoulSection, SoulGroup } from '../types';
 import { IChingSection } from './IChingSection';
 
 interface MainContentProps {
   selectedDate: Date;
   onDateChange: (date: Date) => void;
-  commentarySource: CommentarySource;
-  setCommentarySource: (source: CommentarySource) => void;
   yaoNum: number | null;
   guaNum: number | null;
   guaData: GuaData | null;
@@ -18,8 +16,6 @@ interface MainContentProps {
 export const MainContent: React.FC<MainContentProps> = ({
   selectedDate,
   onDateChange,
-  commentarySource,
-  setCommentarySource,
   yaoNum,
   guaNum,
   guaData,
@@ -32,8 +28,6 @@ export const MainContent: React.FC<MainContentProps> = ({
       <IChingSection
         selectedDate={selectedDate}
         onDateChange={onDateChange}
-        commentarySource={commentarySource}
-        onCommentarySourceChange={setCommentarySource}
         yaoNum={yaoNum}
         guaNum={guaNum}
         guaData={guaData}

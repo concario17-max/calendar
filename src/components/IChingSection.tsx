@@ -4,7 +4,6 @@ import { DatePicker } from './DatePicker';
 import { useTheme } from '../hooks/useTheme';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { Moon, Sun } from 'lucide-react';
-import { SoulCalendarSection } from './SoulCalendarSection';
 
 interface IChingSectionProps {
   selectedDate?: Date;
@@ -117,7 +116,7 @@ function parseListBlock(block: string): string[] | null {
     return null;
   }
 
-  const listItemPattern = /^(?:[-*•·]|\d+[.)])\s*(.+)$/u;
+  const listItemPattern = /^(?:[-*???|\d+[.)])\s*(.+)$/u;
 
   const items = lines.map((line) => {
     const match = line.match(listItemPattern);
@@ -347,20 +346,36 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             >
               <PanelBadge>Today&apos;s Reading</PanelBadge>
 
-              {selectedDate && onDateChange ? (
-                <div className="flex items-center gap-1.5">
-                  <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
-                  <button
-                    type="button"
-                    onClick={() => onDateChange(new Date())}
-                    className="rounded-full px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-warm-gray-600 transition-all hover:bg-elegant-gold/10 hover:text-elegant-gold active-scale dark:text-warm-gray-300 dark:hover:text-elegant-gold"
-                  >
-                    Today
-                  </button>
-                </div>
-              ) : null}
+              <div className="flex flex-wrap items-center justify-end gap-1.5">
+                {selectedDate && onDateChange ? (
+                  <>
+                    <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
+                    <button
+                      type="button"
+                      onClick={() => onDateChange(new Date())}
+                      className="rounded-full px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-warm-gray-600 transition-all hover:bg-elegant-gold/10 hover:text-elegant-gold active-scale dark:text-warm-gray-300 dark:hover:text-elegant-gold"
+                    >
+                      Today
+                    </button>
+                  </>
+                ) : null}
+                <CommentaryActionButton
+                  label="효사 해설"
+                  active={selectedCommentaryTarget === 'yao'}
+                  onClick={() => setSelectedCommentaryTarget('yao')}
+                />
+                <CommentaryActionButton
+                  label="괘사 해설"
+                  active={selectedCommentaryTarget === 'gua'}
+                  onClick={() => setSelectedCommentaryTarget('gua')}
+                />
+                <CommentaryActionButton
+                  label="소울 해설"
+                  active={selectedCommentaryTarget === 'soul'}
+                  onClick={() => setSelectedCommentaryTarget('soul')}
+                />
+              </div>
             </div>
-
             <div data-testid="reading-sigil-unit" className="flex justify-center pt-1">
               <div className="w-full max-w-[11rem] sm:max-w-[13rem] md:max-w-[15rem]">
                 {sigilSrc ? (
@@ -376,47 +391,20 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
 
             <div data-testid="reading-verse-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
-              <div className="space-y-4">
-                <div
-                  data-testid="yao-commentary-row"
-                  className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-5 dark:border-white/10 md:h-16 md:flex-nowrap"
-                >
-                  <PanelBadge>효사</PanelBadge>
-                  <CommentaryActionButton
-                    label="효사 해설"
-                    active={selectedCommentaryTarget === 'yao'}
-                    onClick={() => setSelectedCommentaryTarget('yao')}
-                  />
-                </div>
+              <div className="space-y-3">
+                <h4 className="max-w-[22ch] break-keep font-display text-[1.7rem] font-bold leading-[1.28] tracking-[-0.03em] text-current md:text-[2.1rem]">
+                  {yaoData.titleLine}
+                </h4>
 
-                <div className="space-y-3">
-                  <h4 className="max-w-[22ch] break-keep font-display text-[1.7rem] font-bold leading-[1.28] tracking-[-0.03em] text-current md:text-[2.1rem]">
-                    {yaoData.titleLine}
-                  </h4>
-
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/35" />
-                    <p className="max-w-[34rem] break-keep py-2 pl-6 font-display text-[1.02rem] font-medium italic leading-[1.85] text-elegant-gold md:text-[1.16rem]">
-                      {yaoData.short}
-                    </p>
-                  </div>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/35" />
+                  <p className="max-w-[34rem] break-keep py-2 pl-6 font-display text-[1.02rem] font-medium italic leading-[1.85] text-elegant-gold md:text-[1.16rem]">
+                    {yaoData.short}
+                  </p>
                 </div>
               </div>
             </div>
-
             <div data-testid="reading-top-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
-              <div
-                data-testid="gua-commentary-row"
-                className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-5 dark:border-white/10 md:h-16 md:flex-nowrap"
-              >
-                <PanelBadge>괘사</PanelBadge>
-                <CommentaryActionButton
-                  label="괘사 해설"
-                  active={selectedCommentaryTarget === 'gua'}
-                  onClick={() => setSelectedCommentaryTarget('gua')}
-                />
-              </div>
-
               <div className="mt-4 flex items-center gap-3">
                 <div className="h-6 w-1 rounded-full bg-elegant-gold shadow-[0_0_8px_rgba(184,134,11,0.35)]" />
                 <h3 className="break-keep font-brand text-[1.45rem] font-bold leading-tight tracking-[0.01em] text-current md:text-[1.9rem]">
@@ -433,21 +421,18 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 </p>
               ) : null}
             </div>
-
             <div className="pt-6 md:pt-7">
-              <div
-                data-testid="soul-commentary-row"
-                className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-5 dark:border-white/10 md:h-16 md:flex-nowrap"
-              >
+              <div className="border-b border-black/10 pb-5 dark:border-white/10">
                 <PanelBadge>소울</PanelBadge>
-                <CommentaryActionButton
-                  label="소울 해설"
-                  active={selectedCommentaryTarget === 'soul'}
-                  onClick={() => setSelectedCommentaryTarget('soul')}
-                />
+                <div className="mt-4 space-y-2">
+                  <div className="font-brand text-[1.05rem] font-semibold leading-tight tracking-[0.01em] text-current md:text-[1.25rem]">
+                    {hitSoulGroup?.titleLine?.trim() || "Rudolf Steiner&apos;s Calendar of the Soul"}
+                  </div>
+                  <div className="text-[0.72rem] font-bold tracking-[0.22em] text-warm-gray-500 dark:text-warm-gray-400 md:text-[0.78rem]">
+                    {hitSoulGroup ? hitSoulGroup.weeksLabel : 'No matching soul weeks yet'}
+                  </div>
+                </div>
               </div>
-
-              <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
             </div>
           </div>
         </article>

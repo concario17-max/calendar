@@ -1,20 +1,15 @@
 import { DatePicker } from './DatePicker';
 import { useTheme } from '../hooks/useTheme';
-import type { CommentarySource } from '../types';
 import { Moon, Sun } from 'lucide-react';
 
 interface HeaderProps {
   selectedDate: Date;
   onDateChange: (date: Date) => void;
-  commentarySource?: CommentarySource;
-  onCommentarySourceChange?: (source: CommentarySource) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   selectedDate,
   onDateChange,
-  commentarySource,
-  onCommentarySourceChange,
 }) => {
   const { isDark, toggleTheme } = useTheme();
 
@@ -32,30 +27,6 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       <div className="flex items-center gap-1.5">
-        {commentarySource && onCommentarySourceChange ? (
-          <div className="inline-flex items-center rounded-full border border-warm-gray-200/80 bg-white/75 p-1 text-[10px] font-bold uppercase tracking-[0.18em] dark:border-warm-gray-700/80 dark:bg-ray-dark/70">
-            {(['gua', 'yao'] as const).map((source) => {
-              const isActive = commentarySource === source;
-
-              return (
-                <button
-                  key={source}
-                  type="button"
-                  aria-pressed={isActive}
-                  onClick={() => onCommentarySourceChange(source)}
-                  className={`rounded-full px-3 py-1.5 transition-colors duration-200 ${
-                    isActive
-                      ? 'bg-elegant-gold text-white shadow-md shadow-elegant-gold/20 dark:text-ray-dark'
-                      : 'text-warm-gray-500 hover:text-warm-gray-800 dark:text-warm-gray-400 dark:hover:text-white'
-                  }`}
-                >
-                  {source === 'gua' ? 'GUA' : 'YAO'}
-                </button>
-              );
-            })}
-          </div>
-        ) : null}
-
         <button
           type="button"
           onClick={toggleTheme}

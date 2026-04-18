@@ -5,11 +5,9 @@ import {
   calcYaoNum, calcGuaNum, splitGua, splitYao, 
   isInRangeMD, parseWeekSectionsFromGroupBlock
 } from '../utils/logic';
-import type { CommentarySource } from '../types';
 
 export function useCalendarLogic() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [commentarySource, setCommentarySource] = useState<CommentarySource>('yao');
   
   const { GUA_MAP, YAO_MAP, SOUL_GROUPS } = useMemo(() => {
     try {
@@ -41,8 +39,6 @@ export function useCalendarLogic() {
   return {
     selectedDate,
     setSelectedDate,
-    commentarySource,
-    setCommentarySource,
     yaoNum,
     guaNum,
     guaData,

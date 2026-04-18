@@ -109,3 +109,9 @@ summary: Commit and push retried successfully after permission and connectivity 
 details: Re-ran the commit with elevated permissions, created commit `b72f8cb`, and successfully pushed it to `origin/main`.
 status: resolved
 
+time: 2026-04-18 21:38 KST
+location: git add STATE.md src/App.tsx src/components/Header.tsx src/components/MainContent.tsx src/hooks/useCalendarLogic.ts
+summary: Staging blocked by index.lock permission error while finalizing shell wiring cleanup
+details: Attempting to stage the shell wiring slice failed with `fatal: Unable to create '.git/index.lock': Permission denied`. The repository will retry staging with elevated permissions.
+status: open
+
