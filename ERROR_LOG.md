@@ -91,6 +91,12 @@ summary: Stage blocked by index.lock permission error while closing error log
 details: `git add ERROR_LOG.md` failed with `fatal: Unable to create 'C:/Users/roadsea/Desktop/calendar/.git/index.lock': Permission denied` while trying to stage the error log for a follow-up docs commit.
 status: open
 
+time: 2026-04-18 21:26 KST
+location: git add / git commit / git push origin main
+summary: Error log staged and published after retrying with elevated permissions
+details: Retried staging with escalated permissions, created follow-up docs commit `263a164`, and pushed it to `origin/main`. The error log entry is now captured in the repository.
+status: resolved
+
 time: 2026-04-18 16:38 KST
 location: git commit / git push origin main
 summary: Commit blocked by index lock permission error and push blocked by HTTPS connectivity
