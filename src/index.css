@@ -147,4 +147,142 @@
   .safe-bottom {
     padding-bottom: calc(var(--current-pb, 0px) + env(safe-area-inset-bottom, 0px));
   }
+
+  .poster-shell {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .poster-shell section {
+    position: relative;
+    z-index: 1;
+  }
+
+  .poster-shell section > div.space-y-6 {
+    gap: 1.5rem;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid {
+    gap: 1.5rem;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > article {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > article > .absolute {
+    display: none !important;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > article > .relative.z-10 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > article > .relative.z-10 > .space-y-6 > div {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > article > .relative.z-10 > .space-y-6 > div:first-child {
+    padding-top: 0 !important;
+    padding-bottom: 2rem !important;
+    border-bottom: 1px solid rgba(168, 150, 121, 0.18);
+  }
+
+  .dark .poster-shell section > div.space-y-6 > div.relative.grid > article > .relative.z-10 > .space-y-6 > div:first-child {
+    border-bottom-color: rgba(99, 83, 63, 0.48);
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > article > .relative.z-10 > .space-y-6 > div:nth-child(2) {
+    padding-top: 2rem !important;
+    padding-bottom: 0 !important;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > article .mt-10 {
+    margin-top: 2rem !important;
+    padding-top: 2rem !important;
+    border-top: 1px solid rgba(168, 150, 121, 0.18);
+  }
+
+  .dark .poster-shell section > div.space-y-6 > div.relative.grid > article .mt-10 {
+    border-top-color: rgba(99, 83, 63, 0.48);
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > article .mt-10 section > div:first-child {
+    margin-bottom: 0.9rem;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > article .mt-10 section > div:nth-child(2) {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 1rem !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > article .mt-10 section > div:nth-child(2) > div {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > article .mt-10 section > div:nth-child(2) > div + div {
+    margin-top: 0;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(168, 150, 121, 0.16);
+  }
+
+  .dark .poster-shell section > div.space-y-6 > div.relative.grid > article .mt-10 section > div:nth-child(2) > div + div {
+    border-top-color: rgba(99, 83, 63, 0.42);
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > aside {
+    background: linear-gradient(180deg, rgba(255, 253, 249, 0.95) 0%, rgba(252, 248, 241, 0.93) 100%) !important;
+    border: 1px solid rgba(168, 150, 121, 0.2) !important;
+    box-shadow: none !important;
+    border-radius: 2.15rem !important;
+  }
+
+  .dark .poster-shell section > div.space-y-6 > div.relative.grid > aside {
+    background: linear-gradient(180deg, rgba(20, 20, 20, 0.9) 0%, rgba(13, 13, 13, 0.86) 100%) !important;
+    border-color: rgba(99, 83, 63, 0.35) !important;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > aside > .relative.z-10 {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > aside .space-y-6 > div {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .poster-shell section > div.space-y-6 > div.relative.grid > aside .space-y-6 > div + div {
+    border-top: 1px solid rgba(168, 150, 121, 0.12);
+    padding-top: 1rem;
+  }
+
+  .dark .poster-shell section > div.space-y-6 > div.relative.grid > aside .space-y-6 > div + div {
+    border-top-color: rgba(99, 83, 63, 0.32);
+  }
 }

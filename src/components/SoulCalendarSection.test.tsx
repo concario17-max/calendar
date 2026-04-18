@@ -6,20 +6,27 @@ describe('SoulCalendarSection', () => {
   it('renders a fallback when there are no verses', () => {
     render(<SoulCalendarSection hitSoulGroup={undefined} soulSections={[]} />);
 
-    expect(screen.getByText('이 구간에 해당하는 영혼의 달력 본문을 찾지 못했습니다.')).toBeInTheDocument();
+    expect(screen.getByText('Soul readings are not available yet.')).toBeInTheDocument();
   });
 
-  it('renders a single verse card when only one section exists', () => {
+  it('renders soul entries as stacked sections without boxed cards', () => {
     render(
       <SoulCalendarSection
-        hitSoulGroup={{ titleLine: 'Weeks 3', weeksLabel: '3주', weekA: 3, weekB: null, ranges: [], block: '' }}
-        soulSections={[{ week: 3, range: '4월 21-27', text: '봄\nSoul body' }]}
+        hitSoulGroup={{ titleLine: 'Weeks 3', weeksLabel: '3 weeks', weekA: 3, weekB: null, ranges: [], block: '' }}
+        soulSections={[{ week: 3, range: '4/21-27', text: 'First line\nSoul body' }]}
       />,
     );
 
-    expect(screen.getAllByText('3주')).toHaveLength(2);
-    expect(screen.getByText('4월 21-27')).toBeInTheDocument();
-    expect(screen.getByText('봄')).toBeInTheDocument();
+    const soulSection = screen.getByTestId('soul-section');
+    const soulEntry = screen.getByTestId('soul-entry-3');
+
+    expect(screen.getByText('Rudolf Steiner\'s Calendar of the Soul')).toBeInTheDocument();
+    expect(screen.getByText('3 weeks')).toBeInTheDocument();
+    expect(screen.getByText('4/21-27')).toBeInTheDocument();
     expect(screen.getByText('Soul body')).toBeInTheDocument();
+    expect(soulSection).toBeInTheDocument();
+    expect(soulEntry).toBeInTheDocument();
+    expect(soulEntry.className).not.toContain('rounded');
+    expect(soulEntry.className).not.toContain('shadow');
   });
 });

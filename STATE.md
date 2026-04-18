@@ -1,5 +1,5 @@
 # Current Task
-- In progress: Rebuild the commentary registries against the fully updated `괘사/` and `효사/` source folders, remove stale exclusion logic, and realign the tests to the complete regenerated key sets.
+- Completed: Fix dark-mode contrast in the poster-like split layout so the left reading field stays visibly darker than the right commentary panel.
 
 # Route
 - Route B
@@ -8,18 +8,22 @@
 - main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: regenerate `src/data/guaCommentary.ts` and `src/data/yaoCommentary.ts` so they include all current source entries from the modified `괘사/` and `효사/` folders, and remove any exclusion logic that no longer matches source.
-- Non-goals: no UI/layout redesign, no commentary routing change, no deployment work, no unrelated typography overhaul.
+- Goal: keep the poster-like split layout while correcting dark-mode contrast so the left reading field reads darker than the right commentary panel in both themes.
+- Non-goals: no commentary registry updates, no data regeneration, no deployment work, no unrelated typography overhaul.
 - Acceptance criteria:
-  - The registry includes the current gua keys `5..64` and the current yao keys `25..384` as represented in source.
-  - The registry tests assert the refreshed complete key sets from the current folders.
-  - Build and tests pass.
+  - The left side still reads as a direct background field rather than a boxed card shell.
+  - Gua, yao, and soul remain on the same left background and are separated by lines only.
+  - The left background is visibly darker than the right commentary panel in both light and dark themes.
+  - The right commentary area stays readable and uses section blocks rather than nested boxed subcards.
+  - Build and tests pass after the layout-only changes.
 
 # Write Sets
-- worker_data: scripts/extract_commentary.py, src/data/guaCommentary.ts, src/data/yaoCommentary.ts, src/data/guaCommentary.test.ts, src/data/yaoCommentary.test.ts
+- worker_shared: src/App.tsx, src/index.css, src/components/MainContent.tsx
+- worker_left: src/components/IChingSection.tsx, src/components/SoulCalendarSection.tsx, src/components/IChingSection.test.tsx, src/components/SoulCalendarSection.test.tsx
+- worker_right: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
 
 # Reviewer
-- reviewer: missing commentary entries restored from source
+- reviewer: poster-like left background layout and right commentary panel separation
 
 # Last Update
-- 2026-04-17: source folders now expose the full commentary key sets and the registries should be regenerated without stale exclusions
+- 2026-04-18: finalized the poster-style layout with dark-mode contrast corrected and boxed empty states removed

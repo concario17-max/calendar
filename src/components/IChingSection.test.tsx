@@ -62,12 +62,10 @@ describe('IChingSection', () => {
   it('renders an empty-state message when there is no passage', () => {
     render(<IChingSection yaoNum={null} guaNum={null} guaData={null} yaoData={null} />);
 
-    expect(
-      screen.getByText((content, element) => element?.tagName === 'P' && content.length > 0),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Reading data is not available yet.')).toBeInTheDocument();
   });
 
-  it('renders pipe-delimited commentary as a semantic table', () => {
+  it('renders the left side as a background-anchored stack and commentary as plain blocks', () => {
     render(
       <IChingSection
         commentarySource="gua"
@@ -99,54 +97,47 @@ describe('IChingSection', () => {
 
     expect(screen.getByRole('article')).toBeInTheDocument();
     expect(screen.getByRole('complementary')).toBeInTheDocument();
+
     const readingTopUnit = screen.getByTestId('reading-top-unit');
     const readingVerseUnit = screen.getByTestId('reading-verse-unit');
     const verseLayout = within(readingVerseUnit).getByTestId('verse-layout');
     const verseTopRow = within(readingVerseUnit).getByTestId('verse-top-row');
     const verseBody = within(readingVerseUnit).getByTestId('verse-body');
-    const verseTopChildren = Array.from(verseTopRow.children) as HTMLElement[];
-    const verseLead = verseTopChildren[0]!;
-    const verseSigil = verseTopChildren[1]!;
+    const soulEntry = screen.getByTestId('soul-entry-31');
+
+    expect(readingTopUnit.className).not.toContain('rounded');
+    expect(readingTopUnit.className).not.toContain('shadow');
+    expect(readingVerseUnit.className).not.toContain('rounded');
+    expect(readingVerseUnit.className).not.toContain('shadow');
+    expect(soulEntry.className).not.toContain('rounded');
+    expect(soulEntry.className).not.toContain('shadow');
 
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('Anamil explanation')).toBeInTheDocument();
     expect(within(readingTopUnit).queryByRole('img', { name: 'sigil 33' })).not.toBeInTheDocument();
-    expect(within(readingTopUnit).queryByTestId('reading-gua-meta')).not.toBeInTheDocument();
+    expect(within(readingTopUnit).getByTestId('reading-gua-meta')).toBeInTheDocument();
     expect(within(readingTopUnit).queryByTestId('verse-body')).not.toBeInTheDocument();
-    expect(verseLead).toContainElement(within(verseLead).getByRole('heading', { level: 4, name: '33. Example' }));
-    expect(verseLead).toContainElement(within(verseLead).getByText('Short reading'));
-    expect(verseSigil).toContainElement(within(verseSigil).getByRole('img', { name: 'sigil 33' }));
-    expect(verseTopChildren).toHaveLength(2);
-    expect(verseTopRow).toHaveClass('md:items-center');
-    expect(verseSigil).toHaveClass('md:w-[clamp(11.5rem,19vw,14rem)]');
-    expect(verseSigil).toHaveClass('md:justify-self-end');
-    expect(verseSigil).toHaveClass('md:self-center');
-    expect(verseSigil.className).not.toContain('border-warm-gray-200');
-    expect(verseSigil.className).not.toContain('bg-warm-gray-50');
-    expect(verseSigil.className).not.toContain('shadow-inner');
-    expect(verseSigil.className).not.toContain('overflow-hidden');
-    expect(verseSigil.className).not.toContain('rounded-3xl');
-    expect(verseSigil.className).not.toContain('p-6');
-    expect(within(readingVerseUnit).queryByTestId('reading-gua-meta')).not.toBeInTheDocument();
+
+    expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
+    expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
+    expect(within(readingVerseUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(verseLayout).toBeInTheDocument();
     expect(verseTopRow).toBeInTheDocument();
     expect(verseBody).toHaveTextContent('Body text');
-    expect(verseBody).toHaveClass('w-full');
+    expect(verseBody).toHaveClass('md:col-span-2');
     expect(verseBody.parentElement).toBe(verseLayout);
     expect(verseBody.closest('[data-testid="verse-top-row"]')).toBeNull();
-    expect(verseBody).not.toHaveTextContent('Short reading');
 
-    expect(screen.getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
-    expect(screen.queryByText('Reading Summary')).not.toBeInTheDocument();
-    expect(screen.queryByText('Current Line')).not.toBeInTheDocument();
-    expect(screen.queryByRole('heading', { level: 4, name: 'Commentary' })).not.toBeInTheDocument();
     expect(screen.getByText('Gua Heading')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: 'Col A' })).toBeInTheDocument();
     expect(screen.getByRole('cell', { name: 'B1' })).toBeInTheDocument();
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
-    expect(screen.queryAllByText("Rudolf Steiner's Calendar of the Soul")).toHaveLength(1);
+    expect(screen.queryByText('Reading Summary')).not.toBeInTheDocument();
+    expect(screen.queryByText('Current Line')).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 4, name: 'Commentary' })).not.toBeInTheDocument();
     expect(screen.getByRole('article')).toHaveTextContent("Rudolf Steiner's Calendar of the Soul");
+    expect(screen.getByRole('article')).toHaveTextContent('Soul body');
   });
 
   it('renders bullet-marked commentary blocks as semantic lists', () => {
@@ -178,8 +169,9 @@ describe('IChingSection', () => {
 
     expect(screen.getByText('Gua List Heading')).toBeInTheDocument();
     expect(commentaryList).toBeInTheDocument();
+    expect(commentaryList).toHaveClass('list-disc');
     expect(within(commentaryList).getAllByRole('listitem')).toHaveLength(3);
-    expect(firstListItem).toHaveClass("before:content-['·']");
+    expect(firstListItem).not.toHaveClass("before:content-['쨌']");
     expect(screen.getByText('First list item')).toBeInTheDocument();
     expect(screen.getByText('Second list item')).toBeInTheDocument();
     expect(screen.getByText('Third list item')).toBeInTheDocument();
@@ -318,8 +310,7 @@ describe('IChingSection', () => {
     expect(screen.getByText('Plain prose commentary body')).toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
 
-    const [firstToggleButton] = screen.getAllByRole('button');
-    fireEvent.click(firstToggleButton);
+    fireEvent.click(screen.getByRole('button', { name: 'GUA' }));
 
     expect(screen.getByText('Gua Heading')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
