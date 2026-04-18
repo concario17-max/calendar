@@ -4,6 +4,7 @@ import { DatePicker } from './DatePicker';
 import { useTheme } from '../hooks/useTheme';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { Moon, Sun } from 'lucide-react';
+import { SoulCalendarSection } from './SoulCalendarSection';
 
 interface IChingSectionProps {
   selectedDate?: Date;
@@ -421,18 +422,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 </p>
               ) : null}
             </div>
-            <div className="pt-6 md:pt-7">
-              <div className="border-b border-black/10 pb-5 dark:border-white/10">
-                <PanelBadge>소울</PanelBadge>
-                <div className="mt-4 space-y-2">
-                  <div className="font-brand text-[1.05rem] font-semibold leading-tight tracking-[0.01em] text-current md:text-[1.25rem]">
-                    {hitSoulGroup?.titleLine?.trim() || "Rudolf Steiner&apos;s Calendar of the Soul"}
-                  </div>
-                  <div className="text-[0.72rem] font-bold tracking-[0.22em] text-warm-gray-500 dark:text-warm-gray-400 md:text-[0.78rem]">
-                    {hitSoulGroup ? hitSoulGroup.weeksLabel : 'No matching soul weeks yet'}
-                  </div>
-                </div>
-              </div>
+            <div className="mt-10 border-t border-black/10 pt-8 dark:border-white/10 md:mt-12 md:pt-10">
+              <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
             </div>
           </div>
         </article>

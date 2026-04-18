@@ -111,16 +111,16 @@ describe('IChingSection', () => {
     expect(screen.queryByTestId('yao-commentary-row')).not.toBeInTheDocument();
     expect(screen.queryByTestId('gua-commentary-row')).not.toBeInTheDocument();
     expect(screen.queryByTestId('soul-commentary-row')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('soul-section')).not.toBeInTheDocument();
 
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('Anamil explanation')).toBeInTheDocument();
     expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
-    expect(screen.getByText('31. Example Soul Group')).toBeInTheDocument();
-    expect(screen.getByText('Weeks 31-33')).toBeInTheDocument();
-    expect(screen.queryByText('Soul body')).not.toBeInTheDocument();
+    expect(screen.getAllByText("Rudolf Steiner's Calendar of the Soul")).toHaveLength(1);
+    expect(screen.getByText('31주')).toBeInTheDocument();
+    expect(screen.getByText('4/13 - 4/19')).toBeInTheDocument();
+    expect(screen.getByText(/Soul body/)).toBeInTheDocument();
 
     expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
 
@@ -135,7 +135,6 @@ describe('IChingSection', () => {
     fireEvent.click(within(readingTitleRow).getByRole('button', { name: '소울 해설' }));
     expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul heading');
     expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul body');
-    expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('31. 4/13 - 4/19');
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
   });
 
