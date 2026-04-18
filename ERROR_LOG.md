@@ -73,3 +73,15 @@ summary: Push retry succeeded
 details: Retried git push origin main after a temporary connectivity failure, and commit 7336e67 was published to remote main.
 status: resolved
 
+time: 2026-04-18 16:38 KST
+location: git commit / git push origin main
+summary: Commit blocked by index lock permission error and push blocked by HTTPS connectivity
+details: After the left-panel alignment change, `git commit -m "fix: align today's reading with commentary row"` failed with `Unable to create '.git/index.lock': Permission denied`. A prior `git add -u` completed, so the repository is staged, but commit/push still needs to be retried. A subsequent `git push origin main` attempt also failed because github.com could not be reached over HTTPS from the sandboxed shell.
+status: open
+
+time: 2026-04-18 16:39 KST
+location: git commit / git push origin main
+summary: Commit and push retried successfully after permission and connectivity issues
+details: Re-ran the commit with elevated permissions, created commit `b72f8cb`, and successfully pushed it to `origin/main`.
+status: resolved
+
