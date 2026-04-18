@@ -1,28 +1,26 @@
 # Current Task
-- In progress: remove the old global `GUA / YAO` toggle from the header, stop passing stale commentary source plumbing through the shell, and keep the section-specific commentary controls inside the reading component.
+- Completed: restore the soul section to its prior card-based layout and undo the newer centered presentation.
 
 # Route
-- Route B
-- Reason: the task now spans shell wiring across `src/App.tsx`, `src/components/MainContent.tsx`, `src/components/Header.tsx`, and `src/hooks/useCalendarLogic.ts`, so it needs a split write set and the header cleanup.
+- Route A
+- Reason: this is a tight restore on one feature component plus its dedicated test file, with no shell or shared-asset rollout.
 
 # Writer Slot
-- main: planner-only
-- worker_shell: src/App.tsx, src/components/MainContent.tsx, src/components/Header.tsx, src/hooks/useCalendarLogic.ts
+- main: direct implementation lane
 
 # Contract Freeze
-- Goal: remove the old global `GUA / YAO` toggle from the header, trim stale shell-level commentary props, and keep the per-section commentary controls inside the reading component.
-- Non-goals: no commentary registry updates, no data regeneration, no deployment work, no broader typography overhaul, no unrelated layout redesign, no reading-layout refactor outside the shell wiring slice.
- - Acceptance criteria:
-  - The header no longer exposes the old global `GUA / YAO` toggle.
-  - The shell no longer passes stale commentary source plumbing to components that do not need it.
-  - The reading component still swaps content based on the selected section.
-  - Build and tests pass after the shell wiring change.
+- Goal: restore the soul section to its prior card-based layout and undo the newer centered presentation.
+- Non-goals: no commentary registry updates, no data regeneration, no deployment work, no broader typography overhaul, no shell wiring changes.
+- Acceptance criteria:
+  - The soul section returns to its prior non-centered card layout.
+  - The fallback and section rendering match the earlier soul section behavior.
+  - Build and tests pass after the revert.
 
 # Write Sets
-- worker_shell: src/App.tsx, src/components/MainContent.tsx, src/components/Header.tsx, src/hooks/useCalendarLogic.ts
+- main: src/components/SoulCalendarSection.tsx, src/components/SoulCalendarSection.test.tsx
 
 # Reviewer
-- reviewer: shell wiring cleanup and header toggle removal
+- reviewer: soul section layout restoration and test alignment
 
 # Last Update
-- 2026-04-18: retargeted to remove shell-level commentary source plumbing and the header toggle while keeping section-specific commentary controls in the reading component
+- 2026-04-18: restored the soul section's prior card-based layout
