@@ -1,9 +1,14 @@
 import React from 'react';
 import { getGuaCommentary, getYaoCommentary } from '../data';
+import { DatePicker } from './DatePicker';
+import { useTheme } from '../hooks/useTheme';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
+import { Moon, Sun } from 'lucide-react';
 import { SoulCalendarSection } from './SoulCalendarSection';
 
 interface IChingSectionProps {
+  selectedDate?: Date;
+  onDateChange?: (date: Date) => void;
   commentarySource?: CommentarySource;
   onCommentarySourceChange?: (source: CommentarySource) => void;
   yaoNum: number | null;
@@ -241,8 +246,26 @@ function PanelBadge({ children }: { children: string }) {
   );
 }
 
+function ThemeToggleButton() {
+  const { isDark, toggleTheme } = useTheme();
+
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className="flex h-9 w-9 items-center justify-center rounded-full border border-warm-gray-200/70 bg-white/55 text-warm-gray-600 shadow-sm transition-all hover:border-elegant-gold/50 hover:text-elegant-gold hover:shadow-md active-scale dark:border-warm-gray-700/70 dark:bg-warm-gray-800/55 dark:text-warm-gray-300 dark:hover:border-elegant-gold/50 dark:hover:text-elegant-gold"
+      aria-label="Toggle theme"
+    >
+      {isDark ? <Sun size={17} className="sm:h-4.5 sm:w-4.5" /> : <Moon size={17} className="sm:h-4.5 sm:w-4.5" />}
+    </button>
+  );
+}
+
 export const IChingSection: React.FC<IChingSectionProps> = ({
+  selectedDate,
+  onDateChange,
   commentarySource = 'yao',
+  onCommentarySourceChange,
   yaoNum,
   guaNum,
   guaData,
@@ -268,12 +291,28 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   const guaMeta = guaData.meta.trim();
 
   return (
-    <section className="w-full animate-fade-in-up stagger-1">
-      <div className="grid gap-0 md:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)]">
-        <article className="min-w-0 bg-[#efe3cf] px-6 py-6 text-[#4b3b29] dark:bg-[#1f1b16] dark:text-warm-gray-100 md:border-r md:border-black/10 md:px-8 md:py-8 lg:px-10">
-          <div className="space-y-7">
-            <div className="flex justify-start">
+    <section className="flex h-full w-full flex-1 flex-col animate-fade-in-up stagger-1">
+      <div className="grid h-full gap-0 md:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)]">
+        <article className="flex h-full min-w-0 flex-col bg-[#efe3cf] px-6 py-6 text-[#4b3b29] dark:bg-[#1f1b16] dark:text-warm-gray-100 md:border-r md:border-black/10 md:px-8 md:py-8 lg:px-10">
+          <div className="flex h-full min-h-0 flex-1 flex-col space-y-7">
+            <div
+              data-testid="reading-title-row"
+              className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-5 dark:border-white/10 md:h-16 md:flex-nowrap"
+            >
               <PanelBadge>Today&apos;s Reading</PanelBadge>
+
+              {selectedDate && onDateChange ? (
+                <div className="flex items-center gap-1.5">
+                  <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
+                  <button
+                    type="button"
+                    onClick={() => onDateChange(new Date())}
+                    className="rounded-full px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-warm-gray-600 transition-all hover:bg-elegant-gold/10 hover:text-elegant-gold active-scale dark:text-warm-gray-300 dark:hover:text-elegant-gold"
+                  >
+                    Today
+                  </button>
+                </div>
+              ) : null}
             </div>
 
             <div data-testid="reading-sigil-unit" className="flex justify-center pt-1">
@@ -337,12 +376,40 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
           </div>
         </article>
 
-        <aside className="min-w-0 bg-[#fbfaf5] px-6 py-6 dark:bg-[#171511] md:px-8 md:py-8 lg:px-10">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-5 dark:border-white/10">
+        <aside className="flex h-full min-w-0 flex-col bg-[#fbfaf5] px-6 py-6 dark:bg-[#171511] md:px-8 md:py-8 lg:px-10">
+          <div className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-5 dark:border-white/10 md:h-16 md:flex-nowrap">
             <PanelBadge>Commentary</PanelBadge>
+
+            <div className="flex items-center gap-1.5">
+              {commentarySource && onCommentarySourceChange ? (
+                <div className="inline-flex items-center rounded-full border border-warm-gray-200/80 bg-white/75 p-1 text-[10px] font-bold uppercase tracking-[0.18em] dark:border-warm-gray-700/80 dark:bg-ray-dark/70">
+                  {(['gua', 'yao'] as const).map((source) => {
+                    const isActive = commentarySource === source;
+
+                    return (
+                      <button
+                        key={source}
+                        type="button"
+                        aria-pressed={isActive}
+                        onClick={() => onCommentarySourceChange(source)}
+                        className={`rounded-full px-3 py-1.5 transition-colors duration-200 ${
+                          isActive
+                            ? 'bg-elegant-gold text-white shadow-md shadow-elegant-gold/20 dark:text-ray-dark'
+                            : 'text-warm-gray-500 hover:text-warm-gray-800 dark:text-warm-gray-400 dark:hover:text-white'
+                        }`}
+                      >
+                        {source === 'gua' ? 'GUA' : 'YAO'}
+                      </button>
+                    );
+                  })}
+                </div>
+              ) : null}
+
+              <ThemeToggleButton />
+            </div>
           </div>
 
-          <div className="mt-6 space-y-0">
+          <div className="mt-6 flex-1 space-y-0">
             {commentary ? (
               <div className="space-y-5">
                 {commentary.heading ? (

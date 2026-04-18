@@ -1,7 +1,6 @@
 import React from 'react';
 import type { CommentarySource, GuaData, YaoData, SoulSection, SoulGroup } from '../types';
 import { IChingSection } from './IChingSection';
-import { Header } from './Header';
 
 interface MainContentProps {
   selectedDate: Date;
@@ -29,17 +28,10 @@ export const MainContent: React.FC<MainContentProps> = ({
   soulSections,
 }) => {
   return (
-    <main className="mx-auto flex w-full max-w-[96rem] flex-col px-3 sm:px-4 md:px-6 lg:px-8 pt-5 sm:pt-6 md:pt-8 pb-24 animate-fade-in-up relative z-10 safe-bottom">
-      <div className="mb-4 sm:mb-5 md:mb-6">
-        <Header
-          selectedDate={selectedDate}
-          onDateChange={onDateChange}
-          commentarySource={commentarySource}
-          onCommentarySourceChange={setCommentarySource}
-        />
-      </div>
-
+    <main className="mx-auto flex min-h-0 w-full max-w-[96rem] flex-1 flex-col px-3 pt-5 pb-24 relative z-10 animate-fade-in-up safe-bottom sm:px-4 sm:pt-6 md:px-6 md:pt-8 lg:px-8">
       <IChingSection
+        selectedDate={selectedDate}
+        onDateChange={onDateChange}
         commentarySource={commentarySource}
         onCommentarySourceChange={setCommentarySource}
         yaoNum={yaoNum}
