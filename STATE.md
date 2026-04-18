@@ -1,5 +1,5 @@
 # Current Task
-- Completed: Fix dark-mode contrast in the poster-like split layout so the left reading field stays visibly darker than the right commentary panel.
+- In progress: Remove the layered background shell and restack the left panel so the sigil sits at the top, followed by yao, gua, and soul in that order.
 
 # Route
 - Route B
@@ -8,22 +8,22 @@
 - main: planner-only lane; implementation delegated to workers
 
 # Contract Freeze
-- Goal: keep the poster-like split layout while correcting dark-mode contrast so the left reading field reads darker than the right commentary panel in both themes.
-- Non-goals: no commentary registry updates, no data regeneration, no deployment work, no unrelated typography overhaul.
+- Goal: remove the large background layer and restack the left panel into a single vertical flow: big centered sigil at the top, then yao, then gua, then soul.
+- Non-goals: no commentary registry updates, no data regeneration, no deployment work, no unrelated typography overhaul, no commentary-panel redesign.
 - Acceptance criteria:
-  - The left side still reads as a direct background field rather than a boxed card shell.
-  - Gua, yao, and soul remain on the same left background and are separated by lines only.
-  - The left background is visibly darker than the right commentary panel in both light and dark themes.
-  - The right commentary area stays readable and uses section blocks rather than nested boxed subcards.
+  - The layered background shell is removed from the page.
+  - The sigil is centered at the top of the left area and rendered at roughly triple the prior size.
+  - Yao, gua, and soul appear below it in that order on the left side.
+  - The right commentary area remains readable and unchanged unless needed for alignment.
   - Build and tests pass after the layout-only changes.
 
 # Write Sets
 - worker_shared: src/App.tsx, src/index.css, src/components/MainContent.tsx
 - worker_left: src/components/IChingSection.tsx, src/components/SoulCalendarSection.tsx, src/components/IChingSection.test.tsx, src/components/SoulCalendarSection.test.tsx
-- worker_right: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
+- worker_right: none
 
 # Reviewer
-- reviewer: poster-like left background layout and right commentary panel separation
+- reviewer: left background shell removed and left panel restacked in sigil/yao/gua/soul order
 
 # Last Update
-- 2026-04-18: finalized the poster-style layout with dark-mode contrast corrected and boxed empty states removed
+- 2026-04-18: starting implementation for the shared-shell-only layout pass; route stays Route B because the task spans 3 files and must remove the layered page shell without touching the section components

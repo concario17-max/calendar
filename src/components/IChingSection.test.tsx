@@ -100,10 +100,10 @@ describe('IChingSection', () => {
 
     const readingTopUnit = screen.getByTestId('reading-top-unit');
     const readingVerseUnit = screen.getByTestId('reading-verse-unit');
-    const verseLayout = within(readingVerseUnit).getByTestId('verse-layout');
-    const verseTopRow = within(readingVerseUnit).getByTestId('verse-top-row');
+    const readingSigilUnit = screen.getByTestId('reading-sigil-unit');
     const verseBody = within(readingVerseUnit).getByTestId('verse-body');
     const soulEntry = screen.getByTestId('soul-entry-31');
+    const sigilFrame = readingSigilUnit.firstElementChild as HTMLElement;
 
     expect(readingTopUnit.className).not.toContain('rounded');
     expect(readingTopUnit.className).not.toContain('shadow');
@@ -111,6 +111,12 @@ describe('IChingSection', () => {
     expect(readingVerseUnit.className).not.toContain('shadow');
     expect(soulEntry.className).not.toContain('rounded');
     expect(soulEntry.className).not.toContain('shadow');
+
+    expect(readingSigilUnit).toBeInTheDocument();
+    expect(sigilFrame.className).toContain('max-w-[30rem]');
+    expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
+    expect(readingSigilUnit.nextElementSibling).toBe(readingVerseUnit);
+    expect(readingVerseUnit.nextElementSibling).toBe(readingTopUnit);
 
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('Anamil explanation')).toBeInTheDocument();
@@ -120,13 +126,8 @@ describe('IChingSection', () => {
 
     expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
-    expect(within(readingVerseUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
-    expect(verseLayout).toBeInTheDocument();
-    expect(verseTopRow).toBeInTheDocument();
     expect(verseBody).toHaveTextContent('Body text');
-    expect(verseBody).toHaveClass('md:col-span-2');
-    expect(verseBody.parentElement).toBe(verseLayout);
-    expect(verseBody.closest('[data-testid="verse-top-row"]')).toBeNull();
+    expect(verseBody.closest('[data-testid="reading-sigil-unit"]')).toBeNull();
 
     expect(screen.getByText('Gua Heading')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
@@ -138,6 +139,7 @@ describe('IChingSection', () => {
     expect(screen.queryByRole('heading', { level: 4, name: 'Commentary' })).not.toBeInTheDocument();
     expect(screen.getByRole('article')).toHaveTextContent("Rudolf Steiner's Calendar of the Soul");
     expect(screen.getByRole('article')).toHaveTextContent('Soul body');
+    expect(readingTopUnit.compareDocumentPosition(soulEntry) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it('renders bullet-marked commentary blocks as semantic lists', () => {

@@ -46,19 +46,6 @@ function App() {
 
   return (
     <div className="relative min-h-screen flex flex-col font-display selection:bg-elegant-gold/30">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-y-0 left-0 w-[44%] bg-gradient-to-b from-[#e1cda2] via-[#d4b97f] to-[#c79f57] dark:from-[#120d08] dark:via-[#0c0806] dark:to-[#050403]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-y-0 left-[44%] w-px bg-gradient-to-b from-transparent via-warm-gray-300/70 to-transparent dark:via-warm-gray-700/55"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-y-0 right-0 left-[44%] bg-gradient-to-b from-[#fffcf8]/97 via-[#fcfaf6]/95 to-[#faf5ef]/92 dark:from-[#2b241c]/92 dark:via-[#241d17]/90 dark:to-[#1b1712]/88"
-      />
-
       <Header selectedDate={selectedDate} onDateChange={setSelectedDate} isCollapsed={isHeaderCollapsed} />
 
       <div className="relative z-10 flex-1">

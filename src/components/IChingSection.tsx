@@ -272,7 +272,46 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     <section className="w-full animate-fade-in-up stagger-1">
       <div className="grid gap-0 md:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)]">
         <article className="min-w-0 bg-[#efe3cf] px-6 py-6 text-[#4b3b29] dark:bg-[#1f1b16] dark:text-warm-gray-100 md:border-r md:border-black/10 md:px-8 md:py-8 lg:px-10">
-          <div className="space-y-0">
+          <div className="space-y-7">
+            <div data-testid="reading-sigil-unit" className="flex justify-center pt-1">
+              <div className="w-full max-w-[22rem] sm:max-w-[26rem] md:max-w-[30rem]">
+                {sigilSrc ? (
+                  <img
+                    src={sigilSrc}
+                    alt={`sigil ${yaoNum}`}
+                    className="block h-auto w-full object-contain transition-transform duration-700 hover:scale-[1.04] dark:brightness-200 dark:contrast-125 dark:grayscale"
+                  />
+                ) : (
+                  <span className="text-sm italic text-warm-gray-400">Sigil not available</span>
+                )}
+              </div>
+            </div>
+
+            <div data-testid="reading-verse-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
+              <div className="space-y-4">
+                <PanelBadge>Today&apos;s Reading</PanelBadge>
+
+                <div className="space-y-3">
+                  <h4 className="max-w-[22ch] break-keep font-display text-[1.7rem] font-bold leading-[1.28] tracking-[-0.03em] text-current md:text-[2.1rem]">
+                    {yaoData.titleLine}
+                  </h4>
+
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/35" />
+                    <p className="max-w-[34rem] break-keep py-2 pl-6 font-display text-[1.02rem] font-medium italic leading-[1.85] text-elegant-gold md:text-[1.16rem]">
+                      {yaoData.short}
+                    </p>
+                  </div>
+                </div>
+
+                <div data-testid="verse-body" className="pt-1 md:pt-2">
+                  <div className="max-w-none whitespace-pre-wrap break-keep font-display text-[15px] leading-[1.9] tracking-[-0.01em] text-current/90 md:text-[16px]">
+                    {yaoData.body}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div data-testid="reading-top-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
               <div className="flex items-center gap-3">
                 <div className="h-6 w-1 rounded-full bg-elegant-gold shadow-[0_0_8px_rgba(184,134,11,0.35)]" />
@@ -289,45 +328,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   {guaMeta}
                 </p>
               ) : null}
-            </div>
-
-            <div data-testid="reading-verse-unit" className="border-b border-black/10 py-6 dark:border-white/10 md:py-7">
-              <div data-testid="verse-layout" className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-8">
-                <div data-testid="verse-top-row" className="space-y-4">
-                  <PanelBadge>Today&apos;s Reading</PanelBadge>
-
-                  <div className="space-y-3">
-                    <h4 className="max-w-[22ch] break-keep font-display text-[1.7rem] font-bold leading-[1.28] tracking-[-0.03em] text-current md:text-[2.1rem]">
-                      {yaoData.titleLine}
-                    </h4>
-
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/35" />
-                      <p className="max-w-[34rem] break-keep py-2 pl-6 font-display text-[1.02rem] font-medium italic leading-[1.85] text-elegant-gold md:text-[1.16rem]">
-                        {yaoData.short}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="w-full flex-shrink-0 md:w-[clamp(8.5rem,18vw,12rem)] md:justify-self-end md:self-center">
-                  {sigilSrc ? (
-                    <img
-                      src={sigilSrc}
-                      alt={`sigil ${yaoNum}`}
-                      className="block h-auto w-full object-contain transition-transform duration-700 hover:scale-[1.04] dark:brightness-200 dark:contrast-125 dark:grayscale"
-                    />
-                  ) : (
-                    <span className="text-sm italic text-warm-gray-400">Sigil not available</span>
-                  )}
-                </div>
-
-                <div data-testid="verse-body" className="md:col-span-2 pt-1 md:pt-2">
-                  <div className="max-w-none whitespace-pre-wrap break-keep font-display text-[15px] leading-[1.9] tracking-[-0.01em] text-current/90 md:text-[16px]">
-                    {yaoData.body}
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div className="pt-6 md:pt-7">
