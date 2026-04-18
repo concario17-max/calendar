@@ -1,25 +1,29 @@
 # Current Task
-- Completed: Removed the stale CSS rule that hides the commentary badge while leaving the header layout unchanged.
+- Completed: Moved `Today's Reading` above the sigil and aligned it with the commentary row while preserving the rest of the reading layout.
 
 # Route
-- Route A
+- Route B
+- Reason: the layout relocation touched both the reading surface and its test coverage, and we already coordinated a worker and reviewer pass to keep the change aligned.
 
 # Writer Slot
-- main: direct implementation lane
+- main: planner-only lane; implementation executed via workers
 
 # Contract Freeze
-- Goal: remove the stale CSS selector that hides the commentary badge and keep the existing header controls as-is.
-- Non-goals: no header layout rewrite, no commentary registry updates, no data regeneration, no deployment work, no unrelated typography overhaul, no content reordering.
+- Goal: move `Today's Reading` above the sigil, align it on the same row as the commentary button, and keep the rest of the layout intact.
+- Non-goals: no commentary registry updates, no data regeneration, no deployment work, no unrelated typography overhaul, no content reordering beyond the requested top-left/header alignment.
 - Acceptance criteria:
-  - The commentary badge is visible again in the reading flow.
-  - `Header.tsx` retains the single GUA/YAO toggle and the rest of the control layout stays unchanged.
-  - Build and tests pass after the CSS-only change.
+  - `Today's Reading` is positioned above the sigil in the left reading panel.
+  - `Today's Reading` sits on the same horizontal row as the commentary button in the header/control bar.
+  - The rest of the reading layout remains intact.
+  - Build and tests pass after the layout change.
 
 # Write Sets
-- main: src/index.css
+- worker_shared: src/App.tsx, src/components/Header.tsx, src/components/MainContent.tsx
+- worker_left: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
+- worker_right: none
 
 # Reviewer
-- reviewer: stale commentary badge hide rule removal
+- reviewer: `Today's Reading` top-left placement and commentary-row alignment
 
 # Last Update
-- 2026-04-18: removed the stale commentary badge hide rule and verified the build
+- 2026-04-18: removed the left badge top offset so the reading badge and commentary row align at desktop widths; task completed

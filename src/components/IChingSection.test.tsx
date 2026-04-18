@@ -99,6 +99,7 @@ describe('IChingSection', () => {
     const readingTopUnit = screen.getByTestId('reading-top-unit');
     const readingVerseUnit = screen.getByTestId('reading-verse-unit');
     const readingSigilUnit = screen.getByTestId('reading-sigil-unit');
+    const todaysReadingBadge = screen.getByText("Today's Reading");
     const verseBody = within(readingVerseUnit).getByTestId('verse-body');
     const soulEntry = screen.getByTestId('soul-entry-31');
     const sigilFrame = readingSigilUnit.firstElementChild as HTMLElement;
@@ -113,6 +114,9 @@ describe('IChingSection', () => {
     expect(readingSigilUnit).toBeInTheDocument();
     expect(sigilFrame.className).toContain('max-w-[30rem]');
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
+    expect(todaysReadingBadge).toBeInTheDocument();
+    expect(within(readingVerseUnit).queryByText("Today's Reading")).not.toBeInTheDocument();
+    expect(todaysReadingBadge.compareDocumentPosition(readingSigilUnit) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(readingSigilUnit.nextElementSibling).toBe(readingVerseUnit);
     expect(readingVerseUnit.nextElementSibling).toBe(readingTopUnit);
 

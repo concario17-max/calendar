@@ -272,6 +272,10 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
       <div className="grid gap-0 md:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)]">
         <article className="min-w-0 bg-[#efe3cf] px-6 py-6 text-[#4b3b29] dark:bg-[#1f1b16] dark:text-warm-gray-100 md:border-r md:border-black/10 md:px-8 md:py-8 lg:px-10">
           <div className="space-y-7">
+            <div className="flex justify-start">
+              <PanelBadge>Today&apos;s Reading</PanelBadge>
+            </div>
+
             <div data-testid="reading-sigil-unit" className="flex justify-center pt-1">
               <div className="w-full max-w-[22rem] sm:max-w-[26rem] md:max-w-[30rem]">
                 {sigilSrc ? (
@@ -288,8 +292,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
             <div data-testid="reading-verse-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
               <div className="space-y-4">
-                <PanelBadge>Today&apos;s Reading</PanelBadge>
-
                 <div className="space-y-3">
                   <h4 className="max-w-[22ch] break-keep font-display text-[1.7rem] font-bold leading-[1.28] tracking-[-0.03em] text-current md:text-[2.1rem]">
                     {yaoData.titleLine}
