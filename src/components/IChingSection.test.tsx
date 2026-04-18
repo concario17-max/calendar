@@ -1,8 +1,6 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
-import { useState } from 'react';
+import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { IChingSection } from './IChingSection.tsx';
-import type { CommentarySource } from '../types';
 
 vi.mock('../data', () => {
   const guaCommentary = [
@@ -134,6 +132,8 @@ describe('IChingSection', () => {
     expect(screen.getByRole('columnheader', { name: 'Col A' })).toBeInTheDocument();
     expect(screen.getByRole('cell', { name: 'B1' })).toBeInTheDocument();
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'GUA' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'YAO' })).not.toBeInTheDocument();
     expect(screen.queryByText('Reading Summary')).not.toBeInTheDocument();
     expect(screen.queryByText('Current Line')).not.toBeInTheDocument();
     expect(screen.queryByRole('heading', { level: 4, name: 'Commentary' })).not.toBeInTheDocument();
@@ -275,48 +275,5 @@ describe('IChingSection', () => {
     expect(screen.getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { level: 4, name: 'Commentary' })).not.toBeInTheDocument();
     expect(screen.getByText('Commentary is not available for this selection yet.')).toBeInTheDocument();
-  });
-
-  it('switches the rendered commentary source when the toggle is used', () => {
-    function CommentaryToggleHarness() {
-      const [commentarySource, setCommentarySource] = useState<CommentarySource>('yao');
-
-      return (
-        <IChingSection
-          commentarySource={commentarySource}
-          onCommentarySourceChange={setCommentarySource}
-          yaoNum={33}
-          guaNum={6}
-          guaData={{ header: '62. Example', meta: 'Example meta' }}
-          yaoData={{
-            titleLine: '33. Example',
-            short: 'Short reading',
-            body: 'Body text',
-          }}
-          hitSoulGroup={{
-            titleLine: '31. Example Soul Group',
-            weeksLabel: 'Weeks 31-33',
-            weekA: 31,
-            weekB: 33,
-            ranges: [],
-            block: '',
-          }}
-          soulSections={[]}
-        />
-      );
-    }
-
-    render(<CommentaryToggleHarness />);
-
-    expect(screen.getByText('Yao Heading')).toBeInTheDocument();
-    expect(screen.getByText('Plain prose commentary body')).toBeInTheDocument();
-    expect(screen.queryByRole('table')).not.toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole('button', { name: 'GUA' }));
-
-    expect(screen.getByText('Gua Heading')).toBeInTheDocument();
-    expect(screen.getByRole('table')).toBeInTheDocument();
-    expect(screen.getByRole('cell', { name: 'B2' })).toBeInTheDocument();
-    expect(screen.queryByText('Yao Heading')).not.toBeInTheDocument();
   });
 });

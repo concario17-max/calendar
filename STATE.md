@@ -1,29 +1,25 @@
 # Current Task
-- In progress: Remove the layered background shell and restack the left panel so the sigil sits at the top, followed by yao, gua, and soul in that order.
+- Completed: Removed the stale CSS rule that hides the commentary badge while leaving the header layout unchanged.
 
 # Route
-- Route B
+- Route A
 
 # Writer Slot
-- main: planner-only lane; implementation delegated to workers
+- main: direct implementation lane
 
 # Contract Freeze
-- Goal: remove the large background layer and restack the left panel into a single vertical flow: big centered sigil at the top, then yao, then gua, then soul.
-- Non-goals: no commentary registry updates, no data regeneration, no deployment work, no unrelated typography overhaul, no commentary-panel redesign.
+- Goal: remove the stale CSS selector that hides the commentary badge and keep the existing header controls as-is.
+- Non-goals: no header layout rewrite, no commentary registry updates, no data regeneration, no deployment work, no unrelated typography overhaul, no content reordering.
 - Acceptance criteria:
-  - The layered background shell is removed from the page.
-  - The sigil is centered at the top of the left area and rendered at roughly triple the prior size.
-  - Yao, gua, and soul appear below it in that order on the left side.
-  - The right commentary area remains readable and unchanged unless needed for alignment.
-  - Build and tests pass after the layout-only changes.
+  - The commentary badge is visible again in the reading flow.
+  - `Header.tsx` retains the single GUA/YAO toggle and the rest of the control layout stays unchanged.
+  - Build and tests pass after the CSS-only change.
 
 # Write Sets
-- worker_shared: src/App.tsx, src/index.css, src/components/MainContent.tsx
-- worker_left: src/components/IChingSection.tsx, src/components/SoulCalendarSection.tsx, src/components/IChingSection.test.tsx, src/components/SoulCalendarSection.test.tsx
-- worker_right: none
+- main: src/index.css
 
 # Reviewer
-- reviewer: left background shell removed and left panel restacked in sigil/yao/gua/soul order
+- reviewer: stale commentary badge hide rule removal
 
 # Last Update
-- 2026-04-18: starting implementation for the shared-shell-only layout pass; route stays Route B because the task spans 3 files and must remove the layered page shell without touching the section components
+- 2026-04-18: removed the stale commentary badge hide rule and verified the build

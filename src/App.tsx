@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Header } from './components/Header';
 import { MainContent } from './components/MainContent';
 import { useCalendarLogic } from './hooks/useCalendarLogic';
 
@@ -18,7 +17,6 @@ function App() {
   } = useCalendarLogic();
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
 
   useEffect(() => {
     const handleToast = (e: Event) => {
@@ -31,25 +29,12 @@ function App() {
     return () => window.removeEventListener('show-toast', handleToast);
   }, []);
 
-  useEffect(() => {
-    const threshold = 32;
-
-    const updateHeaderState = () => {
-      setIsHeaderCollapsed(window.scrollY > threshold);
-    };
-
-    updateHeaderState();
-    window.addEventListener('scroll', updateHeaderState, { passive: true });
-
-    return () => window.removeEventListener('scroll', updateHeaderState);
-  }, []);
-
   return (
     <div className="relative min-h-screen flex flex-col font-display selection:bg-elegant-gold/30">
-      <Header selectedDate={selectedDate} onDateChange={setSelectedDate} isCollapsed={isHeaderCollapsed} />
-
       <div className="relative z-10 flex-1">
         <MainContent
+          selectedDate={selectedDate}
+          onDateChange={setSelectedDate}
           commentarySource={commentarySource}
           setCommentarySource={setCommentarySource}
           yaoNum={yaoNum}

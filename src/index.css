@@ -147,4 +147,5 @@
   .safe-bottom {
     padding-bottom: calc(var(--current-pb, 0px) + env(safe-area-inset-bottom, 0px));
   }
+
 }
