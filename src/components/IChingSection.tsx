@@ -289,6 +289,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
       : getYaoCommentary(yaoNum)?.trim() ?? '';
   const commentary = commentaryText.length > 0 ? splitCommentary(commentaryText) : null;
   const guaMeta = guaData.meta.trim();
+  const asphaditBody = yaoData.body.trim();
 
   return (
     <section className="flex h-full w-full flex-1 flex-col animate-fade-in-up stagger-1">
@@ -316,7 +317,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
 
             <div data-testid="reading-sigil-unit" className="flex justify-center pt-1">
-              <div className="w-full max-w-[22rem] sm:max-w-[26rem] md:max-w-[30rem]">
+              <div className="w-full max-w-[11rem] sm:max-w-[13rem] md:max-w-[15rem]">
                 {sigilSrc ? (
                   <img
                     src={sigilSrc}
@@ -341,12 +342,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     <p className="max-w-[34rem] break-keep py-2 pl-6 font-display text-[1.02rem] font-medium italic leading-[1.85] text-elegant-gold md:text-[1.16rem]">
                       {yaoData.short}
                     </p>
-                  </div>
-                </div>
-
-                <div data-testid="verse-body" className="pt-1 md:pt-2">
-                  <div className="max-w-none whitespace-pre-wrap break-keep font-display text-[15px] leading-[1.9] tracking-[-0.01em] text-current/90 md:text-[16px]">
-                    {yaoData.body}
                   </div>
                 </div>
               </div>
@@ -416,6 +411,15 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   <h5 className="max-w-[30ch] break-keep font-display text-[1.08rem] font-semibold leading-[1.35] tracking-[-0.02em] text-warm-gray-700 dark:text-white/92 md:text-[1.22rem]">
                     {commentary.heading}
                   </h5>
+                ) : null}
+
+                {asphaditBody ? (
+                  <div
+                    data-testid="commentary-reading-body"
+                    className="max-w-none whitespace-pre-wrap break-keep font-display text-[15px] leading-[1.9] tracking-[-0.01em] text-current/90 md:text-[16px]"
+                  >
+                    {asphaditBody}
+                  </div>
                 ) : null}
 
                 <div className="space-y-5">

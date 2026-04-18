@@ -100,7 +100,7 @@ describe('IChingSection', () => {
     const readingVerseUnit = screen.getByTestId('reading-verse-unit');
     const readingSigilUnit = screen.getByTestId('reading-sigil-unit');
     const todaysReadingBadge = screen.getByText("Today's Reading");
-    const verseBody = within(readingVerseUnit).getByTestId('verse-body');
+    const commentaryReadingBody = screen.getByTestId('commentary-reading-body');
     const soulEntry = screen.getByTestId('soul-entry-31');
     const sigilFrame = readingSigilUnit.firstElementChild as HTMLElement;
 
@@ -112,29 +112,32 @@ describe('IChingSection', () => {
     expect(soulEntry.className).not.toContain('shadow');
 
     expect(readingSigilUnit).toBeInTheDocument();
-    expect(sigilFrame.className).toContain('max-w-[30rem]');
+    expect(sigilFrame.className).toContain('max-w-[15rem]');
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(todaysReadingBadge).toBeInTheDocument();
     expect(within(readingVerseUnit).queryByText("Today's Reading")).not.toBeInTheDocument();
     expect(todaysReadingBadge.compareDocumentPosition(readingSigilUnit) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(readingSigilUnit.nextElementSibling).toBe(readingVerseUnit);
     expect(readingVerseUnit.nextElementSibling).toBe(readingTopUnit);
+    expect(within(readingVerseUnit).queryByTestId('verse-body')).not.toBeInTheDocument();
 
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('Anamil explanation')).toBeInTheDocument();
     expect(within(readingTopUnit).queryByRole('img', { name: 'sigil 33' })).not.toBeInTheDocument();
     expect(within(readingTopUnit).getByTestId('reading-gua-meta')).toBeInTheDocument();
     expect(within(readingTopUnit).queryByTestId('verse-body')).not.toBeInTheDocument();
+    expect(commentaryReadingBody).toHaveTextContent('Body text');
 
     expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
-    expect(verseBody).toHaveTextContent('Body text');
-    expect(verseBody.closest('[data-testid="reading-sigil-unit"]')).toBeNull();
+    expect(within(readingVerseUnit).queryByText('Body text')).not.toBeInTheDocument();
+    expect(commentaryReadingBody.closest('[data-testid="reading-sigil-unit"]')).toBeNull();
 
     expect(screen.getByText('Gua Heading')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: 'Col A' })).toBeInTheDocument();
     expect(screen.getByRole('cell', { name: 'B1' })).toBeInTheDocument();
+    expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'GUA' })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'YAO' })).not.toBeInTheDocument();
@@ -242,9 +245,10 @@ describe('IChingSection', () => {
 
     expect(screen.getByRole('article')).toBeInTheDocument();
     expect(screen.getByRole('complementary')).toBeInTheDocument();
-    const commentaryHeading = screen.getByRole('heading', { level: 5, name: 'Yao Heading' });
-    const commentaryBody = commentaryHeading.nextElementSibling as HTMLElement;
+    const commentaryReadingBody = screen.getByTestId('commentary-reading-body');
+    const commentaryBody = commentaryReadingBody.nextElementSibling as HTMLElement;
 
+    expect(commentaryReadingBody).toHaveTextContent('Body text');
     expect(commentaryBody).toHaveTextContent('Pipe prose | should stay plain text');
     expect(commentaryBody).toHaveTextContent('still prose with a second line | and punctuation');
     expect(within(commentaryBody).queryByRole('table')).not.toBeInTheDocument();
