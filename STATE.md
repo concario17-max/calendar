@@ -1,18 +1,18 @@
 ﻿# Current Task
-- Completed: set the sigil block vertical spacing to the balanced `py-12 md:py-16` rhythm in `src/components/IChingSection.tsx`.
+- Completed: widened the overall reading shell in `src/components/MainContent.tsx` so the header and panels feel less cramped.
 
 # Route
 - Route A
-- Reason: single-file spacing hotfix in `src/components/IChingSection.tsx` with no shared asset or behavior changes.
+- Reason: single-file layout width hotfix in `src/components/MainContent.tsx` with no shared asset or behavior changes.
 
 # Writer Slot
 - main: implementation
 
 # Contract Freeze
-- Goal: set the sigil block vertical spacing to a balanced `py-12 md:py-16` rhythm.
-- Non-goals: no data changes, no commentary registry changes, no behavior changes, no layout changes.
+- Goal: widen the reading shell so the header and panels have more horizontal breathing room.
+- Non-goals: no data changes, no commentary registry changes, no behavior changes.
 - Acceptance criteria:
-  - The sigil block uses the balanced vertical spacing rhythm.
+  - The reading shell uses a wider max width and a slightly smaller outer horizontal padding.
   - The left and right panels keep their current alignment.
   - No other layout or commentary behavior changes.
 
@@ -20,4 +20,4 @@
 - not required for Route A small-slice hotfix
 
 # Last Update
-- 2026-04-19: sigil spacing adjustment completed
+- 2026-04-19: reading shell width adjustment completed
