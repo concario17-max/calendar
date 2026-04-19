@@ -380,7 +380,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 />
               </div>
             </div>
-            <div data-testid="reading-sigil-unit" className="flex justify-center py-12 md:py-16">
+            <div data-testid="reading-sigil-unit" className="flex justify-center py-24 md:py-32">
               <div className="w-full max-w-[11rem] sm:max-w-[13rem] md:max-w-[15rem]">
                 {sigilSrc ? (
                   <img

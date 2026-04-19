@@ -1,5 +1,5 @@
 # Current Task
-- Active: increase the sigil block vertical spacing in the left reading rail.
+- Active: double the sigil block vertical spacing in the left reading rail.
 
 # Route
 - Route A
@@ -9,10 +9,10 @@
 - main: direct implementation lane
 
 # Contract Freeze
-- Goal: increase the vertical spacing around the sigil block in the left reading rail.
+- Goal: double the vertical spacing around the sigil block in the left reading rail.
 - Non-goals: no commentary registry updates, no data regeneration, no viewport shell redesign, no deployment work.
 - Acceptance criteria:
-  - The sigil block has visibly larger vertical spacing than before.
+  - The sigil block has roughly double the previous vertical spacing.
   - The left rail layout remains otherwise intact.
   - Build passes after the adjustment.
 
@@ -23,4 +23,4 @@
 - reviewer: left rail sigil spacing regression
 
 # Last Update
-- 2026-04-19: prepared a sigil spacing tweak for the left reading rail
+- 2026-04-19: prepared a larger sigil spacing tweak for the left reading rail
