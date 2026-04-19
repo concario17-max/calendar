@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+﻿import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { IChingSection } from './IChingSection.tsx';
 
@@ -109,9 +109,9 @@ describe('IChingSection', () => {
 
     expect(commentaryControl).toBeInTheDocument();
     expect(within(commentaryControl).getAllByRole('radio')).toHaveLength(3);
-    expect(within(readingTitleRow).queryByRole('button', { name: '효사' })).not.toBeInTheDocument();
-    expect(within(readingTitleRow).queryByRole('button', { name: '괘사' })).not.toBeInTheDocument();
-    expect(within(readingTitleRow).queryByRole('button', { name: '영혼' })).not.toBeInTheDocument();
+    expect(within(commentaryControl).getByRole('radio', { name: '효사' })).toBeInTheDocument();
+    expect(within(commentaryControl).getByRole('radio', { name: '괘사' })).toBeInTheDocument();
+    expect(within(commentaryControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
 
     expect(within(leftPanel).getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
     expect(within(leftPanel).getByText('Weeks 31-33')).toBeInTheDocument();
@@ -139,6 +139,23 @@ describe('IChingSection', () => {
     expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul heading');
     expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul body');
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
+  });
+
+  it("places the date controls immediately after the Today's Reading badge on the same row", () => {
+    renderSection({
+      selectedDate: new Date(2026, 3, 19),
+      onDateChange: vi.fn(),
+    });
+
+    const readingTitleRow = screen.getByTestId('reading-title-row');
+    const todayBadge = within(readingTitleRow).getByText("Today's Reading");
+    const todayControls = within(readingTitleRow).getByTestId('today-controls');
+    const commentaryControl = within(readingTitleRow).getByRole('radiogroup', { name: '해설 선택' });
+
+    expect(todayBadge.nextElementSibling).toBe(todayControls);
+    expect(within(todayControls).getByRole('button', { name: 'Open date picker' })).toBeInTheDocument();
+    expect(within(todayControls).getByRole('button', { name: 'Today' })).toBeInTheDocument();
+    expect(commentaryControl).toBeInTheDocument();
   });
 
   it('renders bullet-marked commentary blocks as semantic lists', () => {
@@ -172,7 +189,7 @@ describe('IChingSection', () => {
     expect(screen.getByText('Gua List Heading')).toBeInTheDocument();
     expect(commentaryList).toHaveClass('list-disc');
     expect(within(commentaryList).getAllByRole('listitem')).toHaveLength(3);
-    expect(firstListItem).not.toHaveClass("before:content-['鸚?]");
+    expect(firstListItem).not.toHaveClass("before:content-['勇?]");
     expect(screen.getByText('First list item')).toBeInTheDocument();
     expect(screen.getByText('Second list item')).toBeInTheDocument();
     expect(screen.getByText('Third list item')).toBeInTheDocument();
@@ -267,3 +284,4 @@ describe('IChingSection', () => {
     expect(screen.getByText('Commentary is not available for this selection yet.')).toBeInTheDocument();
   });
 });
+

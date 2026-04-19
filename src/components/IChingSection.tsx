@@ -369,11 +369,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               data-testid="reading-title-row"
               className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-5 dark:border-white/10 md:h-16 md:flex-nowrap"
             >
-              <PanelBadge>Today&apos;s Reading</PanelBadge>
+              <div className="flex min-w-0 flex-wrap items-center gap-3">
+                <PanelBadge>Today&apos;s Reading</PanelBadge>
 
-              <div className="flex flex-wrap items-center justify-end gap-1.5">
                 {selectedDate && onDateChange ? (
-                  <>
+                  <div data-testid="today-controls" className="flex flex-wrap items-center gap-1.5">
                     <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
                     <button
                       type="button"
@@ -382,8 +382,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     >
                       Today
                     </button>
-                  </>
+                  </div>
                 ) : null}
+              </div>
+
+              <div className="flex flex-wrap items-center justify-end gap-1.5">
                 <CommentarySegmentedControl
                   value={selectedCommentaryTarget}
                   onChange={setSelectedCommentaryTarget}
