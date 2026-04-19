@@ -1,27 +1,26 @@
 # Current Task
-- Active: move the date picker and Today controls into the Commentary row, left of the theme toggle.
+- Active: increase the sigil block vertical spacing in the left reading rail.
 
 # Route
 - Route A
-- Reason: this is a small single-component layout tweak that reorders controls inside the existing reading title row without changing the broader layout contract.
+- Reason: this is a small single-component layout tweak that only changes the sigil block spacing inside the existing left reading rail.
 
 # Writer Slot
 - main: direct implementation lane
 
 # Contract Freeze
-- Goal: move the date picker and Today controls into the Commentary row, left of the theme toggle.
+- Goal: increase the vertical spacing around the sigil block in the left reading rail.
 - Non-goals: no commentary registry updates, no data regeneration, no viewport shell redesign, no deployment work.
 - Acceptance criteria:
-  - The reading title row keeps the Today badge and controls on the same row.
-  - The date picker and Today controls appear on the Commentary row, left of the theme toggle.
-  - The commentary control remains in the title row.
+  - The sigil block has visibly larger vertical spacing than before.
+  - The left rail layout remains otherwise intact.
   - Build passes after the adjustment.
 
 # Write Sets
 - main: src/components/IChingSection.tsx
 
 # Reviewer
-- reviewer: reading title row control ordering regression
+- reviewer: left rail sigil spacing regression
 
 # Last Update
-- 2026-04-19: prepared a control-ordering tweak for the reading title row
+- 2026-04-19: prepared a sigil spacing tweak for the left reading rail
