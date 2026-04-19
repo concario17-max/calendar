@@ -419,7 +419,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               {guaMeta ? (
                 <p
                   data-testid="reading-gua-meta"
-                  className="mt-4 max-w-[42rem] whitespace-pre-wrap break-keep font-display text-[0.96rem] leading-relaxed text-current/90 md:text-[1.05rem]"
+                  className="mt-4 max-w-[34rem] whitespace-pre-wrap break-keep py-2 pl-6 font-display text-[1.02rem] font-medium italic leading-[1.85] tracking-[-0.01em] text-elegant-gold md:text-[1.16rem]"
                 >
                   {guaMeta}
                 </p>

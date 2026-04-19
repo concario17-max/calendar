@@ -1,29 +1,27 @@
 # Current Task
-- Completed: unified the visible reading typography by removing the serif brand font from the main reading view and aligning the section title sizes.
+- Completed: made the soul title/line typography track the yao block tone and restored the readable fallback label in `src/components/SoulCalendarSection.tsx`.
 
 # Route
-- Route B
-- Reason: this touched multiple components in the shared reading view and required coordinated typography changes across the left rail and soul header.
+- Route A
+- Reason: this is now a single-file typography hotfix with one tight implementation slice and no shared asset or behavior changes.
 
 # Writer Slot
-- main: planner-only
-- worker-1: typography implementation
-- reviewer: typography consistency review
+- main: implementation
 
 # Contract Freeze
-- Goal: make the visible reading UI use one coherent typography system with fewer font families and more consistent title sizes.
-- Non-goals: no commentary registry updates, no data regeneration, no layout redesign, no deployment work.
+- Goal: make the soul title and week line visually track the yao block's typographic tone.
+- Non-goals: no data changes, no commentary logic changes, no layout structure changes beyond minimal class adjustments for typography.
 - Acceptance criteria:
-  - The main reading headings use the same font family as the body text instead of the serif brand font.
-  - The soul header matches the rest of the reading view typography more closely.
-  - Title sizes follow a cleaner shared scale.
+  - Soul title uses the same font family, weight, size scale, tracking, and color tone as the yao title as closely as possible.
+  - Soul line uses a comparable font family, italic treatment, size, weight, line-height, spacing, and color tone to the yao short text.
+  - Any remaining differences are deliberate and limited to the section's semantic role.
   - Build passes after the change.
 
 # Write Sets
-- worker-1: src/components/IChingSection.tsx; src/components/SoulCalendarSection.tsx
+- main: src/components/SoulCalendarSection.tsx
 
 # Reviewer
-- reviewer: typography consistency and hierarchy regression
+- reviewer: not required for Route A
 
 # Last Update
-- 2026-04-19: completed the typography unification and reviewer re-check
+- 2026-04-19: soul typography match completed and fallback label restored
