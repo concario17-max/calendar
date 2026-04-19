@@ -132,3 +132,13 @@ status: open
 - summary: staging retry succeeded after escalating permissions
 - details: the same layout update was staged, committed, and pushed successfully after rerunning the git write step outside the sandbox.
 - status: resolved
+time: 2026-04-19 17:52 KST
+location: git add / git commit / git push origin main
+summary: Commit flow blocked by index.lock permission error and GitHub connectivity failure
+details: Attempting to stage STATE.md, src/components/IChingSection.tsx, src/components/SoulCalendarSection.tsx, and MULTI_AGENT_LOG.md failed with Unable to create '.git/index.lock': Permission denied. The follow-up push also failed to reach github.com over HTTPS. Retry is pending.
+status: open
+time: 2026-04-19 17:52 KST
+location: git add / git commit / git push origin main
+summary: Commit flow resolved after retrying outside the sandbox
+details: The typography hotfix and agent log were committed as `f5e35a9` and pushed to `origin/main` successfully after retrying the git write step with elevated permissions.
+status: resolved
