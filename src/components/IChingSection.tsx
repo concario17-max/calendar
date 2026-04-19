@@ -117,7 +117,7 @@ function parseListBlock(block: string): string[] | null {
     return null;
   }
 
-  const listItemPattern = /^(?:[-*???|\d+[.)])\s*(.+)$/u;
+  const listItemPattern = /^(?:[-*•]|\d+[.)])\s*(.+)$/u;
 
   const items = lines.map((line) => {
     const match = line.match(listItemPattern);
@@ -125,7 +125,7 @@ function parseListBlock(block: string): string[] | null {
       return null;
     }
 
-    return normalizeListItemText(match[1] ?? '');
+    return normalizeListItemText(match[1] || '');
   });
 
   if (items.some((item) => !item || item.length === 0)) {
@@ -248,28 +248,52 @@ function PanelBadge({ children }: { children: string }) {
   );
 }
 
-function CommentaryActionButton({
-  label,
-  active,
-  onClick,
+function CommentarySegmentedControl({
+  value,
+  onChange,
 }: {
-  label: string;
-  active: boolean;
-  onClick: () => void;
+  value: CommentaryTarget;
+  onChange: (target: CommentaryTarget) => void;
 }) {
+  const options: Array<{ value: CommentaryTarget; label: string }> = [
+    { value: 'yao', label: '효사' },
+    { value: 'gua', label: '괘사' },
+    { value: 'soul', label: '영혼' },
+  ];
+
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      className={`rounded-full border px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] transition-colors duration-200 ${
-        active
-          ? 'border-elegant-gold bg-elegant-gold text-white shadow-md shadow-elegant-gold/20 dark:text-ray-dark'
-          : 'border-warm-gray-200/80 bg-white/75 text-warm-gray-500 hover:text-warm-gray-800 dark:border-warm-gray-700/80 dark:bg-ray-dark/70 dark:text-warm-gray-400 dark:hover:text-white'
-      }`}
+    <div
+      role="radiogroup"
+      aria-label="해설 선택"
+      className="inline-flex overflow-hidden rounded-full border border-warm-gray-200/80 bg-white/75 shadow-sm dark:border-warm-gray-700/80 dark:bg-ray-dark/70"
     >
-      {label}
-    </button>
+      {options.map((option, index) => {
+        const active = value === option.value;
+
+        return (
+          <label
+            key={option.value}
+            className={`flex cursor-pointer items-center px-3 py-1.5 text-[10px] font-bold tracking-[0.18em] transition-colors duration-200 ${
+              index > 0 ? 'border-l border-warm-gray-200/70 dark:border-warm-gray-700/70' : ''
+            } ${
+              active
+                ? 'bg-elegant-gold text-white shadow-md shadow-elegant-gold/20 dark:text-ray-dark'
+                : 'text-warm-gray-500 hover:text-warm-gray-800 dark:text-warm-gray-400 dark:hover:text-white'
+            }`}
+          >
+            <input
+              type="radio"
+              name="commentary-target"
+              value={option.value}
+              checked={active}
+              onChange={() => onChange(option.value)}
+              className="sr-only"
+            />
+            <span>{option.label}</span>
+          </label>
+        );
+      })}
+    </div>
   );
 }
 
@@ -329,9 +353,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
   const commentaryText =
     selectedCommentaryTarget === 'gua'
-      ? getGuaCommentary(guaNum)?.trim() ?? ''
+      ? (getGuaCommentary(guaNum)?.trim() || '')
       : selectedCommentaryTarget === 'yao'
-        ? getYaoCommentary(yaoNum)?.trim() ?? ''
+        ? (getYaoCommentary(yaoNum)?.trim() || '')
         : buildSoulCommentaryText(hitSoulGroup, soulSections);
   const commentary = commentaryText.length > 0 ? splitCommentary(commentaryText) : null;
   const guaMeta = guaData.meta.trim();
@@ -360,20 +384,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     </button>
                   </>
                 ) : null}
-                <CommentaryActionButton
-                  label="효사 해설"
-                  active={selectedCommentaryTarget === 'yao'}
-                  onClick={() => setSelectedCommentaryTarget('yao')}
-                />
-                <CommentaryActionButton
-                  label="괘사 해설"
-                  active={selectedCommentaryTarget === 'gua'}
-                  onClick={() => setSelectedCommentaryTarget('gua')}
-                />
-                <CommentaryActionButton
-                  label="소울 해설"
-                  active={selectedCommentaryTarget === 'soul'}
-                  onClick={() => setSelectedCommentaryTarget('soul')}
+                <CommentarySegmentedControl
+                  value={selectedCommentaryTarget}
+                  onChange={setSelectedCommentaryTarget}
                 />
               </div>
             </div>

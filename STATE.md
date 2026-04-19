@@ -1,27 +1,27 @@
 # Current Task
-- Completed: restored the soul section header in the left reading panel while removing the soul body cards.
+- Completed: replaced the three commentary buttons with a single segmented control labeled 효사 / 괘사 / 영혼.
 
 # Route
 - Route B
-- Reason: the layout change spans the reading panel and soul section component plus tests, and it reintroduces a shared section into the main page shell.
+- Reason: the control swap spans the reading panel component and its tests, and changes interaction state that drives the commentary shell.
 
 # Writer Slot
 - main: planner only; implementation delegated to worker(s)
 
 # Contract Freeze
-- Goal: keep the soul section header visible in the left reading panel while removing the soul body cards.
-- Non-goals: no commentary registry updates, no data regeneration, no deployment work, no broader typography overhaul, no unrelated shell redesign.
+- Goal: replace the three separate commentary buttons with a single segmented control labeled 효사 / 괘사 / 영혼.
+- Non-goals: no commentary registry updates, no data regeneration, no deployment work, no broader typography overhaul, no shell layout redesign.
 - Acceptance criteria:
-  - The soul section header remains visible.
-  - The soul body cards are not rendered.
-  - The left reading panel retains the rest of its current layout.
+  - The commentary controls are presented as one segmented control with labels 효사 / 괘사 / 영혼.
+  - The old three separate commentary buttons are removed.
+  - The selected commentary still drives the right panel content.
   - Build and tests pass after the adjustment.
 
 # Write Sets
-- worker: src/components/IChingSection.tsx, src/components/SoulCalendarSection.tsx, src/components/IChingSection.test.tsx, src/components/SoulCalendarSection.test.tsx
+- worker: src/components/IChingSection.tsx, src/components/IChingSection.test.tsx
 
 # Reviewer
-- reviewer: soul header retention and card-body removal
+- reviewer: segmented commentary control and commentary-switch regression
 
 # Last Update
-- 2026-04-18: restored the soul header and removed the soul body cards
+- 2026-04-19: implemented the single segmented commentary control, verified tests/build, and cleared encoding check issues

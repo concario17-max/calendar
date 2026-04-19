@@ -103,15 +103,15 @@ describe('IChingSection', () => {
     expect(screen.getByText('Reading data is not available yet.')).toBeInTheDocument();
   });
 
-  it('keeps section commentary buttons in the Today\'s Reading row and renders the soul header in the left panel', () => {
+  it('keeps a single segmented commentary control in the Today\'s Reading row and renders the soul header in the left panel', () => {
     const { leftPanel, readingTitleRow, readingTopUnit, readingVerseUnit, readingSigilUnit } = renderSection();
+    const commentaryControl = within(readingTitleRow).getByRole('radiogroup', { name: '해설 선택' });
 
-    expect(within(readingTitleRow).getByRole('button', { name: '효사 해설' })).toBeInTheDocument();
-    expect(within(readingTitleRow).getByRole('button', { name: '괘사 해설' })).toBeInTheDocument();
-    expect(within(readingTitleRow).getByRole('button', { name: '소울 해설' })).toBeInTheDocument();
-    expect(screen.queryByTestId('yao-commentary-row')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('gua-commentary-row')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('soul-commentary-row')).not.toBeInTheDocument();
+    expect(commentaryControl).toBeInTheDocument();
+    expect(within(commentaryControl).getAllByRole('radio')).toHaveLength(3);
+    expect(within(readingTitleRow).queryByRole('button', { name: '효사' })).not.toBeInTheDocument();
+    expect(within(readingTitleRow).queryByRole('button', { name: '괘사' })).not.toBeInTheDocument();
+    expect(within(readingTitleRow).queryByRole('button', { name: '영혼' })).not.toBeInTheDocument();
 
     expect(within(leftPanel).getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
     expect(within(leftPanel).getByText('Weeks 31-33')).toBeInTheDocument();
@@ -127,7 +127,7 @@ describe('IChingSection', () => {
 
     expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
 
-    fireEvent.click(within(readingTitleRow).getByRole('button', { name: '괘사 해설' }));
+    fireEvent.click(within(commentaryControl).getByRole('radio', { name: '괘사' }));
     expect(screen.getByText('Gua Heading')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: 'Col A' })).toBeInTheDocument();
@@ -135,7 +135,7 @@ describe('IChingSection', () => {
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
 
-    fireEvent.click(within(readingTitleRow).getByRole('button', { name: '소울 해설' }));
+    fireEvent.click(within(commentaryControl).getByRole('radio', { name: '영혼' }));
     expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul heading');
     expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul body');
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
@@ -163,7 +163,8 @@ describe('IChingSection', () => {
       soulSections: [],
     });
 
-    fireEvent.click(within(readingTitleRow).getByRole('button', { name: '괘사 해설' }));
+    const commentaryControl = within(readingTitleRow).getByRole('radiogroup', { name: '해설 선택' });
+    fireEvent.click(within(commentaryControl).getByRole('radio', { name: '괘사' }));
 
     const commentaryList = screen.getByRole('list');
     const firstListItem = within(commentaryList).getAllByRole('listitem')[0];
