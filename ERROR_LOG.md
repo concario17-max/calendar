@@ -79,6 +79,12 @@ summary: Commit blocked by index.lock permission error while finalizing per-sect
 details: `git commit -m "feat: add per-section commentary buttons"` failed once with `fatal: Unable to create 'C:/Users/roadsea/Desktop/calendar/.git/index.lock': Permission denied` after staging succeeded. Retry is pending.
 status: open
 
+time: 2026-04-18 22:36 KST
+location: git commit
+summary: Commit blocked by index.lock permission error while restoring the soul header
+details: `git commit -m "fix: restore soul header and remove soul cards"` failed with `fatal: Unable to create 'C:/Users/roadsea/Desktop/calendar/.git/index.lock': Permission denied` after staging succeeded. Retry pending.
+status: open
+
 time: 2026-04-18 21:25 KST
 location: git commit / git push origin main
 summary: Commit and push succeeded after retrying with elevated permissions
