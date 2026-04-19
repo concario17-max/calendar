@@ -1,5 +1,5 @@
 # Current Task
-- Completed: reduced the top padding in both the left reading panel and the right commentary panel.
+- Completed: reduced the fixed top row height and panel padding in both reading panels.
 
 # Route
 - Route A
@@ -9,7 +9,7 @@
 - main: direct implementation lane
 
 # Contract Freeze
-- Goal: reduce the top padding in both panels so the page starts more tightly.
+- Goal: reduce the fixed top row height and panel padding in both panels so the page starts more tightly.
 - Non-goals: no commentary registry updates, no data regeneration, no deployment work, no shell layout redesign.
 - Acceptance criteria:
   - The left reading panel top spacing is reduced.
@@ -23,4 +23,4 @@
 - reviewer: top spacing reduction and layout regression
 
 # Last Update
-- 2026-04-19: tightened the top spacing of both panels and verified tests/build
+- 2026-04-19: reduced the fixed row height and panel padding in both panels and verified build

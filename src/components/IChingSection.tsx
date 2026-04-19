@@ -363,11 +363,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   return (
     <section className="flex h-full w-full flex-1 flex-col animate-fade-in-up stagger-1">
       <div className="grid h-full gap-0 md:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)]">
-        <article className="flex h-full min-w-0 flex-col bg-[#efe3cf] px-6 py-4 text-[#4b3b29] dark:bg-[#1f1b16] dark:text-warm-gray-100 md:border-r md:border-black/10 md:px-8 md:py-5 lg:px-10">
+        <article className="flex h-full min-w-0 flex-col bg-[#efe3cf] px-6 py-2 text-[#4b3b29] dark:bg-[#1f1b16] dark:text-warm-gray-100 md:border-r md:border-black/10 md:px-8 md:py-3 lg:px-10">
           <div className="flex h-full min-h-0 flex-1 flex-col space-y-7">
             <div
               data-testid="reading-title-row"
-              className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-3 dark:border-white/10 md:h-16 md:flex-nowrap"
+              className="flex min-h-12 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-2 dark:border-white/10 md:h-12 md:flex-nowrap"
             >
               <div className="flex min-w-0 flex-wrap items-center gap-3">
                 <PanelBadge>Today&apos;s Reading</PanelBadge>
@@ -393,7 +393,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 />
               </div>
             </div>
-            <div data-testid="reading-sigil-unit" className="flex justify-center pt-0.5">
+            <div data-testid="reading-sigil-unit" className="flex justify-center pt-0">
               <div className="w-full max-w-[11rem] sm:max-w-[13rem] md:max-w-[15rem]">
                 {sigilSrc ? (
                   <img
@@ -443,8 +443,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
           </div>
         </article>
 
-        <aside className="flex h-full min-w-0 flex-col bg-[#fbfaf5] px-6 py-4 dark:bg-[#171511] md:px-8 md:py-5 lg:px-10">
-          <div className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-3 dark:border-white/10 md:h-16 md:flex-nowrap">
+        <aside className="flex h-full min-w-0 flex-col bg-[#fbfaf5] px-6 py-2 dark:bg-[#171511] md:px-8 md:py-3 lg:px-10">
+          <div className="flex min-h-12 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-2 dark:border-white/10 md:h-12 md:flex-nowrap">
             <PanelBadge>Commentary</PanelBadge>
             <ThemeToggleButton />
           </div>
