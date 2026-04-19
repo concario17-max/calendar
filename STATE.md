@@ -1,26 +1,27 @@
 # Current Task
-- Completed: compressed the overall top spacing by tightening MainContent padding, panel padding, and the reading title rows.
+- Completed: covered the MainContent viewport-height and overflow-hidden shell contract in the reading panel tests.
 
 # Route
 - Route A
-- Reason: this is still a small spacing-only adjustment across the main content shell and one reading-panel component.
+- Reason: this is a single test-file adjustment that asserts the MainContent shell contract and preserves the existing sticky layout checks.
 
 # Writer Slot
 - main: direct implementation lane
 
 # Contract Freeze
-- Goal: compress the overall top spacing so the page starts more tightly.
-- Non-goals: no commentary registry updates, no data regeneration, no deployment work, no shell layout redesign.
+- Goal: verify the MainContent shell enforces the viewport-height and overflow-hidden contract.
+- Non-goals: no markup/layout redesign, no commentary registry updates, no data regeneration, no deployment work.
 - Acceptance criteria:
-  - The top spacing above both panels is reduced.
-  - The reading title rows sit closer to the top.
+  - The main element has the viewport-height and overflow-hidden class contract.
+  - The left reading rail remains sticky.
+  - The right commentary panel remains independently scrollable.
   - Build and tests pass after the adjustment.
 
 # Write Sets
-- main: src/components/MainContent.tsx, src/components/IChingSection.tsx
+- main: src/components/IChingSection.test.tsx
 
 # Reviewer
-- reviewer: top spacing compression and layout regression
+- reviewer: MainContent shell contract and sticky panel regression
 
 # Last Update
-- 2026-04-19: compressed the overall top spacing across the page shell and panels and verified build/test
+- 2026-04-19: covered the MainContent viewport shell contract and verified the sticky layout checks

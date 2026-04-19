@@ -1,5 +1,6 @@
 ﻿import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
+import { MainContent } from './MainContent.tsx';
 import { IChingSection } from './IChingSection.tsx';
 
 vi.mock('../data', () => {
@@ -57,9 +58,10 @@ vi.mock('../data', () => {
 });
 
 function renderSection(overrides?: Partial<React.ComponentProps<typeof IChingSection>>) {
-  render(
-    <IChingSection
-      commentarySource="yao"
+  const view = render(
+    <MainContent
+      selectedDate={new Date(2026, 3, 19)}
+      onDateChange={vi.fn()}
       yaoNum={33}
       guaNum={6}
       guaData={{ header: '62. Example', meta: 'Anamil explanation' }}
@@ -88,6 +90,7 @@ function renderSection(overrides?: Partial<React.ComponentProps<typeof IChingSec
   );
 
   return {
+    container: view.container,
     leftPanel: screen.getByRole('article'),
     readingTitleRow: screen.getByTestId('reading-title-row'),
     readingTopUnit: screen.getByTestId('reading-top-unit'),
@@ -101,6 +104,23 @@ describe('IChingSection', () => {
     render(<IChingSection yaoNum={null} guaNum={null} guaData={null} yaoData={null} />);
 
     expect(screen.getByText('Reading data is not available yet.')).toBeInTheDocument();
+  });
+
+  it('keeps the left reading rail sticky and lets the commentary panel scroll independently', () => {
+    const { container } = renderSection();
+
+    const main = screen.getByRole('main');
+    const shell = container.querySelector('section');
+    const grid = container.querySelector('section > div');
+    const leftRail = screen.getByRole('article');
+    const rightRail = screen.getByRole('complementary');
+
+    expect(main).toHaveClass('h-[100dvh]', 'overflow-hidden');
+    expect(shell).toHaveClass('min-h-0');
+    expect(grid).toHaveClass('h-full', 'min-h-0');
+    expect(leftRail).toHaveClass('sticky', 'top-0');
+    expect(rightRail).toHaveClass('overflow-y-auto');
+    expect(within(leftRail).getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
   });
 
   it('keeps a single segmented commentary control in the Today\'s Reading row and renders the soul header in the left panel', () => {
@@ -284,4 +304,6 @@ describe('IChingSection', () => {
     expect(screen.getByText('Commentary is not available for this selection yet.')).toBeInTheDocument();
   });
 });
+
+
 
