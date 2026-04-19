@@ -10,7 +10,9 @@ function formatSoulLine(soulSections: SoulSection[], hitSoulGroup?: SoulGroup): 
   const visibleSections = soulSections.slice(0, 2);
 
   if (visibleSections.length > 0) {
-    return visibleSections.map((section) => `${section.week}주. ${section.range}`).join(' / ');
+    return visibleSections
+      .map((section) => `${section.week}주(${section.range}일)`)
+      .join(' / ');
   }
 
   return hitSoulGroup ? hitSoulGroup.weeksLabel : '해당 날짜 항목 없음';
