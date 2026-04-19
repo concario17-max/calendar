@@ -121,3 +121,8 @@ summary: Staging blocked by index.lock permission error while finalizing shell w
 details: Attempting to stage the shell wiring slice failed with `fatal: Unable to create '.git/index.lock': Permission denied`. The repository will retry staging with elevated permissions.
 status: open
 
+## 2026-04-19 17:32:21
+- location: `git add STATE.md src/components/IChingSection.tsx`
+- summary: staging failed with a permission error
+- details: `git add` returned `Unable to create '.git/index.lock': Permission denied` while preparing the small layout update commit.
+- status: open

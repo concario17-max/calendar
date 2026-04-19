@@ -1,27 +1,27 @@
 # Current Task
-- Completed: covered the MainContent viewport-height and overflow-hidden shell contract in the reading panel tests.
+- Active: move the theme toggle to the left of the Today controls in the reading title row.
 
 # Route
 - Route A
-- Reason: this is a single test-file adjustment that asserts the MainContent shell contract and preserves the existing sticky layout checks.
+- Reason: this is a small single-component layout tweak that reorders controls inside the existing reading title row without changing the broader layout contract.
 
 # Writer Slot
 - main: direct implementation lane
 
 # Contract Freeze
-- Goal: verify the MainContent shell enforces the viewport-height and overflow-hidden contract.
-- Non-goals: no markup/layout redesign, no commentary registry updates, no data regeneration, no deployment work.
+- Goal: move the theme toggle so it appears to the left of the Today controls in the reading title row.
+- Non-goals: no commentary registry updates, no data regeneration, no viewport shell redesign, no deployment work.
 - Acceptance criteria:
-  - The main element has the viewport-height and overflow-hidden class contract.
-  - The left reading rail remains sticky.
-  - The right commentary panel remains independently scrollable.
-  - Build and tests pass after the adjustment.
+  - The reading title row keeps the Today badge and controls on the same row.
+  - The theme toggle appears to the left of the Today controls.
+  - The commentary control remains in the title row.
+  - Build passes after the adjustment.
 
 # Write Sets
-- main: src/components/IChingSection.test.tsx
+- main: src/components/IChingSection.tsx
 
 # Reviewer
-- reviewer: MainContent shell contract and sticky panel regression
+- reviewer: reading title row control ordering regression
 
 # Last Update
-- 2026-04-19: covered the MainContent viewport shell contract and verified the sticky layout checks
+- 2026-04-19: prepared a control-ordering tweak for the reading title row
