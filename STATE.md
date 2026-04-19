@@ -1,25 +1,23 @@
 ﻿# Current Task
-- Completed: removed the `fade-in-up` translateY offset so the reading rail starts flush with the viewport top.
+- Completed: set the sigil block vertical spacing to the balanced `py-12 md:py-16` rhythm in `src/components/IChingSection.tsx`.
 
 # Route
-- Route B
-- Reason: this touched the shared shell and left rail layout in `src/components/MainContent.tsx` and `src/components/IChingSection.tsx`.
+- Route A
+- Reason: single-file spacing hotfix in `src/components/IChingSection.tsx` with no shared asset or behavior changes.
 
 # Writer Slot
-- main: planner-only
-- worker-1: top-gap removal implementation
-- reviewer: visual spacing regression review
+- main: implementation
 
 # Contract Freeze
-- Goal: remove the `fade-in-up` translateY offset so the reading rail begins flush with the viewport top.
-- Non-goals: no data changes, no commentary registry changes, no behavior changes.
+- Goal: set the sigil block vertical spacing to a balanced `py-12 md:py-16` rhythm.
+- Non-goals: no data changes, no commentary registry changes, no behavior changes, no layout changes.
 - Acceptance criteria:
-  - The visible reading content starts at the top edge without the animation-induced offset.
-  - The left and right panels remain aligned after removing the offset.
+  - The sigil block uses the balanced vertical spacing rhythm.
+  - The left and right panels keep their current alignment.
   - No other layout or commentary behavior changes.
 
 # Reviewer
-- reviewer: visual spacing regression
+- not required for Route A small-slice hotfix
 
 # Last Update
-- 2026-04-19: fade-in animation offset removed from the reading rail
+- 2026-04-19: sigil spacing adjustment completed
