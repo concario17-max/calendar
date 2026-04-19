@@ -1,26 +1,26 @@
 # Current Task
-- Completed: reduced the fixed top row height and panel padding in both reading panels.
+- Completed: compressed the overall top spacing by tightening MainContent padding, panel padding, and the reading title rows.
 
 # Route
 - Route A
-- Reason: this is a small spacing-only adjustment in a single reading-panel component with no route expansion needed.
+- Reason: this is still a small spacing-only adjustment across the main content shell and one reading-panel component.
 
 # Writer Slot
 - main: direct implementation lane
 
 # Contract Freeze
-- Goal: reduce the fixed top row height and panel padding in both panels so the page starts more tightly.
+- Goal: compress the overall top spacing so the page starts more tightly.
 - Non-goals: no commentary registry updates, no data regeneration, no deployment work, no shell layout redesign.
 - Acceptance criteria:
-  - The left reading panel top spacing is reduced.
-  - The right commentary panel top spacing is reduced.
+  - The top spacing above both panels is reduced.
+  - The reading title rows sit closer to the top.
   - Build and tests pass after the adjustment.
 
 # Write Sets
-- main: src/components/IChingSection.tsx
+- main: src/components/MainContent.tsx, src/components/IChingSection.tsx
 
 # Reviewer
-- reviewer: top spacing reduction and layout regression
+- reviewer: top spacing compression and layout regression
 
 # Last Update
-- 2026-04-19: reduced the fixed row height and panel padding in both panels and verified build
+- 2026-04-19: compressed the overall top spacing across the page shell and panels and verified build/test
