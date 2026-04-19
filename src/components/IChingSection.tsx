@@ -410,19 +410,21 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
             <div data-testid="reading-top-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
               <div className="mt-4 flex items-center gap-3">
-                <div className="h-6 w-1 rounded-full bg-elegant-gold shadow-[0_0_8px_rgba(184,134,11,0.35)]" />
                 <h3 className="break-keep font-display text-[1.64rem] font-semibold leading-tight tracking-[-0.02em] text-current md:text-[2.06rem]">
                   {guaData.header}
                 </h3>
               </div>
 
               {guaMeta ? (
-                <p
-                  data-testid="reading-gua-meta"
-                  className="mt-4 max-w-[34rem] whitespace-pre-wrap break-keep py-2 pl-6 font-display text-[1.02rem] font-medium italic leading-[1.85] tracking-[-0.01em] text-elegant-gold md:text-[1.16rem]"
-                >
-                  {guaMeta}
-                </p>
+                <div className="relative mt-4">
+                  <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/35" />
+                  <p
+                    data-testid="reading-gua-meta"
+                    className="max-w-[34rem] whitespace-pre-wrap break-keep py-2 pl-6 font-display text-[1.02rem] font-medium italic leading-[1.85] tracking-[-0.01em] text-elegant-gold md:text-[1.16rem]"
+                  >
+                    {guaMeta}
+                  </p>
+                </div>
               ) : null}
             </div>
 
