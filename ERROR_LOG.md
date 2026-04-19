@@ -126,3 +126,9 @@ status: open
 - summary: staging failed with a permission error
 - details: `git add` returned `Unable to create '.git/index.lock': Permission denied` while preparing the small layout update commit.
 - status: open
+
+## 2026-04-19 17:32:21
+- location: `git add STATE.md src/components/IChingSection.tsx`
+- summary: staging retry succeeded after escalating permissions
+- details: the same layout update was staged, committed, and pushed successfully after rerunning the git write step outside the sandbox.
+- status: resolved
