@@ -161,7 +161,7 @@ describe('IChingSection', () => {
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
   });
 
-  it("places the date controls immediately after the Today's Reading badge on the same row", () => {
+  it("places the date controls on the commentary row to the left of the theme toggle", () => {
     renderSection({
       selectedDate: new Date(2026, 3, 19),
       onDateChange: vi.fn(),
@@ -169,14 +169,17 @@ describe('IChingSection', () => {
 
     const readingTitleRow = screen.getByTestId('reading-title-row');
     const todayBadge = within(readingTitleRow).getByText("Today's Reading");
-    const todayControls = within(readingTitleRow).getByTestId('today-controls');
     const commentaryControl = within(readingTitleRow).getByRole('radiogroup', { name: '해설 선택' });
+    const commentaryPanel = screen.getByRole('complementary');
+    const todayControls = within(commentaryPanel).getByTestId('today-controls');
+    const themeToggle = within(commentaryPanel).getByRole('button', { name: 'Toggle theme' });
 
-    expect(todayBadge.nextElementSibling).toBe(todayControls);
+    expect(todayBadge).toBeInTheDocument();
     expect(within(todayControls).getByRole('button', { name: 'Open date picker' })).toBeInTheDocument();
     expect(within(todayControls).getByRole('button', { name: 'Today' })).toBeInTheDocument();
+    expect(todayControls.nextElementSibling).toBe(themeToggle);
     expect(commentaryControl).toBeInTheDocument();
-    expect(within(screen.getByRole('complementary')).getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
+    expect(themeToggle).toBeInTheDocument();
   });
 
   it('renders bullet-marked commentary blocks as semantic lists', () => {
