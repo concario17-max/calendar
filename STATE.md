@@ -1,27 +1,29 @@
 # Current Task
-- Active: restyle the commentary segmented control as flat icon-label chips.
+- Completed: unified the visible reading typography by removing the serif brand font from the main reading view and aligning the section title sizes.
 
 # Route
-- Route A
-- Reason: this is a small single-component style tweak that only changes the appearance of the existing commentary control chips.
+- Route B
+- Reason: this touched multiple components in the shared reading view and required coordinated typography changes across the left rail and soul header.
 
 # Writer Slot
-- main: direct implementation lane
+- main: planner-only
+- worker-1: typography implementation
+- reviewer: typography consistency review
 
 # Contract Freeze
-- Goal: make the È¿»ç/±¥»ç/¿µÈ¥ controls look like small flat icon-label chips with no border and no white button background.
+- Goal: make the visible reading UI use one coherent typography system with fewer font families and more consistent title sizes.
 - Non-goals: no commentary registry updates, no data regeneration, no layout redesign, no deployment work.
 - Acceptance criteria:
-  - The three commentary options read as small icon-label chips.
-  - The chips use the surrounding panel background instead of a white button background.
-  - The chips have no visible border.
-  - The existing toggle behavior remains unchanged.
+  - The main reading headings use the same font family as the body text instead of the serif brand font.
+  - The soul header matches the rest of the reading view typography more closely.
+  - Title sizes follow a cleaner shared scale.
+  - Build passes after the change.
 
 # Write Sets
-- main: src/components/IChingSection.tsx
+- worker-1: src/components/IChingSection.tsx; src/components/SoulCalendarSection.tsx
 
 # Reviewer
-- reviewer: commentary chip styling regression
+- reviewer: typography consistency and hierarchy regression
 
 # Last Update
-- 2026-04-19: prepared a flat chip-style update for the commentary control
+- 2026-04-19: completed the typography unification and reviewer re-check

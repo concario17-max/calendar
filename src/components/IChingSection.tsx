@@ -396,7 +396,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
             <div data-testid="reading-verse-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
               <div className="space-y-3">
-                <h4 className="max-w-[22ch] break-keep font-display text-[1.7rem] font-bold leading-[1.28] tracking-[-0.03em] text-current md:text-[2.1rem]">
+                <h4 className="max-w-[22ch] break-keep font-display text-[1.64rem] font-semibold leading-[1.22] tracking-[-0.02em] text-current md:text-[2.06rem]">
                   {yaoData.titleLine}
                 </h4>
 
@@ -411,7 +411,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             <div data-testid="reading-top-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
               <div className="mt-4 flex items-center gap-3">
                 <div className="h-6 w-1 rounded-full bg-elegant-gold shadow-[0_0_8px_rgba(184,134,11,0.35)]" />
-                <h3 className="break-keep font-brand text-[1.45rem] font-bold leading-tight tracking-[0.01em] text-current md:text-[1.9rem]">
+                <h3 className="break-keep font-display text-[1.64rem] font-semibold leading-tight tracking-[-0.02em] text-current md:text-[2.06rem]">
                   {guaData.header}
                 </h3>
               </div>
