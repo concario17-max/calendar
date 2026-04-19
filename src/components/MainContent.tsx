@@ -24,7 +24,7 @@ export const MainContent: React.FC<MainContentProps> = ({
   soulSections,
 }) => {
   return (
-    <main className="mx-auto flex h-[100dvh] min-h-0 w-full max-w-[96rem] flex-1 flex-col overflow-hidden px-3 pt-2 relative z-10 animate-fade-in-up safe-bottom sm:px-4 sm:pt-3 md:px-6 md:pt-4 lg:px-8">
+    <main className="mx-auto flex h-[100dvh] min-h-0 w-full max-w-[96rem] flex-1 flex-col overflow-hidden px-3 pt-0 relative z-10 safe-bottom sm:px-4 sm:pt-0 md:px-6 md:pt-0 lg:px-8">
       <IChingSection
         selectedDate={selectedDate}
         onDateChange={onDateChange}

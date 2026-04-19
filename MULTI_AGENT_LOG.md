@@ -1,21 +1,15 @@
-# Multi-Agent Log
+﻿# Multi-Agent Log
 
 ## 2026-04-19
-- task: make gua and soul typography match the yao treatment
-- route: Route B
-- status: running
-- writer slots: worker-1 = src/components/IChingSection.tsx; worker-2 = src/components/SoulCalendarSection.tsx; reviewer = typography consistency and visual regression review
-- notes: contract frozen in STATE.md; worker slices are disjoint and limited to typography alignment only
-
-## 2026-04-19
-- task: resolve reviewer-found soul fallback label regression
-- route: Route A
-- status: resolved
-- notes: fallback label in src/components/SoulCalendarSection.tsx restored to readable Korean text after typography pass
-
-## 2026-04-19
-- task: move the gua/soul gold bar treatment to the paragraph lines and left-align soul
+- task: delete the top blank space above the reading rail
 - route: Route B
 - status: resolved
-- writer slots: worker-1 = src/components/IChingSection.tsx; worker-2 = src/components/SoulCalendarSection.tsx; reviewer = typography consistency and visual regression review
-- notes: gua title bar removed, gua paragraph gained the gold bar treatment, and soul was left-aligned with matching bar styling
+- writer slots: worker-1 = src/components/MainContent.tsx; src/components/IChingSection.tsx; reviewer = visual spacing regression review
+- notes: the initial gap was removed by zeroing shell and panel padding
+
+## 2026-04-19
+- task: remove the fade-in-up translateY offset from the reading rail
+- route: Route B
+- status: resolved
+- writer slots: worker-1 = src/components/MainContent.tsx; src/components/IChingSection.tsx; reviewer = visual spacing regression review
+- notes: the remaining offset came from the animation class, which was removed from the main shell and reading section

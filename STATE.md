@@ -1,23 +1,25 @@
 ﻿# Current Task
-- Completed: formatted the soul section line as `51주(3월 23-29일) / 2주(4월 14-20일)` in `src/components/SoulCalendarSection.tsx`.
+- Completed: removed the `fade-in-up` translateY offset so the reading rail starts flush with the viewport top.
 
 # Route
-- Route A
-- Reason: single-file display hotfix in `src/components/SoulCalendarSection.tsx` with no shared-asset or multi-file coordination.
+- Route B
+- Reason: this touched the shared shell and left rail layout in `src/components/MainContent.tsx` and `src/components/IChingSection.tsx`.
 
 # Writer Slot
-- main: implementation
+- main: planner-only
+- worker-1: top-gap removal implementation
+- reviewer: visual spacing regression review
 
 # Contract Freeze
-- Goal: show the soul section body as `51주(3월 23-29일) / 2주(4월 14-20일)` style week/date strings.
-- Non-goals: no data changes, no commentary registry changes, no behavior changes, no layout changes.
+- Goal: remove the `fade-in-up` translateY offset so the reading rail begins flush with the viewport top.
+- Non-goals: no data changes, no commentary registry changes, no behavior changes.
 - Acceptance criteria:
-  - The soul visible text line uses `week + parenthesized date range + 일` formatting for the active sections.
-  - The format stays readable and left-aligned in the existing soul section.
+  - The visible reading content starts at the top edge without the animation-induced offset.
+  - The left and right panels remain aligned after removing the offset.
   - No other layout or commentary behavior changes.
 
 # Reviewer
-- not required for Route A small-slice hotfix
+- reviewer: visual spacing regression
 
 # Last Update
-- 2026-04-19: soul date-range formatting completed
+- 2026-04-19: fade-in animation offset removed from the reading rail
