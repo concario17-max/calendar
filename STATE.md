@@ -1,26 +1,27 @@
 # Current Task
-- Active: double the sigil block vertical spacing in the left reading rail.
+- Active: restyle the commentary segmented control as flat icon-label chips.
 
 # Route
 - Route A
-- Reason: this is a small single-component layout tweak that only changes the sigil block spacing inside the existing left reading rail.
+- Reason: this is a small single-component style tweak that only changes the appearance of the existing commentary control chips.
 
 # Writer Slot
 - main: direct implementation lane
 
 # Contract Freeze
-- Goal: double the vertical spacing around the sigil block in the left reading rail.
-- Non-goals: no commentary registry updates, no data regeneration, no viewport shell redesign, no deployment work.
+- Goal: make the È¿»ç/±¥»ç/¿µÈ¥ controls look like small flat icon-label chips with no border and no white button background.
+- Non-goals: no commentary registry updates, no data regeneration, no layout redesign, no deployment work.
 - Acceptance criteria:
-  - The sigil block has roughly double the previous vertical spacing.
-  - The left rail layout remains otherwise intact.
-  - Build passes after the adjustment.
+  - The three commentary options read as small icon-label chips.
+  - The chips use the surrounding panel background instead of a white button background.
+  - The chips have no visible border.
+  - The existing toggle behavior remains unchanged.
 
 # Write Sets
 - main: src/components/IChingSection.tsx
 
 # Reviewer
-- reviewer: left rail sigil spacing regression
+- reviewer: commentary chip styling regression
 
 # Last Update
-- 2026-04-19: prepared a larger sigil spacing tweak for the left reading rail
+- 2026-04-19: prepared a flat chip-style update for the commentary control

@@ -4,7 +4,7 @@ import { DatePicker } from './DatePicker';
 import { SoulCalendarSection } from './SoulCalendarSection';
 import { useTheme } from '../hooks/useTheme';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
-import { Moon, Sun } from 'lucide-react';
+import { BookText, Moon, ScrollText, Sparkles, Sun } from 'lucide-react';
 
 interface IChingSectionProps {
   selectedDate?: Date;
@@ -255,29 +255,28 @@ function CommentarySegmentedControl({
   value: CommentaryTarget;
   onChange: (target: CommentaryTarget) => void;
 }) {
-  const options: Array<{ value: CommentaryTarget; label: string }> = [
-    { value: 'yao', label: '효사' },
-    { value: 'gua', label: '괘사' },
-    { value: 'soul', label: '영혼' },
+  const options: Array<{ value: CommentaryTarget; label: string; icon: typeof ScrollText }> = [
+    { value: 'yao', label: '효사', icon: ScrollText },
+    { value: 'gua', label: '괘사', icon: BookText },
+    { value: 'soul', label: '영혼', icon: Sparkles },
   ];
 
   return (
     <div
       role="radiogroup"
       aria-label="해설 선택"
-      className="inline-flex overflow-hidden rounded-full border border-warm-gray-200/80 bg-white/75 shadow-sm dark:border-warm-gray-700/80 dark:bg-ray-dark/70"
+      className="inline-flex items-center gap-1 rounded-full bg-transparent"
     >
-      {options.map((option, index) => {
+      {options.map((option) => {
         const active = value === option.value;
+        const Icon = option.icon;
 
         return (
           <label
             key={option.value}
-            className={`flex cursor-pointer items-center px-3 py-1.5 text-[10px] font-bold tracking-[0.18em] transition-colors duration-200 ${
-              index > 0 ? 'border-l border-warm-gray-200/70 dark:border-warm-gray-700/70' : ''
-            } ${
+            className={`flex cursor-pointer items-center gap-1.5 rounded-full bg-transparent px-2 py-1 text-[10px] font-bold tracking-[0.16em] transition-colors duration-200 ${
               active
-                ? 'bg-elegant-gold text-white shadow-md shadow-elegant-gold/20 dark:text-ray-dark'
+                ? 'text-elegant-gold'
                 : 'text-warm-gray-500 hover:text-warm-gray-800 dark:text-warm-gray-400 dark:hover:text-white'
             }`}
           >
@@ -289,6 +288,7 @@ function CommentarySegmentedControl({
               onChange={() => onChange(option.value)}
               className="sr-only"
             />
+            <Icon size={12} strokeWidth={2.4} className="shrink-0" aria-hidden="true" />
             <span>{option.label}</span>
           </label>
         );
