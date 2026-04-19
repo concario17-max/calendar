@@ -384,8 +384,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     </button>
                   </div>
                 ) : null}
-
-                <ThemeToggleButton />
               </div>
 
               <div className="flex flex-wrap items-center justify-end gap-1.5">
@@ -448,6 +446,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         <aside className="flex h-full min-w-0 flex-col overflow-y-auto bg-[#fbfaf5] px-6 py-1 dark:bg-[#171511] md:px-8 md:py-2 lg:px-10">
           <div className="flex min-h-10 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-1.5 dark:border-white/10 md:h-10 md:flex-nowrap">
             <PanelBadge>Commentary</PanelBadge>
+            <ThemeToggleButton />
           </div>
 
           <div className="mt-6 flex-1 space-y-0">

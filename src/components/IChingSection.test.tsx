@@ -176,6 +176,7 @@ describe('IChingSection', () => {
     expect(within(todayControls).getByRole('button', { name: 'Open date picker' })).toBeInTheDocument();
     expect(within(todayControls).getByRole('button', { name: 'Today' })).toBeInTheDocument();
     expect(commentaryControl).toBeInTheDocument();
+    expect(within(screen.getByRole('complementary')).getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
   });
 
   it('renders bullet-marked commentary blocks as semantic lists', () => {
