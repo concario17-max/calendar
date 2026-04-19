@@ -1,27 +1,23 @@
 # Current Task
-- Completed: aligned the gua and soul reading text with the yao bar treatment, left-aligned soul, and removed the gua title bar.
+- Completed: show the soul section body with week numbers plus date ranges in `src/components/SoulCalendarSection.tsx`.
 
 # Route
-- Route B
-- Reason: this touched two shared reading components and required coordinated typography/alignment changes across the left rail.
+- Route A
+- Reason: single-file display hotfix in `src/components/SoulCalendarSection.tsx` with no shared-asset or multi-file coordination.
 
 # Writer Slot
-- main: planner-only
-- worker-1: gua left-bar typography
-- worker-2: soul left-alignment typography
-- reviewer: typography consistency and visual regression review
+- main: implementation
 
 # Contract Freeze
-- Goal: remove the leading bar from the gua title line, add the matching leading bar treatment to the gua paragraph line, and left-align the soul section to match the yao reading tone.
-- Non-goals: no data changes, no commentary registry changes, no behavior changes.
+- Goal: show the soul section body as week numbers plus date ranges, e.g. `51주. 3월 23-29 / 2주. 4월 14-20`.
+- Non-goals: no data changes, no commentary registry changes, no behavior changes, no layout changes.
 - Acceptance criteria:
-  - The gua title line no longer has the leading vertical bar.
-  - The gua paragraph line uses the same leading bar treatment as the yao short paragraph.
-  - The soul section is left-aligned and uses the same leading bar treatment on its visible text line.
+  - The soul visible text line includes the week number and date range for the active sections.
+  - The format stays readable and left-aligned in the existing soul section.
   - No other layout or commentary behavior changes.
 
 # Reviewer
-- reviewer: typography consistency and visual regression
+- not required for Route A small-slice hotfix
 
 # Last Update
-- 2026-04-19: gua and soul bar/alignment changes completed
+- 2026-04-19: soul date-range display change completed
