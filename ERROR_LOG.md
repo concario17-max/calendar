@@ -179,3 +179,8 @@ status: resolved
 - summary: recursive search failed because PowerShell Select-String does not support -Recurse in this invocation
 - details: attempted to find commentarySource references across src with Select-String -Recurse; command rejected the parameter
 - status: resolved
+- time: 2026-04-20T00:00:00+09:00
+  location: terminal
+  summary: git add/commit command failed on PowerShell command separator
+  details: The attempted combined git command used '&&', which PowerShell does not parse as a statement separator in this environment.
+  status: resolved
