@@ -273,9 +273,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   return (
     <section className="flex h-full min-h-0 w-full flex-1 flex-col stagger-1">
       <div className="grid h-full min-h-0 min-w-[720px] grid-cols-[340px_minmax(0,1fr)] overflow-x-auto md:grid-cols-[360px_minmax(0,1fr)]">
-        <article className="sticky top-0 flex h-full min-w-[340px] flex-col overflow-y-auto bg-[#f2eadc] px-7 pb-8 pt-8 text-[#4b3b29] md:px-9 lg:px-11">
-          <div className="flex h-full min-h-0 flex-1 flex-col gap-10">
-            <div data-testid="reading-sigil-unit" className="flex justify-center pt-2 md:pt-4">
+        <article className="sticky top-0 flex h-full min-w-[340px] flex-col overflow-y-auto bg-[#f2eadc] px-6 pb-6 pt-6 text-[#4b3b29] md:px-8 md:pb-7 md:pt-7 lg:px-9">
+          <div className="flex h-full min-h-0 flex-1 flex-col gap-8">
+            <div data-testid="reading-sigil-unit" className="flex justify-center pt-0 md:pt-2">
               <div className="w-full max-w-[12rem] sm:max-w-[14rem] md:max-w-[16rem]">
                 {sigilSrc ? (
                   <img
@@ -289,7 +289,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </div>
             </div>
 
-            <div data-testid="reading-top-unit" className="space-y-4">
+            <div data-testid="reading-top-unit" className="space-y-3">
               <h3 className="max-w-[18ch] break-keep font-headline text-[1.9rem] font-semibold leading-[1.08] tracking-[-0.03em] text-current md:text-[2.35rem]">
                 {guaData.header}
               </h3>
@@ -304,7 +304,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               ) : null}
             </div>
 
-            <div data-testid="reading-verse-unit" className="space-y-4">
+            <div data-testid="reading-verse-unit" className="space-y-3">
               <h4 className="max-w-[20ch] break-keep font-headline text-[1.45rem] font-semibold leading-[1.16] tracking-[-0.02em] text-current md:text-[1.72rem]">
                 {yaoData.titleLine}
               </h4>
@@ -318,12 +318,12 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
           </div>
         </article>
 
-        <aside className="flex h-full min-w-0 flex-col overflow-y-auto bg-[#fbf8f1] px-7 pb-8 pt-8 md:px-9 lg:px-11">
-          <div className="mt-2 flex-1 space-y-0">
+        <aside className="flex h-full min-w-0 flex-col overflow-y-auto bg-[#fbf8f1] px-6 pb-6 pt-6 md:px-8 md:pb-7 md:pt-7 lg:px-9">
+          <div className="mt-1 flex-1 space-y-0">
             {commentary ? (
-              <div className="space-y-10">
+              <div className="space-y-8">
                 {commentary.heading ? (
-              <h5 className="max-w-[34ch] break-keep font-headline text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">
+                  <h5 className="max-w-[30ch] break-keep font-headline text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">
                     {commentary.heading}
                   </h5>
                 ) : null}
@@ -331,18 +331,18 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 {commentarySource === 'yao' ? (
                   <div
                     data-testid="commentary-reading-body"
-                    className="max-w-[56ch] whitespace-pre-wrap break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#403327] md:text-[1.08rem]"
+                    className="max-w-[52ch] whitespace-pre-wrap break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#403327] md:text-[1.08rem]"
                   >
                     {yaoData.body}
                   </div>
                 ) : null}
 
-                <div className="space-y-8">
+                <div className="space-y-6">
                   {commentary.blocks.map((block, index) => (
                     <div
                       key={`commentary-block-${index}`}
                       data-testid={`commentary-block-${index}`}
-                      className="space-y-4"
+                      className="space-y-3"
                     >
                       {renderCommentaryBlock(block, index)}
                     </div>

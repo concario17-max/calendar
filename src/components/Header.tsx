@@ -24,7 +24,7 @@ function CommentarySegmentedControl({
   ];
 
   return (
-    <div role="radiogroup" aria-label="해설 선택" className="inline-flex items-center gap-1.5">
+    <div role="radiogroup" aria-label="해설 선택" className="inline-flex items-center gap-1">
       {options.map((option) => {
         const active = value === option.value;
         const Icon = option.icon;
@@ -32,7 +32,7 @@ function CommentarySegmentedControl({
         return (
           <label
             key={option.value}
-            className={`flex cursor-pointer items-center gap-1 rounded-full px-2 py-1 text-[10px] font-semibold tracking-[0.16em] transition-colors duration-200 ${
+            className={`flex cursor-pointer items-center gap-1 rounded-full px-1.5 py-1 text-[9px] font-semibold tracking-[0.14em] transition-colors duration-200 ${
               active ? 'bg-[#efe8db] text-[#342515]' : 'text-[#8b8178] hover:bg-secondary/8 hover:text-[#5a4a39]'
             }`}
           >
@@ -62,7 +62,7 @@ export const Header: React.FC<HeaderProps> = ({
   const { isDark, toggleTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-30 flex min-h-[4.25rem] w-full items-center justify-between gap-4 border-b border-outline-variant/12 bg-surface/90 px-4 py-3 backdrop-blur-xl sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-30 flex min-h-[3.5rem] w-full items-center justify-between gap-3 border-b border-outline-variant/8 bg-surface/90 px-4 py-2.5 backdrop-blur-xl sm:px-6 lg:px-8">
       <div className="min-w-0">
         <h1 className="truncate font-headline text-[1.45rem] italic leading-none text-primary sm:text-[1.7rem]">
           Celestial Ephemeris
@@ -75,12 +75,12 @@ export const Header: React.FC<HeaderProps> = ({
           onChange={onCommentarySourceChange}
         />
 
-        <div className="hidden items-center gap-1.5 sm:flex">
+        <div className="hidden items-center gap-1 sm:flex">
           <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
           <button
             type="button"
             onClick={() => onDateChange(new Date())}
-            className="rounded-full px-3 py-1.5 font-label text-[0.66rem] uppercase tracking-[0.18em] text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
+            className="rounded-full px-2.5 py-1.25 font-label text-[0.64rem] uppercase tracking-[0.16em] text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
           >
             Today
           </button>
@@ -89,7 +89,7 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           type="button"
           onClick={toggleTheme}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
           aria-label="Toggle theme"
         >
           {isDark ? <Sun size={17} className="sm:h-4.5 sm:w-4.5" /> : <Moon size={17} className="sm:h-4.5 sm:w-4.5" />}

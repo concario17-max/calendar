@@ -69,3 +69,10 @@
 - status: resolved
 - writer slots: worker-shell = `src/components/Header.tsx`, `src/components/MainContent.tsx`, `tailwind.config.js`, `src/index.css`; worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`
 - notes: the task narrowed the shared typography stack to Pretendard only by removing serif families from the application font system; data registries remain out of scope
+
+## 2026-04-20
+- task: tighten the UI density and visual rhythm
+- route: Route B
+- status: resolved
+- writer slots: worker-shell = `src/components/Header.tsx`, `src/components/MainContent.tsx`, `src/index.css`, `tailwind.config.js`; worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`
+- notes: spacing, rhythm, and accent-color refinement were tightened across the shell and reading panels without changing data registries
