@@ -152,3 +152,16 @@ location: git commit / git push origin main
 summary: Layout spacing changes committed and pushed after retry
 details: The widened reading panel adjustments and their matching tests were committed as `185f589` and pushed to `origin/main` after retrying the git write step with elevated permissions.
 status: resolved
+## 2026-04-20
+- time: 2026-04-20 14:13 KST
+- location: git add
+- summary: index.lock permission blocked staging
+- details: `git add` failed with `Unable to create ... .git/index.lock: Permission denied` while staging the design-folder editorial shell changes. Implementation files were not yet staged.
+- status: resolved
+
+## 2026-04-20
+- time: 2026-04-20 14:15 KST
+- location: git commit
+- summary: index.lock permission blocked commit
+- details: `git commit -m "feat: recreate app with design editorial layout"` failed with `Unable to create ... .git/index.lock: Permission denied` after staging completed. Retry with elevated permissions is required.
+- status: open

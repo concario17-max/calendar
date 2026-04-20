@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { BookText, Moon, ScrollText, Sparkles, Sun } from 'lucide-react';
 import { getGuaCommentary, getYaoCommentary } from '../data';
+import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { DatePicker } from './DatePicker';
 import { SoulCalendarSection } from './SoulCalendarSection';
 import { useTheme } from '../hooks/useTheme';
-import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
-import { BookText, Moon, ScrollText, Sparkles, Sun } from 'lucide-react';
 
 interface IChingSectionProps {
   selectedDate?: Date;
@@ -57,11 +57,9 @@ function parsePipeTableBlock(block: string): string[][] | null {
     return null;
   }
 
-  const parsedRows = rows.map((row) =>
-    row.split('|').map((cell) => cell.trim()),
-  );
-
+  const parsedRows = rows.map((row) => row.split('|').map((cell) => cell.trim()));
   const firstRow = parsedRows[0];
+
   if (firstRow.length < 3 || !parsedRows.every((row) => row.length >= 3)) {
     return null;
   }
@@ -178,15 +176,15 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
     const [headerRow, ...bodyRows] = block.rows;
 
     return (
-      <div key={`table-${index}`} className="overflow-x-auto">
+      <div key={`table-${index}`} className="overflow-x-auto rounded-[1.25rem] bg-[#f4efe6] px-5 py-4">
         <table className="min-w-full border-collapse text-left text-[0.95rem] md:text-[1rem]">
           <thead>
-            <tr className="border-b border-warm-gray-200/80 dark:border-warm-gray-700/70">
+            <tr>
               {headerRow.map((cell, cellIndex) => (
                 <th
                   key={`table-${index}-head-${cellIndex}`}
                   scope="col"
-                  className="px-0 py-3 pr-5 font-bold text-warm-gray-700 dark:text-warm-gray-200"
+                  className="px-0 py-3 pr-5 font-semibold text-[#4b3b29]"
                 >
                   {cell}
                 </th>
@@ -195,14 +193,11 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
           </thead>
           <tbody>
             {bodyRows.map((row, rowIndex) => (
-              <tr
-                key={`table-${index}-row-${rowIndex}`}
-                className="border-b border-warm-gray-100/70 last:border-b-0 dark:border-warm-gray-800/70"
-              >
+              <tr key={`table-${index}-row-${rowIndex}`}>
                 {row.map((cell, cellIndex) => (
                   <td
                     key={`table-${index}-row-${rowIndex}-cell-${cellIndex}`}
-                    className="py-3 pr-5 align-top text-ray-body dark:text-warm-gray-200"
+                    className="py-3 pr-5 align-top text-[#403327]"
                   >
                     {cell}
                   </td>
@@ -219,7 +214,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
     return (
       <ul
         key={`list-${index}`}
-        className="list-disc space-y-2 pl-5 text-[15px] font-display leading-[1.95] tracking-[-0.01em] text-ray-body dark:text-warm-gray-200 md:text-[16px]"
+        className="list-disc space-y-2 pl-5 text-[15px] font-display leading-[1.95] tracking-[-0.01em] text-[#403327] md:text-[16px]"
       >
         {block.items.map((item, itemIndex) => (
           <li key={`list-${index}-item-${itemIndex}`} className="break-keep">
@@ -233,7 +228,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   return (
     <p
       key={`paragraph-${index}`}
-      className="whitespace-pre-wrap break-keep text-[15px] font-display leading-[1.95] tracking-[-0.01em] text-ray-body dark:text-warm-gray-200 md:text-[16px]"
+      className="whitespace-pre-wrap break-keep text-[15px] font-display leading-[1.95] tracking-[-0.01em] text-[#403327] md:text-[16px]"
     >
       {block.text}
     </p>
@@ -242,7 +237,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
 
 function PanelBadge({ children }: { children: string }) {
   return (
-    <div className="inline-flex items-center rounded-full border border-elegant-gold/20 bg-elegant-gold/10 px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase text-elegant-gold sm:text-xs">
+    <div className="inline-flex items-center text-[11px] font-semibold uppercase tracking-[0.28em] text-[#7d643f] sm:text-xs">
       {children}
     </div>
   );
@@ -262,11 +257,7 @@ function CommentarySegmentedControl({
   ];
 
   return (
-    <div
-      role="radiogroup"
-      aria-label="해설 선택"
-      className="inline-flex items-center gap-1 rounded-full bg-transparent"
-    >
+    <div role="radiogroup" aria-label="해설 선택" className="inline-flex items-center gap-3">
       {options.map((option) => {
         const active = value === option.value;
         const Icon = option.icon;
@@ -274,10 +265,8 @@ function CommentarySegmentedControl({
         return (
           <label
             key={option.value}
-            className={`flex cursor-pointer items-center gap-1.5 rounded-full bg-transparent px-2 py-1 text-[10px] font-bold tracking-[0.16em] transition-colors duration-200 ${
-              active
-                ? 'text-elegant-gold'
-                : 'text-warm-gray-500 hover:text-warm-gray-800 dark:text-warm-gray-400 dark:hover:text-white'
+            className={`flex cursor-pointer items-center gap-1.5 text-[10px] font-semibold tracking-[0.18em] transition-colors duration-200 ${
+              active ? 'text-[#342515]' : 'text-[#8b8178] hover:text-[#5a4a39]'
             }`}
           >
             <input
@@ -302,7 +291,7 @@ function buildSoulCommentaryText(hitSoulGroup: SoulGroup | undefined, soulSectio
     return '';
   }
 
-  const heading = hitSoulGroup?.titleLine?.trim() || 'Rudolf Steiner&apos;s Calendar of the Soul';
+  const heading = hitSoulGroup?.titleLine?.trim() || "Rudolf Steiner's Calendar of the Soul";
   const body = soulSections
     .slice(0, 2)
     .map((sec) => `${sec.week}. ${sec.range}\n${sec.text.trim()}`.trim())
@@ -319,7 +308,7 @@ function ThemeToggleButton() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="flex h-9 w-9 items-center justify-center rounded-full border border-warm-gray-200/70 bg-white/55 text-warm-gray-600 shadow-sm transition-all hover:border-elegant-gold/50 hover:text-elegant-gold hover:shadow-md active-scale dark:border-warm-gray-700/70 dark:bg-warm-gray-800/55 dark:text-warm-gray-300 dark:hover:border-elegant-gold/50 dark:hover:text-elegant-gold"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-[#efe8db] text-[#5a4a39] transition-colors hover:bg-[#e4dacb] hover:text-[#342515] active-scale"
       aria-label="Toggle theme"
     >
       {isDark ? <Sun size={17} className="sm:h-4.5 sm:w-4.5" /> : <Moon size={17} className="sm:h-4.5 sm:w-4.5" />}
@@ -331,6 +320,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   selectedDate,
   onDateChange,
   commentarySource = 'yao',
+  onCommentarySourceChange,
   yaoNum,
   guaNum,
   guaData,
@@ -338,6 +328,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   hitSoulGroup,
   soulSections = [],
 }) => {
+  void onCommentarySourceChange;
   const [selectedCommentaryTarget, setSelectedCommentaryTarget] = useState<CommentaryTarget>(
     commentarySource === 'gua' ? 'gua' : 'yao',
   );
@@ -345,7 +336,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
   if (!guaData || !yaoData) {
     return (
-      <div className="px-6 py-6 text-sm italic text-warm-gray-500 opacity-60 dark:text-warm-gray-400 md:px-8 md:py-8 lg:px-10">
+      <div className="px-6 py-6 text-sm italic text-[#7f756c] opacity-70 md:px-8 md:py-8 lg:px-10">
         Reading data is not available yet.
       </div>
     );
@@ -362,87 +353,83 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
   return (
     <section className="flex h-full min-h-0 w-full flex-1 flex-col stagger-1">
-      <div className="grid h-full min-h-0 min-w-[720px] grid-cols-[340px_minmax(0,1fr)] gap-0 overflow-x-auto">
-        <article className="sticky top-0 flex h-full min-w-[340px] flex-col overflow-y-auto bg-[#efe3cf] px-7 pb-1 pt-0 text-[#4b3b29] dark:bg-[#1f1b16] dark:text-warm-gray-100 md:border-r md:border-black/10 md:px-9 md:pb-2 md:pt-0 lg:px-11">
-          <div className="flex h-full min-h-0 flex-1 flex-col space-y-6">
-            <div
-              data-testid="reading-title-row"
-              className="flex min-h-10 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-2 dark:border-white/10 md:min-h-10 md:flex-nowrap"
-            >
-              <div className="flex min-w-0 flex-wrap items-center gap-3">
-                <PanelBadge>Today&apos;s Reading</PanelBadge>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-end gap-1.5">
-                <CommentarySegmentedControl
-                  value={selectedCommentaryTarget}
-                  onChange={setSelectedCommentaryTarget}
-                />
-              </div>
+      <div className="grid h-full min-h-0 min-w-[720px] grid-cols-[340px_minmax(0,1fr)] overflow-x-auto md:grid-cols-[360px_minmax(0,1fr)]">
+        <article className="sticky top-0 flex h-full min-w-[340px] flex-col overflow-y-auto bg-[#f2eadc] px-7 pb-8 pt-8 text-[#4b3b29] md:px-9 lg:px-11">
+          <div className="flex h-full min-h-0 flex-1 flex-col gap-10">
+            <div className="space-y-3">
+              <PanelBadge>Manifesto</PanelBadge>
+              <p className="font-display text-[0.95rem] font-medium uppercase tracking-[0.24em] text-[#8d7a64]">
+                Reading rail
+              </p>
             </div>
-            <div data-testid="reading-sigil-unit" className="flex justify-center py-12 md:py-16">
+
+            <div data-testid="reading-sigil-unit" className="flex justify-center pt-2 md:pt-4">
               <div className="w-full max-w-[12rem] sm:max-w-[14rem] md:max-w-[16rem]">
                 {sigilSrc ? (
                   <img
                     src={sigilSrc}
                     alt={`sigil ${yaoNum}`}
-                    className="block h-auto w-full object-contain transition-transform duration-700 hover:scale-[1.04] dark:brightness-200 dark:contrast-125 dark:grayscale"
+                    className="block h-auto w-full object-contain transition-transform duration-700 hover:scale-[1.04]"
                   />
                 ) : (
-                  <span className="text-sm italic text-warm-gray-400">Sigil not available</span>
+                  <span className="text-sm italic text-[#8b8178]">Sigil not available</span>
                 )}
               </div>
             </div>
 
-            <div data-testid="reading-verse-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
-              <div className="space-y-3">
-                <h4 className="max-w-[24ch] break-keep font-display text-[1.64rem] font-semibold leading-[1.22] tracking-[-0.02em] text-current md:text-[2.06rem]">
-                  {yaoData.titleLine}
-                </h4>
-
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/35" />
-                  <p className="max-w-[38rem] break-keep py-2 pl-7 font-display text-[1.02rem] font-medium italic leading-[1.85] text-elegant-gold md:text-[1.16rem]">
-                    {yaoData.short}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div data-testid="reading-top-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
-              <div className="mt-4 flex items-center gap-3">
-                <h3 className="break-keep font-display text-[1.64rem] font-semibold leading-tight tracking-[-0.02em] text-current md:text-[2.06rem]">
-                  {guaData.header}
-                </h3>
-              </div>
+            <div data-testid="reading-top-unit" className="space-y-4">
+              <h3 className="max-w-[18ch] break-keep font-display text-[1.9rem] font-semibold leading-[1.08] tracking-[-0.03em] text-current md:text-[2.35rem]">
+                {guaData.header}
+              </h3>
 
               {guaMeta ? (
-                <div className="relative mt-4">
-                  <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/35" />
-                  <p
-                    data-testid="reading-gua-meta"
-                    className="max-w-[38rem] whitespace-pre-wrap break-keep py-2 pl-7 font-display text-[1.02rem] font-medium italic leading-[1.85] tracking-[-0.01em] text-elegant-gold md:text-[1.16rem]"
-                  >
-                    {guaMeta}
-                  </p>
-                </div>
+                <p
+                  data-testid="reading-gua-meta"
+                  className="max-w-[34rem] whitespace-pre-wrap break-keep font-display text-[1.02rem] font-medium italic leading-[1.9] tracking-[-0.01em] text-[#7d643f] md:text-[1.1rem]"
+                >
+                  {guaMeta}
+                </p>
               ) : null}
+            </div>
+
+            <div data-testid="reading-verse-unit" className="space-y-4">
+              <h4 className="max-w-[20ch] break-keep font-display text-[1.45rem] font-semibold leading-[1.16] tracking-[-0.02em] text-current md:text-[1.72rem]">
+                {yaoData.titleLine}
+              </h4>
+
+              <p className="max-w-[34rem] break-keep font-display text-[1.02rem] font-medium italic leading-[1.9] tracking-[-0.01em] text-[#7d643f] md:text-[1.1rem]">
+                {yaoData.short}
+              </p>
             </div>
 
             <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
           </div>
         </article>
 
-        <aside className="flex h-full min-w-0 flex-col overflow-y-auto bg-[#fbfaf5] px-7 pb-1 pt-0 dark:bg-[#171511] md:px-9 md:pb-2 md:pt-0 lg:px-11">
-          <div className="flex min-h-10 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-2 dark:border-white/10 md:min-h-10 md:flex-nowrap">
-            <PanelBadge>Commentary</PanelBadge>
-            <div className="flex flex-wrap items-center justify-end gap-1.5">
+        <aside className="flex h-full min-w-0 flex-col overflow-y-auto bg-[#fbf8f1] px-7 pb-8 pt-8 md:px-9 lg:px-11">
+          <div
+            data-testid="reading-title-row"
+            className="flex min-h-10 flex-wrap items-center justify-between gap-4 pb-8"
+          >
+            <div className="space-y-2">
+              <PanelBadge>Commentary</PanelBadge>
+              <p className="font-display text-[0.95rem] uppercase tracking-[0.24em] text-[#8d7a64]">
+                Reading canvas
+              </p>
+              <CommentarySegmentedControl
+                value={selectedCommentaryTarget}
+                onChange={setSelectedCommentaryTarget}
+              />
+            </div>
+
+            <div className="flex flex-wrap items-center justify-end gap-4">
               {selectedDate && onDateChange ? (
-                <div data-testid="today-controls" className="flex flex-wrap items-center gap-1.5">
+                <div data-testid="today-controls" className="flex flex-wrap items-center gap-2">
                   <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
                   <button
                     type="button"
                     onClick={() => onDateChange(new Date())}
-                    className="rounded-full px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-warm-gray-600 transition-all hover:bg-elegant-gold/10 hover:text-elegant-gold active-scale dark:text-warm-gray-300 dark:hover:text-elegant-gold"
+                    className="rounded-full px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#5a4a39] transition-colors hover:bg-[#efe8db] hover:text-[#342515] active-scale"
                   >
                     Today
                   </button>
@@ -453,11 +440,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
           </div>
 
-          <div className="mt-6 flex-1 space-y-0">
+          <div className="mt-2 flex-1 space-y-0">
             {commentary ? (
-              <div className="space-y-5">
+              <div className="space-y-10">
                 {commentary.heading ? (
-                  <h5 className="max-w-[34ch] break-keep font-display text-[1.08rem] font-semibold leading-[1.35] tracking-[-0.02em] text-warm-gray-700 dark:text-white/92 md:text-[1.22rem]">
+                  <h5 className="max-w-[34ch] break-keep font-display text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">
                     {commentary.heading}
                   </h5>
                 ) : null}
@@ -465,18 +452,18 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 {selectedCommentaryTarget === 'yao' ? (
                   <div
                     data-testid="commentary-reading-body"
-                    className="max-w-none whitespace-pre-wrap break-keep font-display text-[15px] leading-[1.9] tracking-[-0.01em] text-current/90 md:text-[16px]"
+                    className="max-w-[56ch] whitespace-pre-wrap break-keep font-display text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#403327] md:text-[1.08rem]"
                   >
                     {yaoData.body}
                   </div>
                 ) : null}
 
-                <div className="space-y-5">
+                <div className="space-y-8">
                   {commentary.blocks.map((block, index) => (
                     <div
                       key={`commentary-block-${index}`}
                       data-testid={`commentary-block-${index}`}
-                      className={index === 0 ? 'space-y-4' : 'border-t border-black/8 pt-5 dark:border-white/10'}
+                      className="space-y-4"
                     >
                       {renderCommentaryBlock(block, index)}
                     </div>
@@ -484,7 +471,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 </div>
               </div>
             ) : (
-              <div className="pt-5 text-[0.98rem] leading-relaxed text-warm-gray-500 dark:text-warm-gray-400">
+              <div className="pt-5 text-[0.98rem] leading-relaxed text-[#7f756c]">
                 Commentary is not available for this selection yet.
               </div>
             )}

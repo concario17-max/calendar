@@ -1,5 +1,6 @@
 import React from 'react';
 import type { GuaData, YaoData, SoulSection, SoulGroup } from '../types';
+import { Header } from './Header';
 import { IChingSection } from './IChingSection';
 
 interface MainContentProps {
@@ -24,17 +25,25 @@ export const MainContent: React.FC<MainContentProps> = ({
   soulSections,
 }) => {
   return (
-    <main className="mx-auto flex h-[100dvh] min-h-0 w-full max-w-[100rem] flex-1 flex-col overflow-hidden px-2 pt-0 relative z-10 safe-bottom sm:px-3 sm:pt-0 md:px-4 md:pt-0 lg:px-6 min-w-0 md:[&>section>div]:!grid-cols-[340px_minmax(0,1fr)]">
-      <IChingSection
-        selectedDate={selectedDate}
-        onDateChange={onDateChange}
-        yaoNum={yaoNum}
-        guaNum={guaNum}
-        guaData={guaData}
-        yaoData={yaoData}
-        hitSoulGroup={hitSoulGroup}
-        soulSections={soulSections}
-      />
+    <main className="curated-shell relative flex h-[100dvh] min-h-0 w-full flex-col overflow-hidden bg-surface text-on-surface">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(75,59,41,0.06),transparent_34%),radial-gradient(circle_at_top_right,rgba(115,92,0,0.05),transparent_26%),linear-gradient(180deg,rgba(250,249,244,0.96)_0%,rgba(245,244,239,0.9)_100%)]" />
+
+      <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+        <Header selectedDate={selectedDate} onDateChange={onDateChange} />
+
+        <div className="curated-shell__frame flex min-h-0 flex-1 overflow-hidden">
+          <IChingSection
+            selectedDate={selectedDate}
+            onDateChange={onDateChange}
+            yaoNum={yaoNum}
+            guaNum={guaNum}
+            guaData={guaData}
+            yaoData={yaoData}
+            hitSoulGroup={hitSoulGroup}
+            soulSections={soulSections}
+          />
+        </div>
+      </div>
     </main>
   );
 };

@@ -27,3 +27,10 @@
 - status: resolved
 - writer slots: worker-shell = `src/components/MainContent.tsx`; worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`; reviewer = fixed-rail regression review
 - notes: the left rail now uses a fixed px width with scroll-safe behavior, and the right panel absorbs viewport changes responsively
+
+## 2026-04-20
+- task: apply the design-folder editorial shell and remove divider-heavy separation
+- route: Route B
+- status: resolved
+- writer slots: worker-shell = `src/components/MainContent.tsx`, `src/components/Header.tsx`, `src/index.css`, `tailwind.config.js`; worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`; reviewer = editorial contrast regression review
+- notes: tonal contrast now carries the left/right separation, with visible border/divider usage reduced to accent-only levels where possible

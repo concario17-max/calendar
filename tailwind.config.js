@@ -1,55 +1,98 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-    darkMode: "class",
-    theme: {
-        extend: {
-            colors: {
-                'elegant-gold': '#B8860B',
-                'ray-dark': '#0A0A0A',
-                'ray-light': '#FCFBF9',
-                'ray-body': '#2D2C2A',
-                'warm-gray': {
-                    50: '#F9F8F6',
-                    100: '#F2F0ED',
-                    200: '#E5E1DB',
-                    300: '#D1C9BE',
-                    400: '#A39684',
-                    500: '#8E7F6A',
-                    600: '#766653',
-                    700: '#5D5041',
-                    800: '#443B30',
-                    900: '#2C261F',
-                }
-            },
-            animation: {
-                'fade-in': 'fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                'float': 'float 6s ease-in-out infinite',
-                'subtle-zoom': 'subtle-zoom 20s ease-in-out infinite',
-            },
-            keyframes: {
-                'fade-in': {
-                    '0%': { opacity: '0', transform: 'translateY(10px)' },
-                    '100%': { opacity: '1', transform: 'translateY(0)' },
-                },
-                'float': {
-                    '0%, 100%': { transform: 'translateY(0)' },
-                    '50%': { transform: 'translateY(-10px)' },
-                },
-                'subtle-zoom': {
-                    '0%, 100%': { transform: 'scale(1)' },
-                    '50%': { transform: 'scale(1.05)' },
-                }
-            },
-            fontFamily: {
-                "display": ["'Pretendard Variable'", "Pretendard", "Inter", "system-ui", "sans-serif"],
-                "brand": ["'Cormorant Garamond'", "'Crimson Pro'", "'Times New Roman'", "serif"],
-                "serif": ["'Crimson Pro'", "'Gowun Batang'", "'Noto Serif KR'", "Georgia", "serif"]
-            },
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        background: 'var(--background)',
+        surface: 'var(--surface)',
+        'surface-dim': 'var(--surface-dim)',
+        'surface-bright': 'var(--surface-bright)',
+        'surface-variant': 'var(--surface-variant)',
+        'surface-container-lowest': 'var(--surface-container-lowest)',
+        'surface-container-low': 'var(--surface-container-low)',
+        'surface-container': 'var(--surface-container)',
+        'surface-container-high': 'var(--surface-container-high)',
+        'surface-container-highest': 'var(--surface-container-highest)',
+        primary: 'var(--primary)',
+        'primary-container': 'var(--primary-container)',
+        secondary: 'var(--secondary)',
+        'secondary-container': 'var(--secondary-container)',
+        tertiary: 'var(--tertiary)',
+        'tertiary-container': 'var(--tertiary-container)',
+        outline: 'var(--outline)',
+        'outline-variant': 'var(--outline-variant)',
+        'on-background': 'var(--on-background)',
+        'on-surface': 'var(--on-surface)',
+        'on-surface-variant': 'var(--on-surface-variant)',
+        'on-primary': 'var(--on-primary)',
+        'on-primary-container': 'var(--on-primary-container)',
+        'on-secondary': 'var(--on-secondary)',
+        'on-secondary-container': 'var(--on-secondary-container)',
+        'on-tertiary': 'var(--on-tertiary)',
+        'on-tertiary-container': 'var(--on-tertiary-container)',
+        'primary-fixed': 'var(--primary-fixed)',
+        'primary-fixed-dim': 'var(--primary-fixed-dim)',
+        'secondary-fixed': 'var(--secondary-fixed)',
+        'secondary-fixed-dim': 'var(--secondary-fixed-dim)',
+        'tertiary-fixed': 'var(--tertiary-fixed)',
+        'tertiary-fixed-dim': 'var(--tertiary-fixed-dim)',
+        'surface-tint': 'var(--surface-tint)',
+
+        'elegant-gold': 'var(--elegant-gold)',
+        'elegant-gold-light': 'var(--elegant-gold-light)',
+        'ray-dark': 'var(--ray-dark)',
+        'ray-light': 'var(--elegant-gold-light)',
+        'ray-body': 'var(--ray-body)',
+        shell: {
+          rail: 'var(--shell-rail)',
+          canvas: 'var(--shell-canvas)',
+          card: 'var(--shell-card)',
+          line: 'var(--shell-line)',
         },
+        'warm-gray': {
+          50: 'var(--warm-gray-50)',
+          100: 'var(--warm-gray-100)',
+          200: 'var(--warm-gray-200)',
+          300: 'var(--warm-gray-300)',
+          400: 'var(--warm-gray-400)',
+          500: 'var(--warm-gray-500)',
+          600: 'var(--warm-gray-600)',
+          700: 'var(--warm-gray-700)',
+          800: 'var(--warm-gray-800)',
+          900: 'var(--warm-gray-900)',
+        },
+      },
+      fontFamily: {
+        headline: ["'Crimson Pro'", "'Cormorant Garamond'", 'Georgia', 'serif'],
+        body: ["'Pretendard Variable'", "'Pretendard'", 'Inter', 'system-ui', 'sans-serif'],
+        label: ["'Pretendard Variable'", "'Pretendard'", 'Inter', 'system-ui', 'sans-serif'],
+        display: ["'Crimson Pro'", "'Cormorant Garamond'", 'Georgia', 'serif'],
+        brand: ["'Cormorant Garamond'", "'Crimson Pro'", 'Georgia', 'serif'],
+        serif: ["'Crimson Pro'", "'Cormorant Garamond'", 'Georgia', 'serif'],
+        sans: ["'Pretendard Variable'", "'Pretendard'", 'Inter', 'system-ui', 'sans-serif'],
+      },
+      animation: {
+        'fade-in': 'fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        float: 'float 6s ease-in-out infinite',
+        'subtle-zoom': 'subtle-zoom 20s ease-in-out infinite',
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        'subtle-zoom': {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.05)' },
+        },
+      },
     },
-    plugins: [
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/container-queries'),
-    ],
-}
+  },
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/container-queries')],
+};

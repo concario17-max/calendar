@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import type { SoulGroup, SoulSection } from '../types';
 
 interface SoulCalendarSectionProps {
@@ -23,17 +23,17 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
 
   return (
     <section className="relative min-w-0 animate-fade-in-up stagger-2 pb-2 md:pb-4">
-      <div className="mb-9 md:mb-10">
-        <div className="group space-y-3 text-left">
-          <h2 className="font-display text-[1.64rem] font-semibold leading-[1.22] tracking-[-0.02em] text-current md:text-[2.06rem]">
+      <div className="space-y-5 text-left">
+        <div className="space-y-2">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#7d643f]">Soul Calendar</p>
+          <h2 className="max-w-[14ch] font-display text-[1.64rem] font-semibold leading-[1.16] tracking-[-0.03em] text-current md:text-[2.06rem]">
             Rudolf Steiner&apos;s Calendar of the Soul
           </h2>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/35" />
-            <span className="block max-w-[38rem] py-2 pl-7 font-display text-[1.02rem] font-medium italic leading-[1.85] tracking-[-0.01em] text-elegant-gold md:text-[1.16rem]">
-              {soulLine}
-            </span>
-          </div>
+        </div>
+        <div className="max-w-[34rem]">
+          <span className="block font-display text-[1.02rem] font-medium italic leading-[1.9] tracking-[-0.01em] text-[#7d643f] md:text-[1.12rem]">
+            {soulLine}
+          </span>
         </div>
       </div>
     </section>
