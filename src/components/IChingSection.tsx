@@ -206,7 +206,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
     return (
       <ul
         key={`list-${index}`}
-        className="list-disc space-y-2 pl-5 text-[15px] font-display leading-[1.95] tracking-[-0.01em] text-[#403327] md:text-[16px]"
+        className="list-disc space-y-2 pl-5 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#403327] md:text-[16px]"
       >
         {block.items.map((item, itemIndex) => (
           <li key={`list-${index}-item-${itemIndex}`} className="break-keep">
@@ -220,7 +220,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   return (
     <p
       key={`paragraph-${index}`}
-      className="whitespace-pre-wrap break-keep text-[15px] font-display leading-[1.95] tracking-[-0.01em] text-[#403327] md:text-[16px]"
+      className="whitespace-pre-wrap break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#403327] md:text-[16px]"
     >
       {block.text}
     </p>
@@ -290,14 +290,14 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
 
             <div data-testid="reading-top-unit" className="space-y-4">
-              <h3 className="max-w-[18ch] break-keep font-display text-[1.9rem] font-semibold leading-[1.08] tracking-[-0.03em] text-current md:text-[2.35rem]">
+              <h3 className="max-w-[18ch] break-keep font-headline text-[1.9rem] font-semibold leading-[1.08] tracking-[-0.03em] text-current md:text-[2.35rem]">
                 {guaData.header}
               </h3>
 
               {guaMeta ? (
                 <p
                   data-testid="reading-gua-meta"
-                  className="max-w-[34rem] whitespace-pre-wrap break-keep font-display text-[1.02rem] font-medium italic leading-[1.9] tracking-[-0.01em] text-[#7d643f] md:text-[1.1rem]"
+                  className="max-w-[34rem] whitespace-pre-wrap break-keep font-body text-[1.02rem] font-medium italic leading-[1.9] tracking-[-0.01em] text-[#7d643f] md:text-[1.1rem]"
                 >
                   {guaMeta}
                 </p>
@@ -305,11 +305,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
 
             <div data-testid="reading-verse-unit" className="space-y-4">
-              <h4 className="max-w-[20ch] break-keep font-display text-[1.45rem] font-semibold leading-[1.16] tracking-[-0.02em] text-current md:text-[1.72rem]">
+              <h4 className="max-w-[20ch] break-keep font-headline text-[1.45rem] font-semibold leading-[1.16] tracking-[-0.02em] text-current md:text-[1.72rem]">
                 {yaoData.titleLine}
               </h4>
 
-              <p className="max-w-[34rem] break-keep font-display text-[1.02rem] font-medium italic leading-[1.9] tracking-[-0.01em] text-[#7d643f] md:text-[1.1rem]">
+              <p className="max-w-[34rem] break-keep font-body text-[1.02rem] font-medium italic leading-[1.9] tracking-[-0.01em] text-[#7d643f] md:text-[1.1rem]">
                 {yaoData.short}
               </p>
             </div>
@@ -323,7 +323,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             {commentary ? (
               <div className="space-y-10">
                 {commentary.heading ? (
-                  <h5 className="max-w-[34ch] break-keep font-display text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">
+              <h5 className="max-w-[34ch] break-keep font-headline text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">
                     {commentary.heading}
                   </h5>
                 ) : null}
@@ -331,7 +331,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 {commentarySource === 'yao' ? (
                   <div
                     data-testid="commentary-reading-body"
-                    className="max-w-[56ch] whitespace-pre-wrap break-keep font-display text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#403327] md:text-[1.08rem]"
+                    className="max-w-[56ch] whitespace-pre-wrap break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#403327] md:text-[1.08rem]"
                   >
                     {yaoData.body}
                   </div>

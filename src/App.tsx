@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex flex-col font-display selection:bg-elegant-gold/30">
+    <div className="relative min-h-screen flex flex-col font-body selection:bg-elegant-gold/30">
       <div className="relative z-10 flex-1">
         <MainContent
           selectedDate={selectedDate}

@@ -55,3 +55,10 @@
 - status: resolved
 - writer slots: worker-shell = `src/components/Header.tsx`, `src/components/Header.test.tsx`; worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the header Today block and theme toggle were restored while keeping the shell label cleanup intact and leaving data registries and commentary content untouched
+
+## 2026-04-20
+- task: switch typography to Pretendard-first with serif reserved for titles only
+- route: Route B
+- status: resolved
+- writer slots: worker-shell = `src/components/Header.tsx`, `src/components/MainContent.tsx`, `tailwind.config.js`, `src/index.css`; worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`
+- notes: Pretendard now drives the app body/control text while serif styling is kept to title surfaces only; data registries remain out of scope

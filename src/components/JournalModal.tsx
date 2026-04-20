@@ -148,7 +148,7 @@ export const JournalModal: React.FC<JournalModalProps> = ({
       <div className="relative bg-white/95 dark:bg-ray-dark/95 backdrop-blur-xl w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden border border-warm-gray-200 dark:border-warm-gray-800 transition-all transform scale-100 opacity-100">
         <div className="px-6 py-5 border-b border-warm-gray-100 dark:border-warm-gray-800 flex justify-between items-center bg-warm-gray-50/50 dark:bg-warm-gray-900/50">
           <div className="flex flex-col">
-            <h3 className="text-xl font-display font-bold text-warm-gray-800 dark:text-warm-gray-200 tracking-tight">
+            <h3 className="text-xl font-headline font-bold text-warm-gray-800 dark:text-warm-gray-200 tracking-tight">
               저널 기록
             </h3>
             <span className="text-xs font-bold text-warm-gray-400 dark:text-warm-gray-500 uppercase tracking-widest mt-1">
@@ -175,19 +175,19 @@ export const JournalModal: React.FC<JournalModalProps> = ({
               <div className="w-1.5 h-1.5 rounded-full bg-elegant-gold"></div>
               안내 질문
             </h4>
-            <p className="text-warm-gray-800 dark:text-warm-gray-200 font-display text-base md:text-[17px] leading-relaxed tracking-tight">
+            <p className="text-warm-gray-800 dark:text-warm-gray-200 font-body text-base md:text-[17px] leading-relaxed tracking-tight">
               {question}
             </p>
           </div>
 
           <div className="relative">
             <div className="absolute top-4 left-4 w-12 h-12 flex items-center justify-center opacity-10 pointer-events-none">
-              <span className="font-display italic text-6xl text-elegant-gold">"</span>
+              <span className="font-headline italic text-6xl text-elegant-gold">"</span>
             </div>
             <textarea
               value={entry}
               onChange={(event) => setEntry(event.target.value)}
-              className="w-full h-48 md:h-64 p-5 pl-14 bg-warm-gray-50/50 dark:bg-warm-gray-900/50 border border-warm-gray-200 dark:border-warm-gray-700 rounded-2xl resize-none focus:ring-1 focus:ring-elegant-gold focus:border-elegant-gold dark:focus:ring-elegant-gold dark:focus:border-elegant-gold dark:text-warm-gray-200 transition-colors font-display text-base md:text-lg leading-relaxed"
+              className="w-full h-48 md:h-64 p-5 pl-14 bg-warm-gray-50/50 dark:bg-warm-gray-900/50 border border-warm-gray-200 dark:border-warm-gray-700 rounded-2xl resize-none focus:ring-1 focus:ring-elegant-gold focus:border-elegant-gold dark:focus:ring-elegant-gold dark:focus:border-elegant-gold dark:text-warm-gray-200 transition-colors font-body text-base md:text-lg leading-relaxed"
               placeholder="오늘 마음에 떠오르는 것을 적어보세요..."
             />
           </div>

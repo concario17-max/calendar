@@ -108,7 +108,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
             <span className="sr-only">Previous month</span>
             <ChevronLeft size={20} />
           </button>
-          <span className="font-bold font-display text-lg tracking-tight text-warm-gray-800 dark:text-warm-gray-200">
+          <span className="font-bold font-body text-lg tracking-tight text-warm-gray-800 dark:text-warm-gray-200">
             {monthNames[month]} {year}
           </span>
           <button onClick={() => changeMonth(1)} className="p-2 hover:bg-warm-gray-100 dark:hover:bg-warm-gray-800 rounded-full transition-colors text-warm-gray-600 dark:text-warm-gray-400">
