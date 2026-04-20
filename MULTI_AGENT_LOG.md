@@ -62,3 +62,10 @@
 - status: resolved
 - writer slots: worker-shell = `src/components/Header.tsx`, `src/components/MainContent.tsx`, `tailwind.config.js`, `src/index.css`; worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`
 - notes: Pretendard now drives the app body/control text while serif styling is kept to title surfaces only; data registries remain out of scope
+
+## 2026-04-20
+- task: make the entire app use Pretendard only
+- route: Route B
+- status: resolved
+- writer slots: worker-shell = `src/components/Header.tsx`, `src/components/MainContent.tsx`, `tailwind.config.js`, `src/index.css`; worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`
+- notes: the task narrowed the shared typography stack to Pretendard only by removing serif families from the application font system; data registries remain out of scope

@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const pretendardStack = ["'Pretendard Variable'", "'Pretendard'", 'Inter', 'system-ui', 'sans-serif'];
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'class',
@@ -65,13 +67,13 @@ export default {
         },
       },
       fontFamily: {
-        headline: ["'Crimson Pro'", "'Cormorant Garamond'", 'Georgia', 'serif'],
-        body: ["'Pretendard Variable'", "'Pretendard'", 'Inter', 'system-ui', 'sans-serif'],
-        label: ["'Pretendard Variable'", "'Pretendard'", 'Inter', 'system-ui', 'sans-serif'],
-        display: ["'Crimson Pro'", "'Cormorant Garamond'", 'Georgia', 'serif'],
-        brand: ["'Cormorant Garamond'", "'Crimson Pro'", 'Georgia', 'serif'],
-        serif: ["'Crimson Pro'", "'Cormorant Garamond'", 'Georgia', 'serif'],
-        sans: ["'Pretendard Variable'", "'Pretendard'", 'Inter', 'system-ui', 'sans-serif'],
+        headline: pretendardStack,
+        body: pretendardStack,
+        label: pretendardStack,
+        display: pretendardStack,
+        brand: pretendardStack,
+        serif: pretendardStack,
+        sans: pretendardStack,
       },
       animation: {
         'fade-in': 'fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',

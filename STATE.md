@@ -1,9 +1,9 @@
 # Current Task
-- Active: Pretendard-first typography with serif reserved for titles only, implemented and verified.
+- Active: Pretendard-only font stack is implemented and verified.
 
 # Route
 - Route B
-- Reason: the typography change spans shared tokens plus multiple header and reading components, so shell and panel typography must be updated together.
+- Reason: the font-stack change spans shared tokens plus multiple header, reading, and modal components, so shell and panel typography must be updated together.
 
 # Writer Slot
 - main: planner only
@@ -12,16 +12,16 @@
 - worker-nav: idle
 
 # Contract Freeze
-- Goal: make Pretendard the default UI/body font and reserve serif styling for titles only.
+- Goal: make Pretendard the only font family used by the UI stack.
 - Non-goals: do not change the data model or commentary content.
   - Acceptance criteria:
-  - Body text, controls, labels, and non-title reading text render in Pretendard.
-  - Header title and the primary reading titles keep a single serif treatment.
+  - Body text, controls, labels, and reading titles render in Pretendard.
+  - No serif font families remain in the application font stack.
   - The existing header controls and commentary behavior remain intact.
   - No data registry content changes are introduced.
 
 # Reviewer
-- reviewer-typography: font-family and title-scale regression review
+- reviewer-typography: font-stack and title-scale regression review
 
 # Last Update
-- 2026-04-20: implemented and verified Pretendard-first typography with serif titles only; body text, controls, and labels now use Pretendard while title surfaces keep the serif treatment
+- 2026-04-20: implemented and verified the Pretendard-only UI font stack; serif font families were removed from the app font system and the body now loads Pretendard only
