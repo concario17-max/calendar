@@ -93,3 +93,18 @@
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the task is limited to the left rail order and spacing; data registries remain out of scope
 - result: left rail order swapped to put `효사` before `괘사`, and sigil vertical spacing halved
+
+## 2026-04-20
+- task: lift the sigil block higher inside the left rail without changing the content order
+- route: Route B
+- status: open
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the task is limited to the sigil position; data registries remain out of scope
+
+## 2026-04-20
+- task: lift the sigil block higher inside the left rail without changing the content order
+- route: Route B
+- status: resolved
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the task is limited to the sigil position; data registries remain out of scope
+- result: the sigil block now sits higher in the left rail and the content order stays intact

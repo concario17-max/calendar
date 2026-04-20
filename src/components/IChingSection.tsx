@@ -273,9 +273,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   return (
     <section className="flex h-full min-h-0 w-full flex-1 flex-col stagger-1">
       <div className="grid h-full min-h-0 min-w-[720px] grid-cols-[340px_minmax(0,1fr)] overflow-x-auto md:grid-cols-[360px_minmax(0,1fr)]">
-        <article className="sticky top-0 flex h-full min-w-[340px] flex-col overflow-y-auto bg-[#f2eadc] px-6 pb-6 pt-3 text-[#4b3b29] md:px-8 md:pb-7 md:pt-3.5 lg:px-9">
-          <div className="flex h-full min-h-0 flex-1 flex-col gap-2">
-            <div data-testid="reading-sigil-unit" className="flex justify-center pt-0">
+        <article className="sticky top-0 flex h-full min-w-[340px] flex-col overflow-y-auto bg-[#f2eadc] px-6 pb-6 pt-2 text-[#4b3b29] md:px-8 md:pb-7 md:pt-2.5 lg:px-9">
+          <div className="flex h-full min-h-0 flex-1 flex-col gap-1">
+            <div data-testid="reading-sigil-unit" className="-mt-1 flex justify-center pt-0 md:-mt-2">
               <div className="w-full max-w-[12rem] sm:max-w-[14rem] md:max-w-[16rem]">
                 {sigilSrc ? (
                   <img

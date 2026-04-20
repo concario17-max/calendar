@@ -1,9 +1,9 @@
 # Current Task
-- Resolved: swapped the left rail order so `효사` appears before `괘사`, and halved the sigil vertical spacing.
+- Resolved: lifted the sigil block higher inside the left rail without changing the content order.
 
 # Route
 - Route B
-- Reason: the change touches the shared reading panel layout and its regression tests, so the panel order and spacing need to be updated together.
+- Reason: the sigil block position affects the shared left rail layout and should be verified with the reading-panel regression test.
 
 # Writer Slot
 - main: planner only
@@ -12,15 +12,14 @@
 - worker-nav: idle
 
 # Contract Freeze
-- Goal: reorder the left rail to show `효사` before `괘사`, and reduce the sigil vertical spacing by half.
-- Non-goals: do not change the data model or commentary content.
+- Goal: lift the sigil block upward inside the left rail while keeping the current content order intact.
+- Non-goals: do not change the data model, commentary content, or left-rail content order.
   - Acceptance criteria:
-  - The left rail shows the `효사` block before the `괘사` block.
-  - The sigil vertical spacing is visibly tighter, roughly half of the current spacing.
+  - The sigil block sits visibly higher in the left rail.
   - The commentary behavior and data registries remain intact.
 
 # Reviewer
-- reviewer-layout: left-rail order and spacing regression review
+- reviewer-layout: left-rail sigil-position regression review
 
 # Last Update
-- 2026-04-20: completed the left-rail order swap and sigil spacing reduction, then closed the task
+- 2026-04-20: completed the sigil block lift in the left rail and closed the task
