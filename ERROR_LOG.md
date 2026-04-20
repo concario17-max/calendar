@@ -142,3 +142,13 @@ location: git add / git commit / git push origin main
 summary: Commit flow resolved after retrying outside the sandbox
 details: The typography hotfix and agent log were committed as `f5e35a9` and pushed to `origin/main` successfully after retrying the git write step with elevated permissions.
 status: resolved
+time: 2026-04-19 20:08 KST
+location: git commit
+summary: Commit blocked by index.lock permission error
+details: `git commit -m "style: widen reading panels and sync soul labels"` failed with `Unable to create '.git/index.lock': Permission denied` after the current layout changes were staged. Retry outside the sandbox is required.
+status: open
+time: 2026-04-19 20:09 KST
+location: git commit / git push origin main
+summary: Layout spacing changes committed and pushed after retry
+details: The widened reading panel adjustments and their matching tests were committed as `185f589` and pushed to `origin/main` after retrying the git write step with elevated permissions.
+status: resolved
