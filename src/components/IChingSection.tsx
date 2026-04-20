@@ -289,6 +289,16 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </div>
             </div>
 
+            <div data-testid="reading-verse-unit" className="space-y-3">
+              <h4 className="max-w-[20ch] break-keep font-headline text-[1.45rem] font-semibold leading-[1.16] tracking-[-0.02em] text-current md:text-[1.72rem]">
+                {yaoData.titleLine}
+              </h4>
+
+              <p className="max-w-[34rem] break-keep font-body text-[1.02rem] font-medium italic leading-[1.9] tracking-[-0.01em] text-[#7d643f] md:text-[1.1rem]">
+                {yaoData.short}
+              </p>
+            </div>
+
             <div data-testid="reading-top-unit" className="space-y-3">
               <h3 className="max-w-[18ch] break-keep font-headline text-[1.9rem] font-semibold leading-[1.08] tracking-[-0.03em] text-current md:text-[2.35rem]">
                 {guaData.header}
@@ -302,16 +312,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   {guaMeta}
                 </p>
               ) : null}
-            </div>
-
-            <div data-testid="reading-verse-unit" className="space-y-3">
-              <h4 className="max-w-[20ch] break-keep font-headline text-[1.45rem] font-semibold leading-[1.16] tracking-[-0.02em] text-current md:text-[1.72rem]">
-                {yaoData.titleLine}
-              </h4>
-
-              <p className="max-w-[34rem] break-keep font-body text-[1.02rem] font-medium italic leading-[1.9] tracking-[-0.01em] text-[#7d643f] md:text-[1.1rem]">
-                {yaoData.short}
-              </p>
             </div>
 
             <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />

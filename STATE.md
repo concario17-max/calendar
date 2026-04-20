@@ -1,9 +1,9 @@
 # Current Task
-- Resolved: regrouped the left panel into one main reading block and two aligned reference blocks so the panel reads as a cleaner stack.
+- Resolved: swapped the left rail order back so `효사` appears before `괘사`.
 
 # Route
 - Route B
-- Reason: the change spans the shared reading panel layout and its regression tests, so the panel hierarchy and spacing need to be updated together.
+- Reason: the change touches the shared reading panel layout and its regression tests, so the panel order needs to be updated together.
 
 # Writer Slot
 - main: planner only
@@ -11,15 +11,15 @@
 - worker-nav: idle
 
 # Contract Freeze
-- Goal: make the left panel read as one main reading block plus two smaller reference blocks, all aligned to the same left edge and spacing rhythm.
+- Goal: restore the left rail to show the `효사` block before the `괘사` block.
 - Non-goals: do not change the data model or commentary content.
   - Acceptance criteria:
-  - The current top reading block remains the visual lead.
-  - The `7. ☷☵ 師 사 : 화-수` block and the Soul block read as smaller, aligned reference blocks.
-  - The left panel feels less fragmented and more intentional.
+  - The left rail shows the `효사` block before the `괘사` block.
+  - The sigil spacing remains as recently adjusted.
+  - The commentary behavior and data registries remain intact.
 
 # Reviewer
-- reviewer-layout: left-panel hierarchy and spacing regression review
+- reviewer-layout: left-rail order regression review
 
 # Last Update
-- 2026-04-20: completed the left-panel hierarchy regrouping and closed the task
+- 2026-04-20: restored the `효사`-before-`괘사` order and closed the task

@@ -130,3 +130,18 @@
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the left panel now reads as one main block plus two aligned reference blocks; data registries remain out of scope
 - result: the left panel hierarchy was cleaned up without changing the content order semantics or commentary data
+
+## 2026-04-20
+- task: swap the left rail order back so `효사` appears before `괘사`
+- route: Route B
+- status: open
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the task is limited to left-rail order only; data registries remain out of scope
+
+## 2026-04-20
+- task: swap the left rail order back so `효사` appears before `괘사`
+- route: Route B
+- status: resolved
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the left rail order was restored without changing data registries
+- result: the left rail again shows `효사` before `괘사`
