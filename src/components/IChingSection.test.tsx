@@ -72,7 +72,7 @@ function renderSection(overrides?: Partial<React.ComponentProps<typeof IChingSec
       }}
       hitSoulGroup={{
         titleLine: '31. Example Soul Group',
-        weeksLabel: '31주(4월 13-19일)',
+        weeksLabel: '31주 · 4월 13-19일',
         weekA: 31,
         weekB: 33,
         ranges: [],
@@ -81,7 +81,7 @@ function renderSection(overrides?: Partial<React.ComponentProps<typeof IChingSec
       soulSections={[
         {
           week: 31,
-          range: '4월 13-19',
+          range: '4월 13-19일',
           text: 'Soul heading\nSoul body',
         },
       ]}
@@ -126,21 +126,21 @@ describe('IChingSection', () => {
     expect(within(leftPanel).getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
   });
 
-  it('keeps the commentary control on the reading canvas and preserves the left rail content', () => {
+  it('keeps the commentary control in the header and preserves the left rail content', () => {
     const { leftPanel, rightPanel, readingTitleRow, readingTopUnit, readingVerseUnit, readingSigilUnit } =
       renderSection();
 
-    const commentaryControl = within(readingTitleRow).getByRole('radiogroup', { name: '해설 선택' });
+    const commentaryControl = screen.getByRole('radiogroup', { name: '해설 선택' });
 
     expect(commentaryControl).toBeInTheDocument();
     expect(within(commentaryControl).getAllByRole('radio')).toHaveLength(3);
     expect(within(commentaryControl).getByRole('radio', { name: '효사' })).toBeInTheDocument();
     expect(within(commentaryControl).getByRole('radio', { name: '괘사' })).toBeInTheDocument();
     expect(within(commentaryControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
+    expect(within(readingTitleRow).queryByRole('radiogroup', { name: '해설 선택' })).not.toBeInTheDocument();
 
     expect(within(leftPanel).getByText('Reading rail')).toBeInTheDocument();
-    expect(within(leftPanel).getByText('31주(4월 13-19일)')).toBeInTheDocument();
-    expect(within(leftPanel).queryByText('4/13 - 4/19')).not.toBeInTheDocument();
+    expect(within(leftPanel).getByText(/31주.*4월 13-19일/)).toBeInTheDocument();
     expect(within(leftPanel).queryByText('Soul heading')).not.toBeInTheDocument();
     expect(within(leftPanel).queryByText('Soul body')).not.toBeInTheDocument();
 
@@ -167,7 +167,7 @@ describe('IChingSection', () => {
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
   });
 
-  it('places the date controls on the commentary row to the left of the theme toggle', () => {
+  it('keeps the date controls on the commentary row to the left of the theme toggle', () => {
     renderSection({
       selectedDate: new Date(2026, 3, 19),
       onDateChange: vi.fn(),
@@ -175,7 +175,6 @@ describe('IChingSection', () => {
 
     const readingTitleRow = screen.getByTestId('reading-title-row');
     const todayBadge = within(readingTitleRow).getByText('Commentary');
-    const commentaryControl = within(readingTitleRow).getByRole('radiogroup', { name: '해설 선택' });
     const commentaryPanel = screen.getByRole('complementary');
     const todayControls = within(commentaryPanel).getByTestId('today-controls');
     const themeToggle = within(commentaryPanel).getByRole('button', { name: 'Toggle theme' });
@@ -184,13 +183,11 @@ describe('IChingSection', () => {
     expect(within(todayControls).getByRole('button', { name: 'Open date picker' })).toBeInTheDocument();
     expect(within(todayControls).getByRole('button', { name: 'Today' })).toBeInTheDocument();
     expect(todayControls.nextElementSibling).toBe(themeToggle);
-    expect(commentaryControl).toBeInTheDocument();
     expect(themeToggle).toBeInTheDocument();
   });
 
   it('renders bullet-marked commentary blocks as semantic lists', () => {
-    const { readingTitleRow } = renderSection({
-      commentarySource: 'gua',
+    renderSection({
       yaoNum: 33,
       guaNum: 8,
       guaData: { header: '62. Example', meta: 'Example meta' },
@@ -201,7 +198,7 @@ describe('IChingSection', () => {
       },
       hitSoulGroup: {
         titleLine: '31. Example Soul Group',
-        weeksLabel: '31주(4월 13-19일)',
+        weeksLabel: '31주 · 4월 13-19일',
         weekA: 31,
         weekB: 33,
         ranges: [],
@@ -210,8 +207,7 @@ describe('IChingSection', () => {
       soulSections: [],
     });
 
-    const commentaryControl = within(readingTitleRow).getByRole('radiogroup', { name: '해설 선택' });
-    fireEvent.click(within(commentaryControl).getByRole('radio', { name: '괘사' }));
+    fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
 
     const commentaryList = screen.getByRole('list');
 
@@ -227,7 +223,6 @@ describe('IChingSection', () => {
 
   it('renders plain commentary prose without forcing a table', () => {
     renderSection({
-      commentarySource: 'yao',
       yaoNum: 33,
       guaNum: 6,
       guaData: { header: '62. Example', meta: 'Example meta' },
@@ -238,7 +233,7 @@ describe('IChingSection', () => {
       },
       hitSoulGroup: {
         titleLine: '31. Example Soul Group',
-        weeksLabel: '31주(4월 13-19일)',
+        weeksLabel: '31주 · 4월 13-19일',
         weekA: 31,
         weekB: 33,
         ranges: [],
@@ -254,7 +249,6 @@ describe('IChingSection', () => {
 
   it('keeps pipe-heavy prose as a paragraph when it is not a real table', () => {
     renderSection({
-      commentarySource: 'yao',
       yaoNum: 34,
       guaNum: 6,
       guaData: { header: '62. Example', meta: 'Example meta' },
@@ -265,7 +259,7 @@ describe('IChingSection', () => {
       },
       hitSoulGroup: {
         titleLine: '31. Example Soul Group',
-        weeksLabel: '31주(4월 13-19일)',
+        weeksLabel: '31주 · 4월 13-19일',
         weekA: 31,
         weekB: 33,
         ranges: [],
@@ -296,7 +290,7 @@ describe('IChingSection', () => {
       },
       hitSoulGroup: {
         titleLine: '31. Example Soul Group',
-        weeksLabel: '31주(4월 13-19일)',
+        weeksLabel: '31주 · 4월 13-19일',
         weekA: 31,
         weekB: 33,
         ranges: [],

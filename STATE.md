@@ -1,29 +1,28 @@
 # Current Task
-- Completed: recreated the app to match the `design` folder directly, replacing the previous layout system with the reference editorial pattern.
+- Active: move the `효사 / 괘사 / 영혼` segmented buttons into the header next to the calendar control, and remove the in-content segmented control.
 
 # Route
 - Route B
-- Reason: the change spans shared shell styling, the side rail, the reading canvas, typography, and global surface tokens across multiple files.
+- Reason: the change touches both the header shell and the reading panel, with control placement moving across shared surfaces and the in-content control being removed.
 
 # Writer Slot
 - main: planner only
-- worker-shell: `src/components/MainContent.tsx`, `src/components/Header.tsx`, `src/index.css`, `tailwind.config.js`
-- worker-panel: `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`
-- worker-nav: `src/components/Header.tsx`, `src/components/MainContent.tsx`
+- worker-shell: `src/components/Header.tsx`, `src/components/MainContent.tsx`, `src/components/IChingSection.tsx`
+- worker-panel: idle
+- worker-nav: idle
 
 # Contract Freeze
-- Goal: recreate the app so it matches the `design` folder's editorial pattern directly, with a fixed left manifesto-like rail, a separate right reading canvas, a thin top bar, and surface contrast replacing the old card-heavy layout.
-- Non-goals: no data changes, no commentary registry changes, no content rewrites.
+- Goal: move the `효사 / 괘사 / 영혼` segmented buttons into the header next to the calendar control and remove the duplicated in-content segmented control.
+- Non-goals: do not change the data model and do not alter commentary content.
   - Acceptance criteria:
-  - The left rail is fixed-width and reads like the design reference's manifesto panel.
-  - The right panel is a separate reading canvas with a cleaner editorial flow.
-  - The top bar is thin and minimal, not a heavy app header.
-  - Surface contrast, spacing, and typography carry most of the visual separation.
-  - Borders/dividers are minimized or eliminated wherever possible in favor of tonal layering.
+  - The segmented control appears in the header beside the calendar control.
+  - The old in-content segmented control is removed from the reading area.
+  - The header remains visually thin and minimal.
   - The current data and commentary behavior remain intact.
+  - A single worker owns the header/panel adjustment because the thread limit prevented a clean split into two implementation lanes.
 
 # Reviewer
-- reviewer-layout: editorial fidelity, fixed-rail, and border-minimal regression review
+- reviewer-header: header layout fidelity and control placement review
 
 # Last Update
-- 2026-04-20: rebuilt the shared shell and verified production build plus targeted component tests
+- 2026-04-20: re-scoped the task to move the segmented control into the header beside the calendar control and remove the duplicate in-content control; worker split collapsed into one lane due thread limit

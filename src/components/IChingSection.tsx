@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BookText, Moon, ScrollText, Sparkles, Sun } from 'lucide-react';
+import React from 'react';
+import { Moon, Sun } from 'lucide-react';
 import { getGuaCommentary, getYaoCommentary } from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { DatePicker } from './DatePicker';
@@ -10,7 +10,6 @@ interface IChingSectionProps {
   selectedDate?: Date;
   onDateChange?: (date: Date) => void;
   commentarySource?: CommentarySource;
-  onCommentarySourceChange?: (source: CommentarySource) => void;
   yaoNum: number | null;
   guaNum: number | null;
   guaData: GuaData | null;
@@ -23,8 +22,6 @@ interface SplitCommentary {
   heading: string;
   blocks: CommentaryBlock[];
 }
-
-type CommentaryTarget = 'gua' | 'yao' | 'soul';
 
 type CommentaryBlock =
   | {
@@ -243,49 +240,6 @@ function PanelBadge({ children }: { children: string }) {
   );
 }
 
-function CommentarySegmentedControl({
-  value,
-  onChange,
-}: {
-  value: CommentaryTarget;
-  onChange: (target: CommentaryTarget) => void;
-}) {
-  const options: Array<{ value: CommentaryTarget; label: string; icon: typeof ScrollText }> = [
-    { value: 'yao', label: '효사', icon: ScrollText },
-    { value: 'gua', label: '괘사', icon: BookText },
-    { value: 'soul', label: '영혼', icon: Sparkles },
-  ];
-
-  return (
-    <div role="radiogroup" aria-label="해설 선택" className="inline-flex items-center gap-3">
-      {options.map((option) => {
-        const active = value === option.value;
-        const Icon = option.icon;
-
-        return (
-          <label
-            key={option.value}
-            className={`flex cursor-pointer items-center gap-1.5 text-[10px] font-semibold tracking-[0.18em] transition-colors duration-200 ${
-              active ? 'text-[#342515]' : 'text-[#8b8178] hover:text-[#5a4a39]'
-            }`}
-          >
-            <input
-              type="radio"
-              name="commentary-target"
-              value={option.value}
-              checked={active}
-              onChange={() => onChange(option.value)}
-              className="sr-only"
-            />
-            <Icon size={12} strokeWidth={2.4} className="shrink-0" aria-hidden="true" />
-            <span>{option.label}</span>
-          </label>
-        );
-      })}
-    </div>
-  );
-}
-
 function buildSoulCommentaryText(hitSoulGroup: SoulGroup | undefined, soulSections: SoulSection[]): string {
   if (soulSections.length === 0) {
     return '';
@@ -320,7 +274,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   selectedDate,
   onDateChange,
   commentarySource = 'yao',
-  onCommentarySourceChange,
   yaoNum,
   guaNum,
   guaData,
@@ -328,10 +281,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   hitSoulGroup,
   soulSections = [],
 }) => {
-  void onCommentarySourceChange;
-  const [selectedCommentaryTarget, setSelectedCommentaryTarget] = useState<CommentaryTarget>(
-    commentarySource === 'gua' ? 'gua' : 'yao',
-  );
   const sigilSrc = yaoNum !== null ? `/images/yao-${yaoNum}.png` : null;
 
   if (!guaData || !yaoData) {
@@ -343,9 +292,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   }
 
   const commentaryText =
-    selectedCommentaryTarget === 'gua'
+    commentarySource === 'gua'
       ? (getGuaCommentary(guaNum)?.trim() || '')
-      : selectedCommentaryTarget === 'yao'
+      : commentarySource === 'yao'
         ? (getYaoCommentary(yaoNum)?.trim() || '')
         : buildSoulCommentaryText(hitSoulGroup, soulSections);
   const commentary = commentaryText.length > 0 ? splitCommentary(commentaryText) : null;
@@ -416,10 +365,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               <p className="font-display text-[0.95rem] uppercase tracking-[0.24em] text-[#8d7a64]">
                 Reading canvas
               </p>
-              <CommentarySegmentedControl
-                value={selectedCommentaryTarget}
-                onChange={setSelectedCommentaryTarget}
-              />
             </div>
 
             <div className="flex flex-wrap items-center justify-end gap-4">
@@ -449,7 +394,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   </h5>
                 ) : null}
 
-                {selectedCommentaryTarget === 'yao' ? (
+                {commentarySource === 'yao' ? (
                   <div
                     data-testid="commentary-reading-body"
                     className="max-w-[56ch] whitespace-pre-wrap break-keep font-display text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#403327] md:text-[1.08rem]"

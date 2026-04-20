@@ -34,3 +34,10 @@
 - status: resolved
 - writer slots: worker-shell = `src/components/MainContent.tsx`, `src/components/Header.tsx`, `src/index.css`, `tailwind.config.js`; worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`; reviewer = editorial contrast regression review
 - notes: tonal contrast now carries the left/right separation, with visible border/divider usage reduced to accent-only levels where possible
+
+## 2026-04-20
+- task: move the `효사 / 괘사 / 영혼` segmented buttons into the header beside the calendar control and remove the duplicate in-content control
+- route: Route B
+- status: active
+- writer slots: worker-shell = `src/components/Header.tsx`, `src/components/MainContent.tsx`; worker-nav = `src/components/Header.tsx`, `src/components/IChingSection.tsx`
+- notes: the header control row must absorb the segmented buttons while the reading panel loses the duplicated in-content control. The active task was re-scoped after the design-shell rebuild completed.

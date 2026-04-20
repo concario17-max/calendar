@@ -18,7 +18,7 @@ export interface SoulSection {
   text: string;
 }
 
-export type CommentarySource = 'gua' | 'yao';
+export type CommentarySource = 'gua' | 'yao' | 'soul';
 
 export interface YaoData {
   titleLine: string;

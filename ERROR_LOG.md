@@ -165,3 +165,17 @@ status: resolved
 - summary: index.lock permission blocked commit
 - details: `git commit -m "feat: recreate app with design editorial layout"` failed with `Unable to create ... .git/index.lock: Permission denied` after staging completed. Retry with elevated permissions is required.
 - status: open
+
+## 2026-04-20
+- time: 2026-04-20T??:??:??+09:00
+- location: spawn_agent(thread)
+- summary: subagent thread limit reached while splitting header and panel work
+- details: attempted to create a second worker for IChingSection, but the environment reported a maximum of 6 active threads; collapsed the write set into one worker lane.
+- status: resolved
+
+## 2026-04-20
+- time: 2026-04-20T??:??:??+09:00
+- location: shell_command(Select-String)
+- summary: recursive search failed because PowerShell Select-String does not support -Recurse in this invocation
+- details: attempted to find commentarySource references across src with Select-String -Recurse; command rejected the parameter
+- status: resolved
