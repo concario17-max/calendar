@@ -57,7 +57,7 @@ vi.mock('../data', () => {
   };
 });
 
-function renderSection(overrides?: Partial<React.ComponentProps<typeof IChingSection>>) {
+function renderSection(overrides?: Partial<React.ComponentProps<typeof MainContent>>) {
   const view = render(
     <MainContent
       selectedDate={new Date(2026, 3, 19)}
@@ -93,7 +93,6 @@ function renderSection(overrides?: Partial<React.ComponentProps<typeof IChingSec
     container: view.container,
     leftPanel: screen.getByRole('article'),
     rightPanel: screen.getByRole('complementary'),
-    readingTitleRow: screen.getByTestId('reading-title-row'),
     readingTopUnit: screen.getByTestId('reading-top-unit'),
     readingVerseUnit: screen.getByTestId('reading-verse-unit'),
     readingSigilUnit: screen.getByTestId('reading-sigil-unit'),
@@ -107,7 +106,7 @@ describe('IChingSection', () => {
     expect(screen.getByText('Reading data is not available yet.')).toBeInTheDocument();
   });
 
-  it('keeps the left manifesto rail sticky and the reading canvas scrollable', () => {
+  it('renders the reading shell without legacy rail labels or shell chrome controls', () => {
     const { container, leftPanel, rightPanel } = renderSection();
 
     const main = screen.getByRole('main');
@@ -122,13 +121,17 @@ describe('IChingSection', () => {
     expect(leftPanel).not.toHaveClass('border-r');
     expect(rightPanel).toHaveClass('overflow-y-auto');
     expect(rightPanel).toHaveClass('bg-[#fbf8f1]');
-    expect(within(leftPanel).getByText('Manifesto')).toBeInTheDocument();
-    expect(within(leftPanel).getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
+
+    expect(screen.queryByText('Manifesto')).not.toBeInTheDocument();
+    expect(screen.queryByText('Reading rail')).not.toBeInTheDocument();
+    expect(screen.queryByText('Commentary')).not.toBeInTheDocument();
+    expect(screen.queryByText('Reading canvas')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Today' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
   });
 
   it('keeps the commentary control in the header and preserves the left rail content', () => {
-    const { leftPanel, rightPanel, readingTitleRow, readingTopUnit, readingVerseUnit, readingSigilUnit } =
-      renderSection();
+    const { leftPanel, rightPanel, readingTopUnit, readingVerseUnit, readingSigilUnit } = renderSection();
 
     const commentaryControl = screen.getByRole('radiogroup', { name: '해설 선택' });
 
@@ -137,12 +140,6 @@ describe('IChingSection', () => {
     expect(within(commentaryControl).getByRole('radio', { name: '효사' })).toBeInTheDocument();
     expect(within(commentaryControl).getByRole('radio', { name: '괘사' })).toBeInTheDocument();
     expect(within(commentaryControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
-    expect(within(readingTitleRow).queryByRole('radiogroup', { name: '해설 선택' })).not.toBeInTheDocument();
-
-    expect(within(leftPanel).getByText('Reading rail')).toBeInTheDocument();
-    expect(within(leftPanel).getByText(/31주.*4월 13-19일/)).toBeInTheDocument();
-    expect(within(leftPanel).queryByText('Soul heading')).not.toBeInTheDocument();
-    expect(within(leftPanel).queryByText('Soul body')).not.toBeInTheDocument();
 
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
@@ -150,8 +147,9 @@ describe('IChingSection', () => {
     expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
 
-    expect(rightPanel).toHaveTextContent('Reading canvas');
     expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
+    expect(within(leftPanel).queryByText('Manifesto')).not.toBeInTheDocument();
+    expect(within(rightPanel).queryByText('Reading canvas')).not.toBeInTheDocument();
 
     fireEvent.click(within(commentaryControl).getByRole('radio', { name: '괘사' }));
     expect(screen.getByText('Gua Heading')).toBeInTheDocument();
@@ -165,25 +163,6 @@ describe('IChingSection', () => {
     expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul heading');
     expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul body');
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
-  });
-
-  it('keeps the date controls on the commentary row to the left of the theme toggle', () => {
-    renderSection({
-      selectedDate: new Date(2026, 3, 19),
-      onDateChange: vi.fn(),
-    });
-
-    const readingTitleRow = screen.getByTestId('reading-title-row');
-    const todayBadge = within(readingTitleRow).getByText('Commentary');
-    const commentaryPanel = screen.getByRole('complementary');
-    const todayControls = within(commentaryPanel).getByTestId('today-controls');
-    const themeToggle = within(commentaryPanel).getByRole('button', { name: 'Toggle theme' });
-
-    expect(todayBadge).toBeInTheDocument();
-    expect(within(todayControls).getByRole('button', { name: 'Open date picker' })).toBeInTheDocument();
-    expect(within(todayControls).getByRole('button', { name: 'Today' })).toBeInTheDocument();
-    expect(todayControls.nextElementSibling).toBe(themeToggle);
-    expect(themeToggle).toBeInTheDocument();
   });
 
   it('renders bullet-marked commentary blocks as semantic lists', () => {

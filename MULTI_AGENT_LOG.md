@@ -38,6 +38,13 @@
 ## 2026-04-20
 - task: move the `효사 / 괘사 / 영혼` segmented buttons into the header beside the calendar control and remove the duplicate in-content control
 - route: Route B
-- status: active
+- status: resolved
 - writer slots: worker-shell = `src/components/Header.tsx`, `src/components/MainContent.tsx`; worker-nav = `src/components/Header.tsx`, `src/components/IChingSection.tsx`
-- notes: the header control row must absorb the segmented buttons while the reading panel loses the duplicated in-content control. The active task was re-scoped after the design-shell rebuild completed.
+- notes: the header control row absorbed the segmented buttons while the reading panel lost the duplicated in-content control. The task was re-scoped again into shell chrome cleanup after the design-shell rebuild completed.
+
+## 2026-04-20
+- task: rename the header title to `Celestial Ephemeris`, keep the segmented control in the header, and remove shell chrome labels and controls
+- route: Route B
+- status: resolved
+- writer slots: worker-shell = `src/components/Header.tsx`, `src/components/MainContent.tsx`; worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the header title was renamed to Celestial Ephemeris, the segmented control stays left of the calendar control, and the shell chrome labels/controls were stripped back while leaving the current data and commentary content intact

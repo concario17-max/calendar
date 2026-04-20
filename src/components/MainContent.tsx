@@ -41,11 +41,9 @@ export const MainContent: React.FC<MainContentProps> = ({
 
         <div className="curated-shell__frame flex min-h-0 flex-1 overflow-hidden">
         <IChingSection
-          selectedDate={selectedDate}
-          onDateChange={onDateChange}
           commentarySource={commentarySource}
           yaoNum={yaoNum}
-            guaNum={guaNum}
+          guaNum={guaNum}
             guaData={guaData}
             yaoData={yaoData}
             hitSoulGroup={hitSoulGroup}

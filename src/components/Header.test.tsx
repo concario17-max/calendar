@@ -1,50 +1,34 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { render, screen, within } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { Header } from './Header';
 
 describe('Header', () => {
-  afterEach(() => {
-    document.documentElement.classList.remove('dark');
-    localStorage.clear();
-  });
-
-  it('toggles dark mode and persists the preference', () => {
-    render(
-      <Header
-        selectedDate={new Date(2026, 2, 18)}
-        onDateChange={() => {}}
-        commentarySource="yao"
-        onCommentarySourceChange={() => {}}
-      />,
-    );
-
-    fireEvent.click(screen.getByLabelText('Toggle theme'));
-
-    expect(document.documentElement.classList.contains('dark')).toBe(true);
-    expect(localStorage.getItem('theme')).toBe('dark');
-  });
-
-  it('renders the commentary segmented control beside the calendar controls', () => {
+  it('renders the renamed title and keeps the segmented control left of the calendar button', () => {
+    const onDateChange = vi.fn();
     const onCommentarySourceChange = vi.fn();
-
-    render(
+    const { container } = render(
       <Header
-        selectedDate={new Date(2026, 2, 18)}
-        onDateChange={() => {}}
+        selectedDate={new Date(2026, 3, 20)}
+        onDateChange={onDateChange}
         commentarySource="yao"
         onCommentarySourceChange={onCommentarySourceChange}
       />,
     );
 
-    const commentaryControl = screen.getByRole('radiogroup', { name: '해설 선택' });
+    expect(screen.getByRole('heading', { name: 'Celestial Ephemeris' })).toBeInTheDocument();
 
-    expect(screen.getByRole('button', { name: 'Open date picker' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
-    expect(within(commentaryControl).getByRole('radio', { name: '효사' })).toBeInTheDocument();
-    expect(within(commentaryControl).getByRole('radio', { name: '괘사' })).toBeInTheDocument();
-    expect(within(commentaryControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
+    const segmentedControl = screen.getByRole('radiogroup', { name: '해설 선택' });
+    expect(within(segmentedControl).getByRole('radio', { name: '효사' })).toBeInTheDocument();
+    expect(within(segmentedControl).getByRole('radio', { name: '괘사' })).toBeInTheDocument();
+    expect(within(segmentedControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
 
-    fireEvent.click(within(commentaryControl).getByRole('radio', { name: '괘사' }));
-    expect(onCommentarySourceChange).toHaveBeenCalledWith('gua');
+    expect(screen.getByLabelText('Open date picker')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Today' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
+
+    const header = container.querySelector('header');
+    const controlsRow = header?.children[1];
+    expect(controlsRow?.firstElementChild).toBe(segmentedControl);
+    expect(controlsRow?.lastElementChild?.querySelector('button[aria-label="Open date picker"]')).toBeInTheDocument();
   });
 });

@@ -249,7 +249,6 @@
   .curated-shell [data-testid='reading-verse-unit'],
   .curated-shell [data-testid='reading-top-unit'],
   .curated-shell [data-testid='reading-sigil-unit'],
-  .curated-shell [data-testid='today-controls'],
   .curated-shell [data-testid^='commentary-block-'] {
     border-color: transparent !important;
   }

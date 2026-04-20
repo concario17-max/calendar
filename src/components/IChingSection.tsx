@@ -1,14 +1,9 @@
 import React from 'react';
-import { Moon, Sun } from 'lucide-react';
 import { getGuaCommentary, getYaoCommentary } from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
-import { DatePicker } from './DatePicker';
 import { SoulCalendarSection } from './SoulCalendarSection';
-import { useTheme } from '../hooks/useTheme';
 
 interface IChingSectionProps {
-  selectedDate?: Date;
-  onDateChange?: (date: Date) => void;
   commentarySource?: CommentarySource;
   yaoNum: number | null;
   guaNum: number | null;
@@ -232,14 +227,6 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   );
 }
 
-function PanelBadge({ children }: { children: string }) {
-  return (
-    <div className="inline-flex items-center text-[11px] font-semibold uppercase tracking-[0.28em] text-[#7d643f] sm:text-xs">
-      {children}
-    </div>
-  );
-}
-
 function buildSoulCommentaryText(hitSoulGroup: SoulGroup | undefined, soulSections: SoulSection[]): string {
   if (soulSections.length === 0) {
     return '';
@@ -255,24 +242,7 @@ function buildSoulCommentaryText(hitSoulGroup: SoulGroup | undefined, soulSectio
   return `${heading}\n${body}`.trim();
 }
 
-function ThemeToggleButton() {
-  const { isDark, toggleTheme } = useTheme();
-
-  return (
-    <button
-      type="button"
-      onClick={toggleTheme}
-      className="flex h-10 w-10 items-center justify-center rounded-full bg-[#efe8db] text-[#5a4a39] transition-colors hover:bg-[#e4dacb] hover:text-[#342515] active-scale"
-      aria-label="Toggle theme"
-    >
-      {isDark ? <Sun size={17} className="sm:h-4.5 sm:w-4.5" /> : <Moon size={17} className="sm:h-4.5 sm:w-4.5" />}
-    </button>
-  );
-}
-
 export const IChingSection: React.FC<IChingSectionProps> = ({
-  selectedDate,
-  onDateChange,
   commentarySource = 'yao',
   yaoNum,
   guaNum,
@@ -305,13 +275,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
       <div className="grid h-full min-h-0 min-w-[720px] grid-cols-[340px_minmax(0,1fr)] overflow-x-auto md:grid-cols-[360px_minmax(0,1fr)]">
         <article className="sticky top-0 flex h-full min-w-[340px] flex-col overflow-y-auto bg-[#f2eadc] px-7 pb-8 pt-8 text-[#4b3b29] md:px-9 lg:px-11">
           <div className="flex h-full min-h-0 flex-1 flex-col gap-10">
-            <div className="space-y-3">
-              <PanelBadge>Manifesto</PanelBadge>
-              <p className="font-display text-[0.95rem] font-medium uppercase tracking-[0.24em] text-[#8d7a64]">
-                Reading rail
-              </p>
-            </div>
-
             <div data-testid="reading-sigil-unit" className="flex justify-center pt-2 md:pt-4">
               <div className="w-full max-w-[12rem] sm:max-w-[14rem] md:max-w-[16rem]">
                 {sigilSrc ? (
@@ -356,35 +319,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         </article>
 
         <aside className="flex h-full min-w-0 flex-col overflow-y-auto bg-[#fbf8f1] px-7 pb-8 pt-8 md:px-9 lg:px-11">
-          <div
-            data-testid="reading-title-row"
-            className="flex min-h-10 flex-wrap items-center justify-between gap-4 pb-8"
-          >
-            <div className="space-y-2">
-              <PanelBadge>Commentary</PanelBadge>
-              <p className="font-display text-[0.95rem] uppercase tracking-[0.24em] text-[#8d7a64]">
-                Reading canvas
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-end gap-4">
-              {selectedDate && onDateChange ? (
-                <div data-testid="today-controls" className="flex flex-wrap items-center gap-2">
-                  <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
-                  <button
-                    type="button"
-                    onClick={() => onDateChange(new Date())}
-                    className="rounded-full px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#5a4a39] transition-colors hover:bg-[#efe8db] hover:text-[#342515] active-scale"
-                  >
-                    Today
-                  </button>
-                </div>
-              ) : null}
-
-              <ThemeToggleButton />
-            </div>
-          </div>
-
           <div className="mt-2 flex-1 space-y-0">
             {commentary ? (
               <div className="space-y-10">
