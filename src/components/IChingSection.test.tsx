@@ -126,8 +126,6 @@ describe('IChingSection', () => {
     expect(screen.queryByText('Reading rail')).not.toBeInTheDocument();
     expect(screen.queryByText('Commentary')).not.toBeInTheDocument();
     expect(screen.queryByText('Reading canvas')).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Today' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
   });
 
   it('keeps the commentary control in the header and preserves the left rail content', () => {
@@ -140,6 +138,8 @@ describe('IChingSection', () => {
     expect(within(commentaryControl).getByRole('radio', { name: '효사' })).toBeInTheDocument();
     expect(within(commentaryControl).getByRole('radio', { name: '괘사' })).toBeInTheDocument();
     expect(within(commentaryControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
 
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();

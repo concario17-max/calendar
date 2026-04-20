@@ -23,12 +23,13 @@ describe('Header', () => {
     expect(within(segmentedControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
 
     expect(screen.getByLabelText('Open date picker')).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Today' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
 
     const header = container.querySelector('header');
     const controlsRow = header?.children[1];
     expect(controlsRow?.firstElementChild).toBe(segmentedControl);
-    expect(controlsRow?.lastElementChild?.querySelector('button[aria-label="Open date picker"]')).toBeInTheDocument();
+    expect(controlsRow?.querySelector('button[aria-label="Open date picker"]')).toBeInTheDocument();
+    expect(controlsRow?.querySelector('button[aria-label="Toggle theme"]')).toBeInTheDocument();
   });
 });

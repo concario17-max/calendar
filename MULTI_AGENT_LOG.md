@@ -48,3 +48,10 @@
 - status: resolved
 - writer slots: worker-shell = `src/components/Header.tsx`, `src/components/MainContent.tsx`; worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the header title was renamed to Celestial Ephemeris, the segmented control stays left of the calendar control, and the shell chrome labels/controls were stripped back while leaving the current data and commentary content intact
+
+## 2026-04-20
+- task: restore the Today block and theme toggle in the header while keeping the segmented control to the left of the calendar control
+- route: Route B
+- status: resolved
+- writer slots: worker-shell = `src/components/Header.tsx`, `src/components/Header.test.tsx`; worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the header Today block and theme toggle were restored while keeping the shell label cleanup intact and leaving data registries and commentary content untouched
