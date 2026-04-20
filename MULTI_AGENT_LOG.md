@@ -145,3 +145,18 @@
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the left rail order was restored without changing data registries
 - result: the left rail again shows `효사` before `괘사`
+
+## 2026-04-20
+- task: differentiate `효사`, `괘사`, and `Soul` in the left panel so the reading stack is clearly hierarchical
+- route: Route B
+- status: open
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`
+- notes: the task is limited to left-panel typography and spacing hierarchy; data registries remain out of scope
+
+## 2026-04-20
+- task: differentiate `효사`, `괘사`, and `Soul` in the left panel so the reading stack is clearly hierarchical
+- route: Route B
+- status: resolved
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`
+- notes: the left panel now reads as one main block plus two aligned reference blocks; data registries remain out of scope
+- result: the hierarchy is clearer and the three blocks now differ in visual weight
