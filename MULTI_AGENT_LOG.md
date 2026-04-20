@@ -20,3 +20,10 @@
 - status: resolved
 - writer slots: worker-shell = src/components/MainContent.tsx (reverted); worker-panel = src/components/IChingSection.tsx; src/components/SoulCalendarSection.tsx; src/components/IChingSection.test.tsx; src/components/SoulCalendarSection.test.tsx; reviewer = layout spacing regression review
 - notes: the shell-width tweak was reverted after review; the final change set widened the reading rail via internal paddings, row heights, and content clamps, with tests updated for the current soul label format
+
+## 2026-04-20
+- task: implement a fixed-width left rail and a responsive right panel
+- route: Route B
+- status: resolved
+- writer slots: worker-shell = `src/components/MainContent.tsx`; worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`; reviewer = fixed-rail regression review
+- notes: the left rail now uses a fixed px width with scroll-safe behavior, and the right panel absorbs viewport changes responsively

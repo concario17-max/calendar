@@ -22,7 +22,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
   const soulLine = formatSoulLine(soulSections, hitSoulGroup);
 
   return (
-    <section className="relative animate-fade-in-up stagger-2 pb-2 md:pb-4">
+    <section className="relative min-w-0 animate-fade-in-up stagger-2 pb-2 md:pb-4">
       <div className="mb-9 md:mb-10">
         <div className="group space-y-3 text-left">
           <h2 className="font-display text-[1.64rem] font-semibold leading-[1.22] tracking-[-0.02em] text-current md:text-[2.06rem]">

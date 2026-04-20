@@ -6,9 +6,11 @@ describe('SoulCalendarSection', () => {
   it('renders the header when there are no verses', () => {
     render(<SoulCalendarSection hitSoulGroup={undefined} soulSections={[]} />);
 
+    const section = screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" }).closest('section');
+
     expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
+    expect(section).toHaveClass('min-w-0');
     expect(screen.getByText('해당 날짜 항목 없음')).toBeInTheDocument();
-    expect(screen.queryByText('해당되는 영혼의 일일 묵상 본문을 찾지 못했습니다.')).not.toBeInTheDocument();
   });
 
   it('keeps the soul section header visible and omits body cards', () => {

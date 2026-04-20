@@ -362,8 +362,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
   return (
     <section className="flex h-full min-h-0 w-full flex-1 flex-col stagger-1">
-      <div className="grid h-full min-h-0 gap-0 md:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)]">
-        <article className="sticky top-0 flex h-full min-w-0 flex-col bg-[#efe3cf] px-7 pb-1 pt-0 text-[#4b3b29] dark:bg-[#1f1b16] dark:text-warm-gray-100 md:border-r md:border-black/10 md:px-9 md:pb-2 md:pt-0 lg:px-11">
+      <div className="grid h-full min-h-0 min-w-[720px] grid-cols-[340px_minmax(0,1fr)] gap-0 overflow-x-auto">
+        <article className="sticky top-0 flex h-full min-w-[340px] flex-col overflow-y-auto bg-[#efe3cf] px-7 pb-1 pt-0 text-[#4b3b29] dark:bg-[#1f1b16] dark:text-warm-gray-100 md:border-r md:border-black/10 md:px-9 md:pb-2 md:pt-0 lg:px-11">
           <div className="flex h-full min-h-0 flex-1 flex-col space-y-6">
             <div
               data-testid="reading-title-row"

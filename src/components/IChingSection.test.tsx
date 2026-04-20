@@ -117,8 +117,8 @@ describe('IChingSection', () => {
 
     expect(main).toHaveClass('h-[100dvh]', 'overflow-hidden');
     expect(shell).toHaveClass('min-h-0');
-    expect(grid).toHaveClass('h-full', 'min-h-0');
-    expect(leftRail).toHaveClass('sticky', 'top-0');
+    expect(grid).toHaveClass('h-full', 'min-h-0', 'overflow-x-auto', 'min-w-[720px]');
+    expect(leftRail).toHaveClass('sticky', 'top-0', 'overflow-y-auto', 'min-w-[340px]');
     expect(rightRail).toHaveClass('overflow-y-auto');
     expect(within(leftRail).getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
   });
