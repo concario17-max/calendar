@@ -363,11 +363,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   return (
     <section className="flex h-full min-h-0 w-full flex-1 flex-col stagger-1">
       <div className="grid h-full min-h-0 gap-0 md:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)]">
-        <article className="sticky top-0 flex h-full min-w-0 flex-col bg-[#efe3cf] px-6 pb-1 pt-0 text-[#4b3b29] dark:bg-[#1f1b16] dark:text-warm-gray-100 md:border-r md:border-black/10 md:px-8 md:pb-2 md:pt-0 lg:px-10">
+        <article className="sticky top-0 flex h-full min-w-0 flex-col bg-[#efe3cf] px-7 pb-1 pt-0 text-[#4b3b29] dark:bg-[#1f1b16] dark:text-warm-gray-100 md:border-r md:border-black/10 md:px-9 md:pb-2 md:pt-0 lg:px-11">
           <div className="flex h-full min-h-0 flex-1 flex-col space-y-6">
             <div
               data-testid="reading-title-row"
-              className="flex min-h-10 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-1.5 dark:border-white/10 md:h-10 md:flex-nowrap"
+              className="flex min-h-10 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-2 dark:border-white/10 md:min-h-10 md:flex-nowrap"
             >
               <div className="flex min-w-0 flex-wrap items-center gap-3">
                 <PanelBadge>Today&apos;s Reading</PanelBadge>
@@ -381,7 +381,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </div>
             </div>
             <div data-testid="reading-sigil-unit" className="flex justify-center py-12 md:py-16">
-              <div className="w-full max-w-[11rem] sm:max-w-[13rem] md:max-w-[15rem]">
+              <div className="w-full max-w-[12rem] sm:max-w-[14rem] md:max-w-[16rem]">
                 {sigilSrc ? (
                   <img
                     src={sigilSrc}
@@ -396,13 +396,13 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
             <div data-testid="reading-verse-unit" className="border-b border-black/10 pb-6 dark:border-white/10 md:pb-7">
               <div className="space-y-3">
-                <h4 className="max-w-[22ch] break-keep font-display text-[1.64rem] font-semibold leading-[1.22] tracking-[-0.02em] text-current md:text-[2.06rem]">
+                <h4 className="max-w-[24ch] break-keep font-display text-[1.64rem] font-semibold leading-[1.22] tracking-[-0.02em] text-current md:text-[2.06rem]">
                   {yaoData.titleLine}
                 </h4>
 
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/35" />
-                  <p className="max-w-[34rem] break-keep py-2 pl-6 font-display text-[1.02rem] font-medium italic leading-[1.85] text-elegant-gold md:text-[1.16rem]">
+                  <p className="max-w-[38rem] break-keep py-2 pl-7 font-display text-[1.02rem] font-medium italic leading-[1.85] text-elegant-gold md:text-[1.16rem]">
                     {yaoData.short}
                   </p>
                 </div>
@@ -420,7 +420,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   <div className="absolute inset-y-0 left-0 w-1 rounded-full bg-elegant-gold/35" />
                   <p
                     data-testid="reading-gua-meta"
-                    className="max-w-[34rem] whitespace-pre-wrap break-keep py-2 pl-6 font-display text-[1.02rem] font-medium italic leading-[1.85] tracking-[-0.01em] text-elegant-gold md:text-[1.16rem]"
+                    className="max-w-[38rem] whitespace-pre-wrap break-keep py-2 pl-7 font-display text-[1.02rem] font-medium italic leading-[1.85] tracking-[-0.01em] text-elegant-gold md:text-[1.16rem]"
                   >
                     {guaMeta}
                   </p>
@@ -432,8 +432,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
           </div>
         </article>
 
-        <aside className="flex h-full min-w-0 flex-col overflow-y-auto bg-[#fbfaf5] px-6 pb-1 pt-0 dark:bg-[#171511] md:px-8 md:pb-2 md:pt-0 lg:px-10">
-          <div className="flex min-h-10 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-1.5 dark:border-white/10 md:h-10 md:flex-nowrap">
+        <aside className="flex h-full min-w-0 flex-col overflow-y-auto bg-[#fbfaf5] px-7 pb-1 pt-0 dark:bg-[#171511] md:px-9 md:pb-2 md:pt-0 lg:px-11">
+          <div className="flex min-h-10 flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-2 dark:border-white/10 md:min-h-10 md:flex-nowrap">
             <PanelBadge>Commentary</PanelBadge>
             <div className="flex flex-wrap items-center justify-end gap-1.5">
               {selectedDate && onDateChange ? (
@@ -457,7 +457,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             {commentary ? (
               <div className="space-y-5">
                 {commentary.heading ? (
-                  <h5 className="max-w-[30ch] break-keep font-display text-[1.08rem] font-semibold leading-[1.35] tracking-[-0.02em] text-warm-gray-700 dark:text-white/92 md:text-[1.22rem]">
+                  <h5 className="max-w-[34ch] break-keep font-display text-[1.08rem] font-semibold leading-[1.35] tracking-[-0.02em] text-warm-gray-700 dark:text-white/92 md:text-[1.22rem]">
                     {commentary.heading}
                   </h5>
                 ) : null}

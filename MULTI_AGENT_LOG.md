@@ -13,3 +13,10 @@
 - status: resolved
 - writer slots: worker-1 = src/components/MainContent.tsx; src/components/IChingSection.tsx; reviewer = visual spacing regression review
 - notes: the remaining offset came from the animation class, which was removed from the main shell and reading section
+
+## 2026-04-19
+- task: reduce the perceived narrowness in the reading layout
+- route: Route B
+- status: resolved
+- writer slots: worker-shell = src/components/MainContent.tsx (reverted); worker-panel = src/components/IChingSection.tsx; src/components/SoulCalendarSection.tsx; src/components/IChingSection.test.tsx; src/components/SoulCalendarSection.test.tsx; reviewer = layout spacing regression review
+- notes: the shell-width tweak was reverted after review; the final change set widened the reading rail via internal paddings, row heights, and content clamps, with tests updated for the current soul label format

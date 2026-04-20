@@ -72,7 +72,7 @@ function renderSection(overrides?: Partial<React.ComponentProps<typeof IChingSec
       }}
       hitSoulGroup={{
         titleLine: '31. Example Soul Group',
-        weeksLabel: 'Weeks 31-33',
+        weeksLabel: '31주(4월 13-19일)',
         weekA: 31,
         weekB: 33,
         ranges: [],
@@ -81,7 +81,7 @@ function renderSection(overrides?: Partial<React.ComponentProps<typeof IChingSec
       soulSections={[
         {
           week: 31,
-          range: '4/13 - 4/19',
+          range: '4월 13-19',
           text: 'Soul heading\nSoul body',
         },
       ]}
@@ -134,7 +134,7 @@ describe('IChingSection', () => {
     expect(within(commentaryControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
 
     expect(within(leftPanel).getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
-    expect(within(leftPanel).getByText('Weeks 31-33')).toBeInTheDocument();
+    expect(within(leftPanel).getByText('31주(4월 13-19일)')).toBeInTheDocument();
     expect(within(leftPanel).queryByText('4/13 - 4/19')).not.toBeInTheDocument();
     expect(within(leftPanel).queryByText('Soul heading')).not.toBeInTheDocument();
     expect(within(leftPanel).queryByText('Soul body')).not.toBeInTheDocument();
@@ -195,7 +195,7 @@ describe('IChingSection', () => {
       },
       hitSoulGroup: {
         titleLine: '31. Example Soul Group',
-        weeksLabel: 'Weeks 31-33',
+        weeksLabel: '31주(4월 13-19일)',
         weekA: 31,
         weekB: 33,
         ranges: [],
@@ -234,7 +234,7 @@ describe('IChingSection', () => {
       },
       hitSoulGroup: {
         titleLine: '31. Example Soul Group',
-        weeksLabel: 'Weeks 31-33',
+        weeksLabel: '31주(4월 13-19일)',
         weekA: 31,
         weekB: 33,
         ranges: [],
@@ -261,7 +261,7 @@ describe('IChingSection', () => {
       },
       hitSoulGroup: {
         titleLine: '31. Example Soul Group',
-        weeksLabel: 'Weeks 31-33',
+        weeksLabel: '31주(4월 13-19일)',
         weekA: 31,
         weekB: 33,
         ranges: [],
@@ -292,7 +292,7 @@ describe('IChingSection', () => {
       },
       hitSoulGroup: {
         titleLine: '31. Example Soul Group',
-        weeksLabel: 'Weeks 31-33',
+        weeksLabel: '31주(4월 13-19일)',
         weekA: 31,
         weekB: 33,
         ranges: [],
