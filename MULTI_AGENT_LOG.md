@@ -108,3 +108,25 @@
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the task is limited to the sigil position; data registries remain out of scope
 - result: the sigil block now sits higher in the left rail and the content order stays intact
+
+## 2026-04-20
+- task: regroup the left panel into one main reading block and two aligned reference blocks so the panel reads as a cleaner stack
+- route: Route B
+- status: open
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the change is limited to left-panel hierarchy and spacing; data registries remain out of scope
+
+## 2026-04-20
+- task: regroup the left panel into one main reading block and two aligned reference blocks so the panel reads as a cleaner stack
+- route: Route B
+- status: open
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the change is limited to left-panel hierarchy and spacing; data registries remain out of scope
+
+## 2026-04-20
+- task: regroup the left panel into one main reading block and two aligned reference blocks so the panel reads as a cleaner stack
+- route: Route B
+- status: resolved
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the left panel now reads as one main block plus two aligned reference blocks; data registries remain out of scope
+- result: the left panel hierarchy was cleaned up without changing the content order semantics or commentary data
