@@ -76,3 +76,20 @@
 - status: resolved
 - writer slots: worker-shell = `src/components/Header.tsx`, `src/components/MainContent.tsx`, `src/index.css`, `tailwind.config.js`; worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`
 - notes: spacing, rhythm, and accent-color refinement were tightened across the shell and reading panels without changing data registries
+
+## 2026-04-20
+- task: swap the left rail order so `효사` appears before `괘사`, and halve the sigil vertical spacing
+- route: Route B
+- status: open
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the task is limited to the left rail order and spacing; data registries remain out of scope\r\n- result: left rail order swapped to put `?⑥궗` before `愿섏궗`, and sigil vertical spacing halved
+
+
+
+## 2026-04-20
+- task: swap the left rail order so `효사` appears before `괘사`, and halve the sigil vertical spacing
+- route: Route B
+- status: resolved
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the task is limited to the left rail order and spacing; data registries remain out of scope
+- result: left rail order swapped to put `효사` before `괘사`, and sigil vertical spacing halved

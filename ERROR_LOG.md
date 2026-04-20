@@ -184,3 +184,10 @@ status: resolved
   summary: git add/commit command failed on PowerShell command separator
   details: The attempted combined git command used '&&', which PowerShell does not parse as a statement separator in this environment.
   status: resolved
+
+## 2026-04-20
+- time: 2026-04-20 21:33 KST
+- location: git add / git commit
+- summary: PowerShell command separator blocked the commit path
+- details: the combined git command used `&&`, which PowerShell in this workspace does not accept as a statement separator. The change set itself is intact; reran the git steps separately.
+- status: resolved

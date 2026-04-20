@@ -142,6 +142,12 @@ describe('IChingSection', () => {
     expect(screen.getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
 
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
+    const leftRailBlocks = Array.from(
+      leftPanel.querySelectorAll('[data-testid="reading-verse-unit"], [data-testid="reading-top-unit"]'),
+    );
+
+    expect(leftRailBlocks[0]).toBe(readingVerseUnit);
+    expect(leftRailBlocks[1]).toBe(readingTopUnit);
     expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('Anamil explanation')).toBeInTheDocument();
     expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
