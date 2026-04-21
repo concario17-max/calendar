@@ -1,24 +1,24 @@
 # Current Task
-- Resolved: updated the soul title range format to `50주(3월 16-22) / 3주(4월 21-27)`.
+- Resolved: normalize the soul test fixture to the same `50?(3? 16-22) / 3?(4? 21-27)` display format.
 
 # Route
-- Route B
-- Reason: the change touches shared soul rendering plus tests, so the route stays on the multi-file review path.
+- Route A
+- Reason: this is a one-file test fixture normalization that keeps the rendered soul format aligned.
 
 # Writer Slot
 - main: planner only
-- worker-panel: `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`, `src/components/IChingSection.test.tsx`
+- worker-panel: `src/components/SoulCalendarSection.test.tsx`
 - worker-nav: idle
 
 # Contract Freeze
-- Goal: display the soul range line as `50주(3월 16-22) / 3주(4월 21-27)`.
+- Goal: make the soul test fixture assert `50?(3? 16-22) / 3?(4? 21-27)`.
 - Non-goals: do not change the data registries or commentary content.
   - Acceptance criteria:
-  - The soul title slot renders the two visible ranges without the `일` suffix.
+  - The soul section test expects the no-`?` title format.
   - The rest of the reading/content behavior remains intact.
 
 # Reviewer
-- reviewer-layout: soul formatting regression review
+- reviewer-layout: test-fixture normalization review
 
 # Last Update
-- 2026-04-21: resolved soul title-range formatting update.
+- 2026-04-21: resolved test-fixture normalization for the soul title format.

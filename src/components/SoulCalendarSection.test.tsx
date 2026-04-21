@@ -1,4 +1,4 @@
-﻿import { render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { SoulCalendarSection } from './SoulCalendarSection';
 
@@ -16,15 +16,15 @@ describe('SoulCalendarSection', () => {
       <SoulCalendarSection
         hitSoulGroup={{
           titleLine: 'Weeks 3',
-          weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
+          weeksLabel: '50주(3월 16-22) / 3주(4월 21-27)',
           weekA: 50,
           weekB: 3,
           ranges: [],
           block: '',
         }}
         soulSections={[
-          { week: 50, range: '3월 16-22일', text: 'Soul body A' },
-          { week: 3, range: '4월 21-27일', text: 'Soul body B' },
+          { week: 50, range: '3월 16-22', text: 'Soul body A' },
+          { week: 3, range: '4월 21-27', text: 'Soul body B' },
         ]}
       />,
     );
