@@ -203,3 +203,15 @@ status: resolved
   details: Retried staging and commit with semicolon-separated PowerShell commands after the initial '&&' parse failure.
   status: resolved
 
+- time: 2026-04-21 09:09
+  location: verification step
+  summary: PowerShell does not support '&&' in this environment
+  details: Combined test/build command failed before execution. Will retry as separate commands.
+  status: open
+
+- time: 2026-04-21 09:09
+  location: verification step
+  summary: PowerShell separator retry succeeded
+  details: Re-ran test and build as separate PowerShell commands after the initial parse failure.
+  status: resolved
+
