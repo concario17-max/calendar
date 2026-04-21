@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { getGuaCommentary, getYaoCommentary } from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { SoulCalendarSection } from './SoulCalendarSection';
@@ -107,7 +107,7 @@ function parseListBlock(block: string): string[] | null {
     return null;
   }
 
-  const listItemPattern = /^(?:[-*•]|\d+[.)])\s*(.+)$/u;
+  const listItemPattern = /^(?:[-*??|\d+[.)])\s*(.+)$/u;
 
   const items = lines.map((line) => {
     const match = line.match(listItemPattern);
@@ -189,7 +189,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
                 {row.map((cell, cellIndex) => (
                   <td
                     key={`table-${index}-row-${rowIndex}-cell-${cellIndex}`}
-                    className="py-3 pr-5 align-top text-[#403327]"
+                    className="py-3 pr-5 align-top text-[#566471]"
                   >
                     {cell}
                   </td>
@@ -206,7 +206,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
     return (
       <ul
         key={`list-${index}`}
-        className="list-disc space-y-2 pl-5 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#403327] md:text-[16px]"
+        className="list-disc space-y-2 pl-5 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
       >
         {block.items.map((item, itemIndex) => (
           <li key={`list-${index}-item-${itemIndex}`} className="break-keep">
@@ -220,7 +220,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   return (
     <p
       key={`paragraph-${index}`}
-      className="whitespace-pre-wrap break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#403327] md:text-[16px]"
+      className="whitespace-pre-wrap break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
     >
       {block.text}
     </p>
@@ -232,7 +232,7 @@ function buildSoulCommentaryText(hitSoulGroup: SoulGroup | undefined, soulSectio
     return '';
   }
 
-  const heading = hitSoulGroup?.titleLine?.trim() || '슈타이너의 영혼의 달력';
+  const heading = hitSoulGroup?.titleLine?.trim() || '영혼의 달력';
   const body = soulSections
     .slice(0, 2)
     .map((sec) => `${sec.week}. ${sec.range}\n${sec.text.trim()}`.trim())
@@ -293,11 +293,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/60 bg-[#f4eadc]/70 px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#8e7a5d]">
                 효사
               </p>
-              <h4 className="max-w-[18ch] break-keep font-headline text-[1.9rem] font-semibold leading-[1.08] tracking-[-0.03em] text-current md:text-[2.35rem]">
+              <h4 className="max-w-[18ch] break-keep font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">
                 {yaoData.titleLine}
               </h4>
 
-              <p className="max-w-[34rem] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#7c6341] md:text-[1.05rem]">
+              <p className="max-w-[34rem] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
                 {yaoData.short}
               </p>
             </div>
@@ -313,10 +313,10 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               {guaMeta ? (
                 <p
                   data-testid="reading-gua-meta"
-                className="max-w-[34rem] whitespace-pre-wrap break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#8a7150] md:text-[1.05rem]"
-              >
-                {guaMeta}
-              </p>
+                  className="max-w-[34rem] whitespace-pre-wrap break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]"
+                >
+                  {guaMeta}
+                </p>
               ) : null}
             </div>
 
@@ -337,7 +337,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 {commentarySource === 'yao' ? (
                   <div
                     data-testid="commentary-reading-body"
-                    className="max-w-[52ch] whitespace-pre-wrap break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#403327] md:text-[1.08rem]"
+                    className="max-w-[52ch] whitespace-pre-wrap break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]"
                   >
                     {yaoData.body}
                   </div>
@@ -366,3 +366,5 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     </section>
   );
 };
+
+

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { SoulGroup, SoulSection } from '../types';
 
 interface SoulCalendarSectionProps {
@@ -26,7 +26,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
           <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/50 bg-[#f4eadc]/55 px-2.5 py-0.5 text-[9px] font-semibold tracking-[0.22em] text-[#9a8a75]">
             슈타이너의 영혼의 달력
           </p>
-          <h2 className="max-w-[18ch] font-headline text-[1rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.05rem]">
+          <h2 className="max-w-[18ch] font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">
             {soulTitle}
           </h2>
         </div>

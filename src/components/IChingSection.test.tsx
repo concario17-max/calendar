@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+﻿import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { MainContent } from './MainContent.tsx';
 import { IChingSection } from './IChingSection.tsx';
@@ -294,3 +294,8 @@ describe('IChingSection', () => {
     expect(screen.getByText('Commentary is not available for this selection yet.')).toBeInTheDocument();
   });
 });
+
+
+
+
+

@@ -162,6 +162,14 @@
 - result: the hierarchy is clearer and the three blocks now differ in visual weight
 
 ## 2026-04-21
+- task: align the title sizes to the `괘사` title scale and switch the body text to a different color family
+- route: Route B
+- status: resolved
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`
+- notes: typography and body-color only; data registries and commentary content remain out of scope
+- result: the title sizes now follow the `괘사` scale and the body text uses a separate slate-like color family
+
+## 2026-04-21
 - task: unify the body font size across `효사`, `괘사`, and `소울`, and add breathing room below the soul block
 - route: Route B
 - status: resolved
