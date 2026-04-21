@@ -262,9 +262,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   return (
     <section className="flex h-full min-h-0 w-full flex-1 flex-col stagger-1">
       <div className="grid h-full min-h-0 min-w-[720px] grid-cols-[340px_minmax(0,1fr)] overflow-x-auto md:grid-cols-[360px_minmax(0,1fr)]">
-        <article className="sticky top-0 flex h-full min-w-[340px] flex-col overflow-y-auto bg-[#f2eadc] px-6 pb-6 pt-0.5 text-[#4b3b29] md:px-8 md:pb-7 md:pt-1 lg:px-9">
-          <div className="flex h-full min-h-0 flex-1 flex-col gap-3">
-            <div data-testid="reading-sigil-unit" className="-mt-1 flex justify-center pt-0 md:-mt-1.5">
+        <article className="sticky top-0 flex h-full min-w-[340px] flex-col overflow-y-auto bg-[#f2eadc] px-6 pb-5 pt-0 text-[#4b3b29] md:px-8 md:pb-6 md:pt-0.5 lg:px-9">
+          <div className="flex h-full min-h-0 flex-1 flex-col gap-2">
+            <div data-testid="reading-sigil-unit" className="-mt-2 flex justify-center pt-0 md:-mt-2">
               <div className="w-full max-w-[8.5rem] sm:max-w-[10rem] md:max-w-[11.5rem]">
                 {sigilSrc ? (
                   <img
@@ -278,7 +278,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </div>
             </div>
 
-            <div data-testid="reading-verse-unit" className="space-y-2 border-t border-[#d3c1a3]/60 pt-3 md:pt-4">
+            <div data-testid="reading-verse-unit" className="space-y-1.5 border-t border-[#d3c1a3]/60 pt-2 md:pt-3">
               <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/60 bg-[#f4eadc]/70 px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#8e7a5d]">
                 효사
               </p>
@@ -291,7 +291,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </p>
             </div>
 
-            <div data-testid="reading-top-unit" className="space-y-2 border-t border-[#d3c1a3]/60 pt-3 md:pt-4">
+            <div data-testid="reading-top-unit" className="space-y-1.5 border-t border-[#d3c1a3]/60 pt-2 md:pt-3">
               <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/50 bg-[#f4eadc]/55 px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#9b886a]">
                 괘사
               </p>
@@ -309,7 +309,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               ) : null}
             </div>
 
-            <div data-testid="reading-soul-title-unit" className="space-y-2 pb-4 pt-2 md:pb-6">
+            <div data-testid="reading-soul-title-unit" className="space-y-1.5 pb-3 pt-1 md:pb-4">
               <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/50 bg-[#f4eadc]/55 px-2.5 py-0.5 text-[9px] font-semibold tracking-[0.22em] text-[#9a8a75]">
                 영혼
               </p>

@@ -1,4 +1,11 @@
 ## 2026-04-21
+- task: reduce the left sigil vertical spacing as much as possible without changing the reading order or registries
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`
+- notes: the left sigil block now uses tighter top padding, smaller inter-block gaps, and a larger upward pull; verification passed with no registry changes
+
+## 2026-04-21
 - task: reduce the left sigil size by roughly 15-20% without changing the reading order or registries
 - route: Route A
 - status: resolved
