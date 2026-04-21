@@ -1,9 +1,9 @@
 # Current Task
-- Add bottom breathing room below the left soul subtitle while keeping the soul label as `영혼`.
+- Lift the left sigil block upward without changing the reading order or registries.
 
 # Route
 - Route A
-- Reason: narrow spacing change isolated to the left soul title block.
+- Reason: narrow spacing change isolated to the left sigil block.
 
 # Writer Slot
 - main: implementation
@@ -11,15 +11,14 @@
 - worker-nav: idle
 
 # Contract Freeze
-- Goal: add bottom breathing room below the left soul subtitle while preserving the current soul label and typography.
+- Goal: lift the left sigil block upward while preserving the current reading order and content.
 - Non-goals: do not change data registries or the journal modal export text.
 - Acceptance criteria:
-  - The soul block label still shows `영혼`.
-  - The left soul subtitle has more breathing room below it.
+  - The left sigil block sits higher in the left rail.
   - Existing commentary content and selection behavior remain intact.
 
 # Reviewer
-- reviewer-layout: soul-label spacing regression review
+- reviewer-layout: sigil lift regression review
 
 # Last Update
-- 2026-04-21: re-scoped to add breathing room below the left soul subtitle.
+- 2026-04-21: re-scoped to lift the left sigil block upward.

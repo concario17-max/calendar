@@ -331,3 +331,10 @@
 - status: resolved
 - writer slots: main = `src/components/IChingSection.tsx`
 - notes: the left soul title block now has extra bottom spacing below the subtitle; verification passed
+
+## 2026-04-21
+- task: lift the left sigil block upward
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`
+- notes: the left sigil block now sits higher in the left rail while preserving reading order; verification passed
