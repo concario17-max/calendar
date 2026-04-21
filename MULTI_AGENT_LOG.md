@@ -266,3 +266,10 @@
 - notes: the ??, ??, and ?? titles now share a 40ch cap while body widths stay unchanged
 - result: the title widths are unified and build verification passed
 
+## 2026-04-21
+- task: normalize reading body widths to `max-w-[40ch]` for the main reading content blocks
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`
+- notes: the main reading summary/body blocks now share a 40ch cap while titles keep their existing widths
+- result: the reading body widths are normalized and build verification passed

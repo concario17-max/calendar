@@ -297,7 +297,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 {yaoData.titleLine}
               </h4>
 
-              <p className="max-w-[34rem] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
+              <p className="max-w-[40ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
                 {yaoData.short}
               </p>
             </div>
@@ -312,7 +312,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               {guaMeta ? (
                 <p
                   data-testid="reading-gua-meta"
-                  className="max-w-[34rem] whitespace-pre-wrap break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]"
+                  className="max-w-[40ch] whitespace-pre-wrap break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]"
                 >
                   {guaMeta}
                 </p>
@@ -336,7 +336,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 {commentarySource === 'yao' ? (
                   <div
                     data-testid="commentary-reading-body"
-                    className="max-w-[52ch] whitespace-pre-wrap break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]"
+                    className="max-w-[40ch] whitespace-pre-wrap break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]"
                   >
                     {yaoData.body}
                   </div>

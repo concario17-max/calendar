@@ -215,3 +215,8 @@ status: resolved
   details: Re-ran test and build as separate PowerShell commands after the initial parse failure.
   status: resolved
 
+- time: 2026-04-21 09:10
+  location: git commit step
+  summary: PowerShell rejected '&&' while staging and committing
+  details: The combined git add/commit command failed at parse time in PowerShell. Retrying with separated commands.
+  status: resolved
