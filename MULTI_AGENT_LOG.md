@@ -366,3 +366,10 @@
 - status: resolved
 - writer slots: main = state/log only; worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`; worker-soul = `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
 - notes: right-panel commentary now uses the same decorated surface language as the soul panel while leaving the left rail and registries untouched
+
+## 2026-04-21
+- task: remove original line-break preservation from commentary prose so paragraphs wrap naturally
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`
+- notes: commentary prose no longer preserves source newlines; verification passed

@@ -224,7 +224,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   return (
     <p
       key={`paragraph-${index}`}
-      className="whitespace-pre-wrap break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
+      className="break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
     >
       {block.text}
     </p>
@@ -326,7 +326,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               {guaMeta ? (
                 <p
                   data-testid="reading-gua-meta"
-                  className="max-w-[40ch] whitespace-pre-wrap break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]"
+                  className="max-w-[40ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]"
                 >
                   {guaMeta}
                 </p>
@@ -375,7 +375,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     {commentarySource === 'yao' ? (
                       <div
                         data-testid="commentary-reading-body"
-                        className="max-w-[40ch] whitespace-pre-wrap break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]"
+                        className="max-w-[40ch] break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]"
                       >
                         {yaoData.body}
                       </div>
