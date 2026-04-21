@@ -3,6 +3,8 @@ import { getGuaCommentary, getYaoCommentary } from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { SoulCalendarSection } from './SoulCalendarSection';
 
+const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
+
 interface IChingSectionProps {
   commentarySource?: CommentarySource;
   yaoNum: number | null;
@@ -302,6 +304,20 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   className="max-w-[40ch] whitespace-pre-wrap break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]"
                 >
                   {guaMeta}
+                </p>
+              ) : null}
+            </div>
+
+            <div data-testid="reading-soul-title-unit" className="space-y-2 pt-2">
+              <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/50 bg-[#f4eadc]/55 px-2.5 py-0.5 text-[9px] font-semibold tracking-[0.22em] text-[#9a8a75]">
+                슈타이너의 영혼의 달력
+              </p>
+              <h2 className="max-w-[40ch] font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">
+                {SOUL_TITLE}
+              </h2>
+              {hitSoulGroup?.weeksLabel ? (
+                <p className="max-w-[40ch] font-body text-[0.92rem] italic leading-[1.65] tracking-[-0.01em] text-[#7a6f64]">
+                  {hitSoulGroup.weeksLabel}
                 </p>
               ) : null}
             </div>

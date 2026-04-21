@@ -1,4 +1,11 @@
 ## 2026-04-21
+- task: restore the soul title block on the left rail while keeping the right soul panel unchanged
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the left rail now shows the soul title block without the card body, and the right soul panel remains intact; verification passed
+
+## 2026-04-21
 - task: move the soul section cards from the left rail into the right soul panel
 - route: Route A
 - status: resolved

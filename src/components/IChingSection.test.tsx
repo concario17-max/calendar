@@ -144,7 +144,11 @@ describe('IChingSection', () => {
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('효사')).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('괘사')).toBeInTheDocument();
-    expect(within(leftPanel).queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
+    expect(within(leftPanel).getByText('슈타이너의 영혼의 달력')).toBeInTheDocument();
+    expect(
+      within(leftPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
+    ).toBeInTheDocument();
+    expect(within(leftPanel).getByText('31주 · 4월 13-19일')).toBeInTheDocument();
     expect(within(rightPanel).queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
     const leftRailBlocks = Array.from(
       leftPanel.querySelectorAll('[data-testid="reading-verse-unit"], [data-testid="reading-top-unit"]'),
@@ -170,7 +174,7 @@ describe('IChingSection', () => {
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
 
     fireEvent.click(within(commentaryControl).getByRole('radio', { name: '영혼' }));
-    expect(within(leftPanel).queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
+    expect(within(leftPanel).getByText('슈타이너의 영혼의 달력')).toBeInTheDocument();
     expect(
       within(rightPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();
