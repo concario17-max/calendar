@@ -91,7 +91,7 @@ function renderSection(overrides?: Partial<React.ComponentProps<typeof MainConte
 
   return {
     container: view.container,
-    leftPanel: screen.getByRole('article'),
+    leftPanel: screen.getAllByRole('article')[0],
     rightPanel: screen.getByRole('complementary'),
     readingTopUnit: screen.getByTestId('reading-top-unit'),
     readingVerseUnit: screen.getByTestId('reading-verse-unit'),
@@ -144,7 +144,7 @@ describe('IChingSection', () => {
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('효사')).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('괘사')).toBeInTheDocument();
-    expect(screen.getByText('슈타이너의 영혼의 달력')).toBeInTheDocument();
+    expect(screen.getByText("Rudolf Steiner's Calendar of the Soul")).toBeInTheDocument();
     const leftRailBlocks = Array.from(
       leftPanel.querySelectorAll('[data-testid="reading-verse-unit"], [data-testid="reading-top-unit"]'),
     );

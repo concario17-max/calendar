@@ -273,3 +273,10 @@
 - writer slots: main = `src/components/IChingSection.tsx`
 - notes: the main reading summary/body blocks now share a 40ch cap while titles keep their existing widths
 - result: the reading body widths are normalized and build verification passed
+## 2026-04-21
+- task: replace the soul panel title with `Rudolf Steiner's Calendar of the Soul` and render the lower soul text in a heavily decorated card
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/SoulCalendarSection.tsx`
+- notes: the soul panel now shows the English title and a decorative card body for the current soul sections
+- result: the soul panel title/body update is complete and verification passed
