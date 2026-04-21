@@ -297,7 +297,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 {yaoData.titleLine}
               </h4>
 
-              <p className="max-w-[34rem] break-keep font-body text-[0.98rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#7c6341] md:text-[1.06rem]">
+              <p className="max-w-[34rem] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#7c6341] md:text-[1.05rem]">
                 {yaoData.short}
               </p>
             </div>
@@ -313,10 +313,10 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               {guaMeta ? (
                 <p
                   data-testid="reading-gua-meta"
-                  className="max-w-[34rem] whitespace-pre-wrap break-keep font-body text-[0.94rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#8a7150] md:text-[1.02rem]"
-                >
-                  {guaMeta}
-                </p>
+                className="max-w-[34rem] whitespace-pre-wrap break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#8a7150] md:text-[1.05rem]"
+              >
+                {guaMeta}
+              </p>
               ) : null}
             </div>
 
