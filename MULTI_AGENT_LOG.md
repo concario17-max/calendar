@@ -1,4 +1,11 @@
 ## 2026-04-21
+- task: reduce the left sigil block spacing by half without changing the reading order or registries
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
+- notes: the left sigil block now sits closer to the top after halving the top padding and negative margin; soul tests were re-aligned to the current render output and verification passed
+
+## 2026-04-21
 - task: restore the soul title block on the left rail while keeping the right soul panel unchanged
 - route: Route A
 - status: resolved
