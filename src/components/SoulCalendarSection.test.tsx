@@ -8,7 +8,7 @@ describe('SoulCalendarSection', () => {
 
     const section = screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" }).closest('section');
 
-    expect(screen.getByText('Soul Calendar')).toBeInTheDocument();
+    expect(screen.getByText('소울')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
     expect(section).toHaveClass('min-w-0');
     expect(screen.getByText('해당 날짜 항목 없음')).toBeInTheDocument();

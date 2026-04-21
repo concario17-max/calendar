@@ -191,3 +191,15 @@ status: resolved
 - summary: PowerShell command separator blocked the commit path
 - details: the combined git command used `&&`, which PowerShell in this workspace does not accept as a statement separator. The change set itself is intact; reran the git steps separately.
 - status: resolved
+- time: 2026-04-21 09:07
+  location: git commit step
+  summary: PowerShell does not support '&&' in this environment
+  details: Initial combined add/commit command failed before staging or commit. Will retry with separate commands.
+  status: open
+
+- time: 2026-04-21 09:08
+  location: git commit step
+  summary: PowerShell command separator retry succeeded
+  details: Retried staging and commit with semicolon-separated PowerShell commands after the initial '&&' parse failure.
+  status: resolved
+
