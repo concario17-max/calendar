@@ -1,9 +1,9 @@
 # Current Task
-- Completed: removed original line-break preservation from the commentary prose so the paragraph wraps naturally.
+- Completed: widened the commentary prose body so it wraps less aggressively.
 
 # Route
 - Route A
-- Reason: single-file wrapping change isolated to the commentary prose renderer.
+- Reason: single-file width tweak isolated to the commentary body.
 
 # Writer Slot
 - main: idle
@@ -11,7 +11,7 @@
 - worker-soul: idle
 
 # Contract Freeze
-- Goal: preserve the natural wrapping change for commentary prose while keeping parsing and content intact.
+- Goal: keep the commentary prose body widened so it wraps less aggressively while keeping parsing and content intact.
 - Non-goals: do not change data registries, left-rail layout, or the journal modal export text.
   - Acceptance criteria:
   - Commentary prose wraps naturally from width, not from the source line breaks.
@@ -22,4 +22,4 @@
 - reviewer-layout: commentary wrapping regression review
 
 # Last Update
-- 2026-04-21: completed the commentary prose wrapping cleanup.
+- 2026-04-21: completed the commentary prose width cleanup.

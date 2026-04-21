@@ -375,7 +375,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     {commentarySource === 'yao' ? (
                       <div
                         data-testid="commentary-reading-body"
-                        className="max-w-[40ch] break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]"
+                        className="w-full max-w-none break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]"
                       >
                         {yaoData.body}
                       </div>

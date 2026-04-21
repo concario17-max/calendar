@@ -373,3 +373,10 @@
 - status: resolved
 - writer slots: main = `src/components/IChingSection.tsx`
 - notes: commentary prose no longer preserves source newlines; verification passed
+
+## 2026-04-21
+- task: widen the commentary prose body so it wraps less aggressively
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`
+- notes: commentary prose body now uses a full-width layout instead of a narrow 40ch cap; verification passed
