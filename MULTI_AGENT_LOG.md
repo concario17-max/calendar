@@ -359,3 +359,10 @@
 - status: resolved
 - writer slots: main = `src/components/IChingSection.tsx`
 - notes: the left sigil block now sits higher in the left rail while preserving reading order; verification passed
+
+## 2026-04-21
+- task: mirror the soul-panel decorated surface onto the gua/yao commentary panels
+- route: Route B
+- status: resolved
+- writer slots: main = state/log only; worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`; worker-soul = `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
+- notes: right-panel commentary now uses the same decorated surface language as the soul panel while leaving the left rail and registries untouched

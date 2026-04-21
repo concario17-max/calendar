@@ -273,12 +273,13 @@ describe('IChingSection', () => {
     });
 
     const commentaryReadingBody = screen.getByTestId('commentary-reading-body');
-    const commentaryBody = commentaryReadingBody.nextElementSibling as HTMLElement;
+    const commentaryBody = screen.getByText(/Pipe prose \| should stay plain text/).closest('article');
 
     expect(commentaryReadingBody).toHaveTextContent('Body text');
+    expect(commentaryBody).not.toBeNull();
     expect(commentaryBody).toHaveTextContent('Pipe prose | should stay plain text');
     expect(commentaryBody).toHaveTextContent('still prose with a second line | and punctuation');
-    expect(within(commentaryBody).queryByRole('table')).not.toBeInTheDocument();
+    expect(within(commentaryBody as HTMLElement).queryByRole('table')).not.toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
   });
 
@@ -303,11 +304,12 @@ describe('IChingSection', () => {
       soulSections: [],
     });
 
-    expect(screen.getByRole('article')).toBeInTheDocument();
+    expect(screen.getAllByRole('article').length).toBeGreaterThan(0);
     expect(screen.getByRole('complementary')).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { level: 4, name: 'Commentary' })).not.toBeInTheDocument();
     expect(screen.getByText('Commentary is not available for this selection yet.')).toBeInTheDocument();
+    expect(screen.getByText('Commentary is not available for this selection yet.').closest('article')).not.toBeNull();
   });
 });
 

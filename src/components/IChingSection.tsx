@@ -4,6 +4,8 @@ import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from 
 import { formatWeeksLabel, SoulCalendarSection } from './SoulCalendarSection';
 
 const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
+const decoratedSurfaceClass =
+  'relative overflow-hidden rounded-[1.5rem] border border-[#d7c7a9]/55 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(249,243,232,0.92))] px-4 py-4 shadow-[0_14px_32px_rgba(105,82,48,0.09)] backdrop-blur-sm';
 
 interface IChingSectionProps {
   commentarySource?: CommentarySource;
@@ -229,6 +231,28 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   );
 }
 
+function DecoratedSurfaceCard({
+  children,
+  testId,
+  className = '',
+}: {
+  children: React.ReactNode;
+  testId?: string;
+  className?: string;
+}) {
+  return (
+    <article
+      data-testid={testId}
+      className={[decoratedSurfaceClass, className].filter(Boolean).join(' ')}
+    >
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d6c19a]/80 to-transparent" />
+      <div className="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-[#d8c2a0]/20 blur-2xl" />
+      <div className="absolute -left-6 bottom-0 h-24 w-24 rounded-full bg-[#bba070]/10 blur-3xl" />
+      <div className="relative">{children}</div>
+    </article>
+  );
+}
+
 export const IChingSection: React.FC<IChingSectionProps> = ({
   commentarySource = 'yao',
   yaoNum,
@@ -330,38 +354,49 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             {showSoulPanel ? (
               <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
             ) : commentary ? (
-              <div className="space-y-8">
-                {commentary.heading ? (
-                  <h5 className="max-w-[40ch] break-keep font-headline text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">
-                    {commentary.heading}
-                  </h5>
-                ) : null}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 px-2 pb-2">
+                  <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
+                    COMMENTARY
+                  </span>
+                  <span className="text-[0.72rem] uppercase tracking-[0.28em] text-[#8a7d70]">
+                    {commentary.blocks.length > 0 ? `${commentary.blocks.length} blocks` : 'no block'}
+                  </span>
+                </div>
 
-                {commentarySource === 'yao' ? (
-                  <div
-                    data-testid="commentary-reading-body"
-                    className="max-w-[40ch] whitespace-pre-wrap break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]"
-                  >
-                    {yaoData.body}
+                <div className="space-y-4">
+                  <DecoratedSurfaceCard testId="commentary-shell">
+                    {commentary.heading ? (
+                      <h5 className="max-w-[40ch] break-keep font-headline text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">
+                        {commentary.heading}
+                      </h5>
+                    ) : null}
+
+                    {commentarySource === 'yao' ? (
+                      <div
+                        data-testid="commentary-reading-body"
+                        className="max-w-[40ch] whitespace-pre-wrap break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]"
+                      >
+                        {yaoData.body}
+                      </div>
+                    ) : null}
+                  </DecoratedSurfaceCard>
+
+                  <div className="space-y-3">
+                    {commentary.blocks.map((block, index) => (
+                      <DecoratedSurfaceCard key={`commentary-block-${index}`} testId={`commentary-block-${index}`}>
+                        <div className="space-y-3">{renderCommentaryBlock(block, index)}</div>
+                      </DecoratedSurfaceCard>
+                    ))}
                   </div>
-                ) : null}
-
-                <div className="space-y-6">
-                  {commentary.blocks.map((block, index) => (
-                    <div
-                      key={`commentary-block-${index}`}
-                      data-testid={`commentary-block-${index}`}
-                      className="space-y-3"
-                    >
-                      {renderCommentaryBlock(block, index)}
-                    </div>
-                  ))}
                 </div>
               </div>
             ) : (
-              <div className="pt-5 text-[0.98rem] leading-relaxed text-[#7f756c]">
-                Commentary is not available for this selection yet.
-              </div>
+              <DecoratedSurfaceCard>
+                <div className="pt-1 text-[0.98rem] leading-relaxed text-[#7f756c]">
+                  Commentary is not available for this selection yet.
+                </div>
+              </DecoratedSurfaceCard>
             )}
           </div>
         </aside>
