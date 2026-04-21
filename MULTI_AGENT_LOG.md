@@ -324,3 +324,10 @@
 - status: resolved
 - writer slots: main = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`
 - notes: both soul title blocks now use the shorter label and the week-label subtitle matches the surrounding body-text styling; verification passed
+
+## 2026-04-21
+- task: add bottom breathing room below the left soul subtitle
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`
+- notes: the left soul title block now has extra bottom spacing below the subtitle; verification passed

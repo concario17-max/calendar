@@ -1,9 +1,9 @@
 # Current Task
-- Rename the soul block label to `영혼` and make the `50주(3월 16-22일) · 3주(4월 21-27일)` subtitle typography match the adjacent body text.
+- Add bottom breathing room below the left soul subtitle while keeping the soul label as `영혼`.
 
 # Route
 - Route A
-- Reason: narrow label-format change isolated to the soul label text and subtitle typography.
+- Reason: narrow spacing change isolated to the left soul title block.
 
 # Writer Slot
 - main: implementation
@@ -11,15 +11,15 @@
 - worker-nav: idle
 
 # Contract Freeze
-- Goal: rename the soul block label to `영혼` and align the soul subtitle typography with the surrounding body text.
+- Goal: add bottom breathing room below the left soul subtitle while preserving the current soul label and typography.
 - Non-goals: do not change data registries or the journal modal export text.
 - Acceptance criteria:
-  - The soul block label shows `영혼`.
-  - The `50주(3월 16-22일) · 3주(4월 21-27일)` subtitle uses the same body-text family and visual rhythm as the adjacent reading text.
+  - The soul block label still shows `영혼`.
+  - The left soul subtitle has more breathing room below it.
   - Existing commentary content and selection behavior remain intact.
 
 # Reviewer
-- reviewer-layout: soul-label typography regression review
+- reviewer-layout: soul-label spacing regression review
 
 # Last Update
-- 2026-04-21: resolved the soul label text and subtitle typography.
+- 2026-04-21: re-scoped to add breathing room below the left soul subtitle.

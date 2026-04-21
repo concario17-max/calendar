@@ -309,7 +309,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               ) : null}
             </div>
 
-            <div data-testid="reading-soul-title-unit" className="space-y-2 pt-2">
+            <div data-testid="reading-soul-title-unit" className="space-y-2 pb-4 pt-2 md:pb-6">
               <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/50 bg-[#f4eadc]/55 px-2.5 py-0.5 text-[9px] font-semibold tracking-[0.22em] text-[#9a8a75]">
                 영혼
               </p>
