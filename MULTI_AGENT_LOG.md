@@ -317,3 +317,10 @@
 - status: resolved
 - writer slots: main = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the left soul title block subtitle now uses the requested formatted weeks label; verification passed
+
+## 2026-04-21
+- task: rename the soul block label to `영혼` and align the subtitle typography with adjacent body text
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: both soul title blocks now use the shorter label and the week-label subtitle matches the surrounding body-text styling; verification passed

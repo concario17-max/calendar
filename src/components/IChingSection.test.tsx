@@ -149,7 +149,7 @@ describe('IChingSection', () => {
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('효사')).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('괘사')).toBeInTheDocument();
-    expect(within(leftPanel).getByText('슈타이너의 영혼의 달력')).toBeInTheDocument();
+    expect(within(leftPanel).getByText('영혼')).toBeInTheDocument();
     expect(
       within(leftPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();
@@ -179,7 +179,7 @@ describe('IChingSection', () => {
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
 
     fireEvent.click(within(commentaryControl).getByRole('radio', { name: '영혼' }));
-    expect(within(leftPanel).getByText('슈타이너의 영혼의 달력')).toBeInTheDocument();
+    expect(within(leftPanel).getByText('영혼')).toBeInTheDocument();
     expect(
       within(rightPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();

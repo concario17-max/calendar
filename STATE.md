@@ -1,9 +1,9 @@
 # Current Task
-- Fix the left soul title block under `Rudolf Steiner's Calendar of the Soul` so it shows `50주(3월 16-22일) · 3주(4월 21-27일)`.
+- Rename the soul block label to `영혼` and make the `50주(3월 16-22일) · 3주(4월 21-27일)` subtitle typography match the adjacent body text.
 
 # Route
 - Route A
-- Reason: narrow label-format change isolated to the soul week label rendering and its assertions.
+- Reason: narrow label-format change isolated to the soul label text and subtitle typography.
 
 # Writer Slot
 - main: implementation
@@ -11,14 +11,15 @@
 - worker-nav: idle
 
 # Contract Freeze
-- Goal: render the left soul title block subtitle as `50주(3월 16-22일) · 3주(4월 21-27일)`.
+- Goal: rename the soul block label to `영혼` and align the soul subtitle typography with the surrounding body text.
 - Non-goals: do not change data registries or the journal modal export text.
 - Acceptance criteria:
-  - The left soul title block shows `50주(3월 16-22일) · 3주(4월 21-27일)`.
+  - The soul block label shows `영혼`.
+  - The `50주(3월 16-22일) · 3주(4월 21-27일)` subtitle uses the same body-text family and visual rhythm as the adjacent reading text.
   - Existing commentary content and selection behavior remain intact.
 
 # Reviewer
-- reviewer-layout: soul-week-label regression review
+- reviewer-layout: soul-label typography regression review
 
 # Last Update
-- 2026-04-21: resolved the left soul title block subtitle format.
+- 2026-04-21: resolved the soul label text and subtitle typography.
