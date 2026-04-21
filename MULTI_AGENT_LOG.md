@@ -1,4 +1,11 @@
 ## 2026-04-21
+- task: reduce the left sigil size by roughly 15-20% without changing the reading order or registries
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`
+- notes: the left sigil image is now rendered in a smaller canvas width, with verification passing and no registry changes
+
+## 2026-04-21
 - task: reduce the left sigil block spacing by half without changing the reading order or registries
 - route: Route A
 - status: resolved

@@ -265,7 +265,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         <article className="sticky top-0 flex h-full min-w-[340px] flex-col overflow-y-auto bg-[#f2eadc] px-6 pb-6 pt-0.5 text-[#4b3b29] md:px-8 md:pb-7 md:pt-1 lg:px-9">
           <div className="flex h-full min-h-0 flex-1 flex-col gap-3">
             <div data-testid="reading-sigil-unit" className="-mt-1 flex justify-center pt-0 md:-mt-1.5">
-              <div className="w-full max-w-[10rem] sm:max-w-[12rem] md:max-w-[13.5rem]">
+              <div className="w-full max-w-[8.5rem] sm:max-w-[10rem] md:max-w-[11.5rem]">
                 {sigilSrc ? (
                   <img
                     src={sigilSrc}
