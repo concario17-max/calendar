@@ -1,9 +1,9 @@
-﻿# Current Task
-- Resolved: replace the soul panel title with `Rudolf Steiner's Calendar of the Soul` and render the lower soul text in a heavily decorated card.
+# Current Task
+- Resolved: update the JournalModal soul export text to use the current soul naming.
 
 # Route
 - Route A
-- Reason: narrow presentation change limited to the soul section component and its assertions.
+- Reason: narrow presentation/content-string fix isolated to JournalModal and its assertions.
 
 # Writer Slot
 - main: implementation
@@ -11,15 +11,14 @@
 - worker-nav: idle
 
 # Contract Freeze
-- Goal: show `Rudolf Steiner's Calendar of the Soul` in the soul panel title slot and render the lower soul text in an ornate card treatment.
-- Non-goals: do not change the data registries, commentary content, or the reading-shell layout.
+- Goal: align the JournalModal soul export with the current soul naming while keeping journal behavior intact.
+- Non-goals: do not change data registries, commentary content, or the reading-shell layout.
   - Acceptance criteria:
-  - The soul panel title reads `Rudolf Steiner's Calendar of the Soul`.
-  - The lower soul body is rendered with a noticeably more decorative card style.
-  - The rest of the reading/content behavior remains intact.
+  - JournalModal exports the soul passage with the updated soul title.
+  - The modal download menu and existing journal behavior continue to work.
 
 # Reviewer
-- reviewer-layout: soul-title-and-card regression review
+- reviewer-layout: journal-modal-soul-text regression review
 
 # Last Update
-- 2026-04-21: resolved soul panel styling.
+- 2026-04-21: resolved JournalModal soul text fix.

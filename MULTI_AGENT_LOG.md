@@ -280,3 +280,5 @@
 - writer slots: main = `src/components/SoulCalendarSection.tsx`
 - notes: the soul panel now shows the English title and a decorative card body for the current soul sections
 - result: the soul panel title/body update is complete and verification passed
+
+- 2026-04-21: JournalModal soul export text aligned to the current soul naming; verified with JournalModal test and build.

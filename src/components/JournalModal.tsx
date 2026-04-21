@@ -4,6 +4,8 @@ import type { GuaData, SoulSection, YaoData } from '../types';
 import { GUA_TEXT, SOUL_TEXT, YAO_TEXT } from '../data';
 import { generateGuidedQuestion } from '../utils/logic';
 
+const SOUL_JOURNAL_TITLE = "Rudolf Steiner's Calendar of the Soul";
+
 interface JournalModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -40,18 +42,19 @@ function buildCurrentPassageText(
   });
 
   const guaBlock = guaData
-    ? `역경\n${guaData.header}\n${guaData.meta}`
-    : '역경\n해당 날짜에 연결된 구절이 없습니다.';
+    ? `괴사\n${guaData.header}\n${guaData.meta}`
+    : '괴사\n해당 날짜에 연결된 구절이 없습니다.';
 
   const yaoBlock = yaoData
-    ? `오늘의 구절\n${yaoData.titleLine}\n\n${yaoData.short}\n\n${yaoData.body}`
-    : '오늘의 구절\n해당 날짜에 연결된 구절이 없습니다.';
+    ? `효사\n${yaoData.titleLine}\n\n${yaoData.short}\n\n${yaoData.body}`
+    : '효사\n해당 날짜에 연결된 구절이 없습니다.';
 
-  const soulBlock = soulSections.length > 0
-    ? `루돌프 슈타이너의 영혼의 달력\n${soulSections
-        .map((section) => `${section.week}주 (${section.range})\n${section.text}`)
-        .join('\n\n')}`
-    : '루돌프 슈타이너의 영혼의 달력\n해당 날짜에 연결된 구절이 없습니다.';
+  const soulBlock =
+    soulSections.length > 0
+      ? `${SOUL_JOURNAL_TITLE}\n${soulSections
+          .map((section) => `${section.week}주 (${section.range})\n${section.text}`)
+          .join('\n\n')}`
+      : `${SOUL_JOURNAL_TITLE}\n해당 날짜에 연결된 구절이 없습니다.`;
 
   return `날짜: ${dateDisplay}\n\n${guaBlock}\n\n${yaoBlock}\n\n${soulBlock}`;
 }

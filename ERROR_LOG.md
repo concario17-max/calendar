@@ -220,3 +220,9 @@ status: resolved
   summary: PowerShell rejected '&&' while staging and committing
   details: The combined git add/commit command failed at parse time in PowerShell. Retrying with separated commands.
   status: resolved
+
+- time: 2026-04-21
+  location: PowerShell git commit step
+  summary: Git command failed because PowerShell does not accept `&&` as a statement separator in this shell.
+  details: The combined stage/commit/push command aborted before commit execution. Re-run with semicolons or separate commands.
+  status: resolved
