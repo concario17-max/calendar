@@ -160,3 +160,18 @@
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`
 - notes: the left panel now reads as one main block plus two aligned reference blocks; data registries remain out of scope
 - result: the hierarchy is clearer and the three blocks now differ in visual weight
+
+## 2026-04-21
+- task: add visible labels and subtle separators to distinguish `효사`, `괘사`, and `Soul` in the left panel
+- route: Route B
+- status: open
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the task is limited to left-panel labels and separators; data registries remain out of scope
+
+## 2026-04-21
+- task: add visible labels and subtle separators to distinguish `효사`, `괘사`, and `Soul` in the left panel
+- route: Route B
+- status: resolved
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the left-panel labels and separators now make the hierarchy obvious; data registries remain out of scope
+- result: the left panel now shows clear labels and subtle separators for the three stacked blocks

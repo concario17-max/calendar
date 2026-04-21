@@ -142,6 +142,9 @@ describe('IChingSection', () => {
     expect(screen.getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
 
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
+    expect(within(readingVerseUnit).getByText('효사')).toBeInTheDocument();
+    expect(within(readingTopUnit).getByText('괘사')).toBeInTheDocument();
+    expect(screen.getByText('소울')).toBeInTheDocument();
     const leftRailBlocks = Array.from(
       leftPanel.querySelectorAll('[data-testid="reading-verse-unit"], [data-testid="reading-top-unit"]'),
     );
