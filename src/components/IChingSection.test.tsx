@@ -84,6 +84,11 @@ function renderSection(overrides?: Partial<React.ComponentProps<typeof MainConte
           range: '3월 16-22',
           text: 'Soul heading\nSoul body',
         },
+        {
+          week: 3,
+          range: '4월 21-27',
+          text: 'Soul heading 2\nSoul body 2',
+        },
       ]}
       {...overrides}
     />,

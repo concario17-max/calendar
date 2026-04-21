@@ -310,3 +310,10 @@
 - status: resolved
 - writer slots: main = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.tsx`
 - notes: the left soul title block and the right soul panel now render the same formatted week-label string; verification passed
+
+## 2026-04-21
+- task: fix the left soul title block subtitle to `50주(3월 16-22일) · 3주(4월 21-27일)`
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the left soul title block subtitle now uses the requested formatted weeks label; verification passed
