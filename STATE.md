@@ -1,24 +1,24 @@
 # Current Task
-- Resolved: normalize the soul test fixture to the same `50?(3? 16-22) / 3?(4? 21-27)` display format.
+- Resolved: narrowed the sigil area in the left rail so it stops feeling oversized.
 
 # Route
 - Route A
-- Reason: this is a one-file test fixture normalization that keeps the rendered soul format aligned.
+- Reason: this is a single-file visual hotfix in the left rail with no registry or content changes.
 
 # Writer Slot
 - main: planner only
-- worker-panel: `src/components/SoulCalendarSection.test.tsx`
+- worker-panel: `src/components/IChingSection.tsx`
 - worker-nav: idle
 
 # Contract Freeze
-- Goal: make the soul test fixture assert `50?(3? 16-22) / 3?(4? 21-27)`.
-- Non-goals: do not change the data registries or commentary content.
+- Goal: reduce the sigil area width in the left rail.
+- Non-goals: do not change the data registries, commentary content, or left-rail order.
   - Acceptance criteria:
-  - The soul section test expects the no-`?` title format.
+  - The sigil block uses a narrower max width than before.
   - The rest of the reading/content behavior remains intact.
 
 # Reviewer
-- reviewer-layout: test-fixture normalization review
+- reviewer-layout: left-rail sigil-width regression review
 
 # Last Update
-- 2026-04-21: resolved test-fixture normalization for the soul title format.
+- 2026-04-21: resolved left-rail sigil-width reduction.
