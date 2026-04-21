@@ -30,7 +30,7 @@ describe('SoulCalendarSection', () => {
     );
 
     expect(screen.getByText('슈타이너의 영혼의 달력')).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: '50주(3월 16-22일) / 3주(4월 21-27일)' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '50주(3월 16-22) / 3주(4월 21-27)' })).toBeInTheDocument();
     expect(screen.queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
     expect(screen.queryByText('Soul body A')).not.toBeInTheDocument();
     expect(screen.queryByText('Soul body B')).not.toBeInTheDocument();

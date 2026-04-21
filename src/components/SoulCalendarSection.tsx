@@ -8,12 +8,13 @@ interface SoulCalendarSectionProps {
 
 function formatSoulTitle(soulSections: SoulSection[], hitSoulGroup?: SoulGroup): string {
   const visibleSections = soulSections.slice(0, 2);
+  const normalizeRange = (range: string): string => range.trim().replace(/일$/, '');
 
   if (visibleSections.length > 0) {
-    return visibleSections.map((section) => `${section.week}주(${section.range})`).join(' / ');
+    return visibleSections.map((section) => `${section.week}주(${normalizeRange(section.range)})`).join(' / ');
   }
 
-  return hitSoulGroup ? hitSoulGroup.weeksLabel : '영혼의 달력';
+  return hitSoulGroup ? hitSoulGroup.weeksLabel.replace(/일/g, '') : '영혼의 달력';
 }
 
 export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSoulGroup, soulSections }) => {
