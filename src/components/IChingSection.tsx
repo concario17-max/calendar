@@ -232,7 +232,7 @@ function buildSoulCommentaryText(hitSoulGroup: SoulGroup | undefined, soulSectio
     return '';
   }
 
-  const heading = hitSoulGroup?.titleLine?.trim() || '영혼의 달력';
+  const heading = hitSoulGroup?.titleLine?.trim() || '??? ??';
   const body = soulSections
     .slice(0, 2)
     .map((sec) => `${sec.week}. ${sec.range}\n${sec.text.trim()}`.trim())
@@ -291,9 +291,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
             <div data-testid="reading-verse-unit" className="space-y-2 border-t border-[#d3c1a3]/60 pt-3 md:pt-4">
               <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/60 bg-[#f4eadc]/70 px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#8e7a5d]">
-                효사
+                ??κ텢
               </p>
-              <h4 className="max-w-[18ch] break-keep font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">
+              <h4 className="max-w-[40ch] break-keep font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">
                 {yaoData.titleLine}
               </h4>
 
@@ -304,9 +304,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
             <div data-testid="reading-top-unit" className="space-y-2 border-t border-[#d3c1a3]/60 pt-3 md:pt-4">
               <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/50 bg-[#f4eadc]/55 px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#9b886a]">
-                괘사
-              </p>
-              <h3 className="max-w-[18ch] break-keep font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.025em] text-current md:text-[1.66rem]">
+                ?우꼷沅?              </p>
+              <h3 className="max-w-[40ch] break-keep font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.025em] text-current md:text-[1.66rem]">
                 {guaData.header}
               </h3>
 
@@ -329,7 +328,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             {commentary ? (
               <div className="space-y-8">
                 {commentary.heading ? (
-                  <h5 className="max-w-[30ch] break-keep font-headline text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">
+                  <h5 className="max-w-[40ch] break-keep font-headline text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">
                     {commentary.heading}
                   </h5>
                 ) : null}
