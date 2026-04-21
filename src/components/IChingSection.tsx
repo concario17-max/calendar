@@ -3,6 +3,8 @@ import { getGuaCommentary, getYaoCommentary } from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { SoulCalendarSection } from './SoulCalendarSection';
 
+const SOUL_COMMENTARY_TITLE = "Rudolf Steiner's Calendar of the Soul";
+
 interface IChingSectionProps {
   commentarySource?: CommentarySource;
   yaoNum: number | null;
@@ -227,17 +229,18 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   );
 }
 
-function buildSoulCommentaryText(hitSoulGroup: SoulGroup | undefined, soulSections: SoulSection[]): string {
+function buildSoulCommentaryText(soulSections: SoulSection[]): string {
   if (soulSections.length === 0) {
     return '';
   }
 
-  const heading = hitSoulGroup?.titleLine?.trim() || '??? ??';
   const body = soulSections
     .slice(0, 2)
     .map((sec) => `${sec.week}. ${sec.range}\n${sec.text.trim()}`.trim())
     .filter(Boolean)
     .join('\n\n');
+
+  const heading = SOUL_COMMENTARY_TITLE;
 
   return `${heading}\n${body}`.trim();
 }
@@ -266,7 +269,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
       ? (getGuaCommentary(guaNum)?.trim() || '')
       : commentarySource === 'yao'
         ? (getYaoCommentary(yaoNum)?.trim() || '')
-        : buildSoulCommentaryText(hitSoulGroup, soulSections);
+        : buildSoulCommentaryText(soulSections);
   const commentary = commentaryText.length > 0 ? splitCommentary(commentaryText) : null;
   const guaMeta = guaData.meta.trim();
 

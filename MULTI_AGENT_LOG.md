@@ -1,4 +1,11 @@
 ## 2026-04-21
+- task: align the soul commentary heading with the current soul naming
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the soul commentary heading now uses `Rudolf Steiner's Calendar of the Soul` instead of the old CoTS-derived title; verification passed
+
+## 2026-04-21
 - task: normalize the soul test fixture to `50?(3? 16-22) / 3?(4? 21-27)`
 - route: Route A
 - status: resolved

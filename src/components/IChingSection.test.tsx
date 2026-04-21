@@ -169,7 +169,9 @@ describe('IChingSection', () => {
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
 
     fireEvent.click(within(commentaryControl).getByRole('radio', { name: '영혼' }));
-    expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul heading');
+    expect(
+      within(rightPanel).getByRole('heading', { level: 5, name: "Rudolf Steiner's Calendar of the Soul" }),
+    ).toBeInTheDocument();
     expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul body');
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
   });
