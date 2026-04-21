@@ -1,4 +1,11 @@
 ## 2026-04-21
+- task: move the soul section cards from the left rail into the right soul panel
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the left rail no longer renders the soul card stack, and selecting soul mode now shows the soul card stack in the right panel; verification passed
+
+## 2026-04-21
 - task: align the soul commentary heading with the current soul naming
 - route: Route A
 - status: resolved

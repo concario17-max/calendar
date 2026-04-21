@@ -3,8 +3,6 @@ import { getGuaCommentary, getYaoCommentary } from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { SoulCalendarSection } from './SoulCalendarSection';
 
-const SOUL_COMMENTARY_TITLE = "Rudolf Steiner's Calendar of the Soul";
-
 interface IChingSectionProps {
   commentarySource?: CommentarySource;
   yaoNum: number | null;
@@ -229,22 +227,6 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   );
 }
 
-function buildSoulCommentaryText(soulSections: SoulSection[]): string {
-  if (soulSections.length === 0) {
-    return '';
-  }
-
-  const body = soulSections
-    .slice(0, 2)
-    .map((sec) => `${sec.week}. ${sec.range}\n${sec.text.trim()}`.trim())
-    .filter(Boolean)
-    .join('\n\n');
-
-  const heading = SOUL_COMMENTARY_TITLE;
-
-  return `${heading}\n${body}`.trim();
-}
-
 export const IChingSection: React.FC<IChingSectionProps> = ({
   commentarySource = 'yao',
   yaoNum,
@@ -269,8 +251,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
       ? (getGuaCommentary(guaNum)?.trim() || '')
       : commentarySource === 'yao'
         ? (getYaoCommentary(yaoNum)?.trim() || '')
-        : buildSoulCommentaryText(soulSections);
+        : '';
   const commentary = commentaryText.length > 0 ? splitCommentary(commentaryText) : null;
+  const showSoulPanel = commentarySource === 'soul';
   const guaMeta = guaData.meta.trim();
 
   return (
@@ -322,14 +305,14 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 </p>
               ) : null}
             </div>
-
-            <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
           </div>
         </article>
 
         <aside className="flex h-full min-w-0 flex-col overflow-y-auto bg-[#fbf8f1] px-6 pb-6 pt-6 md:px-8 md:pb-7 md:pt-7 lg:px-9">
           <div className="mt-1 flex-1 space-y-0">
-            {commentary ? (
+            {showSoulPanel ? (
+              <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
+            ) : commentary ? (
               <div className="space-y-8">
                 {commentary.heading ? (
                   <h5 className="max-w-[40ch] break-keep font-headline text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">

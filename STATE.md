@@ -1,9 +1,9 @@
 # Current Task
-- Update the soul commentary heading in the reading panel so it no longer shows the old `CoTS Verses for Weeks ...` title.
+- Move the soul section cards out of the left rail and render them in the right soul panel instead.
 
 # Route
 - Route A
-- Reason: narrow content-string fix isolated to the soul commentary heading and its assertions.
+- Reason: narrow layout move isolated to the soul section rendering and its assertions.
 
 # Writer Slot
 - main: implementation
@@ -11,15 +11,15 @@
 - worker-nav: idle
 
 # Contract Freeze
-- Goal: make the soul-mode commentary heading match the current soul naming instead of the old CoTS-derived title.
-- Non-goals: do not change data registries, journal modal export text, or the reading-shell layout.
+- Goal: remove the left-rail soul cards and show the same soul cards in the right soul panel instead.
+- Non-goals: do not change data registries or the journal modal export text.
   - Acceptance criteria:
-  - Selecting the soul commentary mode no longer shows the old CoTS heading.
-  - The soul commentary heading uses the current soul naming consistently.
+  - The left rail no longer renders the soul section cards.
+  - Selecting soul mode renders the soul cards in the right panel.
   - Existing commentary content and selection behavior remain intact.
 
 # Reviewer
-- reviewer-layout: soul-commentary-heading regression review
+- reviewer-layout: soul-panel relocation regression review
 
 # Last Update
-- 2026-04-21: resolved soul commentary heading fix; verification passed.
+- 2026-04-21: resolved soul-card relocation to the right panel; verification passed.

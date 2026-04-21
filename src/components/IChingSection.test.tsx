@@ -144,7 +144,8 @@ describe('IChingSection', () => {
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('효사')).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('괘사')).toBeInTheDocument();
-    expect(screen.getByText("Rudolf Steiner's Calendar of the Soul")).toBeInTheDocument();
+    expect(within(leftPanel).queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
+    expect(within(rightPanel).queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
     const leftRailBlocks = Array.from(
       leftPanel.querySelectorAll('[data-testid="reading-verse-unit"], [data-testid="reading-top-unit"]'),
     );
@@ -169,10 +170,13 @@ describe('IChingSection', () => {
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
 
     fireEvent.click(within(commentaryControl).getByRole('radio', { name: '영혼' }));
+    expect(within(leftPanel).queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
     expect(
-      within(rightPanel).getByRole('heading', { level: 5, name: "Rudolf Steiner's Calendar of the Soul" }),
+      within(rightPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();
-    expect(screen.getByTestId('commentary-block-0')).toHaveTextContent('Soul body');
+    expect(within(rightPanel).getByText('SOUL PANEL')).toBeInTheDocument();
+    expect(within(rightPanel).getByText('31주').closest('article')).toHaveTextContent('Soul body');
+    expect(within(rightPanel).queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
   });
 
