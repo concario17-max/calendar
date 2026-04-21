@@ -144,7 +144,7 @@ describe('IChingSection', () => {
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('효사')).toBeInTheDocument();
     expect(within(readingTopUnit).getByText('괘사')).toBeInTheDocument();
-    expect(screen.getByText('소울')).toBeInTheDocument();
+    expect(screen.getByText('슈타이너의 영혼의 달력')).toBeInTheDocument();
     const leftRailBlocks = Array.from(
       leftPanel.querySelectorAll('[data-testid="reading-verse-unit"], [data-testid="reading-top-unit"]'),
     );

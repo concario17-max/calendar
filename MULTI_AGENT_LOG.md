@@ -162,6 +162,14 @@
 - result: the hierarchy is clearer and the three blocks now differ in visual weight
 
 ## 2026-04-21
+- task: rename soul section to `슈타이너의 영혼의 달력` and move the week range into the title slot
+- route: Route B
+- status: resolved
+- writer slots: worker-panel = `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.test.tsx`, `src/components/IChingSection.test.tsx`
+- notes: localized soul title copy only; data registries and commentary content remain out of scope
+- result: the soul section now uses the Korean title and shows the week range in the title slot
+
+## 2026-04-21
 - task: add visible labels and subtle separators to distinguish `효사`, `괘사`, and `Soul` in the left panel
 - route: Route B
 - status: open

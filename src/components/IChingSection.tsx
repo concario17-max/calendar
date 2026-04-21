@@ -232,7 +232,7 @@ function buildSoulCommentaryText(hitSoulGroup: SoulGroup | undefined, soulSectio
     return '';
   }
 
-  const heading = hitSoulGroup?.titleLine?.trim() || "Rudolf Steiner's Calendar of the Soul";
+  const heading = hitSoulGroup?.titleLine?.trim() || '슈타이너의 영혼의 달력';
   const body = soulSections
     .slice(0, 2)
     .map((sec) => `${sec.week}. ${sec.range}\n${sec.text.trim()}`.trim())

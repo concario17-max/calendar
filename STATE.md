@@ -1,26 +1,26 @@
 # Current Task
-- Resolved: added visible labels and subtle separators to distinguish `효사`, `괘사`, and `Soul` in the left panel.
+- Resolved: renamed the soul section to `슈타이너의 영혼의 달력`, removed the English soul title, and moved the week range into the title slot.
 
 # Route
 - Route B
-- Reason: the change touches the shared left-panel typography, separators, and regression coverage, so the reading stack needs to be updated together.
+- Reason: the change touches shared header/section copy, left-panel typography, and regression coverage across multiple files.
 
 # Writer Slot
 - main: planner only
-- worker-panel: `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`
+- worker-panel: `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.test.tsx`, `src/components/IChingSection.test.tsx`
 - worker-nav: idle
 
 # Contract Freeze
-- Goal: make `효사` the visual lead, `괘사` a smaller supporting block, and `Soul` the quietest block in the left panel, with labels and separators that make the hierarchy obvious.
-- Non-goals: do not change the data model or commentary content.
+- Goal: change the soul section to a Korean title, remove the English title from the UI, and show the week range in the title slot so the soul block reads as a localized section header.
+- Non-goals: do not change the data registries or commentary content.
   - Acceptance criteria:
-  - The left panel clearly reads as `효사` first, `괘사` second, `Soul` third.
-  - The left panel shows visible labels and subtle separators for each block.
-  - The typography, spacing, and separators communicate a clear main/supporting/reference hierarchy.
-  - The commentary behavior and data registries remain intact.
+  - The soul section title reads `슈타이너의 영혼의 달력`.
+  - The English title `Rudolf Steiner's Calendar of the Soul` no longer appears in the UI.
+  - The week range is shown in the title area, not as a separate English heading.
+  - The rest of the reading/content behavior remains intact.
 
 # Reviewer
-- reviewer-layout: left-panel hierarchy and label regression review
+- reviewer-layout: soul title and header copy regression review
 
 # Last Update
-- 2026-04-21: completed the left-panel label and separator pass and closed the task
+- 2026-04-21: localized the soul section title and moved the week range into the title slot
