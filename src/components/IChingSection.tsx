@@ -1,7 +1,7 @@
 import React from 'react';
 import { getGuaCommentary, getYaoCommentary } from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
-import { SoulCalendarSection } from './SoulCalendarSection';
+import { formatWeeksLabel, SoulCalendarSection } from './SoulCalendarSection';
 
 const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
 
@@ -256,6 +256,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         : '';
   const commentary = commentaryText.length > 0 ? splitCommentary(commentaryText) : null;
   const showSoulPanel = commentarySource === 'soul';
+  const soulWeeksLabel = formatWeeksLabel(hitSoulGroup, soulSections);
   const guaMeta = guaData.meta.trim();
 
   return (
@@ -315,9 +316,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               <h2 className="max-w-[40ch] font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">
                 {SOUL_TITLE}
               </h2>
-              {hitSoulGroup?.weeksLabel ? (
+              {soulWeeksLabel ? (
                 <p className="max-w-[40ch] font-body text-[0.92rem] italic leading-[1.65] tracking-[-0.01em] text-[#7a6f64]">
-                  {hitSoulGroup.weeksLabel}
+                  {soulWeeksLabel}
                 </p>
               ) : null}
             </div>

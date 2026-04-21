@@ -303,3 +303,10 @@
 - result: the soul panel title/body update is complete and verification passed
 
 - 2026-04-21: JournalModal soul export text aligned to the current soul naming; verified with JournalModal test and build.
+
+## 2026-04-21
+- task: normalize the soul week labels on both sides to `50주(3월 16-22일) · 3주(4월 21-27일)`
+- route: Route A
+- status: resolved
+- writer slots: main = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.tsx`
+- notes: the left soul title block and the right soul panel now render the same formatted week-label string; verification passed

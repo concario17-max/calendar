@@ -9,19 +9,27 @@ interface SoulCalendarSectionProps {
 const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
 
 function normalizeRange(range: string): string {
-  return range.trim().replace(/일$/, '');
+  const trimmed = range.trim();
+  return trimmed.endsWith('일') ? trimmed : `${trimmed}일`;
 }
 
-function formatWeeksLabel(hitSoulGroup: SoulGroup | undefined, soulSections: SoulSection[]): string {
+function normalizeWeeksLabel(label: string): string {
+  return label
+    .trim()
+    .replace(/\s*\/\s*/g, ' · ')
+    .replace(/(\d+)주\(([^)]+)\)/g, (_, week: string, range: string) => `${week}주(${normalizeRange(range)})`);
+}
+
+export function formatWeeksLabel(hitSoulGroup: SoulGroup | undefined, soulSections: SoulSection[]): string {
   if (hitSoulGroup?.weeksLabel) {
-    return hitSoulGroup.weeksLabel.replace(/일/g, '');
+    return normalizeWeeksLabel(hitSoulGroup.weeksLabel);
   }
 
   if (soulSections.length === 0) {
     return '';
   }
 
-  return soulSections.map((section) => `${section.week}주(${normalizeRange(section.range)})`).join(' / ');
+  return soulSections.map((section) => `${section.week}주(${normalizeRange(section.range)})`).join(' · ');
 }
 
 function SoulSectionCard({ section, isLast }: { section: SoulSection; isLast: boolean }) {
@@ -101,7 +109,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
                 ))
               ) : (
                 <div className="rounded-[1.5rem] border border-dashed border-[#d9c6a5]/70 bg-white/45 px-4 py-5 text-[0.95rem] italic leading-relaxed text-[#7c7367]">
-                  연결된 영혼 본문이 아직 없어.
+                  영혼 본문이 아직 없어.
                 </div>
               )}
             </div>

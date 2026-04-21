@@ -1,9 +1,9 @@
 # Current Task
-- Add the soul title block back into the left rail without the card body, while keeping the right soul panel unchanged.
+- Format the soul week labels as `50주(3월 16-22일) · 3주(4월 21-27일)` in both the left title block and the right soul panel.
 
 # Route
 - Route A
-- Reason: narrow layout addition isolated to the soul title block rendering and its assertions.
+- Reason: narrow label-format change isolated to the soul week label rendering and its assertions.
 
 # Writer Slot
 - main: implementation
@@ -11,15 +11,15 @@
 - worker-nav: idle
 
 # Contract Freeze
-- Goal: add the soul title block back into the left rail without the card body, while leaving the right soul panel unchanged.
+- Goal: render the soul week labels in the same `50주(3월 16-22일) · 3주(4월 21-27일)` format on both sides.
 - Non-goals: do not change data registries or the journal modal export text.
-  - Acceptance criteria:
-  - The left rail renders the soul title block again without the card body.
-  - The right soul panel stays unchanged.
+- Acceptance criteria:
+  - The left soul title block shows `50주(3월 16-22일) · 3주(4월 21-27일)`.
+  - The right soul panel shows the same week-label format.
   - Existing commentary content and selection behavior remain intact.
 
 # Reviewer
-- reviewer-layout: soul-title-block regression review
+- reviewer-layout: soul-week-label regression review
 
 # Last Update
-- 2026-04-21: resolved soul title block restoration on the left rail; verification passed.
+- 2026-04-21: resolved soul week label formatting on both sides.

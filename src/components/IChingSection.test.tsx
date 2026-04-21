@@ -72,16 +72,16 @@ function renderSection(overrides?: Partial<React.ComponentProps<typeof MainConte
       }}
       hitSoulGroup={{
         titleLine: '31. Example Soul Group',
-        weeksLabel: '31주 · 4월 13-19일',
-        weekA: 31,
-        weekB: 33,
+        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
+        weekA: 50,
+        weekB: 3,
         ranges: [],
         block: '',
       }}
       soulSections={[
         {
-          week: 31,
-          range: '4월 13-19일',
+          week: 50,
+          range: '3월 16-22',
           text: 'Soul heading\nSoul body',
         },
       ]}
@@ -148,7 +148,7 @@ describe('IChingSection', () => {
     expect(
       within(leftPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();
-    expect(within(leftPanel).getByText('31주 · 4월 13-19일')).toBeInTheDocument();
+    expect(within(leftPanel).getByText('50주(3월 16-22일) · 3주(4월 21-27일)')).toBeInTheDocument();
     expect(within(rightPanel).queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
     const leftRailBlocks = Array.from(
       leftPanel.querySelectorAll('[data-testid="reading-verse-unit"], [data-testid="reading-top-unit"]'),
@@ -178,8 +178,9 @@ describe('IChingSection', () => {
     expect(
       within(rightPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();
+    expect(within(rightPanel).getByText('50주(3월 16-22일) · 3주(4월 21-27일)')).toBeInTheDocument();
     expect(within(rightPanel).getByText('SOUL PANEL')).toBeInTheDocument();
-    expect(within(rightPanel).getByText('31주').closest('article')).toHaveTextContent('Soul body');
+    expect(within(rightPanel).getByText('50주').closest('article')).toHaveTextContent('Soul body');
     expect(within(rightPanel).queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
   });
@@ -196,9 +197,9 @@ describe('IChingSection', () => {
       },
       hitSoulGroup: {
         titleLine: '31. Example Soul Group',
-        weeksLabel: '31주 · 4월 13-19일',
-        weekA: 31,
-        weekB: 33,
+        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
+        weekA: 50,
+        weekB: 3,
         ranges: [],
         block: '',
       },
@@ -231,9 +232,9 @@ describe('IChingSection', () => {
       },
       hitSoulGroup: {
         titleLine: '31. Example Soul Group',
-        weeksLabel: '31주 · 4월 13-19일',
-        weekA: 31,
-        weekB: 33,
+        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
+        weekA: 50,
+        weekB: 3,
         ranges: [],
         block: '',
       },
@@ -257,9 +258,9 @@ describe('IChingSection', () => {
       },
       hitSoulGroup: {
         titleLine: '31. Example Soul Group',
-        weeksLabel: '31주 · 4월 13-19일',
-        weekA: 31,
-        weekB: 33,
+        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
+        weekA: 50,
+        weekB: 3,
         ranges: [],
         block: '',
       },
@@ -288,9 +289,9 @@ describe('IChingSection', () => {
       },
       hitSoulGroup: {
         titleLine: '31. Example Soul Group',
-        weeksLabel: '31주 · 4월 13-19일',
-        weekA: 31,
-        weekB: 33,
+        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
+        weekA: 50,
+        weekB: 3,
         ranges: [],
         block: '',
       },
