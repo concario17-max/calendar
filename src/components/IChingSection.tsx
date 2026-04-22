@@ -1,7 +1,6 @@
 import React from 'react';
 import { getGuaCommentary, getYaoCommentary } from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
-import { formatWeeksLabel, SoulCalendarSection } from './SoulCalendarSection';
 
 const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
 const decoratedSurfaceClass =
@@ -133,6 +132,10 @@ function normalizeListItemText(text: string): string {
   return text.replace(/\s+/g, ' ').trim();
 }
 
+function formatWeeksLabel(soulSections: SoulSection[]): string {
+  return soulSections.map((section) => `${section.week}주(${section.range}일)`).join(' · ');
+}
+
 function splitCommentary(text: string): SplitCommentary {
   const trimmed = text.trim();
 
@@ -243,6 +246,47 @@ function getCommentaryHeaderLabel(source: CommentarySource): string {
   return '';
 }
 
+function renderSoulCalendarSection(hitSoulGroup: SoulGroup | undefined, soulSections: SoulSection[]): React.ReactNode {
+  const weeksLabel = hitSoulGroup?.weeksLabel?.trim() || formatWeeksLabel(soulSections);
+
+  return (
+    <div className="space-y-4">
+      <div className="space-y-1.5 px-1 pt-1">
+        <h2 className="max-w-[40ch] font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">
+          {SOUL_TITLE}
+        </h2>
+        <p className="max-w-[40ch] font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
+          루돌프 슈타이너의 영혼의 달력
+        </p>
+        {weeksLabel ? (
+          <p className="max-w-[40ch] font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
+            {weeksLabel}
+          </p>
+        ) : null}
+      </div>
+
+      {soulSections.length > 0 ? (
+        <div className="space-y-3 border-t border-[#d9c5a3]/35 pt-4">
+          {soulSections.map((section) => (
+            <article key={section.week} className="space-y-1.5">
+              <div className="text-[0.92rem] font-semibold uppercase tracking-[0.24em] text-[#8e7a5d]">
+                {`${section.week}주`}
+              </div>
+              <div className="break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]">
+                {section.text}
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div className="rounded-[1.25rem] border border-dashed border-[#d9c5a3]/55 bg-[#f4efe6]/55 px-4 py-4 text-[0.98rem] leading-relaxed text-[#7f756c]">
+          Soul verses are not available for this selection yet.
+        </div>
+      )}
+    </div>
+  );
+}
+
 function DecoratedSurfaceCard({
   children,
   testId,
@@ -292,7 +336,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         : '';
   const commentary = commentaryText.length > 0 ? splitCommentary(commentaryText) : null;
   const showSoulPanel = commentarySource === 'soul';
-  const leftSoulWeeksLabel = formatWeeksLabel(undefined, soulSections);
+  const leftSoulWeeksLabel = formatWeeksLabel(soulSections);
   const guaMeta = guaData.meta.trim();
   const commentaryHeaderLabel = getCommentaryHeaderLabel(commentarySource);
 
@@ -365,17 +409,17 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         <aside className="flex h-full min-w-0 flex-col overflow-y-auto bg-[#fbf8f1] px-6 pb-6 pt-6 md:px-8 md:pb-7 md:pt-7 lg:px-9">
           <div className="mt-1 flex-1 space-y-0">
             {showSoulPanel ? (
-              <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
+              renderSoulCalendarSection(hitSoulGroup, soulSections)
             ) : commentary ? (
               <div className="space-y-4">
-              <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 px-2 pb-2">
-                <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
-                  {commentaryHeaderLabel}
-                </span>
-              </div>
+                <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 px-2 pb-2">
+                  <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
+                    {commentaryHeaderLabel}
+                  </span>
+                </div>
 
-                <div className="space-y-4">
-                  <DecoratedSurfaceCard testId="commentary-shell">
+                <div className="space-y-4 px-1 pt-1">
+                  <div className="space-y-3">
                     {commentary.heading ? (
                       <h5 className="max-w-[40ch] break-keep font-headline text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">
                         {commentary.heading}
@@ -390,13 +434,13 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                         {yaoData.body}
                       </div>
                     ) : null}
-                  </DecoratedSurfaceCard>
+                  </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-4 border-t border-[#d9c5a3]/35 pt-4">
                     {commentary.blocks.map((block, index) => (
-                      <DecoratedSurfaceCard key={`commentary-block-${index}`} testId={`commentary-block-${index}`}>
+                      <div key={`commentary-block-${index}`} data-testid={`commentary-block-${index}`}>
                         <div className="space-y-3">{renderCommentaryBlock(block, index)}</div>
-                      </DecoratedSurfaceCard>
+                      </div>
                     ))}
                   </div>
                 </div>

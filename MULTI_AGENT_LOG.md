@@ -406,6 +406,13 @@
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`; reviewer = right-panel header alignment review
 - notes: the soul panel header and the surrounding right-side commentary chrome need to match the existing header hierarchy; current data/content must remain intact
 
+## 2026-04-22
+- task: reduce the right-side boxed surfaces and keep the title, description, and body flowing on a flatter reading surface
+- route: Route B
+- status: resolved
+- writer slots: worker-right = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`; worker-soul = `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`; reviewer = `right-panel simplification review`
+- notes: the right-side commentary and soul chrome now use flatter surfaces with fewer boxed containers, and the targeted tests/build passed
+
 
 
 

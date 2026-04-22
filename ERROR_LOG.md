@@ -266,3 +266,28 @@ status: resolved
   summary: fallback inspection and npm.cmd rerun resolved the soul-panel verification blockers
   details: rg.exe access denied was bypassed with Select-String/Get-Content, and PowerShell execution-policy blocking of npm.ps1 was bypassed by rerunning the targeted test with npm.cmd.
   status: resolved
+- time: 2026-04-22 14:33 KST
+  location: PowerShell `npm test` / `npm run build`
+  summary: PowerShell execution policy blocked npm.ps1 during verification
+  details: Both targeted test and build commands failed before execution because PowerShell could not load `npm.ps1`. Will rerun via `npm.cmd` to complete verification.
+  status: resolved
+- time: 2026-04-22 14:33 KST
+  location: PowerShell `npm test`
+  summary: PowerShell execution policy blocked the initial targeted soul-panel test run
+  details: `npm test -- --run src/components/SoulCalendarSection.test.tsx` failed because PowerShell attempted to load `npm.ps1`, which is blocked by the local execution policy. The command will be rerun via `npm.cmd`.
+  status: resolved
+- time: 2026-04-22 14:37 KST
+  location: PowerShell `npm test` / `npm run build`
+  summary: verification reran successfully via `npm.cmd`
+  details: The earlier PowerShell execution-policy failure was bypassed by rerunning both commands with `npm.cmd`; targeted tests and production build then passed.
+  status: resolved
+- time: 2026-04-22 14:37 KST
+  location: `src/components/IChingSection.tsx`
+  summary: build failure from missing `SoulCalendarSection` import was removed
+  details: `IChingSection` no longer depends on a missing sibling module; the soul-panel rendering is handled locally, which restored the build.
+  status: resolved
+- time: 2026-04-22 14:41 KST
+  location: PowerShell shell command composition
+  summary: command chaining used invalid `&&` syntax in this PowerShell session
+  details: A status-check command failed because PowerShell here does not accept `&&` as a statement separator. The command was rerun with `;` and the workspace check completed successfully.
+  status: resolved

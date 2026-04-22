@@ -167,6 +167,7 @@ describe('IChingSection', () => {
     expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
 
+    expect(screen.queryByTestId('commentary-shell')).not.toBeInTheDocument();
     expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
     expect(within(leftPanel).queryByText('Manifesto')).not.toBeInTheDocument();
     expect(within(rightPanel).queryByText('Reading canvas')).not.toBeInTheDocument();
@@ -275,13 +276,12 @@ describe('IChingSection', () => {
     });
 
     const commentaryReadingBody = screen.getByTestId('commentary-reading-body');
-    const commentaryBody = screen.getByText(/Pipe prose \| should stay plain text/).closest('article');
+    const commentaryBody = screen.getByTestId('commentary-block-0');
 
     expect(commentaryReadingBody).toHaveTextContent('Body text');
-    expect(commentaryBody).not.toBeNull();
     expect(commentaryBody).toHaveTextContent('Pipe prose | should stay plain text');
     expect(commentaryBody).toHaveTextContent('still prose with a second line | and punctuation');
-    expect(within(commentaryBody as HTMLElement).queryByRole('table')).not.toBeInTheDocument();
+    expect(within(commentaryBody).queryByRole('table')).not.toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
   });
 
