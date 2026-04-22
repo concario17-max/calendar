@@ -69,31 +69,35 @@ export const Header: React.FC<HeaderProps> = ({
         </h1>
       </div>
 
-      <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end sm:gap-2.5">
-        <CommentarySegmentedControl
-          value={commentarySource}
-          onChange={onCommentarySourceChange}
-        />
-
-        <div className="flex items-center gap-1">
-          <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
-          <button
-            type="button"
-            onClick={() => onDateChange(new Date())}
-            className="rounded-full px-2.5 py-1.25 font-label text-[0.64rem] uppercase tracking-[0.16em] text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
-          >
-            Today
-          </button>
+      <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:justify-end sm:gap-2.5">
+        <div className="flex w-full items-center justify-center sm:w-auto sm:justify-start">
+          <CommentarySegmentedControl
+            value={commentarySource}
+            onChange={onCommentarySourceChange}
+          />
         </div>
 
-        <button
-          type="button"
-          onClick={toggleTheme}
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
-          aria-label="Toggle theme"
-        >
-          {isDark ? <Sun size={17} className="sm:h-4.5 sm:w-4.5" /> : <Moon size={17} className="sm:h-4.5 sm:w-4.5" />}
-        </button>
+        <div className="flex items-center justify-end gap-1 self-end sm:self-auto">
+          <div className="flex items-center gap-1 shrink-0">
+            <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
+            <button
+              type="button"
+              onClick={() => onDateChange(new Date())}
+              className="rounded-full px-2.5 py-1.25 font-label text-[0.64rem] uppercase tracking-[0.16em] text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
+            >
+              Today
+            </button>
+          </div>
+
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
+            aria-label="Toggle theme"
+          >
+            {isDark ? <Sun size={17} className="sm:h-4.5 sm:w-4.5" /> : <Moon size={17} className="sm:h-4.5 sm:w-4.5" />}
+          </button>
+        </div>
       </div>
     </header>
   );

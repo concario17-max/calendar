@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { Header } from './Header';
 
 describe('Header', () => {
-  it('renders the renamed title and keeps the segmented control left of the calendar button', () => {
+  it('renders the renamed title and stacks mobile controls safely on narrow screens', () => {
     const onDateChange = vi.fn();
     const onCommentarySourceChange = vi.fn();
     const { container } = render(
@@ -30,9 +30,13 @@ describe('Header', () => {
     const header = container.querySelector('header');
     const controlsRow = header?.children[1];
     expect(header).toHaveClass('flex-col', 'sm:flex-row');
-    expect(controlsRow).toHaveClass('w-full', 'sm:w-auto');
-    expect(controlsRow?.firstElementChild).toBe(segmentedControl);
-    expect(controlsRow?.querySelector('button[aria-label="Open date picker"]')).toBeInTheDocument();
-    expect(controlsRow?.querySelector('button[aria-label="Toggle theme"]')).toBeInTheDocument();
+    expect(controlsRow).toHaveClass('w-full', 'flex-col', 'sm:flex-row');
+    expect(controlsRow?.children).toHaveLength(2);
+    expect(controlsRow?.firstElementChild).toContainElement(segmentedControl);
+
+    const utilityRow = controlsRow?.lastElementChild;
+    expect(utilityRow).toContainElement(screen.getByLabelText('Open date picker'));
+    expect(utilityRow).toContainElement(screen.getByRole('button', { name: 'Today' }));
+    expect(utilityRow).toContainElement(screen.getByRole('button', { name: 'Toggle theme' }));
   });
 });

@@ -453,3 +453,10 @@
 - status: resolved
 - writer slots: worker-mobile-header-fix = `src/components/Header.tsx`, `src/components/Header.test.tsx`; reviewer = `mobile header regression review`
 - notes: the date picker and Today control are visible again on small screens, the desktop header remains unchanged, and the targeted test/build passed
+
+## 2026-04-22
+- task: make the mobile header wrap safely on narrow screens so restored date navigation stays visible
+- route: Route B
+- status: resolved
+- writer slots: worker-mobile-header-wrap = `src/components/Header.tsx`, `src/components/Header.test.tsx`; reviewer = `mobile header wrap review`
+- notes: the mobile header now stacks the commentary segmented control separately from the date/today/theme controls, preventing overflow on 320-360px widths while leaving desktop behavior unchanged

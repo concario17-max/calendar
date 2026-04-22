@@ -1,28 +1,28 @@
 # Current Task
-- Completed: restore mobile date navigation while keeping the compact header and the stacked mobile panels.
+- Completed: make the mobile header wrap safely on narrow screens so the restored date navigation does not overflow.
 
 # Route
 - Route B
-- Reason: the follow-up fix touches the shared header chrome and its test after the mobile layout work introduced a regression.
+- Reason: the narrow-screen header fix touches the shared header chrome and its test after the mobile restore introduced a layout regression.
 
 # Writer Slot
 - main: planner only
-- worker-mobile-header-fix: idle
+- worker-mobile-header-wrap: idle
 - worker-review: idle
 
 # Contract Freeze
-- Goal: keep the header compact on mobile while restoring access to the date picker and Today control below the small-screen breakpoint.
-- Non-goals: do not change data registries, the wording of the content, or the desktop two-column layout.
+- Goal: keep mobile date navigation visible while allowing the header controls to wrap or stack safely on very narrow screens.
+- Non-goals: do not change data registries, the wording of the content, or the desktop header layout.
 - Write sets:
-  - worker-mobile-header-fix: `src/components/Header.tsx`, `src/components/Header.test.tsx`
+  - worker-mobile-header-wrap: `src/components/Header.tsx`, `src/components/Header.test.tsx`
 - Acceptance criteria:
-  - Mobile retains compact header chrome.
-  - Date navigation remains available on small screens.
+  - Mobile header controls do not overflow on narrow screens.
+  - Date navigation remains visible and usable.
   - Desktop header behavior stays unchanged.
   - Targeted tests and build continue to pass.
 
 # Reviewer
-- reviewer-mobile-header-fix: mobile header regression review
+- reviewer-mobile-header-wrap: mobile header wrap review
 
 # Last Update
-- 2026-04-22: restored mobile date navigation while keeping the compact header and desktop behavior unchanged.
+- 2026-04-22: made the mobile header controls wrap safely on narrow screens without changing desktop behavior.
