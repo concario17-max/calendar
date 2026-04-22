@@ -1,9 +1,9 @@
 ﻿## 2026-04-22
 - task: remove the `2 blocks` count labels from the three right-side panels
 - route: Route B
-- status: open
+- status: resolved
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`; reviewer = right-panel header chrome cleanup review
-- notes: the count labels need to be removed from the right-side panel headers without changing content or left-rail layout
+- notes: the count labels were removed from the right-side panel headers without changing content or left-rail layout
 ## 2026-04-22
 - task: remove the extra soul labels from the right soul panel and move `SOUL PANEL` up to align with the other right-side commentary headers
 - route: Route B
@@ -399,6 +399,7 @@
 - status: active
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`; reviewer = right-panel header alignment review
 - notes: the soul panel header and the surrounding right-side commentary chrome need to match the existing header hierarchy; current data/content must remain intact
+
 
 
 

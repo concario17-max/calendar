@@ -1,5 +1,5 @@
 ﻿# Current Task
-- Active: remove the `2 blocks` count labels from the three right-side panels.
+- Completed: removed the `2 blocks` count labels from the three right-side panels.
 
 # Route
 - Route B
@@ -7,8 +7,8 @@
 
 # Writer Slot
 - main: planner only
-- worker-panel: `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`
-- worker-review: review of right-panel header chrome and remaining count labels
+- worker-panel: idle
+- worker-review: idle
 
 # Contract Freeze
 - Goal: remove the `2 blocks` count labels from the three right-side panels.
