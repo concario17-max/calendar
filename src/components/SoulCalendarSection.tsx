@@ -80,7 +80,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ soulSe
           <div className="relative space-y-3">
             <div className="flex items-center border-b border-[#d9c5a3]/45 px-2 pb-2">
               <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
-                SOUL PANEL
+                루돌프 슈타이너의 영혼의 달력
               </span>
             </div>
 

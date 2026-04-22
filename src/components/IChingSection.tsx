@@ -231,6 +231,18 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   );
 }
 
+function getCommentaryHeaderLabel(source: CommentarySource): string {
+  if (source === 'gua') {
+    return '오늘의 괘사';
+  }
+
+  if (source === 'yao') {
+    return '오늘의 효사';
+  }
+
+  return '';
+}
+
 function DecoratedSurfaceCard({
   children,
   testId,
@@ -282,6 +294,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   const showSoulPanel = commentarySource === 'soul';
   const leftSoulWeeksLabel = formatWeeksLabel(undefined, soulSections);
   const guaMeta = guaData.meta.trim();
+  const commentaryHeaderLabel = getCommentaryHeaderLabel(commentarySource);
 
   return (
     <section className="flex h-full min-h-0 w-full flex-1 flex-col stagger-1">
@@ -357,7 +370,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               <div className="space-y-4">
               <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 px-2 pb-2">
                 <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
-                  COMMENTARY
+                  {commentaryHeaderLabel}
                 </span>
               </div>
 

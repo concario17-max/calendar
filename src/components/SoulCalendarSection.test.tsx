@@ -6,7 +6,7 @@ describe('SoulCalendarSection', () => {
   it('renders the soul panel header and decorated empty state when there are no verses', () => {
     render(<SoulCalendarSection hitSoulGroup={undefined} soulSections={[]} />);
 
-    expect(screen.getByText('SOUL PANEL')).toBeInTheDocument();
+    expect(screen.getByText('루돌프 슈타이너의 영혼의 달력')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
     expect(screen.getByText('영혼 본문이 아직 없어.')).toBeInTheDocument();
     expect(screen.queryByText('영혼')).not.toBeInTheDocument();
@@ -31,7 +31,7 @@ describe('SoulCalendarSection', () => {
       />,
     );
 
-    expect(screen.getByText('SOUL PANEL')).toBeInTheDocument();
+    expect(screen.getByText('루돌프 슈타이너의 영혼의 달력')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
     expect(screen.queryByText('영혼')).not.toBeInTheDocument();
     expect(screen.queryByText('2 blocks')).not.toBeInTheDocument();

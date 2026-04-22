@@ -1,4 +1,10 @@
 ﻿## 2026-04-22
+- task: rename the three right-side panel header labels to `오늘의 효사`, `오늘의 괘사`, and `루돌프 슈타이너의 영혼의 달력`
+- route: Route B
+- status: resolved
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`; reviewer = right-panel header copy review
+- notes: the visible right-panel header labels were renamed without changing commentary content, selection behavior, or registries
+## 2026-04-22
 - task: remove the `2 blocks` count labels from the three right-side panels
 - route: Route B
 - status: resolved
@@ -399,6 +405,7 @@
 - status: active
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`; reviewer = right-panel header alignment review
 - notes: the soul panel header and the surrounding right-side commentary chrome need to match the existing header hierarchy; current data/content must remain intact
+
 
 
 

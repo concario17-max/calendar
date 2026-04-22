@@ -130,6 +130,7 @@ describe('IChingSection', () => {
     expect(screen.queryByText('Manifesto')).not.toBeInTheDocument();
     expect(screen.queryByText('Reading rail')).not.toBeInTheDocument();
     expect(screen.queryByText('Commentary')).not.toBeInTheDocument();
+    expect(screen.getByText('오늘의 효사')).toBeInTheDocument();
     expect(screen.queryByText('Reading canvas')).not.toBeInTheDocument();
   });
 
@@ -171,6 +172,7 @@ describe('IChingSection', () => {
     expect(within(rightPanel).queryByText('Reading canvas')).not.toBeInTheDocument();
 
     fireEvent.click(within(commentaryControl).getByRole('radio', { name: '괘사' }));
+    expect(screen.getByText('오늘의 괘사')).toBeInTheDocument();
     expect(screen.getByText('Gua Heading')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: 'Col A' })).toBeInTheDocument();
@@ -183,7 +185,7 @@ describe('IChingSection', () => {
     expect(
       within(rightPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();
-    expect(within(rightPanel).getByText('SOUL PANEL')).toBeInTheDocument();
+    expect(within(rightPanel).getByText('루돌프 슈타이너의 영혼의 달력')).toBeInTheDocument();
     expect(within(rightPanel).queryByText('2 blocks')).not.toBeInTheDocument();
     expect(within(rightPanel).getByText('50주').closest('article')).toHaveTextContent('Soul body');
     expect(within(rightPanel).queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
