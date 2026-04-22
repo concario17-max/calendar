@@ -1,28 +1,27 @@
-# Current Task
-- Completed: tighten the editorial spacing system and add subtle state transitions while keeping desktop/mobile behavior intact.
+﻿# Current Task
+- Completed: update the soul section date-range label format to include explicit week ranges in parentheses.
 
 # Route
 - Route B
-- Reason: the change touches shared layout styling, transitions, and tests across multiple files.
+- Reason: the change touches shared presentation text and the corresponding test contract across at least two files.
 
 # Writer Slot
 - main: planner only
-- worker-spacing-transitions: completed
+- worker-soul-label-format: completed
 - worker-review: completed
 
 # Contract Freeze
-- Goal: make spacing feel like a coherent system and add subtle fade/slide/height transitions for state changes.
-- Non-goals: do not change the data registries, the wording of content, or the overall route architecture.
+- Goal: change the soul section label from `50주 · 3주`-style to `50주(3월 16-22일) · 3주(4월 21-27일)`-style rendering.
+- Non-goals: do not change commentary registries, navigation, header chrome, or the reading layout.
 - Write sets:
-  - worker-spacing-transitions: `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/index.css`, `src/components/MainContent.tsx`
+  - worker-soul-label-format: `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
 - Acceptance criteria:
-  - Desktop/mobile behavior remains intact.
-  - Section spacing uses a more consistent scale.
-  - State changes feel smoother with subtle transition treatment.
+  - Soul section renders week labels with explicit parenthesized date ranges.
+  - Existing soul title and layout remain intact.
   - Targeted tests and build continue to pass.
 
 # Reviewer
-- reviewer-spacing-transitions: spacing and transition review
+- reviewer-soul-label-format: soul label format review
 
 # Last Update
-- 2026-04-22: spacing system polish and subtle state transitions implemented; build and targeted tests passed.
+- 2026-04-22: soul label date-range format update implemented and verified.

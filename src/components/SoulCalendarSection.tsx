@@ -7,20 +7,37 @@ interface SoulCalendarSectionProps {
 }
 
 const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
+const SOUL_BADGE = '루돌프 슈타이너의 영혼의 달력';
+const SOUL_EMPTY = '영혼 본문이 아직 없어.';
 
-function normalizeRange(range: string): string {
+function normalizeDateRange(range: string): string {
   const trimmed = range.trim();
   return trimmed.endsWith('일') ? trimmed : `${trimmed}일`;
+}
+
+function formatWeekRange(week: number, range: string): string {
+  return `${week}주(${normalizeDateRange(range)})`;
 }
 
 function normalizeWeeksLabel(label: string): string {
   return label
     .trim()
+    .replace(/[·•ㆍ]/g, '·')
     .replace(/\s*\/\s*/g, ' · ')
-    .replace(/(\d+)주\(([^)]+)\)/g, (_, week: string, range: string) => `${week}주(${normalizeRange(range)})`);
+    .replace(/(\d+)주(?:\(([^)]+)\))?/g, (_match: string, week: string, range?: string) => {
+      if (!range) {
+        return `${week}주`;
+      }
+
+      return `${week}주(${normalizeDateRange(range)})`;
+    });
 }
 
 export function formatWeeksLabel(hitSoulGroup: SoulGroup | undefined, soulSections: SoulSection[]): string {
+  if (soulSections.length > 0) {
+    return soulSections.map((section) => formatWeekRange(section.week, section.range)).join(' · ');
+  }
+
   if (hitSoulGroup?.weeksLabel) {
     return normalizeWeeksLabel(hitSoulGroup.weeksLabel);
   }
@@ -29,7 +46,7 @@ export function formatWeeksLabel(hitSoulGroup: SoulGroup | undefined, soulSectio
     return '';
   }
 
-  return soulSections.map((section) => `${section.week}주(${normalizeRange(section.range)})`).join(' · ');
+  return soulSections.map((section) => formatWeekRange(section.week, section.range)).join(' · ');
 }
 
 function SoulSectionCard({ section, isLast }: { section: SoulSection; isLast: boolean }) {
@@ -49,7 +66,7 @@ function SoulSectionCard({ section, isLast }: { section: SoulSection; isLast: bo
           <span className="inline-flex items-center rounded-full bg-[#ead7b3] px-3 py-0.5 text-[10px] font-semibold tracking-[0.24em] text-[#7a5d2d]">
             {section.week}주
           </span>
-          <span className="text-[0.78rem] italic tracking-[0.12em] text-[#8a7d70]">{normalizeRange(section.range)}</span>
+          <span className="text-[0.78rem] italic tracking-[0.12em] text-[#8a7d70]">{normalizeDateRange(section.range)}</span>
         </div>
 
         <p className="whitespace-pre-wrap break-keep border-l-2 border-[#d6bf96]/80 pl-4 font-body text-[0.99rem] leading-[1.9] tracking-[-0.01em] text-[#566471]">
@@ -80,7 +97,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ soulSe
           <div className="relative space-y-[var(--reading-block-gap)]">
             <div className="flex items-center border-b border-[#d9c5a3]/45 px-2 pb-2">
               <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
-                루돌프 슈타이너의 영혼의 달력
+                {SOUL_BADGE}
               </span>
             </div>
 
@@ -93,11 +110,15 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ soulSe
             <div className="space-y-[var(--reading-section-gap)]">
               {visibleSections.length > 0 ? (
                 visibleSections.map((section, index) => (
-                  <SoulSectionCard key={`${section.week}-${section.range}-${index}`} section={section} isLast={index === visibleSections.length - 1} />
+                  <SoulSectionCard
+                    key={`${section.week}-${section.range}-${index}`}
+                    section={section}
+                    isLast={index === visibleSections.length - 1}
+                  />
                 ))
               ) : (
                 <div className="rounded-[1.5rem] border border-dashed border-[#d9c6a5]/70 bg-white/45 px-4 py-5 text-[0.95rem] italic leading-relaxed text-[#7c7367]">
-                  영혼 본문이 아직 없어.
+                  {SOUL_EMPTY}
                 </div>
               )}
             </div>
