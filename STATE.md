@@ -1,28 +1,28 @@
 # Current Task
-- Completed: fix the mobile panel layout so the reading area stacks cleanly below the mobile breakpoint without the cramped split behavior.
+- Active: restore mobile date navigation while keeping the compact header and the stacked mobile panels.
 
 # Route
 - Route B
-- Reason: the mobile fix still spans multiple shared reading-panel files and tests, even after narrowing the scope to the reading panels only.
+- Reason: the follow-up fix touches the shared header chrome and its test after the mobile layout work introduced a regression.
 
 # Writer Slot
 - main: planner only
-- worker-mobile-panels: idle
+- worker-mobile-header-fix: idle
 - worker-review: idle
 
 # Contract Freeze
-- Goal: make the mobile reading panels readable and non-cramped by switching the reading area to a clean stacked layout below the mobile breakpoint.
-- Non-goals: do not change data registries, the wording of the content, or the desktop two-column layout beyond the mobile breakpoint.
+- Goal: keep the header compact on mobile while restoring access to the date picker and Today control below the small-screen breakpoint.
+- Non-goals: do not change data registries, the wording of the content, or the desktop two-column layout.
 - Write sets:
-  - worker-mobile-panels: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
+  - worker-mobile-header-fix: `src/components/Header.tsx`, `src/components/Header.test.tsx`
 - Acceptance criteria:
-  - Mobile does not show the cramped two-column reading split.
-  - Reading panels stack cleanly on narrow widths.
-  - Desktop two-column shell remains intact above the mobile breakpoint.
+  - Mobile retains compact header chrome.
+  - Date navigation remains available on small screens.
+  - Desktop header behavior stays unchanged.
   - Targeted tests and build continue to pass.
 
 # Reviewer
-- reviewer-mobile-layout: mobile layout review
+- reviewer-mobile-header-fix: mobile header regression review
 
 # Last Update
-- 2026-04-22: made the mobile reading panels stack cleanly below the breakpoint and compacted the header chrome for small screens.
+- 2026-04-22: preparing a follow-up fix to restore mobile date navigation after compacting the header.

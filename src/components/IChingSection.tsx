@@ -312,7 +312,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   const commentaryHeaderLabel = getCommentaryHeaderLabel(commentarySource);
 
   return (
-    <section className="flex w-full flex-1 flex-col overflow-y-auto stagger-1 lg:overflow-hidden">
+    <section className="flex w-full flex-1 flex-col overflow-visible stagger-1 lg:overflow-hidden">
       <div className="flex min-h-0 w-full flex-col gap-5 lg:grid lg:h-full lg:min-w-[720px] lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-0 lg:overflow-x-auto">
         <article className="flex w-full flex-col bg-[#f2eadc] px-4 pb-5 pt-0 text-[#4b3b29] lg:sticky lg:top-0 lg:h-full lg:min-h-0 lg:min-w-[340px] lg:overflow-y-auto lg:px-8 lg:pb-6 lg:pt-0.5">
           <div className="flex min-h-0 flex-1 flex-col gap-2">

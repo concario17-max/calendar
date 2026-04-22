@@ -439,3 +439,10 @@
 
 
 
+
+## 2026-04-22
+- task: finish the mobile layout fix by removing the shell CSS that forced the cramped split
+- route: Route B
+- status: resolved
+- writer slots: worker-mobile-panels = `src/components/IChingSection.tsx`, `src/index.css`, `src/components/IChingSection.test.tsx`; worker-mobile-shell = `src/components/MainContent.tsx`, `src/components/Header.tsx`, `src/components/Header.test.tsx`; reviewer = `mobile layout review`
+- notes: the mobile shell now allows vertical scrolling, the reading panels stack cleanly below the breakpoint, and the header remains compact on small screens; targeted tests and build passed

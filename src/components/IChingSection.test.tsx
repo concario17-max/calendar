@@ -132,13 +132,13 @@ describe('IChingSection', () => {
 
     expect(main).toHaveClass('min-h-dvh', 'overflow-y-auto', 'md:h-[100dvh]', 'md:overflow-hidden');
     expect(shell).toHaveClass('flex', 'w-full', 'flex-1', 'flex-col');
-    expect(grid).toHaveClass('flex', 'flex-col', 'gap-5', 'md:grid', 'md:grid-cols-[360px_minmax(0,1fr)]');
+    expect(grid).toHaveClass('flex', 'flex-col', 'gap-5', 'lg:grid', 'lg:grid-cols-[360px_minmax(0,1fr)]');
     expect(leftPanel).toHaveClass('flex', 'w-full');
-    expect(leftPanel).toHaveClass('md:sticky', 'md:top-0', 'md:overflow-y-auto');
+    expect(leftPanel).toHaveClass('lg:sticky', 'lg:top-0', 'lg:overflow-y-auto');
     expect(leftPanel).toHaveClass('bg-[#f2eadc]');
     expect(leftPanel).not.toHaveClass('border-r');
     expect(rightPanel).toHaveClass('flex', 'w-full', 'min-w-0', 'flex-col');
-    expect(rightPanel).toHaveClass('md:overflow-y-auto');
+    expect(rightPanel).toHaveClass('lg:overflow-y-auto');
     expect(rightPanel).toHaveClass('bg-[#fbf8f1]');
 
     expect(screen.queryByText('Manifesto')).not.toBeInTheDocument();
