@@ -1,28 +1,27 @@
 # Current Task
-- Completed: emphasize the `🔑 핵심 키워드:` line in the right-side commentary panels using a subtle text-background highlight while leaving the rest of the layout unchanged.
+- Completed: restore the soul panel to the 76c6695 layout while keeping the rest of the right-side canvas unchanged.
 
 # Route
 - Route B
-- Reason: the keyword emphasis touches the shared right-side commentary renderer and its tests, and the change is tightly coupled to the same right-panel slice.
+- Reason: the soul panel render is shared between `IChingSection.tsx` and `SoulCalendarSection.tsx`, so changing only one file would drift the layout and tests.
 
 # Writer Slot
 - main: planner only
-- worker-keyword: idle
+- worker-soul-rollback: idle
 - worker-review: idle
 
 # Contract Freeze
-- Goal: add a restrained background highlight to the `🔑 핵심 키워드:` line in the right-side commentary panels so the keyword lead line reads as a deliberate accent without changing the rest of the layout.
-- Non-goals: do not change data registries, left-rail layout, section ordering, selection behavior, or the wording/content of the keyword line itself.
+- Goal: restore the soul panel to the 76c6695 styling and structure, including the shared rendering path and decorative shell, while keeping the rest of the right-side canvas unchanged.
+- Non-goals: do not change data registries, left-rail layout, selection behavior, or the wording/content of the soul text.
 - Write sets:
-  - worker-keyword: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+  - worker-soul-rollback: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
 - Acceptance criteria:
-  - The `🔑 핵심 키워드:` line has a subtle highlighted background.
-  - The highlight stays restrained and does not affect other commentary lines.
-  - The rest of the right-side layout remains unchanged.
+  - The soul panel matches the 76c6695 shell/chrome behavior again.
+  - `IChingSection` and `SoulCalendarSection` stay in sync for the soul view.
   - Targeted tests and build continue to pass.
 
 # Reviewer
-- reviewer-keyword-panel: keyword emphasis review
+- reviewer-soul-rollback: soul panel rollback review
 
 # Last Update
-- 2026-04-22: highlighted the keyword lead line in the right-side commentary panels without changing the rest of the layout.
+- 2026-04-22: restored the soul panel to the 76c6695 layout while keeping the rest of the right-side canvas unchanged.

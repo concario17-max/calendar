@@ -420,6 +420,13 @@
 - writer slots: worker-keyword = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`; reviewer = `keyword emphasis review`
 - notes: the keyword lead line now uses a subtle text-background highlight while other commentary lines remain unstyled and the targeted test/build passed
 
+## 2026-04-22
+- task: restore the soul panel to the 76c6695 layout while keeping the rest of the right-side canvas unchanged
+- route: Route B
+- status: resolved
+- writer slots: worker-soul-rollback = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`; reviewer = `soul panel rollback review`
+- notes: the shared soul rendering path was restored and the soul shell/chrome returned to the 76c6695 layout; targeted tests and build passed
+
 
 
 
