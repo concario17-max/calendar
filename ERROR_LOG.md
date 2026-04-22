@@ -291,3 +291,8 @@ status: resolved
   summary: command chaining used invalid `&&` syntax in this PowerShell session
   details: A status-check command failed because PowerShell here does not accept `&&` as a statement separator. The command was rerun with `;` and the workspace check completed successfully.
   status: resolved
+- time: 2026-04-22 17:20 KST
+  location: PowerShell shell command composition
+  summary: git commit chain failed because `&&` is unsupported in this PowerShell session
+  details: A combined `git add && git commit && git push` command failed before staging because this shell treats `&&` as an invalid statement separator. The command will be rerun with PowerShell separators or separate commands.
+  status: resolved

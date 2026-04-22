@@ -16,6 +16,7 @@ describe('Header', () => {
     );
 
     expect(screen.getByRole('heading', { name: 'Celestial Ephemeris' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Celestial Ephemeris' }).querySelector('svg')).toBeInTheDocument();
 
     const segmentedControl = screen.getByRole('radiogroup', { name: '해설 선택' });
     expect(within(segmentedControl).getByRole('radio', { name: '효사' })).toBeInTheDocument();

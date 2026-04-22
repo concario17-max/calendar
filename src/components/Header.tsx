@@ -1,7 +1,7 @@
 import { DatePicker } from './DatePicker';
 import type { CommentarySource } from '../types';
 import { useTheme } from '../hooks/useTheme';
-import { BookText, Moon, ScrollText, Sparkles, Sun } from 'lucide-react';
+import { BookText, Crown, Moon, ScrollText, Sparkles, Sun } from 'lucide-react';
 
 interface HeaderProps {
   selectedDate: Date;
@@ -64,8 +64,14 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-30 flex min-h-[3.5rem] w-full flex-col gap-2 border-b border-outline-variant/8 bg-surface/90 px-3 py-2.5 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
       <div className="min-w-0">
-        <h1 className="truncate font-headline text-[1.3rem] italic leading-none text-primary sm:text-[1.7rem]">
-          Celestial Ephemeris
+        <h1 className="inline-flex min-w-0 items-center gap-2 truncate font-headline text-[1.38rem] italic leading-none tracking-[0.01em] text-primary sm:text-[1.78rem]">
+          <span
+            aria-hidden="true"
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary ring-1 ring-secondary/12 shadow-[0_0_0_1px_rgba(255,255,255,0.18)_inset]"
+          >
+            <Crown size={15} strokeWidth={2.2} />
+          </span>
+          <span className="truncate">Celestial Ephemeris</span>
         </h1>
       </div>
 
