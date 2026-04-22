@@ -1,3 +1,9 @@
+﻿## 2026-04-22
+- task: remove the extra soul labels from the right soul panel and move `SOUL PANEL` up to align with the other right-side commentary headers
+- route: Route B
+- status: resolved
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`; reviewer = right-panel header alignment review
+- notes: the soul panel now keeps `Rudolf Steiner''s Calendar of the Soul` visible while removing the extra `영혼` label and week-range subtitle; the `SOUL PANEL` header is aligned with the other right-side commentary headers`r`n- review: keep the soul title visible; only remove the extra labels above it
 ## 2026-04-21
 - task: reduce the left sigil vertical spacing as much as possible without changing the reading order or registries
 - route: Route A
@@ -51,7 +57,7 @@
 # Multi-Agent Log
 
 ## 2026-04-21
-- task: normalize the soul test fixture to `50雅?3??16-22) / 3雅?4??21-27)`
+- task: normalize the soul test fixture to `50??3??16-22) / 3??4??21-27)`
 - route: Route A
 - status: open
 - writer slots: main = `src/components/SoulCalendarSection.test.tsx`
@@ -64,7 +70,7 @@
 - notes: the initial gap was removed by zeroing shell and panel padding
 
 ## 2026-04-21
-- task: normalize the soul test fixture to `50雅?3??16-22) / 3雅?4??21-27)`
+- task: normalize the soul test fixture to `50??3??16-22) / 3??4??21-27)`
 - route: Route A
 - status: open
 - writer slots: main = `src/components/SoulCalendarSection.test.tsx`
@@ -77,7 +83,7 @@
 - notes: the remaining offset came from the animation class, which was removed from the main shell and reading section
 
 ## 2026-04-21
-- task: normalize the soul test fixture to `50雅?3??16-22) / 3雅?4??21-27)`
+- task: normalize the soul test fixture to `50??3??16-22) / 3??4??21-27)`
 - route: Route A
 - status: open
 - writer slots: main = `src/components/SoulCalendarSection.test.tsx`
@@ -104,7 +110,7 @@
 - notes: tonal contrast now carries the left/right separation, with visible border/divider usage reduced to accent-only levels where possible
 
 ## 2026-04-20
-- task: move the `??鰲??/ ??怨뚯꽠雅?/ ????繹? segmented buttons into the header beside the calendar control and remove the duplicate in-content control
+- task: move the `??欲꼲??/ ???⑤슣苑좈썒?/ ????濚? segmented buttons into the header beside the calendar control and remove the duplicate in-content control
 - route: Route B
 - status: resolved
 - writer slots: worker-shell = `src/components/Header.tsx`, `src/components/MainContent.tsx`; worker-nav = `src/components/Header.tsx`, `src/components/IChingSection.tsx`
@@ -146,21 +152,21 @@
 - notes: spacing, rhythm, and accent-color refinement were tightened across the shell and reading panels without changing data registries
 
 ## 2026-04-20
-- task: swap the left rail order so `??鰲?? appears before `??怨뚯꽠雅?, and halve the sigil vertical spacing
+- task: swap the left rail order so `??欲꼲?? appears before `???⑤슣苑좈썒?, and halve the sigil vertical spacing
 - route: Route B
 - status: open
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
-- notes: the task is limited to the left rail order and spacing; data registries remain out of scope\r\n- result: left rail order swapped to put `??欲꼲?? before `???⑤슣苑좈썒?, and sigil vertical spacing halved
+- notes: the task is limited to the left rail order and spacing; data registries remain out of scope\r\n- result: left rail order swapped to put `??轝꿸섣??? before `????ㅼ뒩?묒쥏??, and sigil vertical spacing halved
 
 
 
 ## 2026-04-20
-- task: swap the left rail order so `??鰲?? appears before `??怨뚯꽠雅?, and halve the sigil vertical spacing
+- task: swap the left rail order so `??欲꼲?? appears before `???⑤슣苑좈썒?, and halve the sigil vertical spacing
 - route: Route B
 - status: resolved
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the task is limited to the left rail order and spacing; data registries remain out of scope
-- result: left rail order swapped to put `??鰲?? before `??怨뚯꽠雅?, and sigil vertical spacing halved
+- result: left rail order swapped to put `??欲꼲?? before `???⑤슣苑좈썒?, and sigil vertical spacing halved
 
 ## 2026-04-20
 - task: lift the sigil block higher inside the left rail without changing the content order
@@ -200,29 +206,29 @@
 - result: the left panel hierarchy was cleaned up without changing the content order semantics or commentary data
 
 ## 2026-04-20
-- task: swap the left rail order back so `??鰲?? appears before `??怨뚯꽠雅?
+- task: swap the left rail order back so `??欲꼲?? appears before `???⑤슣苑좈썒?
 - route: Route B
 - status: open
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the task is limited to left-rail order only; data registries remain out of scope
 
 ## 2026-04-20
-- task: swap the left rail order back so `??鰲?? appears before `??怨뚯꽠雅?
+- task: swap the left rail order back so `??欲꼲?? appears before `???⑤슣苑좈썒?
 - route: Route B
 - status: resolved
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the left rail order was restored without changing data registries
-- result: the left rail again shows `??鰲?? before `??怨뚯꽠雅?
+- result: the left rail again shows `??欲꼲?? before `???⑤슣苑좈썒?
 
 ## 2026-04-20
-- task: differentiate `??鰲??, `??怨뚯꽠雅?, and `Soul` in the left panel so the reading stack is clearly hierarchical
+- task: differentiate `??欲꼲??, `???⑤슣苑좈썒?, and `Soul` in the left panel so the reading stack is clearly hierarchical
 - route: Route B
 - status: open
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`
 - notes: the task is limited to left-panel typography and spacing hierarchy; data registries remain out of scope
 
 ## 2026-04-20
-- task: differentiate `??鰲??, `??怨뚯꽠雅?, and `Soul` in the left panel so the reading stack is clearly hierarchical
+- task: differentiate `??欲꼲??, `???⑤슣苑좈썒?, and `Soul` in the left panel so the reading stack is clearly hierarchical
 - route: Route B
 - status: resolved
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`
@@ -235,12 +241,12 @@
 - status: open
 - writer slots: worker-panel = `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the change is limited to soul title formatting and matching tests; data registries remain out of scope
-## 2026-04-21`r`n- task: align the title sizes to the `??怨뚯꽠雅? title scale and switch the body text to a different color family
+## 2026-04-21`r`n- task: align the title sizes to the `???⑤슣苑좈썒? title scale and switch the body text to a different color family
 - route: Route B
 - status: resolved
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.test.tsx`
 - notes: typography and body-color only; data registries and commentary content remain out of scope
-- result: the title sizes now follow the `??怨뚯꽠雅? scale and the body text uses a separate slate-like color family
+- result: the title sizes now follow the `???⑤슣苑좈썒? scale and the body text uses a separate slate-like color family
 
 ## 2026-04-21
 - task: update the soul title range format to `50??3??16-22) / 3??4??21-27)`
@@ -248,7 +254,7 @@
 - status: open
 - writer slots: worker-panel = `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the change is limited to soul title formatting and matching tests; data registries remain out of scope
-## 2026-04-21`r`n- task: unify the body font size across `??鰲??, `??怨뚯꽠雅?, and `?????, and add breathing room below the soul block
+## 2026-04-21`r`n- task: unify the body font size across `??欲꼲??, `???⑤슣苑좈썒?, and `?????, and add breathing room below the soul block
 - route: Route B
 - status: resolved
 - writer slots: worker-panel = `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.test.tsx`, `src/components/IChingSection.test.tsx`
@@ -261,7 +267,7 @@
 - status: open
 - writer slots: worker-panel = `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the change is limited to soul title formatting and matching tests; data registries remain out of scope
-## 2026-04-21`r`n- task: rename soul section to `?????????????繹?????? and move the week range into the title slot
+## 2026-04-21`r`n- task: rename soul section to `?????????????濚?????? and move the week range into the title slot
 - route: Route B
 - status: resolved
 - writer slots: worker-panel = `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.test.tsx`, `src/components/IChingSection.test.tsx`
@@ -274,7 +280,7 @@
 - status: open
 - writer slots: worker-panel = `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the change is limited to soul title formatting and matching tests; data registries remain out of scope
-## 2026-04-21`r`n- task: add visible labels and subtle separators to distinguish `??鰲??, `??怨뚯꽠雅?, and `Soul` in the left panel
+## 2026-04-21`r`n- task: add visible labels and subtle separators to distinguish `??欲꼲??, `???⑤슣苑좈썒?, and `Soul` in the left panel
 - route: Route B
 - status: open
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`
@@ -286,7 +292,7 @@
 - status: open
 - writer slots: worker-panel = `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the change is limited to soul title formatting and matching tests; data registries remain out of scope
-## 2026-04-21`r`n- task: add visible labels and subtle separators to distinguish `??鰲??, `??怨뚯꽠雅?, and `Soul` in the left panel
+## 2026-04-21`r`n- task: add visible labels and subtle separators to distinguish `??欲꼲??, `???⑤슣苑좈썒?, and `Soul` in the left panel
 - route: Route B
 - status: resolved
 - writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`
@@ -326,21 +332,21 @@
 - 2026-04-21: JournalModal soul export text aligned to the current soul naming; verified with JournalModal test and build.
 
 ## 2026-04-21
-- task: normalize the soul week labels on both sides to `50주(3월 16-22일) · 3주(4월 21-27일)`
+- task: normalize the soul week labels on both sides to `50二?3??16-22?? 쨌 3二?4??21-27??`
 - route: Route A
 - status: resolved
 - writer slots: main = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.tsx`
 - notes: the left soul title block and the right soul panel now render the same formatted week-label string; verification passed
 
 ## 2026-04-21
-- task: fix the left soul title block subtitle to `50주(3월 16-22일) · 3주(4월 21-27일)`
+- task: fix the left soul title block subtitle to `50二?3??16-22?? 쨌 3二?4??21-27??`
 - route: Route A
 - status: resolved
 - writer slots: main = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the left soul title block subtitle now uses the requested formatted weeks label; verification passed
 
 ## 2026-04-21
-- task: rename the soul block label to `영혼` and align the subtitle typography with adjacent body text
+- task: rename the soul block label to `?곹샎` and align the subtitle typography with adjacent body text
 - route: Route A
 - status: resolved
 - writer slots: main = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/IChingSection.test.tsx`
@@ -380,3 +386,13 @@
 - status: resolved
 - writer slots: main = `src/components/IChingSection.tsx`
 - notes: commentary prose body now uses a full-width layout instead of a narrow 40ch cap; verification passed
+
+## 2026-04-22
+- task: remove the extra soul labels from the right soul panel and align `SOUL PANEL` with the other right-side commentary headers
+- route: Route B
+- status: active
+- writer slots: worker-panel = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`; reviewer = right-panel header alignment review
+- notes: the soul panel header and the surrounding right-side commentary chrome need to match the existing header hierarchy; current data/content must remain intact
+
+
+

@@ -60,12 +60,11 @@ function SoulSectionCard({ section, isLast }: { section: SoulSection; isLast: bo
   );
 }
 
-export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSoulGroup, soulSections }) => {
-  const soulSubtitle = formatWeeksLabel(hitSoulGroup, soulSections);
+export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ soulSections }) => {
   const visibleSections = soulSections.slice(0, 2);
 
   return (
-    <section className="relative min-w-0 animate-fade-in-up stagger-2 border-t border-[#d3c1a3]/55 pb-8 pt-4 md:pb-10 md:pt-5">
+    <section className="relative min-w-0 animate-fade-in-up stagger-2 pb-8 md:pb-10">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -left-10 top-1 h-28 w-28 rounded-full bg-[#dec8a0]/18 blur-3xl" />
         <div className="absolute right-2 top-2 h-20 w-20 rounded-full bg-[#f1e2c0]/55 blur-2xl" />
@@ -73,20 +72,6 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
       </div>
 
       <div className="relative space-y-4 text-left">
-        <div className="space-y-2">
-          <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/50 bg-[#f4eadc]/55 px-2.5 py-0.5 text-[9px] font-semibold tracking-[0.22em] text-[#9a8a75]">
-            영혼
-          </p>
-          <h2 className="max-w-[40ch] font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">
-            {SOUL_TITLE}
-          </h2>
-          {soulSubtitle ? (
-            <p className="max-w-[40ch] font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
-              {soulSubtitle}
-            </p>
-          ) : null}
-        </div>
-
         <div className="relative overflow-hidden rounded-[2rem] border border-[#d8c4a1]/70 bg-[linear-gradient(180deg,rgba(250,244,235,0.98),rgba(240,229,208,0.92))] p-3 shadow-[0_24px_70px_rgba(109,84,47,0.14)]">
           <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[#d1b68a]/80 to-transparent" />
           <div className="absolute -right-2 top-2 h-16 w-16 rounded-full bg-[#efdebc]/55 blur-2xl" />
@@ -100,6 +85,12 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
               <span className="text-[0.72rem] uppercase tracking-[0.28em] text-[#8a7d70]">
                 {visibleSections.length > 0 ? `${visibleSections.length} blocks` : 'no block'}
               </span>
+            </div>
+
+            <div className="space-y-2 px-1 pt-1">
+              <h2 className="max-w-[40ch] font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">
+                {SOUL_TITLE}
+              </h2>
             </div>
 
             <div className="space-y-0">

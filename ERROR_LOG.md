@@ -250,3 +250,19 @@ status: resolved
   summary: Git command failed because PowerShell does not accept `&&` as a statement separator in this shell.
   details: The combined stage/commit/push command aborted before commit execution. Re-run with semicolons or separate commands.
   status: resolved
+- time: 2026-04-22 00:00 KST
+  location: shell_command / rg.exe
+  summary: rg access denied while scanning src/components
+  details: rg.exe returned Access is denied when searching for soul-panel strings; Select-String and Get-Content were used instead.
+  status: resolved
+
+- time: 2026-04-22 09:23 KST
+  location: PowerShell `npm test`
+  summary: PowerShell blocked npm.ps1 during targeted soul panel test run
+  details: `npm test -- src/components/SoulCalendarSection.test.tsx --run` failed under PowerShell because `npm.ps1` is blocked by the local execution policy. The command was rerun successfully via `npm.cmd`.
+  status: resolved
+- time: 2026-04-22 00:00 KST
+  location: shell_command / rg.exe; PowerShell npm.ps1
+  summary: fallback inspection and npm.cmd rerun resolved the soul-panel verification blockers
+  details: rg.exe access denied was bypassed with Select-String/Get-Content, and PowerShell execution-policy blocking of npm.ps1 was bypassed by rerunning the targeted test with npm.cmd.
+  status: resolved
