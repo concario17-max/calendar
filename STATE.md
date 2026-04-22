@@ -1,26 +1,24 @@
 ﻿# Current Task
-- Completed: removed the extra soul labels from the right soul panel and moved `SOUL PANEL` up to align with the other right-side commentary headers.
+- Active: remove the `2 blocks` count labels from the three right-side panels.
 
 # Route
 - Route B
-- Reason: the change touched the soul panel header structure and the shared right-side commentary chrome, which was a multi-file layout adjustment across the soul panel and its tests.
+- Reason: the change touches the shared right-side commentary chrome across multiple panel headers.
 
 # Writer Slot
 - main: planner only
-- worker-panel: idle
-- worker-review: idle
+- worker-panel: `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`
+- worker-review: review of right-panel header chrome and remaining count labels
 
 # Contract Freeze
-- Goal: remove the extra soul labels from the right soul panel and align `SOUL PANEL` with the other right-side commentary headers.
+- Goal: remove the `2 blocks` count labels from the three right-side panels.
 - Non-goals: do not change data registries, commentary content, or left-rail layout.
 - Acceptance criteria:
-  - The soul panel no longer shows the extra `영혼` label or the week-range line above the soul title.
-  - The soul title `Rudolf Steiner's Calendar of the Soul` remains visible in the right soul panel.
-  - `SOUL PANEL` sits on the same header line hierarchy as the other right-side commentary panel labels.
+  - The three right-side panels no longer show any `2 blocks` count label.
   - Existing commentary content and selection behavior remain intact.
 
 # Reviewer
-- reviewer-layout: right-panel header alignment and soul-label removal review
+- reviewer-layout: right-panel header chrome cleanup review
 
 # Last Update
-- 2026-04-22: completed the soul panel header cleanup and verified the targeted soul panel test and build.
+- 2026-04-22: removed the right-side `blocks` count labels and verified the targeted IChing and soul panel tests.

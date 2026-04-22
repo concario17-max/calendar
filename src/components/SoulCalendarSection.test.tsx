@@ -10,6 +10,7 @@ describe('SoulCalendarSection', () => {
     expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
     expect(screen.getByText('영혼 본문이 아직 없어.')).toBeInTheDocument();
     expect(screen.queryByText('영혼')).not.toBeInTheDocument();
+    expect(screen.queryByText('2 blocks')).not.toBeInTheDocument();
   });
 
   it('renders the soul panel header, title, and decorative body cards without the subtitle block', () => {
@@ -33,6 +34,7 @@ describe('SoulCalendarSection', () => {
     expect(screen.getByText('SOUL PANEL')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
     expect(screen.queryByText('영혼')).not.toBeInTheDocument();
+    expect(screen.queryByText('2 blocks')).not.toBeInTheDocument();
     expect(screen.queryByText('50주(3월 16-22일) · 3주(4월 21-27일)')).not.toBeInTheDocument();
     expect(screen.getByText('Soul body A')).toBeInTheDocument();
     expect(screen.getByText('Soul body B')).toBeInTheDocument();

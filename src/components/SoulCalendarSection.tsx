@@ -78,12 +78,9 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ soulSe
           <div className="absolute bottom-0 left-4 h-20 w-20 rounded-full bg-[#cfb07f]/12 blur-3xl" />
 
           <div className="relative space-y-3">
-            <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 px-2 pb-2">
+            <div className="flex items-center border-b border-[#d9c5a3]/45 px-2 pb-2">
               <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
                 SOUL PANEL
-              </span>
-              <span className="text-[0.72rem] uppercase tracking-[0.28em] text-[#8a7d70]">
-                {visibleSections.length > 0 ? `${visibleSections.length} blocks` : 'no block'}
               </span>
             </div>
 

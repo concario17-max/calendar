@@ -355,14 +355,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
             ) : commentary ? (
               <div className="space-y-4">
-                <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 px-2 pb-2">
-                  <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
-                    COMMENTARY
-                  </span>
-                  <span className="text-[0.72rem] uppercase tracking-[0.28em] text-[#8a7d70]">
-                    {commentary.blocks.length > 0 ? `${commentary.blocks.length} blocks` : 'no block'}
-                  </span>
-                </div>
+              <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 px-2 pb-2">
+                <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
+                  COMMENTARY
+                </span>
+              </div>
 
                 <div className="space-y-4">
                   <DecoratedSurfaceCard testId="commentary-shell">

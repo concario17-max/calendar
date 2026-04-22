@@ -183,8 +183,8 @@ describe('IChingSection', () => {
     expect(
       within(rightPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();
-    expect(within(rightPanel).getByText('50주(3월 16-22일) · 3주(4월 21-27일)')).toBeInTheDocument();
     expect(within(rightPanel).getByText('SOUL PANEL')).toBeInTheDocument();
+    expect(within(rightPanel).queryByText('2 blocks')).not.toBeInTheDocument();
     expect(within(rightPanel).getByText('50주').closest('article')).toHaveTextContent('Soul body');
     expect(within(rightPanel).queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
