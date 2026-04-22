@@ -25,6 +25,7 @@ describe('Header', () => {
     expect(screen.getByLabelText('Open date picker')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Today' }).parentElement).not.toHaveClass('hidden');
 
     const header = container.querySelector('header');
     const controlsRow = header?.children[1];

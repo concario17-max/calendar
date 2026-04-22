@@ -1,5 +1,5 @@
 # Current Task
-- Active: restore mobile date navigation while keeping the compact header and the stacked mobile panels.
+- Completed: restore mobile date navigation while keeping the compact header and the stacked mobile panels.
 
 # Route
 - Route B
@@ -25,4 +25,4 @@
 - reviewer-mobile-header-fix: mobile header regression review
 
 # Last Update
-- 2026-04-22: preparing a follow-up fix to restore mobile date navigation after compacting the header.
+- 2026-04-22: restored mobile date navigation while keeping the compact header and desktop behavior unchanged.

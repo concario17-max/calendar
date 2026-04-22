@@ -75,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({
           onChange={onCommentarySourceChange}
         />
 
-        <div className="hidden items-center gap-1 sm:flex">
+        <div className="flex items-center gap-1">
           <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
           <button
             type="button"
