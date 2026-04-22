@@ -28,6 +28,8 @@ describe('Header', () => {
 
     const header = container.querySelector('header');
     const controlsRow = header?.children[1];
+    expect(header).toHaveClass('flex-col', 'sm:flex-row');
+    expect(controlsRow).toHaveClass('w-full', 'sm:w-auto');
     expect(controlsRow?.firstElementChild).toBe(segmentedControl);
     expect(controlsRow?.querySelector('button[aria-label="Open date picker"]')).toBeInTheDocument();
     expect(controlsRow?.querySelector('button[aria-label="Toggle theme"]')).toBeInTheDocument();

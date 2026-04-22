@@ -312,12 +312,12 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   const commentaryHeaderLabel = getCommentaryHeaderLabel(commentarySource);
 
   return (
-    <section className="flex h-full min-h-0 w-full flex-1 flex-col stagger-1">
-      <div className="grid h-full min-h-0 min-w-[720px] grid-cols-[340px_minmax(0,1fr)] overflow-x-auto md:grid-cols-[360px_minmax(0,1fr)]">
-        <article className="sticky top-0 flex h-full min-w-[340px] flex-col overflow-y-auto bg-[#f2eadc] px-6 pb-5 pt-0 text-[#4b3b29] md:px-8 md:pb-6 md:pt-0.5 lg:px-9">
-          <div className="flex h-full min-h-0 flex-1 flex-col gap-2">
-            <div data-testid="reading-sigil-unit" className="-mt-2 flex justify-center pt-0 md:-mt-2">
-              <div className="w-full max-w-[8.5rem] sm:max-w-[10rem] md:max-w-[11.5rem]">
+    <section className="flex w-full flex-1 flex-col overflow-y-auto stagger-1 lg:overflow-hidden">
+      <div className="flex min-h-0 w-full flex-col gap-5 lg:grid lg:h-full lg:min-w-[720px] lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-0 lg:overflow-x-auto">
+        <article className="flex w-full flex-col bg-[#f2eadc] px-4 pb-5 pt-0 text-[#4b3b29] lg:sticky lg:top-0 lg:h-full lg:min-h-0 lg:min-w-[340px] lg:overflow-y-auto lg:px-8 lg:pb-6 lg:pt-0.5">
+          <div className="flex min-h-0 flex-1 flex-col gap-2">
+            <div data-testid="reading-sigil-unit" className="-mt-2 flex justify-center pt-0 lg:-mt-2">
+              <div className="w-full max-w-[7.5rem] sm:max-w-[10rem] lg:max-w-[11.5rem]">
                 {sigilSrc ? (
                   <img
                     src={sigilSrc}
@@ -377,7 +377,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
           </div>
         </article>
 
-        <aside className="flex h-full min-w-0 flex-col overflow-y-auto bg-[#fbf8f1] px-6 pb-6 pt-6 md:px-8 md:pb-7 md:pt-7 lg:px-9">
+        <aside className="flex w-full min-w-0 flex-col bg-[#fbf8f1] px-4 pb-6 pt-5 lg:h-full lg:min-h-0 lg:overflow-y-auto lg:px-8 lg:pb-7 lg:pt-7">
           <div className="mt-1 flex-1 space-y-0">
             {showSoulPanel ? (
               <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />

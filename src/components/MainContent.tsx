@@ -28,7 +28,7 @@ export const MainContent: React.FC<MainContentProps> = ({
   const [commentarySource, setCommentarySource] = useState<CommentarySource>('yao');
 
   return (
-    <main className="curated-shell relative flex h-[100dvh] min-h-0 w-full flex-col overflow-hidden bg-surface text-on-surface">
+    <main className="curated-shell relative flex min-h-dvh w-full flex-col overflow-x-hidden overflow-y-auto bg-surface text-on-surface md:h-[100dvh] md:overflow-hidden">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(75,59,41,0.06),transparent_34%),radial-gradient(circle_at_top_right,rgba(115,92,0,0.05),transparent_26%),linear-gradient(180deg,rgba(250,249,244,0.96)_0%,rgba(245,244,239,0.9)_100%)]" />
 
       <div className="relative z-10 flex min-h-0 flex-1 flex-col">
@@ -39,11 +39,11 @@ export const MainContent: React.FC<MainContentProps> = ({
           onCommentarySourceChange={setCommentarySource}
         />
 
-        <div className="curated-shell__frame flex min-h-0 flex-1 overflow-hidden">
-        <IChingSection
-          commentarySource={commentarySource}
-          yaoNum={yaoNum}
-          guaNum={guaNum}
+        <div className="curated-shell__frame flex min-h-0 flex-1 flex-col overflow-visible md:overflow-hidden">
+          <IChingSection
+            commentarySource={commentarySource}
+            yaoNum={yaoNum}
+            guaNum={guaNum}
             guaData={guaData}
             yaoData={yaoData}
             hitSoulGroup={hitSoulGroup}

@@ -130,13 +130,15 @@ describe('IChingSection', () => {
     const shell = container.querySelector('section');
     const grid = container.querySelector('section > div');
 
-    expect(main).toHaveClass('h-[100dvh]', 'overflow-hidden');
-    expect(shell).toHaveClass('min-h-0');
-    expect(grid).toHaveClass('h-full', 'min-h-0', 'min-w-[720px]', 'grid-cols-[340px_minmax(0,1fr)]');
-    expect(leftPanel).toHaveClass('sticky', 'top-0', 'overflow-y-auto');
+    expect(main).toHaveClass('min-h-dvh', 'overflow-y-auto', 'md:h-[100dvh]', 'md:overflow-hidden');
+    expect(shell).toHaveClass('flex', 'w-full', 'flex-1', 'flex-col');
+    expect(grid).toHaveClass('flex', 'flex-col', 'gap-5', 'md:grid', 'md:grid-cols-[360px_minmax(0,1fr)]');
+    expect(leftPanel).toHaveClass('flex', 'w-full');
+    expect(leftPanel).toHaveClass('md:sticky', 'md:top-0', 'md:overflow-y-auto');
     expect(leftPanel).toHaveClass('bg-[#f2eadc]');
     expect(leftPanel).not.toHaveClass('border-r');
-    expect(rightPanel).toHaveClass('overflow-y-auto');
+    expect(rightPanel).toHaveClass('flex', 'w-full', 'min-w-0', 'flex-col');
+    expect(rightPanel).toHaveClass('md:overflow-y-auto');
     expect(rightPanel).toHaveClass('bg-[#fbf8f1]');
 
     expect(screen.queryByText('Manifesto')).not.toBeInTheDocument();

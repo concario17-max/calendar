@@ -427,6 +427,13 @@
 - writer slots: worker-soul-rollback = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`; reviewer = `soul panel rollback review`
 - notes: the shared soul rendering path was restored and the soul shell/chrome returned to the 76c6695 layout; targeted tests and build passed
 
+## 2026-04-22
+- task: compact the mobile header chrome and switch the reading panels to a stacked layout below the mobile breakpoint
+- route: Route B
+- status: resolved
+- writer slots: worker-mobile-panels = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`; worker-mobile-shell = `src/components/MainContent.tsx`, `src/components/Header.tsx`, `src/components/Header.test.tsx`; reviewer = `mobile layout review`
+- notes: the mobile shell now scrolls naturally, the header stacks into a compact readable chrome on small screens, and the reading panels stack cleanly below the breakpoint; targeted tests and build passed
+
 
 
 

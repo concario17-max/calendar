@@ -62,14 +62,14 @@ export const Header: React.FC<HeaderProps> = ({
   const { isDark, toggleTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-30 flex min-h-[3.5rem] w-full items-center justify-between gap-3 border-b border-outline-variant/8 bg-surface/90 px-4 py-2.5 backdrop-blur-xl sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-30 flex min-h-[3.5rem] w-full flex-col gap-2 border-b border-outline-variant/8 bg-surface/90 px-3 py-2.5 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
       <div className="min-w-0">
-        <h1 className="truncate font-headline text-[1.45rem] italic leading-none text-primary sm:text-[1.7rem]">
+        <h1 className="truncate font-headline text-[1.3rem] italic leading-none text-primary sm:text-[1.7rem]">
           Celestial Ephemeris
         </h1>
       </div>
 
-      <div className="flex items-center gap-2 sm:gap-2.5">
+      <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end sm:gap-2.5">
         <CommentarySegmentedControl
           value={commentarySource}
           onChange={onCommentarySourceChange}
