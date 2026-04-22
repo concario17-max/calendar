@@ -224,6 +224,21 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
     );
   }
 
+  const trimmedText = block.text.trim();
+  const isKeywordLeadLine = trimmedText.startsWith('🔑 핵심 키워드:');
+
+  if (isKeywordLeadLine) {
+    return (
+      <p
+        key={`keyword-${index}`}
+        data-testid="commentary-keyword-line"
+        className="break-keep rounded-[1rem] bg-[#f4eadc] px-3 py-2 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#4b3b29] md:text-[16px]"
+      >
+        {block.text}
+      </p>
+    );
+  }
+
   return (
     <p
       key={`paragraph-${index}`}

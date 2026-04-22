@@ -413,6 +413,13 @@
 - writer slots: worker-right = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`; worker-soul = `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`; reviewer = `right-panel simplification review`
 - notes: the right-side commentary and soul chrome now use flatter surfaces with fewer boxed containers, and the targeted tests/build passed
 
+## 2026-04-22
+- task: emphasize the `🔑 핵심 키워드:` line in the right-side commentary panels with a restrained background highlight
+- route: Route B
+- status: resolved
+- writer slots: worker-keyword = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`; reviewer = `keyword emphasis review`
+- notes: the keyword lead line now uses a subtle text-background highlight while other commentary lines remain unstyled and the targeted test/build passed
+
 
 
 

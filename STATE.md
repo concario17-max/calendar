@@ -1,31 +1,28 @@
 # Current Task
-- Completed: reduce the right-side canvas box count and keep the title, description, and body flowing on a flatter reading surface.
+- Completed: emphasize the `🔑 핵심 키워드:` line in the right-side commentary panels using a subtle text-background highlight while leaving the rest of the layout unchanged.
 
 # Route
 - Route B
-- Reason: the requested UI simplification touches shared reading chrome across the right-side commentary and soul panels, plus related tests.
+- Reason: the keyword emphasis touches the shared right-side commentary renderer and its tests, and the change is tightly coupled to the same right-panel slice.
 
 # Writer Slot
 - main: planner only
-- worker-right: idle
-- worker-soul: idle
+- worker-keyword: idle
 - worker-review: idle
 
 # Contract Freeze
-- Goal: simplify the right-side canvas so the title and description sit directly on the background while the body remains in a flatter flowing section with fewer boxed surfaces.
-- Non-goals: do not change data registries, left-rail layout, selection behavior, or the wording of the content.
+- Goal: add a restrained background highlight to the `🔑 핵심 키워드:` line in the right-side commentary panels so the keyword lead line reads as a deliberate accent without changing the rest of the layout.
+- Non-goals: do not change data registries, left-rail layout, section ordering, selection behavior, or the wording/content of the keyword line itself.
 - Write sets:
-  - worker-right: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
-  - worker-soul: `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
+  - worker-keyword: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - Acceptance criteria:
-  - The right-side reading area uses fewer boxed surfaces.
-  - The title and description read directly on the background.
-  - The body remains readable in a flatter flowing section.
-  - Soul-panel chrome stays visually aligned with the right-side commentary chrome.
+  - The `🔑 핵심 키워드:` line has a subtle highlighted background.
+  - The highlight stays restrained and does not affect other commentary lines.
+  - The rest of the right-side layout remains unchanged.
   - Targeted tests and build continue to pass.
 
 # Reviewer
-- reviewer-right-panel: right-side canvas simplification review
+- reviewer-keyword-panel: keyword emphasis review
 
 # Last Update
-- 2026-04-22: reduced the right-side boxed surfaces and kept the title, description, and body on a flatter reading surface.
+- 2026-04-22: highlighted the keyword lead line in the right-side commentary panels without changing the rest of the layout.

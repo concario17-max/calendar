@@ -24,6 +24,14 @@ vi.mock('../data', () => {
     '[[/list]]',
   ].join('\n');
 
+  const guaKeywordCommentary = [
+    'Gua Keyword Heading',
+    '',
+    '🔑 핵심 키워드: 아르길로, 왼쪽 옆, 지배자, 빛과 어둠, 물질화, 아스트랄체, 진실한 사랑',
+    '',
+    'General commentary body',
+  ].join('\n');
+
   const yaoProseCommentary = ['Yao Heading', 'Plain prose commentary body'].join('\n');
   const yaoPipeProseCommentary = [
     'Yao Heading',
@@ -39,6 +47,10 @@ vi.mock('../data', () => {
 
       if (num === 8) {
         return guaListCommentary;
+      }
+
+      if (num === 10) {
+        return guaKeywordCommentary;
       }
 
       return undefined;
@@ -283,6 +295,38 @@ describe('IChingSection', () => {
     expect(commentaryBody).toHaveTextContent('still prose with a second line | and punctuation');
     expect(within(commentaryBody).queryByRole('table')).not.toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  });
+
+  it('highlights the keyword lead line without styling the rest of commentary', () => {
+    renderSection({
+      yaoNum: 33,
+      guaNum: 10,
+      guaData: { header: '62. Example', meta: 'Example meta' },
+      yaoData: {
+        titleLine: '33. Example',
+        short: 'Short reading',
+        body: 'Body text',
+      },
+      hitSoulGroup: {
+        titleLine: '31. Example Soul Group',
+        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
+        weekA: 50,
+        weekB: 3,
+        ranges: [],
+        block: '',
+      },
+      soulSections: [],
+    });
+
+    fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
+
+    const keywordLine = screen.getByTestId('commentary-keyword-line');
+    const commentaryBody = screen.getByText('General commentary body').closest('p');
+
+    expect(keywordLine).toHaveTextContent('🔑 핵심 키워드:');
+    expect(keywordLine).toHaveClass('bg-[#f4eadc]', 'text-[#4b3b29]');
+    expect(commentaryBody).not.toHaveClass('bg-[#f4eadc]');
+    expect(commentaryBody).not.toHaveClass('text-[#4b3b29]');
   });
 
   it('keeps the commentary shell visible when commentary is missing', () => {
