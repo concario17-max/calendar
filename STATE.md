@@ -1,29 +1,28 @@
 # Current Task
-- Completed: polish the header title presentation with a leading icon while preserving the existing desktop/mobile behavior and controls.
+- Completed: tighten the editorial spacing system and add subtle state transitions while keeping desktop/mobile behavior intact.
 
 # Route
 - Route B
-- Reason: the change touches shared header chrome and tests across multiple files.
+- Reason: the change touches shared layout styling, transitions, and tests across multiple files.
 
 # Writer Slot
 - main: planner only
-- worker-header-title-polish: idle
-- worker-review: idle
+- worker-spacing-transitions: completed
+- worker-review: completed
 
 # Contract Freeze
-- Goal: make the header title feel more luxurious by adding a leading icon and refining typography while preserving existing desktop/mobile behavior and controls.
+- Goal: make spacing feel like a coherent system and add subtle fade/slide/height transitions for state changes.
 - Non-goals: do not change the data registries, the wording of content, or the overall route architecture.
 - Write sets:
-  - worker-header-title-polish: `src/components/Header.tsx`, `src/components/Header.test.tsx`
+  - worker-spacing-transitions: `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/index.css`, `src/components/MainContent.tsx`
 - Acceptance criteria:
-  - The header title includes a leading decorative icon.
-  - The title presentation feels more luxurious without changing the text.
-  - Desktop/mobile behavior and current controls remain intact.
   - Desktop/mobile behavior remains intact.
+  - Section spacing uses a more consistent scale.
+  - State changes feel smoother with subtle transition treatment.
   - Targeted tests and build continue to pass.
 
 # Reviewer
-- reviewer-header-title-polish: header title polish review
+- reviewer-spacing-transitions: spacing and transition review
 
 # Last Update
-- 2026-04-22: header title polish completed with a leading decorative icon.
+- 2026-04-22: spacing system polish and subtle state transitions implemented; build and targeted tests passed.

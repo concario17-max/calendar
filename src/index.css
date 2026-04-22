@@ -202,6 +202,56 @@
     isolation: isolate;
   }
 
+  .reading-system {
+    --reading-panel-pad-x: clamp(1rem, 1.8vw, 1.75rem);
+    --reading-panel-pad-y: clamp(1.1rem, 1.85vw, 1.9rem);
+    --reading-card-pad-x: clamp(0.95rem, 1.5vw, 1.25rem);
+    --reading-card-pad-y: clamp(0.9rem, 1.45vw, 1.15rem);
+    --reading-section-gap: clamp(0.95rem, 1.4vw, 1.3rem);
+    --reading-block-gap: clamp(0.7rem, 1.05vw, 0.95rem);
+    --reading-transition: 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reading-system .reading-panel {
+    transition:
+      background-color var(--reading-transition),
+      color var(--reading-transition),
+      box-shadow var(--reading-transition),
+      transform var(--reading-transition),
+      opacity var(--reading-transition),
+      border-color var(--reading-transition);
+  }
+
+  .reading-system .reading-panel--left,
+  .reading-system .reading-panel--right {
+    padding: var(--reading-panel-pad-y) var(--reading-panel-pad-x) !important;
+  }
+
+  .reading-system .reading-card {
+    padding: var(--reading-card-pad-y) var(--reading-card-pad-x) !important;
+    transition:
+      background-color var(--reading-transition),
+      color var(--reading-transition),
+      box-shadow var(--reading-transition),
+      transform var(--reading-transition),
+      opacity var(--reading-transition),
+      border-color var(--reading-transition);
+  }
+
+  .reading-system .reading-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--reading-block-gap);
+    transition:
+      opacity var(--reading-transition),
+      transform var(--reading-transition),
+      max-height var(--reading-transition);
+  }
+
+  .reading-system .reading-fade-in {
+    animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
   .curated-shell__frame {
     min-height: 0;
   }
@@ -234,7 +284,6 @@
     border: 0 !important;
     background: var(--surface-container-low) !important;
     box-shadow: none !important;
-    padding: clamp(2rem, 3vw, 4.5rem) clamp(1.5rem, 2.75vw, 3.75rem) !important;
   }
 
   .curated-shell__frame > section > div > aside {
@@ -242,7 +291,6 @@
     border: 0 !important;
     background: var(--surface) !important;
     box-shadow: none !important;
-    padding: clamp(2rem, 3vw, 4.5rem) clamp(1.5rem, 3vw, 4.5rem) !important;
   }
 
   @media (max-width: 767px) {

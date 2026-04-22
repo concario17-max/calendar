@@ -314,9 +314,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   return (
     <section className="flex w-full flex-1 flex-col overflow-visible stagger-1 lg:overflow-hidden">
       <div className="flex min-h-0 w-full flex-col gap-5 lg:grid lg:h-full lg:min-w-[720px] lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-0 lg:overflow-x-auto">
-        <article className="flex w-full flex-col bg-[#f2eadc] px-4 pb-5 pt-0 text-[#4b3b29] lg:sticky lg:top-0 lg:h-full lg:min-h-0 lg:min-w-[340px] lg:overflow-y-auto lg:px-8 lg:pb-6 lg:pt-0.5">
-          <div className="flex min-h-0 flex-1 flex-col gap-2">
-            <div data-testid="reading-sigil-unit" className="-mt-2 flex justify-center pt-0 lg:-mt-2">
+        <article className="reading-panel reading-panel--left flex w-full flex-col bg-[#f2eadc] text-[#4b3b29] lg:sticky lg:top-0 lg:h-full lg:min-h-0 lg:min-w-[340px] lg:overflow-y-auto">
+          <div className="flex min-h-0 flex-1 flex-col gap-[var(--reading-section-gap)]">
+            <div data-testid="reading-sigil-unit" className="reading-fade-in -mt-2 flex justify-center pt-0 lg:-mt-2">
               <div className="w-full max-w-[7.5rem] sm:max-w-[10rem] lg:max-w-[11.5rem]">
                 {sigilSrc ? (
                   <img
@@ -330,7 +330,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </div>
             </div>
 
-            <div data-testid="reading-verse-unit" className="space-y-1.5 border-t border-[#d3c1a3]/60 pt-2 md:pt-3">
+            <div data-testid="reading-verse-unit" className="reading-section reading-fade-in border-t border-[#d3c1a3]/60 pt-2 md:pt-3">
               <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/60 bg-[#f4eadc]/70 px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#8e7a5d]">
                 효사
               </p>
@@ -343,7 +343,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </p>
             </div>
 
-            <div data-testid="reading-top-unit" className="space-y-1.5 border-t border-[#d3c1a3]/60 pt-2 md:pt-3">
+            <div data-testid="reading-top-unit" className="reading-section reading-fade-in border-t border-[#d3c1a3]/60 pt-2 md:pt-3">
               <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/50 bg-[#f4eadc]/55 px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#9b886a]">
                 괘사
               </p>
@@ -361,7 +361,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               ) : null}
             </div>
 
-            <div data-testid="reading-soul-title-unit" className="space-y-1.5 pb-3 pt-1 md:pb-4">
+            <div data-testid="reading-soul-title-unit" className="reading-section reading-fade-in pb-3 pt-1 md:pb-4">
               <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/50 bg-[#f4eadc]/55 px-2.5 py-0.5 text-[9px] font-semibold tracking-[0.22em] text-[#9a8a75]">
                 영혼
               </p>
@@ -377,20 +377,22 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
           </div>
         </article>
 
-        <aside className="flex w-full min-w-0 flex-col bg-[#fbf8f1] px-4 pb-6 pt-5 lg:h-full lg:min-h-0 lg:overflow-y-auto lg:px-8 lg:pb-7 lg:pt-7">
+        <aside className="reading-panel reading-panel--right flex w-full min-w-0 flex-col bg-[#fbf8f1] lg:h-full lg:min-h-0 lg:overflow-y-auto">
           <div className="mt-1 flex-1 space-y-0">
             {showSoulPanel ? (
-              <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
+              <div key="soul" className="reading-fade-in">
+                <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
+              </div>
             ) : commentary ? (
-              <div className="space-y-4">
+              <div key={commentarySource} className="reading-fade-in space-y-[var(--reading-section-gap)]">
                 <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 px-2 pb-2">
                   <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
                     {commentaryHeaderLabel}
                   </span>
                 </div>
 
-                <div className="space-y-4 px-1 pt-1">
-                  <div className="space-y-3">
+                <div className="space-y-[var(--reading-block-gap)] px-1 pt-1">
+                  <div className="reading-section">
                     {commentary.heading ? (
                       <h5 className="max-w-[40ch] break-keep font-headline text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">
                         {commentary.heading}
@@ -407,10 +409,10 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     ) : null}
                   </div>
 
-                  <div className="space-y-4 border-t border-[#d9c5a3]/35 pt-4">
+                  <div className="space-y-[var(--reading-section-gap)] border-t border-[#d9c5a3]/35 pt-[var(--reading-block-gap)]">
                     {commentary.blocks.map((block, index) => (
                       <div key={`commentary-block-${index}`} data-testid={`commentary-block-${index}`}>
-                        <div className="space-y-3">{renderCommentaryBlock(block, index)}</div>
+                        <div className="reading-section">{renderCommentaryBlock(block, index)}</div>
                       </div>
                     ))}
                   </div>
