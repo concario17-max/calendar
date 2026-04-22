@@ -30,7 +30,8 @@ describe('Header', () => {
     const header = container.querySelector('header');
     const controlsRow = header?.children[1];
     expect(header).toHaveClass('flex-col', 'sm:flex-row');
-    expect(controlsRow).toHaveClass('w-full', 'flex-col', 'sm:flex-row');
+    expect(controlsRow).toHaveClass('w-full', 'items-center', 'justify-between', 'sm:flex-row');
+    expect(controlsRow).not.toHaveClass('flex-col');
     expect(controlsRow?.children).toHaveLength(2);
     expect(controlsRow?.firstElementChild).toContainElement(segmentedControl);
 

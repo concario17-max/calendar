@@ -69,15 +69,15 @@ export const Header: React.FC<HeaderProps> = ({
         </h1>
       </div>
 
-      <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:justify-end sm:gap-2.5">
-        <div className="flex w-full items-center justify-center sm:w-auto sm:justify-start">
+      <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:flex-row sm:items-center sm:justify-end sm:gap-2.5">
+        <div className="flex min-w-0 flex-1 items-center justify-start">
           <CommentarySegmentedControl
             value={commentarySource}
             onChange={onCommentarySourceChange}
           />
         </div>
 
-        <div className="flex items-center justify-end gap-1 self-end sm:self-auto">
+        <div className="flex shrink-0 items-center justify-end gap-1">
           <div className="flex items-center gap-1 shrink-0">
             <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
             <button

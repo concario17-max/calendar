@@ -460,3 +460,10 @@
 - status: resolved
 - writer slots: worker-mobile-header-wrap = `src/components/Header.tsx`, `src/components/Header.test.tsx`; reviewer = `mobile header wrap review`
 - notes: the mobile header now stacks the commentary segmented control separately from the date/today/theme controls, preventing overflow on 320-360px widths while leaving desktop behavior unchanged
+
+## 2026-04-22
+- task: render the mobile header as two clean rows with the title on the first row and all controls on the second row
+- route: Route B
+- status: resolved
+- writer slots: worker-mobile-header-rows = `src/components/Header.tsx`, `src/components/Header.test.tsx`; reviewer = `mobile header rows review`
+- notes: the mobile header now keeps the title isolated on the first row, places the controls together on the second row, and preserves desktop behavior; targeted test and build passed
