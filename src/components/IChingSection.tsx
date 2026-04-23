@@ -133,6 +133,10 @@ function normalizeListItemText(text: string): string {
   return text.replace(/\s+/g, ' ').trim();
 }
 
+function isKeywordLeadLine(text: string): boolean {
+  return text.trim().startsWith('🔑');
+}
+
 function splitCommentary(text: string): SplitCommentary {
   const trimmed = text.trim();
 
@@ -222,9 +226,8 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   }
 
   const trimmedText = block.text.trim();
-  const isKeywordLeadLine = trimmedText.startsWith('🔑 핵심 키워드:');
 
-  if (isKeywordLeadLine) {
+  if (isKeywordLeadLine(trimmedText)) {
     return (
       <p
         key={`keyword-${index}`}
@@ -256,6 +259,46 @@ function getCommentaryHeaderLabel(source: CommentarySource): string {
   }
 
   return '';
+}
+
+function LearningComicSlot({
+  isOpen,
+  onToggle,
+}: {
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <section
+      data-testid="learning-comic-slot"
+      className="reading-section rounded-[1.2rem] bg-[#f4eadc]/55 px-3 py-3"
+    >
+      <button
+        type="button"
+        className="flex w-full items-center justify-between gap-3 text-left"
+        aria-expanded={isOpen}
+        aria-controls="learning-comic-slot-body"
+        onClick={onToggle}
+      >
+        <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-2.5 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
+          학습 만화
+        </span>
+        <span className="text-[11px] font-medium tracking-[0.18em] text-[#8f7c62]">
+          {isOpen ? '접기' : '펼치기'}
+        </span>
+      </button>
+
+      {isOpen ? (
+        <div
+          id="learning-comic-slot-body"
+          data-testid="learning-comic-slot-body"
+          className="mt-3 rounded-[1rem] border border-dashed border-[#d7c7a9]/70 bg-[#fbf8f1] px-4 py-4"
+        >
+          <p className="text-[0.95rem] leading-relaxed text-[#566471]">학습 만화가 들어갈 자리야.</p>
+        </div>
+      ) : null}
+    </section>
+  );
 }
 
 function DecoratedSurfaceCard({
@@ -290,6 +333,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   soulSections = [],
 }) => {
   const sigilSrc = yaoNum !== null ? `/images/yao-${yaoNum}.png` : null;
+  const [learningComicOpen, setLearningComicOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    setLearningComicOpen(false);
+  }, [commentarySource]);
 
   if (!guaData || !yaoData) {
     return (
@@ -307,9 +355,32 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         : '';
   const commentary = commentaryText.length > 0 ? splitCommentary(commentaryText) : null;
   const showSoulPanel = commentarySource === 'soul';
+  const showLearningComicSlot = commentarySource === 'gua' || commentarySource === 'yao';
   const leftSoulWeeksLabel = formatWeeksLabel(hitSoulGroup, soulSections);
   const guaMeta = guaData.meta.trim();
   const commentaryHeaderLabel = getCommentaryHeaderLabel(commentarySource);
+
+  const renderedCommentaryBlocks = commentary
+    ? commentary.blocks.flatMap((block, index) => {
+        const nodes = [
+          <div key={`commentary-block-${index}`} data-testid={`commentary-block-${index}`}>
+            <div className="reading-section">{renderCommentaryBlock(block, index)}</div>
+          </div>,
+        ];
+
+        if (showLearningComicSlot && block.kind === 'paragraph' && isKeywordLeadLine(block.text)) {
+          nodes.push(
+            <LearningComicSlot
+              key={`learning-comic-slot-${index}`}
+              isOpen={learningComicOpen}
+              onToggle={() => setLearningComicOpen((current) => !current)}
+            />,
+          );
+        }
+
+        return nodes;
+      })
+    : [];
 
   return (
     <section className="flex w-full flex-1 flex-col overflow-visible stagger-1 lg:overflow-hidden">
@@ -410,11 +481,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   </div>
 
                   <div className="space-y-[var(--reading-section-gap)] border-t border-[#d9c5a3]/35 pt-[var(--reading-block-gap)]">
-                    {commentary.blocks.map((block, index) => (
-                      <div key={`commentary-block-${index}`} data-testid={`commentary-block-${index}`}>
-                        <div className="reading-section">{renderCommentaryBlock(block, index)}</div>
-                      </div>
-                    ))}
+                    {renderedCommentaryBlocks}
                   </div>
                 </div>
               </div>

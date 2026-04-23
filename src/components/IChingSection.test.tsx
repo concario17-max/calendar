@@ -170,6 +170,7 @@ describe('IChingSection', () => {
     ).toBeInTheDocument();
     expect(within(leftPanel).getByText('50주(3월 16-22일) · 3주(4월 21-27일)')).toBeInTheDocument();
     expect(within(rightPanel).queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
+    expect(screen.queryByTestId('learning-comic-slot')).not.toBeInTheDocument();
     const leftRailBlocks = Array.from(
       leftPanel.querySelectorAll('[data-testid="reading-verse-unit"], [data-testid="reading-top-unit"]'),
     );
@@ -194,6 +195,7 @@ describe('IChingSection', () => {
     expect(screen.getByRole('cell', { name: 'B1' })).toBeInTheDocument();
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('learning-comic-slot')).not.toBeInTheDocument();
 
     fireEvent.click(within(commentaryControl).getByRole('radio', { name: '영혼' }));
     expect(within(leftPanel).getByText('영혼')).toBeInTheDocument();
@@ -204,6 +206,7 @@ describe('IChingSection', () => {
     expect(within(rightPanel).queryByText('2 blocks')).not.toBeInTheDocument();
     expect(within(rightPanel).getByText('50주').closest('article')).toHaveTextContent('Soul body');
     expect(within(rightPanel).queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
+    expect(within(rightPanel).queryByTestId('learning-comic-slot')).not.toBeInTheDocument();
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
   });
 
@@ -329,6 +332,18 @@ describe('IChingSection', () => {
     expect(keywordLine).toHaveClass('bg-[#f4eadc]', 'text-[#4b3b29]');
     expect(commentaryBody).not.toHaveClass('bg-[#f4eadc]');
     expect(commentaryBody).not.toHaveClass('text-[#4b3b29]');
+    expect(screen.getByTestId('learning-comic-slot')).toBeInTheDocument();
+    expect(screen.queryByTestId('learning-comic-slot-body')).not.toBeInTheDocument();
+
+    const keywordAndSlotNodes = Array.from(
+      screen.getByRole('complementary').querySelectorAll('[data-testid="commentary-keyword-line"], [data-testid="learning-comic-slot"]'),
+    );
+
+    expect(keywordAndSlotNodes[0]).toBe(keywordLine);
+    expect(keywordAndSlotNodes[1]).toBe(screen.getByTestId('learning-comic-slot'));
+
+    fireEvent.click(screen.getByRole('button', { name: /학습 만화/ }));
+    expect(screen.getByTestId('learning-comic-slot-body')).toBeInTheDocument();
   });
 
   it('keeps the commentary shell visible when commentary is missing', () => {
