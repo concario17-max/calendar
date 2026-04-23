@@ -4,6 +4,8 @@ import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from 
 import { formatWeeksLabel, SoulCalendarSection } from './SoulCalendarSection';
 
 const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
+const compactLeftBadgeClass =
+  'inline-flex w-fit items-center rounded-full border px-1.5 py-0.5 text-[8px] font-semibold leading-none tracking-[0.14em]';
 const decoratedSurfaceClass =
   'relative overflow-hidden rounded-[1.5rem] border border-[#d7c7a9]/55 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(249,243,232,0.92))] px-4 py-4 shadow-[0_14px_32px_rgba(105,82,48,0.09)] backdrop-blur-sm';
 
@@ -402,7 +404,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
 
             <div data-testid="reading-verse-unit" className="reading-section reading-fade-in border-t border-[#d3c1a3]/60 pt-2 md:pt-3">
-              <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/60 bg-[#f4eadc]/70 px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#8e7a5d]">
+              <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/60 bg-[#f4eadc]/70 uppercase text-[#8e7a5d]`}>
                 효사
               </p>
               <h4 className="max-w-[40ch] break-keep font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">
@@ -415,7 +417,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
 
             <div data-testid="reading-top-unit" className="reading-section reading-fade-in border-t border-[#d3c1a3]/60 pt-2 md:pt-3">
-              <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/50 bg-[#f4eadc]/55 px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#9b886a]">
+              <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/50 bg-[#f4eadc]/55 uppercase text-[#9b886a]`}>
                 괘사
               </p>
               <h3 className="max-w-[40ch] break-keep font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.025em] text-current md:text-[1.66rem]">
@@ -433,7 +435,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             </div>
 
             <div data-testid="reading-soul-title-unit" className="reading-section reading-fade-in pb-3 pt-1 md:pb-4">
-              <p className="inline-flex items-center rounded-full border border-[#d7c7a9]/50 bg-[#f4eadc]/55 px-2.5 py-0.5 text-[9px] font-semibold tracking-[0.22em] text-[#9a8a75]">
+              <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/50 bg-[#f4eadc]/55 text-[#9a8a75]`}>
                 영혼
               </p>
               <h2 className="max-w-[40ch] font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">

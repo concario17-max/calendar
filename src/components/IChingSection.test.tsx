@@ -162,9 +162,9 @@ describe('IChingSection', () => {
     expect(screen.getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
 
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
-    expect(within(readingVerseUnit).getByText('효사')).toBeInTheDocument();
-    expect(within(readingTopUnit).getByText('괘사')).toBeInTheDocument();
-    expect(within(leftPanel).getByText('영혼')).toBeInTheDocument();
+    expect(within(readingVerseUnit).getByText('효사')).toHaveClass('px-1.5', 'tracking-[0.14em]');
+    expect(within(readingTopUnit).getByText('괘사')).toHaveClass('px-1.5', 'tracking-[0.14em]');
+    expect(within(leftPanel).getByText('영혼')).toHaveClass('px-1.5', 'tracking-[0.14em]');
     expect(
       within(leftPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();
