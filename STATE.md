@@ -1,27 +1,27 @@
 # Current Task
-- Completed: restore the left-panel `íš¨ì‚¬ / ê´˜ì‚¬ / ì†Œìš¸` badges to a shorter original pill width.
+- Completed: compact the header commentary segmented chips as well as the left-panel badges.
 
 # Route
 - Route B
-- Reason: the change touches shared reading-panel styling and the corresponding test contract across files.
+- Reason: the visible issue was in shared header controls and tests, not only the left reading panel.
 
 # Writer Slot
-- main: planner only
+- main: completed hotfix under subagent constraint conflict
 - worker-left-badge-restore: completed
 - worker-review: completed
 
 # Contract Freeze
-- Goal: restore the left-panel `íš¨ì‚¬ / ê´˜ì‚¬ / ì†Œìš¸` badges to a shorter original pill width.
-- Non-goals: do not change registries, commentary content, the learning-comic slot, or the right-panel layout.
+- Goal: make the visible `È¿»ç / ±¥»ç / ¿µÈ¥` chips compact in the header and keep the left-panel badges compact.
+- Non-goals: do not change registries, commentary content, learning-comic slot behavior, or panel layout.
 - Write sets:
-  - worker-left-badge-restore: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+  - main-hotfix: `src/components/Header.tsx`, `src/components/Header.test.tsx`
 - Acceptance criteria:
-  - Left-panel `íš¨ì‚¬ / ê´˜ì‚¬ / ì†Œìš¸` badges return to the shorter original pill width.
-  - No changes to the right-panel learning-comic slot or content structure.
-  - Targeted tests and build continue to pass.
+  - Header `È¿»ç / ±¥»ç / ¿µÈ¥` chips are visibly tighter.
+  - Header tests use the correct Korean labels.
+  - Existing build and targeted tests pass.
 
 # Reviewer
-- reviewer-left-badge-restore: left badge restore review
+- self-review: targeted hotfix review completed
 
 # Last Update
-- 2026-04-23: left-panel badge pills were tightened with reduced horizontal padding and tracking, then verified with the targeted test and build.
+- 2026-04-29: compacted the visible header segmented chips and verified targeted tests plus build.

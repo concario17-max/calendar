@@ -24,7 +24,7 @@ function CommentarySegmentedControl({
   ];
 
   return (
-    <div role="radiogroup" aria-label="해설 선택" className="inline-flex items-center gap-1">
+    <div role="radiogroup" aria-label="해설 선택" className="inline-flex items-center gap-0.5">
       {options.map((option) => {
         const active = value === option.value;
         const Icon = option.icon;
@@ -32,7 +32,7 @@ function CommentarySegmentedControl({
         return (
           <label
             key={option.value}
-            className={`flex cursor-pointer items-center gap-1 rounded-full px-1.5 py-1 text-[9px] font-semibold tracking-[0.14em] transition-colors duration-200 ${
+            className={`flex cursor-pointer items-center gap-0.5 rounded-full px-1 py-0.5 text-[8px] font-semibold leading-none tracking-[0.08em] transition-colors duration-200 ${
               active ? 'bg-[#efe8db] text-[#342515]' : 'text-[#8b8178] hover:bg-secondary/8 hover:text-[#5a4a39]'
             }`}
           >
@@ -44,7 +44,7 @@ function CommentarySegmentedControl({
               onChange={() => onChange(option.value)}
               className="sr-only"
             />
-            <Icon size={11} strokeWidth={2.4} className="shrink-0" aria-hidden="true" />
+            <Icon size={10} strokeWidth={2.4} className="shrink-0" aria-hidden="true" />
             <span>{option.label}</span>
           </label>
         );
@@ -84,7 +84,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         <div className="flex shrink-0 items-center justify-end gap-1">
-          <div className="flex items-center gap-1 shrink-0">
+          <div className="flex shrink-0 items-center gap-1">
             <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
             <button
               type="button"
