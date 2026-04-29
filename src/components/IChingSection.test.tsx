@@ -113,6 +113,7 @@ function renderSection(overrides?: Partial<React.ComponentProps<typeof MainConte
     readingTopUnit: screen.getByTestId('reading-top-unit'),
     readingVerseUnit: screen.getByTestId('reading-verse-unit'),
     readingSigilUnit: screen.getByTestId('reading-sigil-unit'),
+    readingSoulTitleUnit: screen.getByTestId('reading-soul-title-unit'),
   };
 }
 
@@ -125,6 +126,7 @@ describe('IChingSection', () => {
 
   it('renders the reading shell without legacy rail labels or shell chrome controls', () => {
     const { container, leftPanel, rightPanel } = renderSection();
+    const readingVerseUnit = screen.getByTestId('reading-verse-unit');
 
     const main = screen.getByRole('main');
     const shell = container.querySelector('section');
@@ -144,27 +146,36 @@ describe('IChingSection', () => {
     expect(screen.queryByText('Manifesto')).not.toBeInTheDocument();
     expect(screen.queryByText('Reading rail')).not.toBeInTheDocument();
     expect(screen.queryByText('Commentary')).not.toBeInTheDocument();
-    expect(screen.getByText('오늘의 효사')).toBeInTheDocument();
+    expect(readingVerseUnit).toBeInTheDocument();
     expect(screen.queryByText('Reading canvas')).not.toBeInTheDocument();
   });
 
   it('keeps the commentary control in the header and preserves the left rail content', () => {
-    const { leftPanel, rightPanel, readingTopUnit, readingVerseUnit, readingSigilUnit } = renderSection();
+    const {
+      leftPanel,
+      rightPanel,
+      readingTopUnit,
+      readingVerseUnit,
+      readingSigilUnit,
+      readingSoulTitleUnit,
+    } = renderSection();
 
     const commentaryControl = screen.getByRole('radiogroup', { name: '해설 선택' });
+    const yaoRadio = within(commentaryControl).getByRole('radio', { name: '효사' });
+    const guaRadio = within(commentaryControl).getByRole('radio', { name: '괘사' });
+    const soulRadio = within(commentaryControl).getByRole('radio', { name: '영혼' });
 
     expect(commentaryControl).toBeInTheDocument();
-    expect(within(commentaryControl).getAllByRole('radio')).toHaveLength(3);
-    expect(within(commentaryControl).getByRole('radio', { name: '효사' })).toBeInTheDocument();
-    expect(within(commentaryControl).getByRole('radio', { name: '괘사' })).toBeInTheDocument();
-    expect(within(commentaryControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
+    expect(yaoRadio).toHaveAttribute('value', 'yao');
+    expect(guaRadio).toHaveAttribute('value', 'gua');
+    expect(soulRadio).toHaveAttribute('value', 'soul');
     expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
 
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('효사')).toHaveClass('px-1.5', 'tracking-[0.14em]');
     expect(within(readingTopUnit).getByText('괘사')).toHaveClass('px-1.5', 'tracking-[0.14em]');
-    expect(within(leftPanel).getByText('영혼')).toHaveClass('px-1.5', 'tracking-[0.14em]');
+    expect(within(readingSoulTitleUnit).getByText('영혼')).toHaveClass('px-1.5', 'tracking-[0.14em]');
     expect(
       within(leftPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();
@@ -187,7 +198,7 @@ describe('IChingSection', () => {
     expect(within(leftPanel).queryByText('Manifesto')).not.toBeInTheDocument();
     expect(within(rightPanel).queryByText('Reading canvas')).not.toBeInTheDocument();
 
-    fireEvent.click(within(commentaryControl).getByRole('radio', { name: '괘사' }));
+    fireEvent.click(guaRadio);
     expect(screen.getByText('오늘의 괘사')).toBeInTheDocument();
     expect(screen.getByText('Gua Heading')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
@@ -197,7 +208,7 @@ describe('IChingSection', () => {
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
     expect(screen.queryByTestId('learning-comic-slot')).not.toBeInTheDocument();
 
-    fireEvent.click(within(commentaryControl).getByRole('radio', { name: '영혼' }));
+    fireEvent.click(soulRadio);
     expect(within(leftPanel).getByText('영혼')).toBeInTheDocument();
     expect(
       within(rightPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),

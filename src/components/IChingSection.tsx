@@ -8,6 +8,16 @@ const compactLeftBadgeClass =
   'inline-flex w-fit items-center rounded-full border px-1.5 py-0.5 text-[8px] font-semibold leading-none tracking-[0.14em]';
 const decoratedSurfaceClass =
   'relative overflow-hidden rounded-[1.5rem] border border-[#d7c7a9]/55 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(249,243,232,0.92))] px-4 py-4 shadow-[0_14px_32px_rgba(105,82,48,0.09)] backdrop-blur-sm';
+const manuscriptUnitClass =
+  'reading-section reading-fade-in border-l border-[#d9c5a3]/60 pl-4 md:pl-5';
+const commentaryFolioClass =
+  'relative overflow-hidden rounded-[2rem] border border-[#d8c4a1]/60 bg-[linear-gradient(180deg,rgba(250,244,235,0.98),rgba(243,235,220,0.9))] px-4 py-4 shadow-[0_24px_70px_rgba(109,84,47,0.12)]';
+const commentaryHeadingClass =
+  'max-w-[42ch] break-keep font-headline text-[2.05rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[2.7rem]';
+const commentaryBodyClass =
+  'w-full max-w-none break-keep font-body text-[1rem] leading-[1.92] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]';
+const commentaryLeadLineClass =
+  'flex flex-wrap items-start gap-2 break-keep rounded-[1rem] border border-[#d9c5a3]/55 bg-[#f4eadc] px-3 py-2 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#4b3b29] md:text-[16px]';
 
 interface IChingSectionProps {
   commentarySource?: CommentarySource;
@@ -178,7 +188,10 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
     const [headerRow, ...bodyRows] = block.rows;
 
     return (
-      <div key={`table-${index}`} className="overflow-x-auto rounded-[1.25rem] bg-[#f4efe6] px-5 py-4">
+      <div
+        key={`table-${index}`}
+        className="overflow-x-auto rounded-[1.4rem] border border-[#d9c5a3]/45 bg-[#f6f0e5] px-5 py-4 shadow-[0_10px_24px_rgba(105,82,48,0.06)]"
+      >
         <table className="min-w-full border-collapse text-left text-[0.95rem] md:text-[1rem]">
           <thead>
             <tr>
@@ -234,8 +247,11 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
       <p
         key={`keyword-${index}`}
         data-testid="commentary-keyword-line"
-        className="break-keep rounded-[1rem] bg-[#f4eadc] px-3 py-2 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#4b3b29] md:text-[16px]"
+        className={commentaryLeadLineClass}
       >
+        <span className="inline-flex shrink-0 items-center rounded-full bg-[#dcc18e] px-2 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
+          핵심
+        </span>
         {block.text}
       </p>
     );
@@ -244,7 +260,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   return (
     <p
       key={`paragraph-${index}`}
-      className="break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
+      className="max-w-[68ch] break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
     >
       {block.text}
     </p>
@@ -273,7 +289,7 @@ function LearningComicSlot({
   return (
     <section
       data-testid="learning-comic-slot"
-      className="reading-section rounded-[1.2rem] bg-[#f4eadc]/55 px-3 py-3"
+      className="reading-section rounded-[1.25rem] border border-dashed border-[#d7c7a9]/65 bg-[#f4eadc]/60 px-3 py-3"
     >
       <button
         type="button"
@@ -403,46 +419,46 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </div>
             </div>
 
-            <div data-testid="reading-verse-unit" className="reading-section reading-fade-in border-t border-[#d3c1a3]/60 pt-2 md:pt-3">
+            <div data-testid="reading-verse-unit" className={`${manuscriptUnitClass} pt-2 md:pt-3`}>
               <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/60 bg-[#f4eadc]/70 uppercase text-[#8e7a5d]`}>
                 효사
               </p>
-              <h4 className="max-w-[40ch] break-keep font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">
+              <h4 className="max-w-[40ch] break-keep font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
                 {yaoData.titleLine}
               </h4>
 
-              <p className="max-w-[40ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
+              <p className="max-w-[38ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
                 {yaoData.short}
               </p>
             </div>
 
-            <div data-testid="reading-top-unit" className="reading-section reading-fade-in border-t border-[#d3c1a3]/60 pt-2 md:pt-3">
+            <div data-testid="reading-top-unit" className={`${manuscriptUnitClass} pt-2 md:pt-3`}>
               <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/50 bg-[#f4eadc]/55 uppercase text-[#9b886a]`}>
                 괘사
               </p>
-              <h3 className="max-w-[40ch] break-keep font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.025em] text-current md:text-[1.66rem]">
+              <h3 className="max-w-[40ch] break-keep font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
                 {guaData.header}
               </h3>
 
               {guaMeta ? (
                 <p
                   data-testid="reading-gua-meta"
-                  className="max-w-[40ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]"
+                  className="max-w-[38ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]"
                 >
                   {guaMeta}
                 </p>
               ) : null}
             </div>
 
-            <div data-testid="reading-soul-title-unit" className="reading-section reading-fade-in pb-3 pt-1 md:pb-4">
+            <div data-testid="reading-soul-title-unit" className={`${manuscriptUnitClass} pb-3 pt-1 md:pb-4`}>
               <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/50 bg-[#f4eadc]/55 text-[#9a8a75]`}>
                 영혼
               </p>
-              <h2 className="max-w-[40ch] font-headline text-[1.35rem] font-semibold leading-[1.12] tracking-[-0.03em] text-current md:text-[1.66rem]">
+              <h2 className="max-w-[40ch] font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
                 {SOUL_TITLE}
               </h2>
               {leftSoulWeeksLabel ? (
-                <p className="max-w-[40ch] font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
+                <p className="max-w-[38ch] font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
                   {leftSoulWeeksLabel}
                 </p>
               ) : null}
@@ -458,16 +474,20 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </div>
             ) : commentary ? (
               <div key={commentarySource} className="reading-fade-in space-y-[var(--reading-section-gap)]">
-                <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 px-2 pb-2">
+                <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 pb-2">
                   <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
                     {commentaryHeaderLabel}
                   </span>
                 </div>
 
-                <div className="space-y-[var(--reading-block-gap)] px-1 pt-1">
-                  <div className="reading-section">
+                <div className={commentaryFolioClass}>
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d1b68a]/85 to-transparent" />
+                  <div className="absolute -right-2 top-2 h-16 w-16 rounded-full bg-[#efdebc]/45 blur-2xl" />
+                  <div className="absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-[#cfb07f]/12 blur-3xl" />
+
+                  <div className="relative space-y-[var(--reading-block-gap)]">
                     {commentary.heading ? (
-                      <h5 className="max-w-[40ch] break-keep font-headline text-[2.15rem] font-semibold leading-[1.1] tracking-[-0.03em] text-current md:text-[2.85rem]">
+                      <h5 className={commentaryHeadingClass}>
                         {commentary.heading}
                       </h5>
                     ) : null}
@@ -475,15 +495,15 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     {commentarySource === 'yao' ? (
                       <div
                         data-testid="commentary-reading-body"
-                        className="w-full max-w-none break-keep font-body text-[1rem] leading-[1.9] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]"
+                        className={commentaryBodyClass}
                       >
                         {yaoData.body}
                       </div>
                     ) : null}
-                  </div>
 
-                  <div className="space-y-[var(--reading-section-gap)] border-t border-[#d9c5a3]/35 pt-[var(--reading-block-gap)]">
-                    {renderedCommentaryBlocks}
+                    <div className="space-y-[var(--reading-section-gap)] border-t border-[#d9c5a3]/35 pt-[var(--reading-block-gap)]">
+                      {renderedCommentaryBlocks}
+                    </div>
                   </div>
                 </div>
               </div>

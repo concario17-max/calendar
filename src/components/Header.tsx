@@ -24,7 +24,11 @@ function CommentarySegmentedControl({
   ];
 
   return (
-    <div role="radiogroup" aria-label="해설 선택" className="inline-flex items-center gap-0.5">
+    <div
+      role="radiogroup"
+      aria-label="해설 선택"
+      className="archive-segmented-control inline-flex items-center gap-0.5 rounded-full px-0.5 py-0.5"
+    >
       {options.map((option) => {
         const active = value === option.value;
         const Icon = option.icon;
@@ -32,8 +36,10 @@ function CommentarySegmentedControl({
         return (
           <label
             key={option.value}
-            className={`flex cursor-pointer items-center gap-0.5 rounded-full px-1 py-0.5 text-[8px] font-semibold leading-none tracking-[0.08em] transition-colors duration-200 ${
-              active ? 'bg-[#efe8db] text-[#342515]' : 'text-[#8b8178] hover:bg-secondary/8 hover:text-[#5a4a39]'
+            className={`archive-segmented-control__option flex cursor-pointer items-center gap-0.5 rounded-full px-1.5 py-1 text-[8px] font-semibold leading-none whitespace-nowrap ${
+              active
+                ? 'bg-[#efe8db] text-[#342515] shadow-[0_0_0_1px_rgba(186,147,82,0.18)_inset]'
+                : 'text-[#8b8178] hover:text-[#5a4a39]'
             }`}
           >
             <input
@@ -62,9 +68,9 @@ export const Header: React.FC<HeaderProps> = ({
   const { isDark, toggleTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-30 flex min-h-[3.5rem] w-full flex-col gap-2 border-b border-outline-variant/8 bg-surface/90 px-3 py-2.5 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-      <div className="min-w-0">
-        <h1 className="inline-flex min-w-0 items-center gap-2 truncate font-headline text-[1.38rem] italic leading-none tracking-[0.01em] text-primary sm:text-[1.78rem]">
+    <header className="archive-header sticky top-0 z-30 flex min-h-[3.5rem] w-full flex-wrap items-center gap-2 border-b border-outline-variant/8 px-3 py-2.5 backdrop-blur-xl sm:px-4 lg:px-8">
+      <div className="archive-header__masthead flex min-w-0 flex-[1_1_15rem] items-center gap-2">
+        <h1 className="archive-header__title inline-flex min-w-0 items-center gap-2 truncate font-headline text-[1.24rem] italic leading-none text-primary sm:text-[1.68rem]">
           <span
             aria-hidden="true"
             className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary ring-1 ring-secondary/12 shadow-[0_0_0_1px_rgba(255,255,255,0.18)_inset]"
@@ -75,8 +81,8 @@ export const Header: React.FC<HeaderProps> = ({
         </h1>
       </div>
 
-      <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:flex-row sm:items-center sm:justify-end sm:gap-2.5">
-        <div className="flex min-w-0 flex-1 items-center justify-start">
+      <div className="archive-header__controls flex min-w-0 flex-[0_1_auto] items-center justify-end gap-2 sm:ml-auto sm:gap-2.5">
+        <div className="flex min-w-0 items-center justify-start">
           <CommentarySegmentedControl
             value={commentarySource}
             onChange={onCommentarySourceChange}
@@ -89,7 +95,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               type="button"
               onClick={() => onDateChange(new Date())}
-              className="rounded-full px-2.5 py-1.25 font-label text-[0.64rem] uppercase tracking-[0.16em] text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
+              className="rounded-full px-2.5 py-1.5 font-label text-[0.64rem] uppercase tracking-[0.16em] text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
             >
               Today
             </button>

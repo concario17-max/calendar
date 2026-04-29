@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { Header } from './Header';
 
 describe('Header', () => {
-  it('renders the renamed title and stacks mobile controls safely on narrow screens', () => {
+  it('renders the renamed title and keeps the archive controls accessible in a compact row', () => {
     const onDateChange = vi.fn();
     const onCommentarySourceChange = vi.fn();
     const { container } = render(
@@ -25,13 +25,14 @@ describe('Header', () => {
 
     expect(screen.getByLabelText('Open date picker')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Today' })).toHaveClass('py-1.5');
+    expect(screen.getByRole('button', { name: 'Today' })).not.toHaveClass('py-1.25');
     expect(screen.getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Today' }).parentElement).not.toHaveClass('hidden');
 
     const header = container.querySelector('header');
     const controlsRow = header?.children[1];
-    expect(header).toHaveClass('flex-col', 'sm:flex-row');
-    expect(controlsRow).toHaveClass('w-full', 'items-center', 'justify-between', 'sm:flex-row');
+    expect(header).toHaveClass('archive-header', 'flex-wrap', 'items-center');
+    expect(controlsRow).toHaveClass('archive-header__controls');
     expect(controlsRow).not.toHaveClass('flex-col');
     expect(controlsRow?.children).toHaveLength(2);
     expect(controlsRow?.firstElementChild).toContainElement(segmentedControl);

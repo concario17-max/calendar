@@ -1,27 +1,31 @@
 # Current Task
-- Completed: compact the header commentary segmented chips as well as the left-panel badges.
+- Completed: redesigned the overall frontend into a refined scripture/truth-study visual system.
 
 # Route
 - Route B
-- Reason: the visible issue was in shared header controls and tests, not only the left reading panel.
+- Reason: this redesign touched shared theme CSS, global layout, header controls, left reading rail, right commentary canvas, component tests, and production build verification.
 
 # Writer Slot
-- main: completed hotfix under subagent constraint conflict
-- worker-left-badge-restore: completed
-- worker-review: completed
+- main: planner/coordinator only
+- worker-visual-system: completed shared visual system and header shell
+- worker-reading-canvas: completed reading rail and commentary canvas
+- worker-review-fixes: completed reviewer follow-up fixes
 
 # Contract Freeze
-- Goal: make the visible `È¿»ç / ±¥»ç / ¿µÈ¥` chips compact in the header and keep the left-panel badges compact.
-- Non-goals: do not change registries, commentary content, learning-comic slot behavior, or panel layout.
+- Goal: create a cohesive sacred-scripture/truth-study design language across the app, with a manuscript-like left rail, a refined commentary canvas, disciplined spacing, upgraded typography rhythm, and restrained ritual accents.
+- Non-goals: do not change date logic, registries, commentary extraction, uploaded content data, routing, or the meaning/order of the current reading content.
 - Write sets:
-  - main-hotfix: `src/components/Header.tsx`, `src/components/Header.test.tsx`
+  - worker-visual-system: `src/index.css`, `src/components/MainContent.tsx`, `src/components/Header.tsx`, `src/components/Header.test.tsx`
+  - worker-reading-canvas: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
+  - worker-review-fixes: `src/components/Header.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`
 - Acceptance criteria:
-  - Header `È¿»ç / ±¥»ç / ¿µÈ¥` chips are visibly tighter.
-  - Header tests use the correct Korean labels.
-  - Existing build and targeted tests pass.
+  - The app reads visually as a sacred archive/scripture commentary interface rather than a generic beige dashboard.
+  - Left rail, header controls, right commentary, keyword emphasis, and learning comic slot share one coherent visual language.
+  - Desktop two-pane layout and mobile stacked layout remain usable without changing content behavior.
+  - Existing targeted tests and production build pass.
 
 # Reviewer
-- self-review: targeted hotfix review completed
+- reviewer-sacred-redesign: completed; findings fixed or logged.
 
 # Last Update
-- 2026-04-29: compacted the visible header segmented chips and verified targeted tests plus build.
+- 2026-04-29: completed sacred archive redesign; targeted tests and production build passed; STATE.md BOM removed.

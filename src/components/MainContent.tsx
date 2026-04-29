@@ -28,9 +28,7 @@ export const MainContent: React.FC<MainContentProps> = ({
   const [commentarySource, setCommentarySource] = useState<CommentarySource>('yao');
 
   return (
-    <main className="reading-system curated-shell relative flex min-h-dvh w-full flex-col overflow-x-hidden overflow-y-auto bg-surface text-on-surface md:h-[100dvh] md:overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(75,59,41,0.06),transparent_34%),radial-gradient(circle_at_top_right,rgba(115,92,0,0.05),transparent_26%),linear-gradient(180deg,rgba(250,249,244,0.96)_0%,rgba(245,244,239,0.9)_100%)]" />
-
+    <main className="reading-system curated-shell archive-shell relative flex min-h-dvh w-full flex-col overflow-x-hidden overflow-y-auto bg-shell-canvas text-on-surface md:h-[100dvh] md:overflow-hidden">
       <div className="relative z-10 flex min-h-0 flex-1 flex-col">
         <Header
           selectedDate={selectedDate}

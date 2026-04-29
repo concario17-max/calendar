@@ -296,3 +296,20 @@ status: resolved
   summary: git commit chain failed because `&&` is unsupported in this PowerShell session
   details: A combined `git add && git commit && git push` command failed before staging because this shell treats `&&` as an invalid statement separator. The command will be rerun with PowerShell separators or separate commands.
   status: resolved
+
+## 2026-04-29
+- time: 2026-04-29 Asia/Seoul
+- location: STATE.md route setup
+- summary: apply_patch could not read STATE.md because the file contained invalid UTF-8 bytes.
+- details: Rewrote STATE.md with UTF-8 content so the required route log could be recorded before implementation.
+- status: resolved
+- time: 2026-04-29 10:41 KST
+- location: `npm.cmd run build`
+- summary: production build is blocked by an unrelated type error in `src/components/IChingSection.test.tsx`
+- details: `tsc -b` now fails on `Cannot find name 'readingVerseUnit'` in `src/components/IChingSection.test.tsx:147`, which is outside the files owned by this slice. The header test still passes; build verification remains deferred until that unrelated error is fixed.
+- status: open
+- time: 2026-04-29 Asia/Seoul
+- location: `npm.cmd run build`
+- summary: previous build-blocking type error is resolved after the reading canvas test update.
+- details: `npm.cmd run build` passed; Vite reported only the existing large chunk size warning.
+- status: resolved
