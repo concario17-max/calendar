@@ -205,7 +205,7 @@ describe('IChingSection', () => {
     ).toBeInTheDocument();
     expect(within(leftPanel).getByText('50주(3월 16-22일) · 3주(4월 21-27일)')).toBeInTheDocument();
     expect(within(rightPanel).queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
-    expect(screen.queryByTestId('learning-comic-slot')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('commentary-comic-toggle')).not.toBeInTheDocument();
     const leftRailBlocks = Array.from(
       leftPanel.querySelectorAll('[data-testid="reading-verse-unit"], [data-testid="reading-top-unit"]'),
     );
@@ -230,7 +230,7 @@ describe('IChingSection', () => {
     expect(screen.getByRole('cell', { name: 'B1' })).toBeInTheDocument();
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('learning-comic-slot')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('commentary-comic-toggle')).not.toBeInTheDocument();
 
     fireEvent.click(soulRadio);
     expect(within(leftPanel).getByText('영혼')).toBeInTheDocument();
@@ -241,7 +241,7 @@ describe('IChingSection', () => {
     expect(within(rightPanel).queryByText('2 blocks')).not.toBeInTheDocument();
     expect(within(rightPanel).getByText('50주').closest('article')).toHaveTextContent('Soul body');
     expect(within(rightPanel).queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
-    expect(within(rightPanel).queryByTestId('learning-comic-slot')).not.toBeInTheDocument();
+    expect(within(rightPanel).queryByTestId('commentary-comic-toggle')).not.toBeInTheDocument();
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
   });
 
@@ -337,7 +337,7 @@ describe('IChingSection', () => {
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
   });
 
-  it('renders the matching 괘사 learning image inside the keyword slot', () => {
+  it('shows a 괘사 comic toggle and switches the lower commentary area to the image view', () => {
     renderSection({
       yaoNum: 33,
       guaNum: 10,
@@ -367,23 +367,27 @@ describe('IChingSection', () => {
     expect(keywordLine).toHaveClass('bg-[#f4eadc]', 'text-[#4b3b29]');
     expect(commentaryBody).not.toHaveClass('bg-[#f4eadc]');
     expect(commentaryBody).not.toHaveClass('text-[#4b3b29]');
-    expect(screen.getByTestId('learning-comic-slot')).toBeInTheDocument();
-    expect(screen.queryByTestId('learning-comic-slot-body')).not.toBeInTheDocument();
+    const comicToggle = screen.getByTestId('commentary-comic-toggle');
 
-    const keywordAndSlotNodes = Array.from(
-      screen.getByRole('complementary').querySelectorAll('[data-testid="commentary-keyword-line"], [data-testid="learning-comic-slot"]'),
-    );
+    expect(comicToggle).toBeInTheDocument();
+    expect(comicToggle).toHaveAttribute('aria-pressed', 'false');
 
-    expect(keywordAndSlotNodes[0]).toBe(keywordLine);
-    expect(keywordAndSlotNodes[1]).toBe(screen.getByTestId('learning-comic-slot'));
+    fireEvent.click(screen.getByRole('button', { name: '학습 만화 보기' }));
 
-    fireEvent.click(screen.getByRole('button', { name: /학습 만화/ }));
-    expect(screen.getByTestId('learning-comic-slot-body')).toBeInTheDocument();
+    expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
     expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('10.png'));
     expect(screen.getByRole('img', { name: '괘사 학습 이미지 10' })).toBeInTheDocument();
+    expect(screen.queryByText('General commentary body')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('commentary-keyword-line')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
+
+    expect(screen.queryByTestId('learning-comic-view')).not.toBeInTheDocument();
+    expect(screen.getByText('General commentary body')).toBeInTheDocument();
+    expect(screen.getByTestId('commentary-keyword-line')).toBeInTheDocument();
   });
 
-  it('renders the matching 효사 learning image inside the keyword slot', () => {
+  it('shows a 효사 comic toggle and switches the lower commentary area to the image view', () => {
     renderSection({
       yaoNum: 59,
       guaNum: 6,
@@ -404,15 +408,21 @@ describe('IChingSection', () => {
       soulSections: [],
     });
 
-    expect(screen.getByTestId('learning-comic-slot')).toBeInTheDocument();
+    const comicToggle = screen.getByTestId('commentary-comic-toggle');
 
-    fireEvent.click(screen.getByRole('button', { name: /학습 만화/ }));
+    expect(comicToggle).toBeInTheDocument();
+    expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
 
+    fireEvent.click(screen.getByRole('button', { name: '학습 만화 보기' }));
+
+    expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
     expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('59.png'));
     expect(screen.getByRole('img', { name: '효사 학습 이미지 59' })).toBeInTheDocument();
+    expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
+    expect(screen.queryByText('Yao keyword commentary body')).not.toBeInTheDocument();
   });
 
-  it('keeps the placeholder when the keyword slot has no matching image file', () => {
+  it('keeps text mode unchanged when no matching image file exists', () => {
     renderSection({
       yaoNum: 33,
       guaNum: 11,
@@ -434,11 +444,10 @@ describe('IChingSection', () => {
     });
 
     fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
-    fireEvent.click(screen.getByRole('button', { name: /학습 만화/ }));
 
-    expect(screen.getByTestId('learning-comic-slot-body')).toBeInTheDocument();
-    expect(screen.queryByTestId('learning-comic-image')).not.toBeInTheDocument();
-    expect(screen.getByText('학습 만화가 들어갈 자리야.')).toBeInTheDocument();
+    expect(screen.queryByTestId('commentary-comic-toggle')).not.toBeInTheDocument();
+    expect(screen.getByText('General commentary body')).toBeInTheDocument();
+    expect(screen.getByTestId('commentary-keyword-line')).toBeInTheDocument();
   });
 
   it('keeps the commentary shell visible when commentary is missing', () => {
