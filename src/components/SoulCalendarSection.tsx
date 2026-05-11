@@ -57,7 +57,7 @@ function SoulSectionCard({ section, isLast }: { section: SoulSection; isLast: bo
   return (
     <article
       className={[
-        soulEntryCardClass,
+        `mx-auto w-full max-w-[52rem] ${soulEntryCardClass}`,
         isLast ? '' : 'mb-[var(--reading-block-gap)]',
       ].join(' ')}
     >
@@ -105,8 +105,8 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ soulSe
               </span>
             </div>
 
-            <div className="space-y-[var(--reading-block-gap)] pt-1">
-              <h2 className="max-w-[40ch] font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
+            <div className="mx-auto w-full max-w-[52rem] space-y-[var(--reading-block-gap)] pt-1">
+              <h2 className="w-full max-w-[52rem] font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
                 {SOUL_TITLE}
               </h2>
             </div>
@@ -121,7 +121,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ soulSe
                   />
                 ))
               ) : (
-                <div className="rounded-[1.5rem] border border-dashed border-[#d9c6a5]/70 bg-white/45 px-4 py-5 text-[0.95rem] italic leading-relaxed text-[#7c7367]">
+                <div className="mx-auto w-full max-w-[52rem] rounded-[1.5rem] border border-dashed border-[#d9c6a5]/70 bg-white/45 px-4 py-5 text-[0.95rem] italic leading-relaxed text-[#7c7367]">
                   {SOUL_EMPTY}
                 </div>
               )}
