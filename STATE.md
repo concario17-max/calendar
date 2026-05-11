@@ -1,5 +1,5 @@
 # Current Task
-- Active: unify the soul commentary section onto the same centered `max-w-[52rem]` reading canvas used by 효사/괘사.
+- Active: make the soul panel header read as a distinct top identifier layer, matching the separation style used by 오늘의 효사/오늘의 괘사.
 
 # Route
 - Route A
@@ -9,17 +9,17 @@
 - main: implementing the soul canvas width adjustment directly
 
 # Contract Freeze
-- Goal: keep the existing soul content and structure, but center the soul title and soul entry cards on the same `max-w-[52rem]` canvas as the 효사/괘사 commentary stack.
+- Goal: keep the existing soul content and centered canvas, but make the soul top label area feel visually separated from the body with the same kind of header distinction used by the 효사/괘사 commentary sections.
 - Non-goals: do not change soul text content, week formatting logic, commentary parsing, date logic, or routing.
 - Write sets:
   - main: `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
 - Acceptance criteria:
-  - The soul heading area and soul body cards share the same centered `max-w-[52rem]` canvas.
-  - Existing soul rendering behavior remains unchanged apart from width/centering.
+  - The soul top label area is visually separated from the body like the 효사/괘사 commentary headers.
+  - Existing soul content structure remains unchanged apart from header presentation.
   - Existing targeted tests and build pass.
 
 # Reviewer
 - self-review after targeted verification
 
 # Last Update
-- 2026-05-11: re-froze the task around matching the soul panel to the same centered `max-w-[52rem]` reading canvas.
+- 2026-05-11: re-froze the task around making the soul header read as a distinct identifier layer above the body.

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Sparkles } from 'lucide-react';
 import type { SoulGroup, SoulSection } from '../types';
 
 interface SoulCalendarSectionProps {
@@ -99,9 +100,16 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ soulSe
           <div className="absolute bottom-0 left-4 h-20 w-20 rounded-full bg-[#cfb07f]/12 blur-3xl" />
 
           <div className="relative space-y-[var(--reading-block-gap)]">
-            <div className="flex items-center border-b border-[#d9c5a3]/45 pb-2">
-              <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
+            <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 pb-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
+                <Sparkles size={11} strokeWidth={2.2} aria-hidden="true" />
                 {SOUL_BADGE}
+              </span>
+              <span
+                aria-hidden="true"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#d9c5a3]/60 bg-[#fbf8f1] text-[#8f7c62]"
+              >
+                <Sparkles size={12} strokeWidth={2.1} />
               </span>
             </div>
 
