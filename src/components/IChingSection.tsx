@@ -14,11 +14,11 @@ const manuscriptUnitClass =
 const commentaryFolioClass =
   'relative overflow-hidden rounded-[2rem] border border-[#d8c4a1]/60 bg-[linear-gradient(180deg,rgba(250,244,235,0.98),rgba(243,235,220,0.9))] px-4 py-4 shadow-[0_24px_70px_rgba(109,84,47,0.12)]';
 const commentaryHeadingClass =
-  'max-w-[42ch] break-keep font-headline text-[2.05rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[2.7rem]';
+  'mx-auto w-full max-w-[52rem] break-keep font-headline text-[2.05rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[2.7rem]';
 const commentaryBodyClass =
-  'w-full max-w-none break-keep font-body text-[1rem] leading-[1.92] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]';
+  'mx-auto w-full max-w-[52rem] break-keep font-body text-[1rem] leading-[1.92] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]';
 const commentaryLeadLineClass =
-  'flex flex-wrap items-start gap-2 break-keep rounded-[1rem] border border-[#d9c5a3]/55 bg-[#f4eadc] px-3 py-2 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#4b3b29] md:text-[16px]';
+  'mx-auto flex w-full max-w-[52rem] flex-wrap items-start gap-2 break-keep rounded-[1rem] border border-[#d9c5a3]/55 bg-[#f4eadc] px-3 py-2 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#4b3b29] md:text-[16px]';
 const yaoLearningImageModules = import.meta.glob('../../image/효사/*.{png,jpg,jpeg,webp,avif,gif}', {
   eager: true,
   import: 'default',
@@ -274,7 +274,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
     return (
       <ul
         key={`list-${index}`}
-        className="list-disc space-y-2 pl-5 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
+        className="mx-auto w-full max-w-[52rem] list-disc space-y-2 pl-5 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
       >
         {block.items.map((item, itemIndex) => (
           <li key={`list-${index}-item-${itemIndex}`} className="break-keep">
@@ -305,7 +305,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   return (
     <p
       key={`paragraph-${index}`}
-      className="max-w-[68ch] break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
+      className="mx-auto w-full max-w-[52rem] break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
     >
       {block.text}
     </p>
