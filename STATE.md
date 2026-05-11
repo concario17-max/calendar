@@ -1,5 +1,5 @@
 # Current Task
-- Active: align 효사/괘사 text commentary with the comic view by centering the reading width on the same `max-w-[52rem]` canvas.
+- Active: unify every 효사/괘사 commentary block, including tables, lists, and keyword boxes, onto the same centered `max-w-[52rem]` canvas.
 
 # Route
 - Route A
@@ -9,12 +9,12 @@
 - main: implementing the commentary canvas width adjustment directly
 
 # Contract Freeze
-- Goal: keep the existing comic toggle behavior, but center the 효사/괘사 text reading area on the same `max-w-[52rem]` width used by the comic view for stronger visual unity.
+- Goal: keep the existing comic toggle behavior, and make the full 효사/괘사 commentary stack use one centered `max-w-[52rem]` reading canvas, including tables, lists, and keyword boxes.
 - Non-goals: do not change commentary parsing rules, date logic, routing, or the soul panel behavior.
 - Write sets:
   - main: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - Acceptance criteria:
-  - 효사/괘사 text reading content uses the same centered `max-w-[52rem]` canvas as the comic image view.
+  - 효사/괘사 tables, lists, keyword boxes, headings, and paragraphs all use the same centered `max-w-[52rem]` canvas.
   - Existing comic toggle behavior remains unchanged.
   - Existing targeted tests and build pass.
 
@@ -22,4 +22,4 @@
 - self-review after targeted verification
 
 # Last Update
-- 2026-05-11: re-froze the task around unifying the text and comic reading canvas width for 효사/괘사.
+- 2026-05-11: re-froze the task around making the full 효사/괘사 commentary stack share one centered `max-w-[52rem]` canvas.

@@ -235,7 +235,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
     return (
       <div
         key={`table-${index}`}
-        className="overflow-x-auto rounded-[1.4rem] border border-[#d9c5a3]/45 bg-[#f6f0e5] px-5 py-4 shadow-[0_10px_24px_rgba(105,82,48,0.06)]"
+        className="mx-auto w-full max-w-[52rem] overflow-x-auto rounded-[1.4rem] border border-[#d9c5a3]/45 bg-[#f6f0e5] px-5 py-4 shadow-[0_10px_24px_rgba(105,82,48,0.06)]"
       >
         <table className="min-w-full border-collapse text-left text-[0.95rem] md:text-[1rem]">
           <thead>
