@@ -1,31 +1,26 @@
 # Current Task
-- Completed: redesigned the overall frontend into a refined scripture/truth-study visual system.
+- Active: connect `image` folder learning images to the matching 효사/괘사 commentary slots.
 
 # Route
-- Route B
-- Reason: this redesign touched shared theme CSS, global layout, header controls, left reading rail, right commentary canvas, component tests, and production build verification.
+- Route A
+- Reason: this is a tight single-slice implementation touching one feature component plus its test file, with one targeted verification path.
 
 # Writer Slot
-- main: planner/coordinator only
-- worker-visual-system: completed shared visual system and header shell
-- worker-reading-canvas: completed reading rail and commentary canvas
-- worker-review-fixes: completed reviewer follow-up fixes
+- main: implementing the image-slot mapping directly
 
 # Contract Freeze
-- Goal: create a cohesive sacred-scripture/truth-study design language across the app, with a manuscript-like left rail, a refined commentary canvas, disciplined spacing, upgraded typography rhythm, and restrained ritual accents.
-- Non-goals: do not change date logic, registries, commentary extraction, uploaded content data, routing, or the meaning/order of the current reading content.
+- Goal: load matching learning images from `image/효사` and `image/괘사` into the existing 학습 만화 slot for the current commentary selection.
+- Non-goals: do not change commentary parsing rules, date logic, routing, or the soul panel behavior.
 - Write sets:
-  - worker-visual-system: `src/index.css`, `src/components/MainContent.tsx`, `src/components/Header.tsx`, `src/components/Header.test.tsx`
-  - worker-reading-canvas: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
-  - worker-review-fixes: `src/components/Header.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`
+  - main: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - Acceptance criteria:
-  - The app reads visually as a sacred archive/scripture commentary interface rather than a generic beige dashboard.
-  - Left rail, header controls, right commentary, keyword emphasis, and learning comic slot share one coherent visual language.
-  - Desktop two-pane layout and mobile stacked layout remain usable without changing content behavior.
-  - Existing targeted tests and production build pass.
+  - 효사 commentary uses matching files from `image/효사/<번호>.*` when present.
+  - 괘사 commentary uses matching files from `image/괘사/<번호>.*` when present.
+  - When no matching image exists, the current placeholder-style empty message remains visible.
+  - Existing targeted tests and build pass.
 
 # Reviewer
-- reviewer-sacred-redesign: completed; findings fixed or logged.
+- self-review after targeted verification
 
 # Last Update
-- 2026-04-29: completed sacred archive redesign; targeted tests and production build passed; STATE.md BOM removed.
+- 2026-05-11: reclassified the task for learning-image slot integration as Route A.

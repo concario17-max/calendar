@@ -18,6 +18,14 @@ const commentaryBodyClass =
   'w-full max-w-none break-keep font-body text-[1rem] leading-[1.92] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]';
 const commentaryLeadLineClass =
   'flex flex-wrap items-start gap-2 break-keep rounded-[1rem] border border-[#d9c5a3]/55 bg-[#f4eadc] px-3 py-2 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#4b3b29] md:text-[16px]';
+const yaoLearningImageModules = import.meta.glob('../../image/효사/*.{png,jpg,jpeg,webp,avif,gif}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
+const guaLearningImageModules = import.meta.glob('../../image/괘사/*.{png,jpg,jpeg,webp,avif,gif}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
 
 interface IChingSectionProps {
   commentarySource?: CommentarySource;
@@ -47,6 +55,40 @@ type CommentaryBlock =
       kind: 'table';
       rows: string[][];
     };
+
+function buildLearningImageMap(modules: Record<string, string>): Record<number, string> {
+  const entries = Object.entries(modules)
+    .map(([path, src]) => {
+      const match = path.match(/\/(\d+)\.[^.]+$/);
+      if (!match) {
+        return null;
+      }
+
+      return [Number(match[1]), src] as const;
+    })
+    .filter((entry): entry is readonly [number, string] => entry !== null);
+
+  return Object.fromEntries(entries);
+}
+
+const yaoLearningImageMap = buildLearningImageMap(yaoLearningImageModules);
+const guaLearningImageMap = buildLearningImageMap(guaLearningImageModules);
+
+function getLearningImageSrc(source: CommentarySource, num: number | null): string | null {
+  if (num === null) {
+    return null;
+  }
+
+  if (source === 'yao') {
+    return yaoLearningImageMap[num] ?? null;
+  }
+
+  if (source === 'gua') {
+    return guaLearningImageMap[num] ?? null;
+  }
+
+  return null;
+}
 
 function splitParagraphBlocks(text: string): string[] {
   return text
@@ -282,9 +324,13 @@ function getCommentaryHeaderLabel(source: CommentarySource): string {
 function LearningComicSlot({
   isOpen,
   onToggle,
+  imageSrc,
+  imageAlt,
 }: {
   isOpen: boolean;
   onToggle: () => void;
+  imageSrc: string | null;
+  imageAlt: string;
 }) {
   return (
     <section
@@ -312,7 +358,19 @@ function LearningComicSlot({
           data-testid="learning-comic-slot-body"
           className="mt-3 rounded-[1rem] border border-dashed border-[#d7c7a9]/70 bg-[#fbf8f1] px-4 py-4"
         >
-          <p className="text-[0.95rem] leading-relaxed text-[#566471]">학습 만화가 들어갈 자리야.</p>
+          {imageSrc ? (
+            <figure className="reading-section">
+              <img
+                src={imageSrc}
+                alt={imageAlt}
+                data-testid="learning-comic-image"
+                className="h-auto w-full rounded-[0.9rem] border border-[#d9c5a3]/55 bg-[#fffdf8] object-contain shadow-[0_12px_28px_rgba(105,82,48,0.08)]"
+                loading="lazy"
+              />
+            </figure>
+          ) : (
+            <p className="text-[0.95rem] leading-relaxed text-[#566471]">학습 만화가 들어갈 자리야.</p>
+          )}
         </div>
       ) : null}
     </section>
@@ -374,6 +432,14 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   const commentary = commentaryText.length > 0 ? splitCommentary(commentaryText) : null;
   const showSoulPanel = commentarySource === 'soul';
   const showLearningComicSlot = commentarySource === 'gua' || commentarySource === 'yao';
+  const learningImageSrc = getLearningImageSrc(
+    commentarySource,
+    commentarySource === 'gua' ? guaNum : commentarySource === 'yao' ? yaoNum : null,
+  );
+  const learningImageAlt =
+    commentarySource === 'gua'
+      ? `괘사 학습 이미지 ${guaNum ?? ''}`.trim()
+      : `효사 학습 이미지 ${yaoNum ?? ''}`.trim();
   const leftSoulWeeksLabel = formatWeeksLabel(hitSoulGroup, soulSections);
   const guaMeta = guaData.meta.trim();
   const commentaryHeaderLabel = getCommentaryHeaderLabel(commentarySource);
@@ -392,6 +458,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               key={`learning-comic-slot-${index}`}
               isOpen={learningComicOpen}
               onToggle={() => setLearningComicOpen((current) => !current)}
+              imageSrc={learningImageSrc}
+              imageAlt={learningImageAlt}
             />,
           );
         }

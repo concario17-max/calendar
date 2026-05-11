@@ -32,6 +32,22 @@ vi.mock('../data', () => {
     'General commentary body',
   ].join('\n');
 
+  const guaKeywordNoImageCommentary = [
+    'Gua Keyword No Image Heading',
+    '',
+    '🔑 핵심 키워드: 테스트, 비어 있음',
+    '',
+    'General commentary body',
+  ].join('\n');
+
+  const yaoKeywordCommentary = [
+    'Yao Keyword Heading',
+    '',
+    '🔑 핵심 키워드: 아스파딧, 승리, 확장',
+    '',
+    'Yao keyword commentary body',
+  ].join('\n');
+
   const yaoProseCommentary = ['Yao Heading', 'Plain prose commentary body'].join('\n');
   const yaoPipeProseCommentary = [
     'Yao Heading',
@@ -53,6 +69,10 @@ vi.mock('../data', () => {
         return guaKeywordCommentary;
       }
 
+      if (num === 11) {
+        return guaKeywordNoImageCommentary;
+      }
+
       return undefined;
     },
     getYaoCommentary: (num: number | null) => {
@@ -62,6 +82,10 @@ vi.mock('../data', () => {
 
       if (num === 34) {
         return yaoPipeProseCommentary;
+      }
+
+      if (num === 59) {
+        return yaoKeywordCommentary;
       }
 
       return undefined;
@@ -313,7 +337,7 @@ describe('IChingSection', () => {
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
   });
 
-  it('highlights the keyword lead line without styling the rest of commentary', () => {
+  it('renders the matching 괘사 learning image inside the keyword slot', () => {
     renderSection({
       yaoNum: 33,
       guaNum: 10,
@@ -355,6 +379,66 @@ describe('IChingSection', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /학습 만화/ }));
     expect(screen.getByTestId('learning-comic-slot-body')).toBeInTheDocument();
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('10.png'));
+    expect(screen.getByRole('img', { name: '괘사 학습 이미지 10' })).toBeInTheDocument();
+  });
+
+  it('renders the matching 효사 learning image inside the keyword slot', () => {
+    renderSection({
+      yaoNum: 59,
+      guaNum: 6,
+      guaData: { header: '62. Example', meta: 'Example meta' },
+      yaoData: {
+        titleLine: '59. Example',
+        short: 'Short reading',
+        body: 'Body text',
+      },
+      hitSoulGroup: {
+        titleLine: '31. Example Soul Group',
+        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
+        weekA: 50,
+        weekB: 3,
+        ranges: [],
+        block: '',
+      },
+      soulSections: [],
+    });
+
+    expect(screen.getByTestId('learning-comic-slot')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: /학습 만화/ }));
+
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('59.png'));
+    expect(screen.getByRole('img', { name: '효사 학습 이미지 59' })).toBeInTheDocument();
+  });
+
+  it('keeps the placeholder when the keyword slot has no matching image file', () => {
+    renderSection({
+      yaoNum: 33,
+      guaNum: 11,
+      guaData: { header: '62. Example', meta: 'Example meta' },
+      yaoData: {
+        titleLine: '33. Example',
+        short: 'Short reading',
+        body: 'Body text',
+      },
+      hitSoulGroup: {
+        titleLine: '31. Example Soul Group',
+        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
+        weekA: 50,
+        weekB: 3,
+        ranges: [],
+        block: '',
+      },
+      soulSections: [],
+    });
+
+    fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
+    fireEvent.click(screen.getByRole('button', { name: /학습 만화/ }));
+
+    expect(screen.getByTestId('learning-comic-slot-body')).toBeInTheDocument();
+    expect(screen.queryByTestId('learning-comic-image')).not.toBeInTheDocument();
+    expect(screen.getByText('학습 만화가 들어갈 자리야.')).toBeInTheDocument();
   });
 
   it('keeps the commentary shell visible when commentary is missing', () => {
