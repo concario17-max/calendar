@@ -313,3 +313,9 @@ status: resolved
 - summary: previous build-blocking type error is resolved after the reading canvas test update.
 - details: `npm.cmd run build` passed; Vite reported only the existing large chunk size warning.
 - status: resolved
+
+- time: 2026-05-12 11:20 KST
+- location: `npm.cmd run build`
+- summary: nested commentary list patch initially failed type-check in the flat-list fallback
+- details: `src/components/IChingSection.tsx` returned `{ text: string | null }[]` from the plain list fallback, so `tsc -b` rejected the first build attempt during verification. The fallback was narrowed and the build was rerun.
+- status: resolved

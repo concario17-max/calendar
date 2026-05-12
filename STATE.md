@@ -1,25 +1,25 @@
 # Current Task
-- Active: make the soul top header row visually match the `오늘의 괘사` / `오늘의 효사` header row structure.
+- Active: support nested `[[list]]` / `[[item]]` commentary markup so structured list content renders correctly instead of leaking raw markers.
 
 # Route
 - Route A
-- Reason: this is a tight single-slice UI refinement limited to one component and its tests, with straightforward verification.
+- Reason: this is a tight parser-and-renderer refinement limited to one feature component and its tests, with straightforward verification.
 
 # Writer Slot
-- main: implementing the soul canvas width adjustment directly
+- main: implementing nested commentary list parsing directly
 
 # Contract Freeze
-- Goal: keep the current soul content blocks, but make only the soul top header row match the other right-panel header rows in badge/icon structure and spacing.
-- Non-goals: do not change soul text content, week formatting logic, commentary parsing, date logic, or routing.
+- Goal: parse nested marker lists into a tree and render them semantically, while preserving existing table, paragraph, and flat-list behavior.
+- Non-goals: do not change date logic, routing, soul behavior, learning-comic toggle behavior, or unrelated commentary layout.
 - Write sets:
-  - main: `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
+  - main: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - Acceptance criteria:
-  - The soul top header row matches the badge/icon rhythm of the 효사/괘사 header rows.
-  - Existing soul content remains unchanged apart from header-row presentation.
+  - Valid nested `[[list]]` / `[[item]]` structures render as nested lists instead of raw marker text.
+  - Existing flat marker lists and plain text/list/table parsing continue to work.
   - Existing targeted tests and build pass.
 
 # Reviewer
 - self-review after targeted verification
 
 # Last Update
-- 2026-05-12: re-froze the task around matching the soul top header row to the other commentary headers.
+- 2026-05-12: re-froze the task around nested marker-list parsing and rendering in commentary blocks.

@@ -40,6 +40,25 @@ vi.mock('../data', () => {
     'General commentary body',
   ].join('\n');
 
+  const guaNestedListCommentary = [
+    'Gua Nested List Heading',
+    '',
+    '🍎 스스로 구하는 입의 열매',
+    '',
+    '[list]]',
+    '[item]] 자구구실의 실천',
+    '[list]]',
+    '[item]] 나무 아래 누워 감이 떨어지길 기다리지 않기',
+    '[item]] 직접 가지를 흔들고 땀을 흘려 결실을 얻기',
+    '[/list]]',
+    '[item]] 업의 법칙 준수',
+    '[list]]',
+    '[item]] 결과는 오직 네 행동에서만 비롯됨을 인정하기',
+    '[item]] 예외 없는 원인과 결과의 세계를 명확히 인지하기',
+    '[/list]]',
+    '[/list]]',
+  ].join('\n');
+
   const yaoKeywordCommentary = [
     'Yao Keyword Heading',
     '',
@@ -71,6 +90,10 @@ vi.mock('../data', () => {
 
       if (num === 11) {
         return guaKeywordNoImageCommentary;
+      }
+
+      if (num === 12) {
+        return guaNestedListCommentary;
       }
 
       return undefined;
@@ -278,6 +301,49 @@ describe('IChingSection', () => {
     expect(screen.getByText('Third list item')).toBeInTheDocument();
     expect(screen.queryByText('[[item]] First list item')).not.toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  });
+
+  it('renders nested marker lists even when the source uses single-bracket marker variants', () => {
+    renderSection({
+      yaoNum: 33,
+      guaNum: 12,
+      guaData: { header: '62. Example', meta: 'Example meta' },
+      yaoData: {
+        titleLine: '33. Example',
+        short: 'Short reading',
+        body: 'Body text',
+      },
+      hitSoulGroup: {
+        titleLine: '31. Example Soul Group',
+        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
+        weekA: 50,
+        weekB: 3,
+        ranges: [],
+        block: '',
+      },
+      soulSections: [],
+    });
+
+    fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
+
+    const commentaryLists = screen.getAllByRole('list');
+    const topLevelList = commentaryLists[0];
+    const firstTopLevelItem = within(topLevelList).getByText('자구구실의 실천').closest('li');
+    const secondTopLevelItem = within(topLevelList).getByText('업의 법칙 준수').closest('li');
+
+    expect(screen.getByText('Gua Nested List Heading')).toBeInTheDocument();
+    expect(screen.getByText('🍎 스스로 구하는 입의 열매')).toBeInTheDocument();
+    expect(commentaryLists.length).toBeGreaterThan(1);
+    expect(firstTopLevelItem).not.toBeNull();
+    expect(secondTopLevelItem).not.toBeNull();
+    expect(firstTopLevelItem?.querySelector('ul')).not.toBeNull();
+    expect(secondTopLevelItem?.querySelector('ul')).not.toBeNull();
+    expect(screen.getByText('나무 아래 누워 감이 떨어지길 기다리지 않기')).toBeInTheDocument();
+    expect(screen.getByText('직접 가지를 흔들고 땀을 흘려 결실을 얻기')).toBeInTheDocument();
+    expect(screen.getByText('결과는 오직 네 행동에서만 비롯됨을 인정하기')).toBeInTheDocument();
+    expect(screen.getByText('예외 없는 원인과 결과의 세계를 명확히 인지하기')).toBeInTheDocument();
+    expect(screen.queryByText('[item]] 자구구실의 실천')).not.toBeInTheDocument();
+    expect(screen.queryByText('[list]]')).not.toBeInTheDocument();
   });
 
   it('renders plain commentary prose without forcing a table', () => {

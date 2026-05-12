@@ -50,12 +50,35 @@ type CommentaryBlock =
     }
   | {
       kind: 'list';
-      items: string[];
+      items: CommentaryListItem[];
     }
   | {
       kind: 'table';
       rows: string[][];
     };
+
+interface CommentaryListItem {
+  text: string;
+  children: CommentaryListItem[];
+}
+
+function isMarkerListOpenToken(line: string): boolean {
+  return /^\[{1,2}list\]\]$/.test(line);
+}
+
+function isMarkerListCloseToken(line: string): boolean {
+  return /^\[{1,2}\/list\]\]$/.test(line);
+}
+
+function parseMarkerItemToken(line: string): string | null {
+  const match = line.match(/^\[{1,2}item\]\]\s*(.+)$/u);
+  if (!match) {
+    return null;
+  }
+
+  const text = normalizeListItemText(match[1] || '');
+  return text.length > 0 ? text : null;
+}
 
 function buildLearningImageMap(modules: Record<string, string>): Record<number, string> {
   const entries = Object.entries(modules)
@@ -124,7 +147,7 @@ function parsePipeTableBlock(block: string): string[][] | null {
   return parsedRows;
 }
 
-function parseMarkerListBlock(block: string): string[] | null {
+function parseMarkerListBlock(block: string): CommentaryListItem[] | null {
   const lines = block
     .split('\n')
     .map((line) => line.trim())
@@ -134,26 +157,54 @@ function parseMarkerListBlock(block: string): string[] | null {
     return null;
   }
 
-  if (lines[0] !== '[[list]]' || lines[lines.length - 1] !== '[[/list]]') {
+  if (!isMarkerListOpenToken(lines[0]) || !isMarkerListCloseToken(lines[lines.length - 1])) {
     return null;
   }
 
-  const items = lines.slice(1, -1).map((line) => {
-    if (!line.startsWith('[[item]]')) {
+  const root: CommentaryListItem[] = [];
+  const stack: CommentaryListItem[][] = [root];
+
+  for (const line of lines.slice(1, -1)) {
+    if (isMarkerListOpenToken(line)) {
+      const currentItems = stack[stack.length - 1];
+      const parentItem = currentItems[currentItems.length - 1];
+
+      if (!parentItem) {
+        return null;
+      }
+
+      stack.push(parentItem.children);
+      continue;
+    }
+
+    if (isMarkerListCloseToken(line)) {
+      if (stack.length === 1) {
+        return null;
+      }
+
+      stack.pop();
+      continue;
+    }
+
+    const text = parseMarkerItemToken(line);
+    if (!text) {
       return null;
     }
 
-    return normalizeListItemText(line.slice('[[item]]'.length));
-  });
+    stack[stack.length - 1].push({
+      text,
+      children: [],
+    });
+  }
 
-  if (items.some((item) => !item || item.length === 0)) {
+  if (stack.length !== 1 || root.length === 0) {
     return null;
   }
 
-  return items as string[];
+  return root;
 }
 
-function parseListBlock(block: string): string[] | null {
+function parseListBlock(block: string): CommentaryListItem[] | null {
   const markerItems = parseMarkerListBlock(block);
   if (markerItems) {
     return markerItems;
@@ -170,20 +221,26 @@ function parseListBlock(block: string): string[] | null {
 
   const listItemPattern = /^(?:[-*??|\d+[.)])\s*(.+)$/u;
 
-  const items = lines.map((line) => {
+  const items: CommentaryListItem[] = [];
+
+  for (const line of lines) {
     const match = line.match(listItemPattern);
     if (!match) {
       return null;
     }
 
-    return normalizeListItemText(match[1] || '');
-  });
+    const text = normalizeListItemText(match[1] || '');
+    if (text.length === 0) {
+      return null;
+    }
 
-  if (items.some((item) => !item || item.length === 0)) {
-    return null;
+    items.push({
+      text,
+      children: [],
+    });
   }
 
-  return items as string[];
+  return items;
 }
 
 function normalizeListItemText(text: string): string {
@@ -226,6 +283,24 @@ function splitCommentary(text: string): SplitCommentary {
     heading,
     blocks,
   };
+}
+
+function renderCommentaryListItems(items: CommentaryListItem[], depth: number = 0): React.ReactNode {
+  return (
+    <ul
+      className={[
+        'list-disc text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]',
+        depth === 0 ? 'mx-auto w-full max-w-[52rem] space-y-2 pl-5' : 'mt-2 space-y-2 pl-5',
+      ].join(' ')}
+    >
+      {items.map((item, itemIndex) => (
+        <li key={`${depth}-${itemIndex}`} className="break-keep">
+          <span>{item.text}</span>
+          {item.children.length > 0 ? renderCommentaryListItems(item.children, depth + 1) : null}
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 function renderCommentaryBlock(block: CommentaryBlock, index: number): React.ReactNode {
@@ -271,18 +346,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   }
 
   if (block.kind === 'list') {
-    return (
-      <ul
-        key={`list-${index}`}
-        className="mx-auto w-full max-w-[52rem] list-disc space-y-2 pl-5 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
-      >
-        {block.items.map((item, itemIndex) => (
-          <li key={`list-${index}-item-${itemIndex}`} className="break-keep">
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    );
+    return <React.Fragment key={`list-${index}`}>{renderCommentaryListItems(block.items)}</React.Fragment>;
   }
 
   const trimmedText = block.text.trim();
