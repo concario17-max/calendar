@@ -23,6 +23,10 @@ const yaoLearningImageModules = import.meta.glob('../../image/효사/*.{png,jpg,
   eager: true,
   import: 'default',
 }) as Record<string, string>;
+const guaLearningImageModules = import.meta.glob('../../image/괘사/*.{png,jpg,jpeg,webp,avif,gif}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
 const yaoLearningComicModules = import.meta.glob('../../학습만화/효사/*.{png,jpg,jpeg,webp,avif,gif}', {
   eager: true,
   import: 'default',
@@ -104,6 +108,7 @@ const yaoLearningImageMap = buildLearningImageMap({
   ...yaoLearningComicModules,
 });
 const guaLearningImageMap = buildLearningImageMap({
+  ...guaLearningImageModules,
   ...guaLearningComicModules,
 });
 

@@ -22,4 +22,4 @@
 - self-review of git history and worktree state
 
 # Last Update
-- 2026-05-12: re-scoped the task to a direct rollback from `915ccb0` to `611780a`.
+- 2026-05-12: resolving the rollback conflict in `STATE.md` and continuing the revert to return tracked files to `611780a`.
