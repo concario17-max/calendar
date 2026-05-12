@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Images } from 'lucide-react';
 import { getGuaCommentary, getYaoCommentary } from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
@@ -24,14 +24,6 @@ const yaoLearningImageModules = import.meta.glob('../../image/효사/*.{png,jpg,
   import: 'default',
 }) as Record<string, string>;
 const guaLearningImageModules = import.meta.glob('../../image/괘사/*.{png,jpg,jpeg,webp,avif,gif}', {
-  eager: true,
-  import: 'default',
-}) as Record<string, string>;
-const yaoLearningComicModules = import.meta.glob('../../학습만화/효사/*.{png,jpg,jpeg,webp,avif,gif}', {
-  eager: true,
-  import: 'default',
-}) as Record<string, string>;
-const guaLearningComicModules = import.meta.glob('../../학습만화/괘사/*.{png,jpg,jpeg,webp,avif,gif}', {
   eager: true,
   import: 'default',
 }) as Record<string, string>;
@@ -103,14 +95,8 @@ function buildLearningImageMap(modules: Record<string, string>): Record<number, 
   return Object.fromEntries(entries);
 }
 
-const yaoLearningImageMap = buildLearningImageMap({
-  ...yaoLearningImageModules,
-  ...yaoLearningComicModules,
-});
-const guaLearningImageMap = buildLearningImageMap({
-  ...guaLearningImageModules,
-  ...guaLearningComicModules,
-});
+const yaoLearningImageMap = buildLearningImageMap(yaoLearningImageModules);
+const guaLearningImageMap = buildLearningImageMap(guaLearningImageModules);
 
 function getLearningImageSrc(source: CommentarySource, num: number | null): string | null {
   if (num === null) {

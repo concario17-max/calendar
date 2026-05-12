@@ -88,20 +88,12 @@ vi.mock('../data', () => {
         return guaKeywordCommentary;
       }
 
-      if (num === 64) {
-        return guaKeywordCommentary;
-      }
-
       if (num === 11) {
         return guaKeywordNoImageCommentary;
       }
 
       if (num === 12) {
         return guaNestedListCommentary;
-      }
-
-      if (num === 66) {
-        return guaKeywordNoImageCommentary;
       }
 
       return undefined;
@@ -261,7 +253,7 @@ describe('IChingSection', () => {
     expect(screen.getByRole('cell', { name: 'B1' })).toBeInTheDocument();
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
-    expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
+    expect(screen.queryByTestId('commentary-comic-toggle')).not.toBeInTheDocument();
 
     fireEvent.click(soulRadio);
     expect(within(leftPanel).getByText('영혼')).toBeInTheDocument();
@@ -461,38 +453,6 @@ describe('IChingSection', () => {
     expect(screen.getByTestId('commentary-keyword-line')).toBeInTheDocument();
   });
 
-  it('loads a 괘사 comic image from the 학습만화 folder for higher gua numbers', () => {
-    renderSection({
-      yaoNum: 33,
-      guaNum: 64,
-      guaData: { header: '64. Example', meta: 'Example meta' },
-      yaoData: {
-        titleLine: '33. Example',
-        short: 'Short reading',
-        body: 'Body text',
-      },
-      hitSoulGroup: {
-        titleLine: '31. Example Soul Group',
-        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
-        weekA: 50,
-        weekB: 3,
-        ranges: [],
-        block: '',
-      },
-      soulSections: [],
-    });
-
-    fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
-
-    expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole('button', { name: '학습 만화 보기' }));
-
-    expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('64.png'));
-    expect(screen.getByRole('img', { name: '괘사 학습 이미지 64' })).toBeInTheDocument();
-  });
-
   it('shows a 효사 comic toggle and switches the lower commentary area to the image view', () => {
     renderSection({
       yaoNum: 59,
@@ -531,7 +491,7 @@ describe('IChingSection', () => {
   it('keeps text mode unchanged when no matching image file exists', () => {
     renderSection({
       yaoNum: 33,
-      guaNum: 66,
+      guaNum: 11,
       guaData: { header: '62. Example', meta: 'Example meta' },
       yaoData: {
         titleLine: '33. Example',

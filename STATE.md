@@ -1,25 +1,25 @@
 # Current Task
-- Active: roll the repository back from `915ccb0` to the effective tracked state of `611780a`.
+- Active: roll the tracked repository contents back to the effective code state of `8170d6f`.
 
 # Route
 - Route A
-- Reason: this is a single-slice git rollback of the latest tracked commit with no code redesign or parallel write scope.
+- Reason: this is a narrow rollback of a few tracked files to a known commit target with no redesign or parallel write scope.
 
 # Writer Slot
-- main: reverting the latest tracked commit directly and syncing the branch state
+- main: restoring the target tracked files directly from `8170d6f` and syncing `main`
 
 # Contract Freeze
-- Goal: undo the effects of `915ccb0` so the tracked repository contents match `611780a`.
-- Non-goals: do not modify unrelated untracked user files, do not redesign UI, and do not change earlier commits beyond the rollback commit.
+- Goal: make the tracked code match `8170d6f` for the requested rollback target.
+- Non-goals: do not touch unrelated untracked user files or redesign any UI during the rollback.
 - Write sets:
-  - main: `STATE.md`
+  - main: `STATE.md`, `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `image/괘사/10.png`
 - Acceptance criteria:
-  - The tracked diff introduced by `915ccb0` is reverted.
-  - The branch head reflects a rollback commit on top of `main`.
+  - The tracked code/content differences introduced after `8170d6f` are removed.
+  - The branch head contains a rollback commit reflecting the requested target.
   - `origin/main` is updated to the rollback result.
 
 # Reviewer
-- self-review of git history and worktree state
+- self-review of git diff, history, and worktree state
 
 # Last Update
-- 2026-05-12: resolving the rollback conflict in `STATE.md` and continuing the revert to return tracked files to `611780a`.
+- 2026-05-12: re-scoped the rollback target from `611780a` to `8170d6f`.
