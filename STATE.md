@@ -1,25 +1,25 @@
 # Current Task
-- Active: support nested `[[list]]` / `[[item]]` commentary markup so structured list content renders correctly instead of leaking raw markers.
+- Active: verify that all newly added 괘사 learning-comic images are wired into the UI and update the commentary image mapping flow wherever needed.
 
 # Route
 - Route A
-- Reason: this is a tight parser-and-renderer refinement limited to one feature component and its tests, with straightforward verification.
+- Reason: this is a tight image-wiring refinement centered on the existing commentary image-loading path and its verification.
 
 # Writer Slot
-- main: implementing nested commentary list parsing directly
+- main: verifying and updating the 괘사 learning-comic wiring directly
 
 # Contract Freeze
-- Goal: parse nested marker lists into a tree and render them semantically, while preserving existing table, paragraph, and flat-list behavior.
-- Non-goals: do not change date logic, routing, soul behavior, learning-comic toggle behavior, or unrelated commentary layout.
+- Goal: make sure the newly added 괘사 learning-comic assets are discoverable by the current image loader and available to the commentary comic toggle across all relevant entries.
+- Non-goals: do not redesign the UI, do not alter yao/soul logic unless the shared loader requires it, and do not touch unrelated commentary parsing.
 - Write sets:
-  - main: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+  - main: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `ERROR_LOG.md`
 - Acceptance criteria:
-  - Valid nested `[[list]]` / `[[item]]` structures render as nested lists instead of raw marker text.
-  - Existing flat marker lists and plain text/list/table parsing continue to work.
-  - Existing targeted tests and build pass.
+  - The repository image locations and naming are checked against the current 괘사 loader.
+  - Any required loader or test updates are implemented.
+  - Targeted tests and build pass.
 
 # Reviewer
 - self-review after targeted verification
 
 # Last Update
-- 2026-05-12: re-froze the task around nested marker-list parsing and rendering in commentary blocks.
+- 2026-05-12: shifted from the read-only audit to verifying and updating the 괘사 learning-comic asset wiring.

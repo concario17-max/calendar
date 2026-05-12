@@ -27,6 +27,14 @@ const guaLearningImageModules = import.meta.glob('../../image/괘사/*.{png,jpg,
   eager: true,
   import: 'default',
 }) as Record<string, string>;
+const yaoLearningComicModules = import.meta.glob('../../학습만화/효사/*.{png,jpg,jpeg,webp,avif,gif}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
+const guaLearningComicModules = import.meta.glob('../../학습만화/괘사/*.{png,jpg,jpeg,webp,avif,gif}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
 
 interface IChingSectionProps {
   commentarySource?: CommentarySource;
@@ -95,8 +103,14 @@ function buildLearningImageMap(modules: Record<string, string>): Record<number, 
   return Object.fromEntries(entries);
 }
 
-const yaoLearningImageMap = buildLearningImageMap(yaoLearningImageModules);
-const guaLearningImageMap = buildLearningImageMap(guaLearningImageModules);
+const yaoLearningImageMap = buildLearningImageMap({
+  ...yaoLearningImageModules,
+  ...yaoLearningComicModules,
+});
+const guaLearningImageMap = buildLearningImageMap({
+  ...guaLearningImageModules,
+  ...guaLearningComicModules,
+});
 
 function getLearningImageSrc(source: CommentarySource, num: number | null): string | null {
   if (num === null) {
