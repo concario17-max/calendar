@@ -14,6 +14,8 @@ const soulArchiveCardClass =
   'reading-card reading-fade-in relative overflow-hidden rounded-[2rem] border border-[#d8c4a1]/70 bg-[linear-gradient(180deg,rgba(250,244,235,0.98),rgba(240,229,208,0.92))] shadow-[0_24px_70px_rgba(109,84,47,0.14)]';
 const soulEntryCardClass =
   'reading-card reading-fade-in relative overflow-hidden rounded-[1.5rem] border border-[#d7c7a9]/55 bg-[linear-gradient(180deg,rgba(255,255,255,0.76),rgba(249,243,232,0.94))] shadow-[0_14px_32px_rgba(105,82,48,0.09)] backdrop-blur-sm';
+const soulTitleCardClass =
+  'mx-auto w-full max-w-[52rem] rounded-[1.5rem] border border-[#dcc8a4]/60 bg-[linear-gradient(180deg,rgba(255,252,246,0.94),rgba(247,239,225,0.88))] px-5 py-5 shadow-[0_12px_28px_rgba(105,82,48,0.08)]';
 
 function normalizeDateRange(range: string): string {
   const trimmed = range.trim();
@@ -113,13 +115,13 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ soulSe
               </span>
             </div>
 
-            <div className="mx-auto w-full max-w-[52rem] space-y-[var(--reading-block-gap)] pt-1">
+            <section className={soulTitleCardClass}>
               <h2 className="w-full max-w-[52rem] font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
                 {SOUL_TITLE}
               </h2>
-            </div>
+            </section>
 
-            <div className="space-y-[var(--reading-section-gap)]">
+            <div className="space-y-[var(--reading-section-gap)] border-t border-[#d9c5a3]/35 pt-[var(--reading-block-gap)]">
               {visibleSections.length > 0 ? (
                 visibleSections.map((section, index) => (
                   <SoulSectionCard

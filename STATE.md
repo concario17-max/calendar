@@ -1,5 +1,5 @@
 # Current Task
-- Active: make the soul panel header read as a distinct top identifier layer, matching the separation style used by 오늘의 효사/오늘의 괘사.
+- Active: split the soul panel into a distinct title block and body block, matching the separated title/body rhythm used elsewhere in the right panel.
 
 # Route
 - Route A
@@ -9,17 +9,17 @@
 - main: implementing the soul canvas width adjustment directly
 
 # Contract Freeze
-- Goal: keep the existing soul content and centered canvas, but make the soul top label area feel visually separated from the body with the same kind of header distinction used by the 효사/괘사 commentary sections.
+- Goal: keep the existing soul content and centered canvas, but separate the soul top label, soul title, and soul body into distinct visual layers.
 - Non-goals: do not change soul text content, week formatting logic, commentary parsing, date logic, or routing.
 - Write sets:
   - main: `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
 - Acceptance criteria:
-  - The soul top label area is visually separated from the body like the 효사/괘사 commentary headers.
-  - Existing soul content structure remains unchanged apart from header presentation.
+  - The soul top label, title area, and body area are visually separated.
+  - Existing soul content remains unchanged apart from layout/presentation.
   - Existing targeted tests and build pass.
 
 # Reviewer
 - self-review after targeted verification
 
 # Last Update
-- 2026-05-11: re-froze the task around making the soul header read as a distinct identifier layer above the body.
+- 2026-05-12: re-froze the task around separating the soul title block from the soul body block.
