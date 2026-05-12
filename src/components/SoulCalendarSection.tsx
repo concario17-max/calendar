@@ -103,13 +103,12 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ soulSe
 
           <div className="relative space-y-[var(--reading-block-gap)]">
             <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 pb-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
-                <Sparkles size={11} strokeWidth={2.2} aria-hidden="true" />
+              <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
                 {SOUL_BADGE}
               </span>
               <span
                 aria-hidden="true"
-                className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#d9c5a3]/60 bg-[#fbf8f1] text-[#8f7c62]"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#d9c5a3]/65 bg-[#fbf8f1] text-[#8f7c62]"
               >
                 <Sparkles size={12} strokeWidth={2.1} />
               </span>

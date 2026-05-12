@@ -1,5 +1,5 @@
 # Current Task
-- Active: separate the soul panel into a label row, a dedicated title block, and a distinct body block, matching the title/body rhythm of the other right-panel sections.
+- Active: make the soul top header row visually match the `오늘의 괘사` / `오늘의 효사` header row structure.
 
 # Route
 - Route A
@@ -9,17 +9,17 @@
 - main: implementing the soul canvas width adjustment directly
 
 # Contract Freeze
-- Goal: keep the existing soul content and centered canvas, but present the soul panel as three layers: label row, title block, and body block.
+- Goal: keep the current soul content blocks, but make only the soul top header row match the other right-panel header rows in badge/icon structure and spacing.
 - Non-goals: do not change soul text content, week formatting logic, commentary parsing, date logic, or routing.
 - Write sets:
   - main: `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
 - Acceptance criteria:
-  - The soul label row, title block, and body block are visually separated.
-  - Existing soul content remains unchanged apart from layout/presentation.
+  - The soul top header row matches the badge/icon rhythm of the 효사/괘사 header rows.
+  - Existing soul content remains unchanged apart from header-row presentation.
   - Existing targeted tests and build pass.
 
 # Reviewer
 - self-review after targeted verification
 
 # Last Update
-- 2026-05-12: re-froze the task around separating the soul label, title, and body layers.
+- 2026-05-12: re-froze the task around matching the soul top header row to the other commentary headers.
