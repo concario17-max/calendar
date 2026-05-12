@@ -1,25 +1,25 @@
 # Current Task
-- Active: roll the tracked repository contents back to the effective code state of `8170d6f`.
+- Active: update the tracked `image/괘사` folder so it matches the latest 괘사 학습만화 assets now present in the workspace.
 
 # Route
 - Route A
-- Reason: this is a narrow rollback of a few tracked files to a known commit target with no redesign or parallel write scope.
+- Reason: this is a single-slice asset sync inside one existing feature path with no code redesign or multi-surface implementation split.
 
 # Writer Slot
-- main: restoring the target tracked files directly from `8170d6f` and syncing `main`
+- main: syncing the 괘사 learning-comic image assets directly
 
 # Contract Freeze
-- Goal: make the tracked code match `8170d6f` for the requested rollback target.
-- Non-goals: do not touch unrelated untracked user files or redesign any UI during the rollback.
+- Goal: make `image/괘사` reflect the latest 괘사 학습만화 set available locally.
+- Non-goals: do not redesign the UI, do not alter commentary logic, and do not touch unrelated user files outside the target asset sync.
 - Write sets:
-  - main: `STATE.md`, `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `image/괘사/10.png`
+  - main: `STATE.md`, `image/괘사/*`
 - Acceptance criteria:
-  - The tracked code/content differences introduced after `8170d6f` are removed.
-  - The branch head contains a rollback commit reflecting the requested target.
-  - `origin/main` is updated to the rollback result.
+  - The latest 괘사 learning-comic files are present in `image/괘사`.
+  - Existing tracked image targets are updated to the new versions where applicable.
+  - The resulting asset folder contents are verified locally.
 
 # Reviewer
-- self-review of git diff, history, and worktree state
+- self-review of source/target file lists and git worktree state
 
 # Last Update
-- 2026-05-12: re-scoped the rollback target from `611780a` to `8170d6f`.
+- 2026-05-12: re-scoped the task from rollback work to syncing the latest 괘사 learning-comic assets into `image/괘사`.
