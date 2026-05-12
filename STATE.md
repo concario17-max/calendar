@@ -1,25 +1,25 @@
 # Current Task
-- Active: remove the legacy `image/괘사` asset path and keep 괘사 learning-comic loading sourced only from `학습만화/괘사`.
+- Active: roll the repository back from `915ccb0` to the effective tracked state of `611780a`.
 
 # Route
 - Route A
-- Reason: this is a small cleanup of one legacy asset path plus the matching loader/test updates in the same commentary image-loading slice.
+- Reason: this is a single-slice git rollback of the latest tracked commit with no code redesign or parallel write scope.
 
 # Writer Slot
-- main: removing the legacy 괘사 image path and tightening the commentary image loader directly
+- main: reverting the latest tracked commit directly and syncing the branch state
 
 # Contract Freeze
-- Goal: remove `image/괘사` from both the filesystem and the loader path while keeping 괘사 학습만화 working from `학습만화/괘사`.
-- Non-goals: do not redesign the UI, do not alter 효사 or soul behavior beyond shared loader safety, and do not touch unrelated commentary parsing.
+- Goal: undo the effects of `915ccb0` so the tracked repository contents match `611780a`.
+- Non-goals: do not modify unrelated untracked user files, do not redesign UI, and do not change earlier commits beyond the rollback commit.
 - Write sets:
-  - main: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`, `STATE.md`
+  - main: `STATE.md`
 - Acceptance criteria:
-  - The legacy `image/괘사` file is removed.
-  - 괘사 학습만화 still loads from `학습만화/괘사`.
-  - Targeted tests and build pass.
+  - The tracked diff introduced by `915ccb0` is reverted.
+  - The branch head reflects a rollback commit on top of `main`.
+  - `origin/main` is updated to the rollback result.
 
 # Reviewer
-- self-review after targeted verification
+- self-review of git history and worktree state
 
 # Last Update
-- 2026-05-12: re-scoped the task to remove the legacy `image/괘사` path and rely on `학습만화/괘사` only.
+- 2026-05-12: re-scoped the task to a direct rollback from `915ccb0` to `611780a`.
