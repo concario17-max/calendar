@@ -387,6 +387,40 @@
     }
   }
 
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .reading-system {
+      height: auto !important;
+      min-height: 100dvh !important;
+      overflow-x: hidden !important;
+      overflow-y: visible !important;
+    }
+
+    .curated-shell__frame {
+      overflow: visible !important;
+    }
+
+    .curated-shell__frame > section {
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    .curated-shell__frame > section > div {
+      height: auto !important;
+      overflow: visible !important;
+      background: linear-gradient(180deg, var(--surface-container-low) 0%, var(--surface) 100%) !important;
+    }
+
+    .curated-shell__frame > section > div > article,
+    .curated-shell__frame > section > div > aside {
+      overflow: visible !important;
+    }
+
+    .curated-shell__frame > section > div > article {
+      position: static !important;
+      min-height: 0 !important;
+    }
+  }
+
   .curated-shell [data-testid='reading-title-row'],
   .curated-shell [data-testid='reading-verse-unit'],
   .curated-shell [data-testid='reading-top-unit'],

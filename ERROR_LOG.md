@@ -331,3 +331,9 @@ status: resolved
 - summary: a chained git command failed because this PowerShell session does not support `&&` separators.
 - details: the dark-mode-toggle cleanup itself was unaffected. The git steps were rerun as separate commands and completed normally afterward.
 - status: resolved
+
+- time: 2026-05-13 14:28 KST
+- location: `npm run build`
+- summary: the initial build verification was blocked by PowerShell execution policy on `npm.ps1`.
+- details: the command failed before invoking the repo build. The check was rerun successfully with `npm.cmd run build` and completed normally.
+- status: resolved

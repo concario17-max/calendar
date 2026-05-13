@@ -178,10 +178,13 @@ describe('IChingSection', () => {
     const main = screen.getByRole('main');
     const shell = container.querySelector('section');
     const grid = container.querySelector('section > div');
+    const shellFrame = container.querySelector('.curated-shell__frame');
 
-    expect(main).toHaveClass('min-h-dvh', 'overflow-y-auto', 'md:h-[100dvh]', 'md:overflow-hidden');
+    expect(main).toHaveClass('min-h-dvh', 'overflow-y-auto', 'lg:h-[100dvh]', 'lg:overflow-hidden');
+    expect(main).not.toHaveClass('md:overflow-hidden');
     expect(shell).toHaveClass('flex', 'w-full', 'flex-1', 'flex-col');
     expect(grid).toHaveClass('flex', 'flex-col', 'gap-5', 'lg:grid', 'lg:grid-cols-[360px_minmax(0,1fr)]');
+    expect(shellFrame).toHaveClass('flex', 'min-h-0', 'flex-1', 'flex-col', 'overflow-visible', 'lg:overflow-hidden');
     expect(leftPanel).toHaveClass('flex', 'w-full');
     expect(leftPanel).toHaveClass('lg:sticky', 'lg:top-0', 'lg:overflow-y-auto');
     expect(leftPanel).toHaveClass('bg-[#f2eadc]');
