@@ -402,7 +402,7 @@ function LearningComicView({
   return (
     <div
       data-testid="learning-comic-view"
-      className="px-0 py-0 sm:rounded-[1.5rem] sm:border sm:border-[#d9c5a3]/55 sm:bg-[linear-gradient(180deg,rgba(246,240,229,0.92),rgba(255,252,246,0.96))] sm:px-4 sm:py-4 sm:shadow-[0_10px_24px_rgba(105,82,48,0.06)]"
+      className="-mx-4 -my-4 px-0 py-0 sm:mx-0 sm:my-0 sm:rounded-[1.5rem] sm:border sm:border-[#d9c5a3]/55 sm:bg-[linear-gradient(180deg,rgba(246,240,229,0.92),rgba(255,252,246,0.96))] sm:px-4 sm:py-4 sm:shadow-[0_10px_24px_rgba(105,82,48,0.06)]"
     >
       <figure className="reading-section mx-auto w-full max-w-[52rem]">
         <img

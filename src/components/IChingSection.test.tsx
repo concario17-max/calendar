@@ -440,7 +440,7 @@ describe('IChingSection', () => {
     expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
     expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('10.png'));
     expect(screen.getByRole('img', { name: '괘사 학습 이미지 10' })).toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-view')).toHaveClass('px-0', 'py-0', 'sm:rounded-[1.5rem]');
+    expect(screen.getByTestId('learning-comic-view')).toHaveClass('-mx-4', '-my-4', 'px-0', 'py-0', 'sm:rounded-[1.5rem]');
     expect(screen.getByTestId('learning-comic-image')).toHaveClass('w-full', 'object-contain', 'sm:border');
     expect(comicToggle).toHaveAttribute('aria-pressed', 'true');
     expect(screen.queryByText('General commentary body')).not.toBeInTheDocument();
