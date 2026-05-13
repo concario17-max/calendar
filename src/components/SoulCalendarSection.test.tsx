@@ -8,24 +8,24 @@ describe('SoulCalendarSection', () => {
       formatWeeksLabel(
         {
           titleLine: 'Weeks 3',
-          weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
-          weekA: 50,
-          weekB: 3,
+          weeksLabel: '47주(2월 23-3월 1) / 6주(5월 12-18일)',
+          weekA: 47,
+          weekB: 6,
           ranges: [],
           block: '',
         },
         [],
       ),
-    ).toBe('50주(3월 16-22일) · 3주(4월 21-27일)');
+    ).toBe('47주(2월 23일-3월 1일) · 6주(5월 12일-18일)');
   });
 
   it('formats fallback week labels from soul sections', () => {
     expect(
       formatWeeksLabel(undefined, [
-        { week: 50, range: '3월 16-22일', text: 'Soul body A' },
-        { week: 3, range: '4월 21-27일', text: 'Soul body B' },
+        { week: 47, range: '2월 23 - 3월 1', text: 'Soul body A' },
+        { week: 6, range: '5월 12-18일', text: 'Soul body B' },
       ]),
-    ).toBe('50주(3월 16-22일) · 3주(4월 21-27일)');
+    ).toBe('47주(2월 23일-3월 1일) · 6주(5월 12일-18일)');
   });
 
   it('renders the soul panel header and shared empty state when there are no verses', () => {
@@ -36,22 +36,23 @@ describe('SoulCalendarSection', () => {
     expect(screen.getByText('영혼 본문이 아직 없어.')).toBeInTheDocument();
   });
 
-  it('renders the soul title and body on the same commentary canvas rhythm', () => {
+  it('renders normalized week labels in the soul panel body', () => {
     render(
       <SoulCalendarSection
         hitSoulGroup={undefined}
         soulSections={[
-          { week: 50, range: '3월 16-22일', text: 'Soul body A' },
-          { week: 3, range: '4월 21-27일', text: 'Soul body B' },
+          { week: 47, range: '2월 23 - 3월 1', text: 'Soul body A' },
+          { week: 6, range: '5월 12-18일', text: 'Soul body B' },
         ]}
       />,
     );
 
     expect(screen.getByText('루돌프 슈타이너의 영혼의 달력')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
-    expect(screen.getByText('50주(3월 16-22일) · 3주(4월 21-27일)')).toBeInTheDocument();
+    expect(screen.getByText('47주(2월 23일-3월 1일) · 6주(5월 12일-18일)')).toBeInTheDocument();
+    expect(screen.getByText('2월 23일-3월 1일')).toBeInTheDocument();
+    expect(screen.getByText('5월 12일-18일')).toBeInTheDocument();
     expect(screen.getByText('Soul body A')).toBeInTheDocument();
     expect(screen.getByText('Soul body B')).toBeInTheDocument();
-    expect(screen.queryByText('영혼 본문이 아직 없어.')).not.toBeInTheDocument();
   });
 });

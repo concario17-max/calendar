@@ -17,16 +17,52 @@ const commentaryHeadingClass =
 const commentaryBodyClass =
   'mx-auto w-full max-w-[52rem] break-keep font-body text-[1rem] leading-[1.92] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]';
 
-function normalizeDateRange(range: string): string {
-  const compact = range.replace(/\s+/g, ' ').trim();
-  const numericMatch = compact.match(/(\d{1,2})\D+(\d{1,2})\D*-\D*(\d{1,2})/u);
+interface ParsedDateRange {
+  startMonth: number;
+  startDay: number;
+  endMonth: number;
+  endDay: number;
+}
 
-  if (!numericMatch) {
-    return compact.replace(/\s*-\s*/g, '-');
+function parseDateRange(range: string): ParsedDateRange | null {
+  const compact = range.replace(/\s+/g, ' ').trim();
+  const crossMonthMatch = compact.match(/(\d{1,2})\D+(\d{1,2})\D*-\D*(\d{1,2})\D+(\d{1,2})/u);
+
+  if (crossMonthMatch) {
+    const [, startMonth, startDay, endMonth, endDay] = crossMonthMatch;
+    return {
+      startMonth: Number(startMonth),
+      startDay: Number(startDay),
+      endMonth: Number(endMonth),
+      endDay: Number(endDay),
+    };
   }
 
-  const [, month, startDay, endDay] = numericMatch;
-  return `${Number(month)}월 ${Number(startDay)}-${Number(endDay)}일`;
+  const sameMonthMatch = compact.match(/(\d{1,2})\D+(\d{1,2})\D*-\D*(\d{1,2})/u);
+  if (!sameMonthMatch) {
+    return null;
+  }
+
+  const [, month, startDay, endDay] = sameMonthMatch;
+  return {
+    startMonth: Number(month),
+    startDay: Number(startDay),
+    endMonth: Number(month),
+    endDay: Number(endDay),
+  };
+}
+
+function normalizeDateRange(range: string): string {
+  const parsed = parseDateRange(range);
+  if (!parsed) {
+    return range.replace(/\s+/g, ' ').trim().replace(/\s*-\s*/g, '-');
+  }
+
+  if (parsed.startMonth === parsed.endMonth) {
+    return `${parsed.startMonth}월 ${parsed.startDay}일-${parsed.endDay}일`;
+  }
+
+  return `${parsed.startMonth}월 ${parsed.startDay}일-${parsed.endMonth}월 ${parsed.endDay}일`;
 }
 
 function formatWeekRange(week: number, range: string): string {
@@ -35,16 +71,26 @@ function formatWeekRange(week: number, range: string): string {
 
 function normalizeWeeksLabel(label: string): string {
   const normalized = label.replace(/\s+/g, ' ').trim();
-  const entries = Array.from(normalized.matchAll(/(\d+)\D+(\d{1,2})\D+(\d{1,2})\D*-\D*(\d{1,2})/gu)).map(
-    ([, week, month, startDay, endDay]) =>
-      `${Number(week)}주(${Number(month)}월 ${Number(startDay)}-${Number(endDay)}일)`,
-  );
+  const segments = normalized
+    .split(/\s*\/\s*/u)
+    .map((segment) => segment.trim())
+    .filter(Boolean);
 
-  if (entries.length > 0) {
-    return entries.join(' · ');
+  if (segments.length === 0) {
+    return normalized;
   }
 
-  return normalized.replace(/\s*\/\s*/g, ' · ');
+  const formattedSegments = segments.map((segment) => {
+    const match = segment.match(/(\d{1,2})\D+(.*)/u);
+    if (!match) {
+      return segment;
+    }
+
+    const [, week, rawRange] = match;
+    return `${Number(week)}주(${normalizeDateRange(rawRange)})`;
+  });
+
+  return formattedSegments.join(' · ');
 }
 
 export function formatWeeksLabel(hitSoulGroup: SoulGroup | undefined, soulSections: SoulSection[]): string {
@@ -110,9 +156,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
           <div className="relative space-y-[var(--reading-block-gap)]">
             <h2 className={commentaryHeadingClass}>{SOUL_TITLE}</h2>
 
-            {weeksLabel ? (
-              <p className={`${commentaryBodyClass} italic text-[#7b6d58]`}>{weeksLabel}</p>
-            ) : null}
+            {weeksLabel ? <p className={`${commentaryBodyClass} italic text-[#7b6d58]`}>{weeksLabel}</p> : null}
 
             <div className="space-y-[var(--reading-section-gap)] border-t border-[#d9c5a3]/35 pt-[var(--reading-block-gap)]">
               {visibleSections.length > 0 ? (
