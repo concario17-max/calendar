@@ -33,9 +33,10 @@ describe('Header', () => {
 
     const header = container.querySelector('header');
     const controlsRow = header?.children[1];
-    expect(header).toHaveClass('archive-header', 'flex-wrap', 'items-center');
+    expect(header).toHaveClass('archive-header', '-mb-px', 'flex-wrap', 'items-center', 'py-2');
     expect(controlsRow).toHaveClass('archive-header__controls');
     expect(controlsRow).not.toHaveClass('flex-col');
+    expect(controlsRow).toHaveClass('gap-1.5');
     expect(controlsRow?.children).toHaveLength(2);
     expect(controlsRow?.firstElementChild).toContainElement(segmentedControl);
 

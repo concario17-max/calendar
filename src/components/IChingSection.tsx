@@ -10,15 +10,15 @@ const compactLeftBadgeClass =
 const decoratedSurfaceClass =
   'relative overflow-hidden rounded-[1.5rem] border border-[#d7c7a9]/55 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(249,243,232,0.92))] px-4 py-4 shadow-[0_14px_32px_rgba(105,82,48,0.09)] backdrop-blur-sm';
 const manuscriptUnitClass =
-  'reading-section reading-fade-in border-l border-[#d9c5a3]/60 pl-4 md:pl-5';
+  'reading-section reading-fade-in border-l border-[#d9c5a3]/60 pl-5 md:pl-6';
 const commentaryFolioClass =
   'relative overflow-hidden rounded-[2rem] border border-[#d8c4a1]/60 bg-[linear-gradient(180deg,rgba(250,244,235,0.98),rgba(243,235,220,0.9))] px-4 py-4 shadow-[0_24px_70px_rgba(109,84,47,0.12)]';
 const commentaryHeadingClass =
-  'mx-auto w-full max-w-[52rem] break-keep font-headline text-[2.05rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[2.7rem]';
+  'mx-auto w-full max-w-[56rem] break-keep font-headline text-[2.05rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[2.7rem]';
 const commentaryBodyClass =
-  'mx-auto w-full max-w-[52rem] break-keep font-body text-[1rem] leading-[1.92] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]';
+  'mx-auto w-full max-w-[56rem] break-keep font-body text-[1rem] leading-[1.92] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]';
 const commentaryLeadLineClass =
-  'mx-auto flex w-full max-w-[52rem] flex-wrap items-start gap-2 break-keep rounded-[1rem] border border-[#d9c5a3]/55 bg-[#f4eadc] px-3 py-2 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#4b3b29] md:text-[16px]';
+  'mx-auto flex w-full max-w-[56rem] flex-wrap items-start gap-2 break-keep rounded-[1rem] border border-[#d9c5a3]/55 bg-[#f4eadc] px-3 py-2 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#4b3b29] md:text-[16px]';
 const yaoLearningImageModules = import.meta.glob('../../image/효사/*.{png,jpg,jpeg,webp,avif,gif}', {
   eager: true,
   import: 'default',
@@ -294,7 +294,7 @@ function renderCommentaryListItems(items: CommentaryListItem[], depth: number = 
     <ul
       className={[
         'list-disc text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]',
-        depth === 0 ? 'mx-auto w-full max-w-[52rem] space-y-2 pl-5' : 'mt-2 space-y-2 pl-5',
+        depth === 0 ? 'mx-auto w-full max-w-[56rem] space-y-2 pl-5' : 'mt-2 space-y-2 pl-5',
       ].join(' ')}
     >
       {items.map((item, itemIndex) => (
@@ -314,7 +314,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
     return (
       <div
         key={`table-${index}`}
-        className="mx-auto w-full max-w-[52rem] overflow-x-auto rounded-[1.4rem] border border-[#d9c5a3]/45 bg-[#f6f0e5] px-5 py-4 shadow-[0_10px_24px_rgba(105,82,48,0.06)]"
+        className="mx-auto w-full max-w-[56rem] overflow-x-auto rounded-[1.4rem] border border-[#d9c5a3]/45 bg-[#f6f0e5] px-5 py-4 shadow-[0_10px_24px_rgba(105,82,48,0.06)]"
       >
         <table className="min-w-full border-collapse text-left text-[0.95rem] md:text-[1rem]">
           <thead>
@@ -373,7 +373,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   return (
     <p
       key={`paragraph-${index}`}
-      className="mx-auto w-full max-w-[52rem] break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
+      className="mx-auto w-full max-w-[56rem] break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
     >
       {block.text}
     </p>
@@ -404,7 +404,7 @@ function LearningComicView({
       data-testid="learning-comic-view"
       className="-mx-4 -my-4 px-0 py-0 sm:mx-0 sm:my-0 sm:rounded-[1.5rem] sm:border sm:border-[#d9c5a3]/55 sm:bg-[linear-gradient(180deg,rgba(246,240,229,0.92),rgba(255,252,246,0.96))] sm:px-4 sm:py-4 sm:shadow-[0_10px_24px_rgba(105,82,48,0.06)]"
     >
-      <figure className="reading-section mx-auto w-full max-w-[52rem]">
+      <figure className="reading-section mx-auto w-full max-w-[56rem]">
         <img
           src={imageSrc}
           alt={imageAlt}
@@ -421,7 +421,7 @@ function LearningComicEmptyState() {
   return (
     <div
       data-testid="learning-comic-empty-state"
-      className="mx-auto flex w-full max-w-[52rem] flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-[#d9c5a3]/65 bg-[#f7f1e6] px-6 py-10 text-center"
+      className="mx-auto flex w-full max-w-[56rem] flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-[#d9c5a3]/65 bg-[#f7f1e6] px-6 py-10 text-center"
     >
       <p className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-[#9c845e]">
         학습 만화
@@ -518,9 +518,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
   return (
     <section className="flex w-full flex-1 flex-col overflow-visible stagger-1 lg:overflow-hidden">
-      <div className="flex min-h-0 w-full flex-col gap-5 lg:grid lg:h-full lg:min-w-[720px] lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-0 lg:overflow-x-auto">
-        <article className="reading-panel reading-panel--left flex w-full flex-col bg-[#f2eadc] text-[#4b3b29] lg:sticky lg:top-0 lg:h-full lg:min-h-0 lg:min-w-[340px] lg:overflow-y-auto">
-          <div className="flex min-h-0 flex-1 flex-col gap-[var(--reading-section-gap)]">
+      <div className="flex min-h-0 w-full flex-col gap-5 lg:grid lg:h-full lg:min-w-[720px] lg:grid-cols-[336px_minmax(0,1fr)] lg:gap-0 lg:overflow-x-auto">
+        <article className="reading-panel reading-panel--left flex w-full flex-col bg-[#f2eadc] text-[#4b3b29] lg:sticky lg:top-0 lg:h-full lg:min-h-0 lg:min-w-[320px] lg:overflow-y-auto">
+          <div className="flex min-h-0 flex-1 flex-col gap-[0.9rem] md:gap-[1.05rem]">
             <div data-testid="reading-sigil-unit" className="reading-fade-in -mt-2 flex justify-center pt-0 lg:-mt-2">
               <div className="w-full max-w-[7.5rem] sm:max-w-[10rem] lg:max-w-[11.5rem]">
                 {sigilSrc ? (

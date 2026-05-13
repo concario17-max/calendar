@@ -183,10 +183,10 @@ describe('IChingSection', () => {
     expect(main).toHaveClass('min-h-dvh', 'overflow-y-auto', 'lg:h-[100dvh]', 'lg:overflow-hidden');
     expect(main).not.toHaveClass('md:overflow-hidden');
     expect(shell).toHaveClass('flex', 'w-full', 'flex-1', 'flex-col');
-    expect(grid).toHaveClass('flex', 'flex-col', 'gap-5', 'lg:grid', 'lg:grid-cols-[360px_minmax(0,1fr)]');
+    expect(grid).toHaveClass('flex', 'flex-col', 'gap-5', 'lg:grid', 'lg:grid-cols-[336px_minmax(0,1fr)]');
     expect(shellFrame).toHaveClass('flex', 'min-h-0', 'flex-1', 'flex-col', 'overflow-visible', 'lg:overflow-hidden');
     expect(leftPanel).toHaveClass('flex', 'w-full');
-    expect(leftPanel).toHaveClass('lg:sticky', 'lg:top-0', 'lg:overflow-y-auto');
+    expect(leftPanel).toHaveClass('lg:sticky', 'lg:top-0', 'lg:overflow-y-auto', 'lg:min-w-[320px]');
     expect(leftPanel).toHaveClass('bg-[#f2eadc]');
     expect(leftPanel).not.toHaveClass('border-r');
     expect(rightPanel).toHaveClass('flex', 'w-full', 'min-w-0', 'flex-col');
@@ -197,6 +197,8 @@ describe('IChingSection', () => {
     expect(screen.queryByText('Reading rail')).not.toBeInTheDocument();
     expect(screen.queryByText('Commentary')).not.toBeInTheDocument();
     expect(readingVerseUnit).toBeInTheDocument();
+    expect(readingVerseUnit).toHaveClass('pl-5', 'md:pl-6');
+    expect(screen.getByTestId('learning-comic-image').closest('figure')).toHaveClass('max-w-[56rem]');
     expect(screen.queryByText('Reading canvas')).not.toBeInTheDocument();
   });
 
@@ -229,7 +231,7 @@ describe('IChingSection', () => {
     expect(
       within(leftPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();
-    expect(within(leftPanel).getByText('50주(3월 16-22일) · 3주(4월 21-27일)')).toBeInTheDocument();
+    expect(within(leftPanel).getByText('50주(3월 16일-22일) · 3주(4월 21일-27일)')).toBeInTheDocument();
     expect(within(rightPanel).queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
     expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
     const leftRailBlocks = Array.from(

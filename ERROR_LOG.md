@@ -337,3 +337,14 @@ status: resolved
 - summary: the initial build verification was blocked by PowerShell execution policy on `npm.ps1`.
 - details: the command failed before invoking the repo build. The check was rerun successfully with `npm.cmd run build` and completed normally.
 - status: resolved
+
+- time: 2026-05-13 22:27 KST
+- location: `npm test -- src/components/Header.test.tsx`
+- summary: PowerShell blocked the initial targeted test run on `npm.ps1`.
+- details: the test command failed before invoking Vitest because script execution is disabled for `npm.ps1` in this shell. The same test passed when rerun with `npm.cmd`.
+- status: resolved
+## 2026-05-13 22:28:32
+- location: `C:\Users\roadsea\Desktop\calendar`
+- summary: verification blocked once by PowerShell execution policy, then completed via `cmd /c`
+- details: `npm.ps1` could not be loaded because script execution is disabled on the first `npm test` attempt; the targeted Vitest run was retried through `cmd /c` and `src/components/IChingSection.test.tsx` passed after the layout class updates and expectation adjustments.
+- status: resolved

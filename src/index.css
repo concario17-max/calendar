@@ -220,12 +220,13 @@
   }
 
   .archive-header {
+    margin-bottom: -1px;
     background:
       linear-gradient(180deg, rgba(250, 247, 238, 0.92), rgba(244, 239, 228, 0.82));
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.6) inset,
       0 1px 0 rgba(80, 62, 40, 0.04),
-      0 10px 24px -22px var(--shell-shadow);
+      0 8px 20px -24px var(--shell-shadow);
   }
 
   .dark .archive-header {
@@ -273,7 +274,7 @@
   }
 
   .reading-system {
-    --reading-panel-pad-x: clamp(1rem, 1.8vw, 1.75rem);
+    --reading-panel-pad-x: clamp(0.95rem, 1.7vw, 1.65rem);
     --reading-panel-pad-y: clamp(1.1rem, 1.85vw, 1.9rem);
     --reading-card-pad-x: clamp(0.95rem, 1.5vw, 1.25rem);
     --reading-card-pad-y: clamp(0.9rem, 1.45vw, 1.15rem);
@@ -337,13 +338,13 @@
     min-height: 0 !important;
     height: 100% !important;
     width: 100% !important;
-    grid-template-columns: minmax(22rem, 29rem) minmax(0, 1fr) !important;
+    grid-template-columns: minmax(20.5rem, 27.5rem) minmax(0, 1.08fr) !important;
     background:
       linear-gradient(
         90deg,
         var(--surface-container-low) 0%,
-        var(--surface-container-low) 36%,
-        var(--surface) 36%,
+        var(--surface-container-low) 34%,
+        var(--surface) 34%,
         var(--surface) 100%
       ) !important;
     overflow: hidden !important;

@@ -447,6 +447,14 @@
 - writer slots: worker-mobile-panels = `src/components/IChingSection.tsx`, `src/index.css`, `src/components/IChingSection.test.tsx`; worker-mobile-shell = `src/components/MainContent.tsx`, `src/components/Header.tsx`, `src/components/Header.test.tsx`; reviewer = `mobile layout review`
 - notes: the mobile shell now allows vertical scrolling, the reading panels stack cleanly below the breakpoint, and the header remains compact on small screens; targeted tests and build passed
 
+## 2026-05-13
+- task: optimize the current two-panel reading layout by shifting the left rail content inward, widening the right reading canvas, tightening left spacing, and improving header-to-body flow
+- route: Route B
+- status: resolved
+- writer slots: worker-shell = `src/index.css`, `src/components/Header.tsx`, `src/components/Header.test.tsx`; worker-rail = `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`; reviewer = `layout regression review`
+- notes: the task is intentionally split between shared shell/header styling and panel-specific content alignment so write ownership stays disjoint
+- review: targeted tests and build passed; reviewer found no concrete regressions and flagged only residual breakpoint-specific visual risk around 768px and 1024px widths
+
 ## 2026-04-22
 - task: restore mobile date navigation while keeping the compact header and desktop behavior unchanged
 - route: Route B

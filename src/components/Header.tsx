@@ -65,9 +65,9 @@ export const Header: React.FC<HeaderProps> = ({
   onCommentarySourceChange,
 }) => {
   return (
-    <header className="archive-header sticky top-0 z-30 flex min-h-[3.5rem] w-full flex-wrap items-center gap-2 border-b border-outline-variant/8 px-3 py-2.5 backdrop-blur-xl sm:px-4 lg:px-8">
-      <div className="archive-header__masthead flex min-w-0 flex-[1_1_15rem] items-center gap-2">
-        <h1 className="archive-header__title inline-flex min-w-0 items-center gap-2 truncate font-headline text-[1.24rem] italic leading-none text-primary sm:text-[1.68rem]">
+    <header className="archive-header sticky top-0 z-30 -mb-px flex min-h-[3.25rem] w-full flex-wrap items-center gap-2 border-b border-outline-variant/10 px-3 py-2 backdrop-blur-xl sm:px-4 lg:px-8">
+      <div className="archive-header__masthead flex min-w-0 flex-[1_1_16rem] items-center gap-2">
+        <h1 className="archive-header__title inline-flex min-w-0 items-center gap-2 truncate font-headline text-[1.18rem] italic leading-none text-primary sm:text-[1.58rem]">
           <span
             aria-hidden="true"
             className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary ring-1 ring-secondary/12 shadow-[0_0_0_1px_rgba(255,255,255,0.18)_inset]"
@@ -78,7 +78,7 @@ export const Header: React.FC<HeaderProps> = ({
         </h1>
       </div>
 
-      <div className="archive-header__controls flex min-w-0 flex-[0_1_auto] items-center justify-end gap-2 sm:ml-auto sm:gap-2.5">
+      <div className="archive-header__controls flex min-w-0 flex-[0_1_auto] items-center justify-end gap-1.5 sm:ml-auto sm:gap-2">
         <div className="flex min-w-0 items-center justify-start">
           <CommentarySegmentedControl
             value={commentarySource}
