@@ -217,7 +217,7 @@ describe('IChingSection', () => {
     expect(guaRadio).toHaveAttribute('value', 'gua');
     expect(soulRadio).toHaveAttribute('value', 'soul');
     expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
 
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
     expect(within(readingVerseUnit).getByText('효사')).toHaveClass('px-1.5', 'tracking-[0.14em]');
@@ -241,7 +241,8 @@ describe('IChingSection', () => {
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
 
     expect(screen.queryByTestId('commentary-shell')).not.toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-empty-state')).toBeInTheDocument();
+    expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('33.png'));
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
     expect(within(leftPanel).queryByText('Manifesto')).not.toBeInTheDocument();
     expect(within(rightPanel).queryByText('Reading canvas')).not.toBeInTheDocument();

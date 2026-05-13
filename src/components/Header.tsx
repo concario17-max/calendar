@@ -1,7 +1,6 @@
 import { DatePicker } from './DatePicker';
 import type { CommentarySource } from '../types';
-import { useTheme } from '../hooks/useTheme';
-import { BookText, Crown, Moon, ScrollText, Sparkles, Sun } from 'lucide-react';
+import { BookText, Crown, ScrollText, Sparkles } from 'lucide-react';
 
 interface HeaderProps {
   selectedDate: Date;
@@ -65,8 +64,6 @@ export const Header: React.FC<HeaderProps> = ({
   commentarySource,
   onCommentarySourceChange,
 }) => {
-  const { isDark, toggleTheme } = useTheme();
-
   return (
     <header className="archive-header sticky top-0 z-30 flex min-h-[3.5rem] w-full flex-wrap items-center gap-2 border-b border-outline-variant/8 px-3 py-2.5 backdrop-blur-xl sm:px-4 lg:px-8">
       <div className="archive-header__masthead flex min-w-0 flex-[1_1_15rem] items-center gap-2">
@@ -90,24 +87,13 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         <div className="flex shrink-0 items-center justify-end gap-1">
-          <div className="flex shrink-0 items-center gap-1">
-            <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
-            <button
-              type="button"
-              onClick={() => onDateChange(new Date())}
-              className="rounded-full px-2.5 py-1.5 font-label text-[0.64rem] uppercase tracking-[0.16em] text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
-            >
-              Today
-            </button>
-          </div>
-
+          <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
           <button
             type="button"
-            onClick={toggleTheme}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
-            aria-label="Toggle theme"
+            onClick={() => onDateChange(new Date())}
+            className="rounded-full px-2.5 py-1.5 font-label text-[0.64rem] uppercase tracking-[0.16em] text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
           >
-            {isDark ? <Sun size={17} className="sm:h-4.5 sm:w-4.5" /> : <Moon size={17} className="sm:h-4.5 sm:w-4.5" />}
+            Today
           </button>
         </div>
       </div>

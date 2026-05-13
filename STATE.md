@@ -1,25 +1,25 @@
 # Current Task
-- Active: sync the newly added 효사 학습만화 assets from `image/효사` into the repository so the commentary comic view can use them.
+- Active: remove the dark-mode icon from the header while keeping the remaining header controls intact.
 
 # Route
 - Route A
-- Reason: this is a contained asset-sync slice limited to one existing image directory with no code-path redesign.
+- Reason: this is a tight header-control cleanup contained to one component plus the directly affected tests.
 
 # Writer Slot
-- main: staging and publishing the refreshed 효사 comic assets directly
+- main: updating the header control layout directly
 
 # Contract Freeze
-- Goal: publish the newly added and updated 효사 학습만화 files under `image/효사` so they are included by the existing loader.
-- Non-goals: do not redesign UI, do not change image-loading code, and do not touch unrelated asset folders.
+- Goal: remove the dark-mode toggle button from the header UI and keep the date picker, Today button, and commentary selector working as-is.
+- Non-goals: do not redesign the broader header layout, do not remove theme styles from the app, and do not touch unrelated feature components.
 - Write sets:
-  - main: `STATE.md`, `image/효사/*`
+  - main: `STATE.md`, `src/components/Header.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`
 - Acceptance criteria:
-  - new 효사 이미지 files are staged and committed from `image/효사`.
-  - updated existing 효사 이미지 files are included.
-  - repository verification appropriate to this asset-only change is recorded.
+  - the header no longer renders the dark-mode icon button.
+  - existing header/date/commentary controls remain present.
+  - targeted tests and build pass.
 
 # Reviewer
 - self-review after targeted verification
 
 # Last Update
-- 2026-05-13: re-scoped the task from commentary default-mode behavior to 효사 comic asset sync.
+- 2026-05-13: re-scoped the task from 효사 comic asset sync to header dark-mode toggle removal.

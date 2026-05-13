@@ -27,7 +27,7 @@ describe('Header', () => {
     expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Today' })).toHaveClass('py-1.5');
     expect(screen.getByRole('button', { name: 'Today' })).not.toHaveClass('py-1.25');
-    expect(screen.getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
 
     const header = container.querySelector('header');
     const controlsRow = header?.children[1];
@@ -40,6 +40,6 @@ describe('Header', () => {
     const utilityRow = controlsRow?.lastElementChild;
     expect(utilityRow).toContainElement(screen.getByLabelText('Open date picker'));
     expect(utilityRow).toContainElement(screen.getByRole('button', { name: 'Today' }));
-    expect(utilityRow).toContainElement(screen.getByRole('button', { name: 'Toggle theme' }));
+    expect(utilityRow?.children).toHaveLength(2);
   });
 });

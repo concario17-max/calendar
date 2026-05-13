@@ -325,3 +325,9 @@ status: resolved
 - summary: git staging was briefly blocked by a stale `index.lock` report after a failed PowerShell chained command.
 - details: a combined `git add && git commit` command failed because this PowerShell session does not accept `&&`, and the next staging attempt reported `.git/index.lock`. The lock was gone on re-check, staging was retried, and commit flow resumed normally.
 - status: resolved
+
+- time: 2026-05-13 14:22 KST
+- location: `git add && git commit && git push`
+- summary: a chained git command failed because this PowerShell session does not support `&&` separators.
+- details: the dark-mode-toggle cleanup itself was unaffected. The git steps were rerun as separate commands and completed normally afterward.
+- status: resolved
