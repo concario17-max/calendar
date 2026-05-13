@@ -1,28 +1,26 @@
 # Current Task
-- Active: fix the tablet-width stacked layout scroll trap so the right commentary panel remains reachable and scrollable when it drops below the left panel.
+- Active: enlarge learning comics on mobile by stripping decorative frame chrome and minimizing padding around the comic image.
 
 # Route
-- Route B
-- Reason: this fix crosses shared responsive CSS, main layout structure, and verification updates, so Route A no longer fits once test coverage and multi-file responsive behavior are involved.
+- Route A
+- Reason: this is a tight single-component presentation tweak with one directly related test file.
 
 # Writer Slot
-- main: planner-only; no implementation writes outside `STATE.md`
+- main: updating the comic view presentation directly
 
 # Contract Freeze
-- Goal: when the viewport is narrow enough that the right panel stacks beneath the left panel, the page must still scroll naturally so the entire right panel content is reachable.
-- Non-goals: do not redesign desktop split behavior, do not change commentary content logic, and do not introduce browser-only verification requirements.
+- Goal: on mobile widths, learning comic images should use more of the available width by removing borders/shadows and reducing padding around the image.
+- Non-goals: do not alter desktop comic presentation, do not change comic-loading behavior, and do not redesign commentary text views.
 - Write sets:
-  - worker_shared: `src/index.css`
-  - worker_layout: `src/components/MainContent.tsx`, `src/components/IChingSection.test.tsx`
+  - main: `STATE.md`, `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - Acceptance criteria:
-  - stacked layout widths no longer trap the right panel below a hidden overflow boundary.
-  - desktop split layout behavior remains intact.
+  - mobile comic view no longer adds decorative borders/lines around the image.
+  - mobile padding around the comic image is minimized so the image renders larger.
+  - desktop comic view styling remains intact.
   - relevant automated verification passes.
 
-- contract_freeze: yes
-
 # Reviewer
-- reviewer: `019e1fcf-cef6-7a21-81e6-db4c4a7498a6`
+- self-review after targeted verification
 
 # Last Update
-- 2026-05-13: re-scoped the task from header dark-mode toggle removal to stacked-layout scroll recovery.
+- 2026-05-13: re-scoped the task from stacked-layout scroll recovery to mobile comic canvas enlargement.

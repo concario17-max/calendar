@@ -402,14 +402,14 @@ function LearningComicView({
   return (
     <div
       data-testid="learning-comic-view"
-      className="rounded-[1.5rem] border border-[#d9c5a3]/55 bg-[linear-gradient(180deg,rgba(246,240,229,0.92),rgba(255,252,246,0.96))] px-4 py-4 shadow-[0_10px_24px_rgba(105,82,48,0.06)]"
+      className="px-0 py-0 sm:rounded-[1.5rem] sm:border sm:border-[#d9c5a3]/55 sm:bg-[linear-gradient(180deg,rgba(246,240,229,0.92),rgba(255,252,246,0.96))] sm:px-4 sm:py-4 sm:shadow-[0_10px_24px_rgba(105,82,48,0.06)]"
     >
       <figure className="reading-section mx-auto w-full max-w-[52rem]">
         <img
           src={imageSrc}
           alt={imageAlt}
           data-testid="learning-comic-image"
-          className="mx-auto h-auto w-full rounded-[1rem] border border-[#d9c5a3]/55 bg-[#fffdf8] object-contain shadow-[0_12px_28px_rgba(105,82,48,0.08)]"
+          className="mx-auto h-auto w-full object-contain sm:rounded-[1rem] sm:border sm:border-[#d9c5a3]/55 sm:bg-[#fffdf8] sm:shadow-[0_12px_28px_rgba(105,82,48,0.08)]"
           loading="lazy"
         />
       </figure>
