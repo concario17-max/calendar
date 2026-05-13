@@ -436,7 +436,7 @@
   }
 
   .curated-shell [data-testid='reading-sigil-unit'] {
-    padding-block: clamp(2.25rem, 3vw, 4rem);
+    padding-block: clamp(0.75rem, 1.4vw, 1.5rem);
   }
 
   .curated-shell [data-testid^='commentary-block-'] {

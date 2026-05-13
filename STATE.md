@@ -1,27 +1,26 @@
 # Current Task
-- Active: remove the last outer commentary-card border on mobile comic mode so only the comic image remains visible.
+- Active: reduce the sigil unit vertical spacing so the left rail feels tighter without losing the sigil's presence.
 
 # Route
 - Route A
-- Reason: this is a tight single-component presentation tweak with one directly related test file.
+- Reason: this is a tiny single-style spacing adjustment limited to the left reading rail.
 
 # Writer Slot
-- main: updating the comic view presentation directly
+- main: updating the sigil spacing directly
 
 # Contract Freeze
-- Goal: on mobile widths, learning comic mode should also drop the outer folio border/background so the image appears directly on the canvas.
-- Non-goals: do not alter desktop comic presentation, do not change comic-loading behavior, and do not redesign commentary text views.
+- Goal: shrink the sigil's forced top/bottom padding so the left panel reads more compactly while keeping the sigil centered and visually distinct.
+- Non-goals: do not change sigil image sizing, do not alter commentary behavior, and do not redesign the rest of the left rail.
 - Write sets:
-  - main: `STATE.md`, `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+  - main: `STATE.md`, `src/index.css`
 - Acceptance criteria:
-  - mobile comic view no longer adds decorative borders/lines around the image.
-  - mobile wrapper padding is effectively removed so the image fills the available canvas.
-  - the outer folio border/background is also removed on mobile comic mode.
-  - desktop comic view styling remains intact.
-  - relevant automated verification passes.
+  - the sigil wrapper uses noticeably smaller vertical padding than before.
+  - the sigil remains centered and readable across breakpoints.
+  - the rest of the left rail layout remains unchanged.
+  - relevant verification passes.
 
 # Reviewer
 - self-review after targeted verification
 
 # Last Update
-- 2026-05-13: re-scoped the task from stacked-layout scroll recovery to mobile comic canvas enlargement.
+- 2026-05-13: re-scoped the task to tighten the sigil unit vertical spacing in the left reading rail.
