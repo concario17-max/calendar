@@ -1,26 +1,25 @@
 # Current Task
-- Active: make the default right-panel view for 효사/괘사 open in 학습만화 mode, while keeping 영혼 in text mode.
+- Active: sync the newly added 효사 학습만화 assets from `image/효사` into the repository so the commentary comic view can use them.
 
 # Route
 - Route A
-- Reason: this is a tight UI state-default refinement contained to one component plus its targeted tests.
+- Reason: this is a contained asset-sync slice limited to one existing image directory with no code-path redesign.
 
 # Writer Slot
-- main: updating the default commentary view-mode behavior directly
+- main: staging and publishing the refreshed 효사 comic assets directly
 
 # Contract Freeze
-- Goal: when the user is in 효사 or 괘사 commentary, the right panel should open in comic mode by default; soul should continue to open in text mode.
-- Non-goals: do not redesign the panel layout, do not change comic asset loading rules, and do not touch unrelated data files.
+- Goal: publish the newly added and updated 효사 학습만화 files under `image/효사` so they are included by the existing loader.
+- Non-goals: do not redesign UI, do not change image-loading code, and do not touch unrelated asset folders.
 - Write sets:
-  - main: `STATE.md`, `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+  - main: `STATE.md`, `image/효사/*`
 - Acceptance criteria:
-  - 효사/괘사 commentary defaults to comic mode.
-  - 영혼 remains text-first.
-  - Existing toggle still switches between comic/text views.
-  - Targeted tests and build pass.
+  - new 효사 이미지 files are staged and committed from `image/효사`.
+  - updated existing 효사 이미지 files are included.
+  - repository verification appropriate to this asset-only change is recorded.
 
 # Reviewer
 - self-review after targeted verification
 
 # Last Update
-- 2026-05-13: re-scoped the task from always-visible comic toggles to comic-first defaults for 효사/괘사.
+- 2026-05-13: re-scoped the task from commentary default-mode behavior to 효사 comic asset sync.
