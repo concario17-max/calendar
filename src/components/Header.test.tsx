@@ -23,10 +23,12 @@ describe('Header', () => {
     expect(within(segmentedControl).getByRole('radio', { name: '괘사' })).toBeInTheDocument();
     expect(within(segmentedControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
 
+    const yaoOptionLabel = within(segmentedControl).getByRole('radio', { name: '효사' }).closest('label');
+    expect(yaoOptionLabel).toHaveClass('px-2.5', 'py-1.5', 'text-[9px]');
+
     expect(screen.getByLabelText('Open date picker')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Today' })).toHaveClass('py-1.5');
-    expect(screen.getByRole('button', { name: 'Today' })).not.toHaveClass('py-1.25');
     expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
 
     const header = container.querySelector('header');

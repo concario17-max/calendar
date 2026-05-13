@@ -26,7 +26,7 @@ function CommentarySegmentedControl({
     <div
       role="radiogroup"
       aria-label="해설 선택"
-      className="archive-segmented-control inline-flex items-center gap-0.5 rounded-full px-0.5 py-0.5"
+      className="archive-segmented-control inline-flex items-center gap-1 rounded-full px-1 py-1"
     >
       {options.map((option) => {
         const active = value === option.value;
@@ -35,7 +35,7 @@ function CommentarySegmentedControl({
         return (
           <label
             key={option.value}
-            className={`archive-segmented-control__option flex cursor-pointer items-center gap-0.5 rounded-full px-1.5 py-1 text-[8px] font-semibold leading-none whitespace-nowrap ${
+            className={`archive-segmented-control__option flex cursor-pointer items-center gap-1 rounded-full px-2.5 py-1.5 text-[9px] font-semibold leading-none whitespace-nowrap ${
               active
                 ? 'bg-[#efe8db] text-[#342515] shadow-[0_0_0_1px_rgba(186,147,82,0.18)_inset]'
                 : 'text-[#8b8178] hover:text-[#5a4a39]'
@@ -49,7 +49,7 @@ function CommentarySegmentedControl({
               onChange={() => onChange(option.value)}
               className="sr-only"
             />
-            <Icon size={10} strokeWidth={2.4} className="shrink-0" aria-hidden="true" />
+            <Icon size={12} strokeWidth={2.3} className="shrink-0" aria-hidden="true" />
             <span>{option.label}</span>
           </label>
         );
