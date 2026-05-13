@@ -1,26 +1,26 @@
 # Current Task
-- Active: keep the learning-comic toggle visible for 괘사/효사 even when no comic image exists, and show an explicit empty-state panel in comic view.
+- Active: make the default right-panel view for 효사/괘사 open in 학습만화 mode, while keeping 영혼 in text mode.
 
 # Route
 - Route A
-- Reason: this is a tight UI behavior refinement contained to one component plus its targeted tests.
+- Reason: this is a tight UI state-default refinement contained to one component plus its targeted tests.
 
 # Writer Slot
-- main: updating the commentary comic-toggle behavior directly
+- main: updating the default commentary view-mode behavior directly
 
 # Contract Freeze
-- Goal: show the 학습만화 toggle for 괘사/효사 regardless of image availability, while rendering a graceful empty state when comic view has no image.
-- Non-goals: do not change soul behavior, do not redesign unrelated commentary layout, and do not touch data files.
+- Goal: when the user is in 효사 or 괘사 commentary, the right panel should open in comic mode by default; soul should continue to open in text mode.
+- Non-goals: do not redesign the panel layout, do not change comic asset loading rules, and do not touch unrelated data files.
 - Write sets:
   - main: `STATE.md`, `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - Acceptance criteria:
-  - The comic toggle appears for both 괘사 and 효사 commentary modes even without an image.
-  - Comic view with an existing image still renders the image.
-  - Comic view without an image renders a clear empty-state message instead of silently staying in text mode.
+  - 효사/괘사 commentary defaults to comic mode.
+  - 영혼 remains text-first.
+  - Existing toggle still switches between comic/text views.
   - Targeted tests and build pass.
 
 # Reviewer
 - self-review after targeted verification
 
 # Last Update
-- 2026-05-13: re-scoped the task from asset sync to the comic-toggle visibility behavior.
+- 2026-05-13: re-scoped the task from always-visible comic toggles to comic-first defaults for 효사/괘사.

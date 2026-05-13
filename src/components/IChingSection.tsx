@@ -116,6 +116,10 @@ function getLearningImageSrc(source: CommentarySource, num: number | null): stri
 
 type CommentaryViewMode = 'text' | 'comic';
 
+function getDefaultCommentaryViewMode(source: CommentarySource): CommentaryViewMode {
+  return source === 'soul' ? 'text' : 'comic';
+}
+
 function splitParagraphBlocks(text: string): string[] {
   return text
     .split(/\n\s*\n/)
@@ -464,10 +468,12 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   soulSections = [],
 }) => {
   const sigilSrc = yaoNum !== null ? `/images/yao-${yaoNum}.png` : null;
-  const [commentaryViewMode, setCommentaryViewMode] = React.useState<CommentaryViewMode>('text');
+  const [commentaryViewMode, setCommentaryViewMode] = React.useState<CommentaryViewMode>(() =>
+    getDefaultCommentaryViewMode(commentarySource),
+  );
 
   React.useEffect(() => {
-    setCommentaryViewMode('text');
+    setCommentaryViewMode(getDefaultCommentaryViewMode(commentarySource));
   }, [commentarySource, yaoNum, guaNum]);
 
   if (!guaData || !yaoData) {

@@ -319,3 +319,9 @@ status: resolved
 - summary: nested commentary list patch initially failed type-check in the flat-list fallback
 - details: `src/components/IChingSection.tsx` returned `{ text: string | null }[]` from the plain list fallback, so `tsc -b` rejected the first build attempt during verification. The fallback was narrowed and the build was rerun.
 - status: resolved
+
+- time: 2026-05-13 12:46 KST
+- location: `git add`
+- summary: git staging was briefly blocked by a stale `index.lock` report after a failed PowerShell chained command.
+- details: a combined `git add && git commit` command failed because this PowerShell session does not accept `&&`, and the next staging attempt reported `.git/index.lock`. The lock was gone on re-check, staging was retried, and commit flow resumed normally.
+- status: resolved

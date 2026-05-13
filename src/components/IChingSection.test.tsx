@@ -241,17 +241,15 @@ describe('IChingSection', () => {
     expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
 
     expect(screen.queryByTestId('commentary-shell')).not.toBeInTheDocument();
-    expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
+    expect(screen.getByTestId('learning-comic-empty-state')).toBeInTheDocument();
+    expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
     expect(within(leftPanel).queryByText('Manifesto')).not.toBeInTheDocument();
     expect(within(rightPanel).queryByText('Reading canvas')).not.toBeInTheDocument();
 
     fireEvent.click(guaRadio);
     expect(screen.getByText('오늘의 괘사')).toBeInTheDocument();
-    expect(screen.getByText('Gua Heading')).toBeInTheDocument();
-    expect(screen.getByRole('table')).toBeInTheDocument();
-    expect(screen.getByRole('columnheader', { name: 'Col A' })).toBeInTheDocument();
-    expect(screen.getByRole('cell', { name: 'B1' })).toBeInTheDocument();
-    expect(screen.getByText('Commentary body')).toBeInTheDocument();
+    expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('6.png'));
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
     expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
 
@@ -290,6 +288,7 @@ describe('IChingSection', () => {
     });
 
     fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
+    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
 
     const commentaryList = screen.getByRole('list');
 
@@ -325,6 +324,7 @@ describe('IChingSection', () => {
     });
 
     fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
+    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
 
     const commentaryLists = screen.getAllByRole('list');
     const topLevelList = commentaryLists[0];
@@ -367,6 +367,8 @@ describe('IChingSection', () => {
       soulSections: [],
     });
 
+    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
+
     expect(screen.getByText('Yao Heading')).toBeInTheDocument();
     expect(screen.getByText('Plain prose commentary body')).toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
@@ -392,6 +394,8 @@ describe('IChingSection', () => {
       },
       soulSections: [],
     });
+
+    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
 
     const commentaryReadingBody = screen.getByTestId('commentary-reading-body');
     const commentaryBody = screen.getByTestId('commentary-block-0');
@@ -426,29 +430,25 @@ describe('IChingSection', () => {
 
     fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
 
-    const keywordLine = screen.getByTestId('commentary-keyword-line');
-    const commentaryBody = screen.getByText('General commentary body').closest('p');
-
-    expect(keywordLine).toHaveTextContent('🔑 핵심 키워드:');
-    expect(keywordLine).toHaveClass('bg-[#f4eadc]', 'text-[#4b3b29]');
-    expect(commentaryBody).not.toHaveClass('bg-[#f4eadc]');
-    expect(commentaryBody).not.toHaveClass('text-[#4b3b29]');
     const comicToggle = screen.getByTestId('commentary-comic-toggle');
 
     expect(comicToggle).toBeInTheDocument();
-    expect(comicToggle).toHaveAttribute('aria-pressed', 'false');
-
-    fireEvent.click(screen.getByRole('button', { name: '학습 만화 보기' }));
-
     expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
     expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('10.png'));
     expect(screen.getByRole('img', { name: '괘사 학습 이미지 10' })).toBeInTheDocument();
+    expect(comicToggle).toHaveAttribute('aria-pressed', 'true');
     expect(screen.queryByText('General commentary body')).not.toBeInTheDocument();
     expect(screen.queryByTestId('commentary-keyword-line')).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
 
     expect(screen.queryByTestId('learning-comic-view')).not.toBeInTheDocument();
+    const keywordLine = screen.getByTestId('commentary-keyword-line');
+    const commentaryBody = screen.getByText('General commentary body').closest('p');
+    expect(keywordLine).toHaveTextContent('🔑 핵심 키워드:');
+    expect(keywordLine).toHaveClass('bg-[#f4eadc]', 'text-[#4b3b29]');
+    expect(commentaryBody).not.toHaveClass('bg-[#f4eadc]');
+    expect(commentaryBody).not.toHaveClass('text-[#4b3b29]');
     expect(screen.getByText('General commentary body')).toBeInTheDocument();
     expect(screen.getByTestId('commentary-keyword-line')).toBeInTheDocument();
   });
@@ -477,15 +477,17 @@ describe('IChingSection', () => {
     const comicToggle = screen.getByTestId('commentary-comic-toggle');
 
     expect(comicToggle).toBeInTheDocument();
-    expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
-
-    fireEvent.click(screen.getByRole('button', { name: '학습 만화 보기' }));
-
     expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
     expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('59.png'));
     expect(screen.getByRole('img', { name: '효사 학습 이미지 59' })).toBeInTheDocument();
+    expect(comicToggle).toHaveAttribute('aria-pressed', 'true');
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
     expect(screen.queryByText('Yao keyword commentary body')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
+
+    expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
+    expect(screen.getByText('Yao keyword commentary body')).toBeInTheDocument();
   });
 
   it('shows an empty comic state when no matching image file exists', () => {
@@ -512,15 +514,15 @@ describe('IChingSection', () => {
     fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
 
     expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
-    expect(screen.getByText('General commentary body')).toBeInTheDocument();
-    expect(screen.getByTestId('commentary-keyword-line')).toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole('button', { name: '학습 만화 보기' }));
-
     expect(screen.getByTestId('learning-comic-empty-state')).toBeInTheDocument();
     expect(screen.getByText('아직 업로드된 만화 이미지가 없다')).toBeInTheDocument();
     expect(screen.queryByText('General commentary body')).not.toBeInTheDocument();
     expect(screen.queryByTestId('commentary-keyword-line')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
+
+    expect(screen.getByText('General commentary body')).toBeInTheDocument();
+    expect(screen.getByTestId('commentary-keyword-line')).toBeInTheDocument();
   });
 
   it('keeps the commentary shell visible when commentary is missing', () => {
