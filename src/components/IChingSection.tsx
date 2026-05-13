@@ -505,6 +505,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   const commentaryHeaderLabel = getCommentaryHeaderLabel(commentarySource);
   const canShowComicToggle = commentarySource === 'gua' || commentarySource === 'yao';
   const isComicView = canShowComicToggle && commentaryViewMode === 'comic';
+  const commentaryFolioSurfaceClass = isComicView
+    ? 'relative overflow-visible border-0 bg-transparent px-0 py-0 shadow-none sm:overflow-hidden sm:rounded-[2rem] sm:border sm:border-[#d8c4a1]/60 sm:bg-[linear-gradient(180deg,rgba(250,244,235,0.98),rgba(243,235,220,0.9))] sm:px-4 sm:py-4 sm:shadow-[0_24px_70px_rgba(109,84,47,0.12)]'
+    : commentaryFolioClass;
   const renderedCommentaryBlocks = commentary
     ? commentary.blocks.map((block, index) => (
         <div key={`commentary-block-${index}`} data-testid={`commentary-block-${index}`}>
@@ -611,10 +614,13 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   ) : null}
                 </div>
 
-                <div className={commentaryFolioClass}>
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d1b68a]/85 to-transparent" />
-                  <div className="absolute -right-2 top-2 h-16 w-16 rounded-full bg-[#efdebc]/45 blur-2xl" />
-                  <div className="absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-[#cfb07f]/12 blur-3xl" />
+                <div
+                  data-testid="commentary-folio"
+                  className={commentaryFolioSurfaceClass}
+                >
+                  <div className={isComicView ? 'hidden sm:block absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d1b68a]/85 to-transparent' : 'absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d1b68a]/85 to-transparent'} />
+                  <div className={isComicView ? 'hidden sm:block absolute -right-2 top-2 h-16 w-16 rounded-full bg-[#efdebc]/45 blur-2xl' : 'absolute -right-2 top-2 h-16 w-16 rounded-full bg-[#efdebc]/45 blur-2xl'} />
+                  <div className={isComicView ? 'hidden sm:block absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-[#cfb07f]/12 blur-3xl' : 'absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-[#cfb07f]/12 blur-3xl'} />
 
                   <div className="relative space-y-[var(--reading-block-gap)]">
                     {isComicView ? (
