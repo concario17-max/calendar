@@ -1,25 +1,26 @@
 # Current Task
-- Active: update the tracked `image/괘사` folder so it matches the latest 괘사 학습만화 assets now present in the workspace.
+- Active: keep the learning-comic toggle visible for 괘사/효사 even when no comic image exists, and show an explicit empty-state panel in comic view.
 
 # Route
 - Route A
-- Reason: this is a single-slice asset sync inside one existing feature path with no code redesign or multi-surface implementation split.
+- Reason: this is a tight UI behavior refinement contained to one component plus its targeted tests.
 
 # Writer Slot
-- main: syncing the 괘사 learning-comic image assets directly
+- main: updating the commentary comic-toggle behavior directly
 
 # Contract Freeze
-- Goal: make `image/괘사` reflect the latest 괘사 학습만화 set available locally.
-- Non-goals: do not redesign the UI, do not alter commentary logic, and do not touch unrelated user files outside the target asset sync.
+- Goal: show the 학습만화 toggle for 괘사/효사 regardless of image availability, while rendering a graceful empty state when comic view has no image.
+- Non-goals: do not change soul behavior, do not redesign unrelated commentary layout, and do not touch data files.
 - Write sets:
-  - main: `STATE.md`, `image/괘사/*`
+  - main: `STATE.md`, `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
 - Acceptance criteria:
-  - The latest 괘사 learning-comic files are present in `image/괘사`.
-  - Existing tracked image targets are updated to the new versions where applicable.
-  - The resulting asset folder contents are verified locally.
+  - The comic toggle appears for both 괘사 and 효사 commentary modes even without an image.
+  - Comic view with an existing image still renders the image.
+  - Comic view without an image renders a clear empty-state message instead of silently staying in text mode.
+  - Targeted tests and build pass.
 
 # Reviewer
-- self-review of source/target file lists and git worktree state
+- self-review after targeted verification
 
 # Last Update
-- 2026-05-12: re-scoped the task from rollback work to syncing the latest 괘사 learning-comic assets into `image/괘사`.
+- 2026-05-13: re-scoped the task from asset sync to the comic-toggle visibility behavior.

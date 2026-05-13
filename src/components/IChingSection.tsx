@@ -413,6 +413,25 @@ function LearningComicView({
   );
 }
 
+function LearningComicEmptyState() {
+  return (
+    <div
+      data-testid="learning-comic-empty-state"
+      className="mx-auto flex w-full max-w-[52rem] flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-[#d9c5a3]/65 bg-[#f7f1e6] px-6 py-10 text-center"
+    >
+      <p className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-[#9c845e]">
+        학습 만화
+      </p>
+      <p className="mt-3 font-headline text-[1.15rem] font-semibold text-[#4b3b29]">
+        아직 업로드된 만화 이미지가 없다
+      </p>
+      <p className="mt-2 max-w-[28rem] font-body text-[0.98rem] leading-[1.8] text-[#6b5a47]">
+        이 항목은 학습만화 버튼은 열리지만, 연결된 이미지 파일이 아직 준비되지 않았다.
+      </p>
+    </div>
+  );
+}
+
 function DecoratedSurfaceCard({
   children,
   testId,
@@ -478,8 +497,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   const leftSoulWeeksLabel = formatWeeksLabel(hitSoulGroup, soulSections);
   const guaMeta = guaData.meta.trim();
   const commentaryHeaderLabel = getCommentaryHeaderLabel(commentarySource);
-  const canShowComicToggle =
-    (commentarySource === 'gua' || commentarySource === 'yao') && learningImageSrc !== null;
+  const canShowComicToggle = commentarySource === 'gua' || commentarySource === 'yao';
   const isComicView = canShowComicToggle && commentaryViewMode === 'comic';
   const renderedCommentaryBlocks = commentary
     ? commentary.blocks.map((block, index) => (
@@ -593,8 +611,12 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   <div className="absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-[#cfb07f]/12 blur-3xl" />
 
                   <div className="relative space-y-[var(--reading-block-gap)]">
-                    {isComicView && learningImageSrc ? (
-                      <LearningComicView imageSrc={learningImageSrc} imageAlt={learningImageAlt} />
+                    {isComicView ? (
+                      learningImageSrc ? (
+                        <LearningComicView imageSrc={learningImageSrc} imageAlt={learningImageAlt} />
+                      ) : (
+                        <LearningComicEmptyState />
+                      )
                     ) : (
                       <>
                         {commentary.heading ? (

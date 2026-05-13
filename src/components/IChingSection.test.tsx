@@ -88,7 +88,7 @@ vi.mock('../data', () => {
         return guaKeywordCommentary;
       }
 
-      if (num === 11) {
+      if (num === 66) {
         return guaKeywordNoImageCommentary;
       }
 
@@ -228,7 +228,7 @@ describe('IChingSection', () => {
     ).toBeInTheDocument();
     expect(within(leftPanel).getByText('50주(3월 16-22일) · 3주(4월 21-27일)')).toBeInTheDocument();
     expect(within(rightPanel).queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
-    expect(screen.queryByTestId('commentary-comic-toggle')).not.toBeInTheDocument();
+    expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
     const leftRailBlocks = Array.from(
       leftPanel.querySelectorAll('[data-testid="reading-verse-unit"], [data-testid="reading-top-unit"]'),
     );
@@ -253,7 +253,7 @@ describe('IChingSection', () => {
     expect(screen.getByRole('cell', { name: 'B1' })).toBeInTheDocument();
     expect(screen.getByText('Commentary body')).toBeInTheDocument();
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('commentary-comic-toggle')).not.toBeInTheDocument();
+    expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
 
     fireEvent.click(soulRadio);
     expect(within(leftPanel).getByText('영혼')).toBeInTheDocument();
@@ -488,10 +488,10 @@ describe('IChingSection', () => {
     expect(screen.queryByText('Yao keyword commentary body')).not.toBeInTheDocument();
   });
 
-  it('keeps text mode unchanged when no matching image file exists', () => {
+  it('shows an empty comic state when no matching image file exists', () => {
     renderSection({
       yaoNum: 33,
-      guaNum: 11,
+      guaNum: 66,
       guaData: { header: '62. Example', meta: 'Example meta' },
       yaoData: {
         titleLine: '33. Example',
@@ -511,9 +511,16 @@ describe('IChingSection', () => {
 
     fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
 
-    expect(screen.queryByTestId('commentary-comic-toggle')).not.toBeInTheDocument();
+    expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
     expect(screen.getByText('General commentary body')).toBeInTheDocument();
     expect(screen.getByTestId('commentary-keyword-line')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: '학습 만화 보기' }));
+
+    expect(screen.getByTestId('learning-comic-empty-state')).toBeInTheDocument();
+    expect(screen.getByText('아직 업로드된 만화 이미지가 없다')).toBeInTheDocument();
+    expect(screen.queryByText('General commentary body')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('commentary-keyword-line')).not.toBeInTheDocument();
   });
 
   it('keeps the commentary shell visible when commentary is missing', () => {
