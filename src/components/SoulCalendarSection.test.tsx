@@ -22,42 +22,34 @@ describe('SoulCalendarSection', () => {
   it('formats fallback week labels from soul sections', () => {
     expect(
       formatWeeksLabel(undefined, [
-        { week: 50, range: '3월 16-22', text: 'Soul body A' },
-        { week: 3, range: '4월 21-27', text: 'Soul body B' },
+        { week: 50, range: '3월 16-22일', text: 'Soul body A' },
+        { week: 3, range: '4월 21-27일', text: 'Soul body B' },
       ]),
     ).toBe('50주(3월 16-22일) · 3주(4월 21-27일)');
   });
 
-  it('renders the soul panel header and decorated empty state when there are no verses', () => {
+  it('renders the soul panel header and shared empty state when there are no verses', () => {
     render(<SoulCalendarSection hitSoulGroup={undefined} soulSections={[]} />);
 
     expect(screen.getByText('루돌프 슈타이너의 영혼의 달력')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
     expect(screen.getByText('영혼 본문이 아직 없어.')).toBeInTheDocument();
-    expect(screen.queryByText('50주(3월 16-22일) · 3주(4월 21-27일)')).not.toBeInTheDocument();
   });
 
-  it('renders the soul panel header, title, and decorative body cards without the subtitle block', () => {
+  it('renders the soul title and body on the same commentary canvas rhythm', () => {
     render(
       <SoulCalendarSection
-        hitSoulGroup={{
-          titleLine: 'Weeks 3',
-          weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
-          weekA: 50,
-          weekB: 3,
-          ranges: [],
-          block: '',
-        }}
+        hitSoulGroup={undefined}
         soulSections={[
-          { week: 50, range: '3월 16-22', text: 'Soul body A' },
-          { week: 3, range: '4월 21-27', text: 'Soul body B' },
+          { week: 50, range: '3월 16-22일', text: 'Soul body A' },
+          { week: 3, range: '4월 21-27일', text: 'Soul body B' },
         ]}
       />,
     );
 
     expect(screen.getByText('루돌프 슈타이너의 영혼의 달력')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
-    expect(screen.queryByText('50주(3월 16-22일) · 3주(4월 21-27일)')).not.toBeInTheDocument();
+    expect(screen.getByText('50주(3월 16-22일) · 3주(4월 21-27일)')).toBeInTheDocument();
     expect(screen.getByText('Soul body A')).toBeInTheDocument();
     expect(screen.getByText('Soul body B')).toBeInTheDocument();
     expect(screen.queryByText('영혼 본문이 아직 없어.')).not.toBeInTheDocument();

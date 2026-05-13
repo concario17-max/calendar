@@ -10,16 +10,23 @@ interface SoulCalendarSectionProps {
 const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
 const SOUL_BADGE = '루돌프 슈타이너의 영혼의 달력';
 const SOUL_EMPTY = '영혼 본문이 아직 없어.';
-const soulArchiveCardClass =
-  'reading-card reading-fade-in relative overflow-hidden rounded-[2rem] border border-[#d8c4a1]/70 bg-[linear-gradient(180deg,rgba(250,244,235,0.98),rgba(240,229,208,0.92))] shadow-[0_24px_70px_rgba(109,84,47,0.14)]';
-const soulEntryCardClass =
-  'reading-card reading-fade-in relative overflow-hidden rounded-[1.5rem] border border-[#d7c7a9]/55 bg-[linear-gradient(180deg,rgba(255,255,255,0.76),rgba(249,243,232,0.94))] shadow-[0_14px_32px_rgba(105,82,48,0.09)] backdrop-blur-sm';
-const soulTitleCardClass =
-  'mx-auto w-full max-w-[52rem] rounded-[1.65rem] border border-[#dcc8a4]/65 bg-[linear-gradient(180deg,rgba(255,252,246,0.98),rgba(247,239,225,0.9))] px-5 py-5 shadow-[0_12px_28px_rgba(105,82,48,0.08)]';
+const commentaryFolioClass =
+  'relative overflow-hidden rounded-[2rem] border border-[#d8c4a1]/60 bg-[linear-gradient(180deg,rgba(250,244,235,0.98),rgba(243,235,220,0.9))] px-4 py-4 shadow-[0_24px_70px_rgba(109,84,47,0.12)]';
+const commentaryHeadingClass =
+  'mx-auto w-full max-w-[52rem] break-keep font-headline text-[2.05rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[2.7rem]';
+const commentaryBodyClass =
+  'mx-auto w-full max-w-[52rem] break-keep font-body text-[1rem] leading-[1.92] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]';
 
 function normalizeDateRange(range: string): string {
-  const trimmed = range.trim();
-  return trimmed.endsWith('일') ? trimmed : `${trimmed}일`;
+  const compact = range.replace(/\s+/g, ' ').trim();
+  const numericMatch = compact.match(/(\d{1,2})\D+(\d{1,2})\D*-\D*(\d{1,2})/u);
+
+  if (!numericMatch) {
+    return compact.replace(/\s*-\s*/g, '-');
+  }
+
+  const [, month, startDay, endDay] = numericMatch;
+  return `${Number(month)}월 ${Number(startDay)}-${Number(endDay)}일`;
 }
 
 function formatWeekRange(week: number, range: string): string {
@@ -27,17 +34,17 @@ function formatWeekRange(week: number, range: string): string {
 }
 
 function normalizeWeeksLabel(label: string): string {
-  return label
-    .trim()
-    .replace(/[·•ㆍ]/g, '·')
-    .replace(/\s*\/\s*/g, ' · ')
-    .replace(/(\d+)주(?:\(([^)]+)\))?/g, (_match: string, week: string, range?: string) => {
-      if (!range) {
-        return `${week}주`;
-      }
+  const normalized = label.replace(/\s+/g, ' ').trim();
+  const entries = Array.from(normalized.matchAll(/(\d+)\D+(\d{1,2})\D+(\d{1,2})\D*-\D*(\d{1,2})/gu)).map(
+    ([, week, month, startDay, endDay]) =>
+      `${Number(week)}주(${Number(month)}월 ${Number(startDay)}-${Number(endDay)}일)`,
+  );
 
-      return `${week}주(${normalizeDateRange(range)})`;
-    });
+  if (entries.length > 0) {
+    return entries.join(' · ');
+  }
+
+  return normalized.replace(/\s*\/\s*/g, ' · ');
 }
 
 export function formatWeeksLabel(hitSoulGroup: SoulGroup | undefined, soulSections: SoulSection[]): string {
@@ -49,90 +56,75 @@ export function formatWeeksLabel(hitSoulGroup: SoulGroup | undefined, soulSectio
     return normalizeWeeksLabel(hitSoulGroup.weeksLabel);
   }
 
-  if (soulSections.length === 0) {
-    return '';
-  }
-
-  return soulSections.map((section) => formatWeekRange(section.week, section.range)).join(' · ');
+  return '';
 }
 
-function SoulSectionCard({ section, isLast }: { section: SoulSection; isLast: boolean }) {
+function SoulSectionBlock({ section, isFirst }: { section: SoulSection; isFirst: boolean }) {
   return (
     <article
       className={[
-        `mx-auto w-full max-w-[52rem] ${soulEntryCardClass}`,
-        isLast ? '' : 'mb-[var(--reading-block-gap)]',
+        'mx-auto w-full max-w-[52rem] break-keep',
+        isFirst ? '' : 'border-t border-[#d9c5a3]/35 pt-[var(--reading-section-gap)]',
       ].join(' ')}
     >
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d6c19a]/80 to-transparent" />
-      <div className="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-[#d8c2a0]/20 blur-2xl" />
-      <div className="absolute -left-6 bottom-0 h-24 w-24 rounded-full bg-[#bba070]/10 blur-3xl" />
-
-      <div className="relative space-y-[var(--reading-block-gap)]">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="inline-flex items-center rounded-full bg-[#ead7b3] px-3 py-0.5 text-[10px] font-semibold tracking-[0.24em] text-[#7a5d2d]">
-            {section.week}주
-          </span>
-          <span className="text-[0.78rem] italic tracking-[0.12em] text-[#8a7d70]">{normalizeDateRange(section.range)}</span>
-        </div>
-
-        <p className="whitespace-pre-wrap break-keep border-l-2 border-[#d6bf96]/80 pl-4 font-body text-[0.99rem] leading-[1.9] tracking-[-0.01em] text-[#566471]">
-          {section.text}
-        </p>
+      <div className="mb-[var(--reading-block-gap)] flex flex-wrap items-center justify-between gap-2">
+        <span className="inline-flex items-center rounded-full bg-[#ead7b3] px-3 py-0.5 text-[10px] font-semibold tracking-[0.24em] text-[#7a5d2d]">
+          {section.week}주
+        </span>
+        <span className="text-[0.78rem] italic tracking-[0.12em] text-[#8a7d70]">
+          {normalizeDateRange(section.range)}
+        </span>
       </div>
+
+      <p className={`${commentaryBodyClass} whitespace-pre-wrap border-l-2 border-[#d6bf96]/80 pl-4`}>
+        {section.text}
+      </p>
     </article>
   );
 }
 
-export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ soulSections }) => {
+export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSoulGroup, soulSections }) => {
   const visibleSections = soulSections.slice(0, 2);
+  const weeksLabel = formatWeeksLabel(hitSoulGroup, soulSections);
 
   return (
     <section className="reading-fade-in relative min-w-0 pb-8 md:pb-10">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-10 top-1 h-28 w-28 rounded-full bg-[#dec8a0]/18 blur-3xl" />
-        <div className="absolute right-2 top-2 h-20 w-20 rounded-full bg-[#f1e2c0]/55 blur-2xl" />
-        <div className="absolute bottom-0 left-1/3 h-24 w-24 rounded-full bg-[#bca173]/12 blur-3xl" />
-      </div>
+      <div className="space-y-[var(--reading-section-gap)]">
+        <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 pb-2">
+          <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
+            {SOUL_BADGE}
+          </span>
+          <span
+            aria-hidden="true"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#d9c5a3]/65 bg-[#fbf8f1] text-[#8f7c62]"
+          >
+            <Sparkles size={12} strokeWidth={2.1} />
+          </span>
+        </div>
 
-      <div className="relative space-y-[var(--reading-section-gap)] text-left">
-        <div className={soulArchiveCardClass}>
-          <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[#d1b68a]/80 to-transparent" />
-          <div className="absolute -right-2 top-2 h-16 w-16 rounded-full bg-[#efdebc]/55 blur-2xl" />
-          <div className="absolute bottom-0 left-4 h-20 w-20 rounded-full bg-[#cfb07f]/12 blur-3xl" />
+        <div className={commentaryFolioClass}>
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d1b68a]/85 to-transparent" />
+          <div className="absolute -right-2 top-2 h-16 w-16 rounded-full bg-[#efdebc]/45 blur-2xl" />
+          <div className="absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-[#cfb07f]/12 blur-3xl" />
 
           <div className="relative space-y-[var(--reading-block-gap)]">
-            <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 pb-2">
-              <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
-                {SOUL_BADGE}
-              </span>
-              <span
-                aria-hidden="true"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#d9c5a3]/65 bg-[#fbf8f1] text-[#8f7c62]"
-              >
-                <Sparkles size={12} strokeWidth={2.1} />
-              </span>
-            </div>
+            <h2 className={commentaryHeadingClass}>{SOUL_TITLE}</h2>
 
-            <section className={soulTitleCardClass}>
-              <h2 className="w-full max-w-[52rem] font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
-                {SOUL_TITLE}
-              </h2>
-            </section>
+            {weeksLabel ? (
+              <p className={`${commentaryBodyClass} italic text-[#7b6d58]`}>{weeksLabel}</p>
+            ) : null}
 
             <div className="space-y-[var(--reading-section-gap)] border-t border-[#d9c5a3]/35 pt-[var(--reading-block-gap)]">
               {visibleSections.length > 0 ? (
                 visibleSections.map((section, index) => (
-                  <SoulSectionCard
+                  <SoulSectionBlock
                     key={`${section.week}-${section.range}-${index}`}
                     section={section}
-                    isLast={index === visibleSections.length - 1}
+                    isFirst={index === 0}
                   />
                 ))
               ) : (
-                <div className="mx-auto w-full max-w-[52rem] rounded-[1.5rem] border border-dashed border-[#d9c6a5]/70 bg-white/45 px-4 py-5 text-[0.95rem] italic leading-relaxed text-[#7c7367]">
-                  {SOUL_EMPTY}
-                </div>
+                <p className={`${commentaryBodyClass} italic text-[#7c7367]`}>{SOUL_EMPTY}</p>
               )}
             </div>
           </div>
