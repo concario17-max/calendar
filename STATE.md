@@ -22,4 +22,4 @@
 - self-review after asset verification
 
 # Last Update
-- 2026-05-14: re-scoped the task to sync newly added 효사 learning-comic assets only.
+- 2026-05-15: continuing the same Route A asset-sync task for the newly added `image/효사` files `254.png` through `377.png`.
