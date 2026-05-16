@@ -396,3 +396,9 @@ status: resolved
   summary: Combined git stage/commit/push command failed before execution
   details: PowerShell in this environment does not accept `&&` as a statement separator, so the combined publish command aborted with a parser error. Re-ran the git steps as separate commands.
   status: resolved
+
+- time: 2026-05-16 22:23 +09:00
+  location: PowerShell git publish command
+  summary: Combined git stage/commit/push command failed before execution
+  details: PowerShell again rejected `&&` as a statement separator while publishing the bonus-day mapping update. No repository state was lost; the git steps were rerun as separate commands.
+  status: resolved
