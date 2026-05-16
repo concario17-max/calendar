@@ -824,7 +824,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                               </h5>
                             ) : null}
 
-                            {resolvedCommentarySource === 'yao' ? (
+                            {resolvedCommentarySource === 'yao' && !isBonusSelection ? (
                               <div
                                 data-testid="commentary-reading-body"
                                 className={commentaryBodyClass}
