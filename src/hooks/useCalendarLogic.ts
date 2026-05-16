@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { GUA_TEXT, SOUL_TEXT, YAO_TEXT } from '../data';
+﻿import { useMemo, useState } from 'react';
+import { GUA_TEXT, SOUL_TEXT, YAO_TEXT, getBonusGuaCommentary, getBonusYaoCommentary } from '../data';
 import { BONUS_DAY_READINGS } from '../data/bonusReadings';
 import type { BonusGuaItem, BonusMonthDayKey, BonusYaoItem, SoulGroup } from '../types';
 import {
@@ -54,24 +54,14 @@ export function useCalendarLogic() {
   const bonusGuaItems = useMemo<BonusGuaItem[]>(() => {
     if (!bonusDay) return [];
 
-    return bonusDay.guaNums.flatMap((num) => {
-      const raw = GUA_MAP.get(num);
-      if (!raw) return [];
-
-      return [{ num, guaData: splitGua(raw) }];
-    });
-  }, [bonusDay, GUA_MAP]);
+    return bonusDay.guaNums.map((num) => buildBonusGuaItem(num));
+  }, [bonusDay]);
 
   const bonusYaoItems = useMemo<BonusYaoItem[]>(() => {
     if (!bonusDay) return [];
 
-    return bonusDay.yaoNums.flatMap((num) => {
-      const raw = YAO_MAP.get(num);
-      if (!raw) return [];
-
-      return [{ num, yaoData: splitYao(raw) }];
-    });
-  }, [bonusDay, YAO_MAP]);
+    return bonusDay.yaoNums.map((num) => buildBonusYaoItem(num));
+  }, [bonusDay]);
 
   const hitSoulGroup = SOUL_GROUPS.find((group) => group.ranges.some((range) => isInRangeMD(month, day, range)));
   const soulSections = hitSoulGroup ? parseWeekSectionsFromGroupBlock(hitSoulGroup.block) : [];
@@ -94,4 +84,44 @@ export function useCalendarLogic() {
 
 function isBonusMonthDayKey(key: string): key is BonusMonthDayKey {
   return key === '4-2' || key === '4-3' || key === '4-4' || key === '4-5' || key === '4-6';
+}
+
+function buildBonusGuaItem(num: number): BonusGuaItem {
+  const commentary = getBonusGuaCommentary(num);
+
+  if (commentary) {
+    return {
+      num,
+      commentary,
+      guaData: splitGua(commentary),
+    };
+  }
+
+  const fallbackCommentary = `${num}. (보너스 괘사 해설 누락)`;
+  return {
+    num,
+    commentary: undefined,
+    commentaryMissing: true,
+    guaData: splitGua(fallbackCommentary),
+  };
+}
+
+function buildBonusYaoItem(num: number): BonusYaoItem {
+  const commentary = getBonusYaoCommentary(num);
+
+  if (commentary) {
+    return {
+      num,
+      commentary,
+      yaoData: splitYao(commentary),
+    };
+  }
+
+  const fallbackCommentary = `${num}. (보너스 효사 해설 누락)`;
+  return {
+    num,
+    commentary: undefined,
+    commentaryMissing: true,
+    yaoData: splitYao(fallbackCommentary),
+  };
 }

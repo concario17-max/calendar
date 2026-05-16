@@ -10,6 +10,8 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parent.parent
 GUA_FOLDER = ROOT / "\uad18\uc0ac"
 YAO_FOLDER = ROOT / "\ud6a8\uc0ac"
+BONUS_GUA_SOURCE = ROOT / "\ubcf4\ub108\uc2a4" / "\uad18\uc0ac-0.odt"
+BONUS_YAO_SOURCE = ROOT / "\ubcf4\ub108\uc2a4" / "\ud6a8\uc0ac-0.odt"
 NAMESPACES = {
     "office": "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
     "text": "urn:oasis:names:tc:opendocument:xmlns:text:1.0",
@@ -169,10 +171,13 @@ def folder_sort_key(path: Path) -> tuple[object, ...]:
     return tuple(key)
 
 
-def extract_folder_entries(folder: Path) -> list[tuple[int, str]]:
-    odt_paths = sorted(folder.glob("*.odt"), key=folder_sort_key)
+def extract_source_entries(source: Path) -> list[tuple[int, str]]:
+    if source.is_file():
+        return extract_blocks(source)
+
+    odt_paths = sorted(source.glob("*.odt"), key=folder_sort_key)
     if not odt_paths:
-        raise RuntimeError(f"No ODT files found in {folder}")
+        raise RuntimeError(f"No ODT files found in {source}")
 
     entries: list[tuple[int, str]] = []
     for odt_path in odt_paths:
@@ -218,9 +223,16 @@ def render_ts(var_name: str, function_name: str, registry: OrderedDict[int, str]
     return "\n".join(lines)
 
 
+def render_num_list(var_name: str, registry: OrderedDict[int, str]) -> str:
+    nums = ", ".join(str(num) for num in registry.keys())
+    return f"export const {var_name} = [{nums}] as const;\n"
+
+
 def main() -> None:
-    gua_entries = build_registry(extract_folder_entries(GUA_FOLDER), "괘사")
-    yao_entries = build_registry(extract_folder_entries(YAO_FOLDER), "효사")
+    gua_entries = build_registry(extract_source_entries(GUA_FOLDER), "괘사")
+    yao_entries = build_registry(extract_source_entries(YAO_FOLDER), "효사")
+    bonus_gua_entries = build_registry(extract_source_entries(BONUS_GUA_SOURCE), "보너스 괘사")
+    bonus_yao_entries = build_registry(extract_source_entries(BONUS_YAO_SOURCE), "보너스 효사")
 
     (ROOT / "src" / "data" / "guaCommentary.ts").write_text(
         render_ts("GUA_COMMENTARY_BY_NUM", "getGuaCommentary", gua_entries),
@@ -228,6 +240,16 @@ def main() -> None:
     )
     (ROOT / "src" / "data" / "yaoCommentary.ts").write_text(
         render_ts("YAO_COMMENTARY_BY_NUM", "getYaoCommentary", yao_entries),
+        encoding="utf-8",
+    )
+    (ROOT / "src" / "data" / "bonusGuaCommentary.ts").write_text(
+        render_num_list("BONUS_GUA_COMMENTARY_NUMS", bonus_gua_entries)
+        + render_ts("BONUS_GUA_COMMENTARY_BY_NUM", "getBonusGuaCommentary", bonus_gua_entries),
+        encoding="utf-8",
+    )
+    (ROOT / "src" / "data" / "bonusYaoCommentary.ts").write_text(
+        render_num_list("BONUS_YAO_COMMENTARY_NUMS", bonus_yao_entries)
+        + render_ts("BONUS_YAO_COMMENTARY_BY_NUM", "getBonusYaoCommentary", bonus_yao_entries),
         encoding="utf-8",
     )
 

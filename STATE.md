@@ -1,18 +1,18 @@
 # Current Task
-- Active: align the bonus-day tests with the raw `bonusGuaItems` / `bonusYaoItems` contract so regular dates stay unchanged and bonus-day source selection is covered without preview assumptions.
+- Active: completed the `보너스` source-of-truth integration for bonus-day commentary text and bonus comic image folders, replacing the prior hardcoded bonus-only contract.
 
 # Route
 - Route B
-- Reason: this is still a multi-file UI integration on top of the already-frozen bonus contract and must stay isolated from the in-progress header extraction files already present in the worktree.
+- Reason: this changes shared data generation/loading, runtime hook logic, bonus commentary selection, asset loading, and tests across multiple files, while needing to stay isolated from unrelated in-progress header extraction files.
 
 # Writer Slot
 - main: planner-only; may edit `STATE.md` only
-- worker_logic: owns bonus data/types/hook wiring
-- worker_ui: owns main UI integration for bonus-day selection and rendering
-- worker_tests: owns test updates for bonus-day behavior
+- worker_data: owns bonus source extraction/loading, generated bonus commentary data, and type updates
+- worker_ui: owns bonus image loading and commentary selection integration in the UI
+- worker_tests: owns test updates for the real bonus-source pipeline
 
 # Contract Freeze
-- Goal: add a reusable bonus-day system for `4-2~4-6` that exposes only the raw bonus day record plus gua/yao item arrays, while regular dates keep their current behavior unchanged.
+- Goal: make the bonus-day system use the `보너스` folder as source-of-truth for bonus commentary text and bonus comic images, while keeping regular-date behavior unchanged.
 - Non-goals:
   - do not redesign the header
   - do not alter the existing regular-date numbering rules
@@ -20,21 +20,22 @@
   - do not add browser verification
 - Write sets:
   - main: `STATE.md`
-  - worker_logic: `src/data/bonusReadings.ts`, `src/types/index.ts`, `src/hooks/useCalendarLogic.ts`
+  - worker_data: `scripts/extract_commentary.py`, `src/data/bonusReadings.ts`, `src/data/bonusGuaCommentary.ts`, `src/data/bonusYaoCommentary.ts`, `src/data/index.ts`, `src/types/index.ts`, `src/hooks/useCalendarLogic.ts`
   - worker_ui: `src/App.tsx`, `src/components/MainContent.tsx`, `src/components/IChingSection.tsx`
   - worker_tests: `src/hooks/useCalendarLogic.test.ts`, `src/components/IChingSection.test.tsx`
 - Acceptance criteria:
-  - bonus data exists for null dates via a dedicated data structure keyed by month/day
-  - regular dates keep their current behavior unchanged
-  - bonus dates expose `isBonusDay`, `bonusDay`, `bonusGuaItems`, and `bonusYaoItems`
-  - tests and UI can consume the raw arrays without a preview or pairing layer
+  - bonus text/commentary is derived from actual `보너스` source files rather than only hardcoded arrays
+  - bonus comic images load from `보너스/괘사` and `보너스/효사` for bonus-day selections
+  - bonus day uses the real source numbering from the bonus files (`괘사 1..4`, `효사 1..24` unless parsing proves otherwise)
+  - regular dates still use the existing `image/괘사`, `image/효사`, and regular commentary flows unchanged
+  - build and the relevant tests pass
 - Why the write split is safe:
-  - data/hook changes are isolated from rendering files
-  - UI integration can consume the raw bonus contract without extra helper layers
-  - tests can be updated independently once the contract settles
+  - extraction/generation changes are isolated from rendering files
+  - UI wiring can consume the updated bonus commentary/image contract without editing generation logic
+  - tests can validate the integrated pipeline after data and UI workers settle
 
 # Reviewer
-- reviewer: review the bonus-day integration for regressions in regular-day rendering and bonus contract shape
+- reviewer: review the bonus-source integration for regressions in regular-day rendering, bonus-day commentary/image sourcing, and test sufficiency
 
 # Last Update
-- 2026-05-16: removed the legacy bonus preview/pairing leftovers, wired active bonus lists through the UI, and confirmed `npm.cmd run build` passes.
+- 2026-05-16: completed the bonus-source integration, verified extractor regeneration plus targeted tests/build, and kept regular-date commentary/image flows unchanged.

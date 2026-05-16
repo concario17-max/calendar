@@ -74,9 +74,21 @@ vi.mock('../data', () => {
     'Pipe prose | should stay plain text',
     'still prose with a second line | and punctuation',
   ].join('\n');
+  const bonusGuaCommentary1 = ['1. Bonus Gua 1', '', 'Bonus gua 1 commentary body'].join('\n');
+  const bonusGuaCommentary4 = ['4. Bonus Gua 4', '', 'Bonus gua 4 commentary body'].join('\n');
+  const bonusYaoCommentary1 = ['1. Bonus Yao 1', 'Bonus yao 1 commentary body'].join('\n');
+  const bonusYaoCommentary24 = ['24. Bonus Yao 24', 'Bonus yao 24 commentary body'].join('\n');
 
   return {
     getGuaCommentary: (num: number | null) => {
+      if (num === 1) {
+        return bonusGuaCommentary1;
+      }
+
+      if (num === 4) {
+        return bonusGuaCommentary4;
+      }
+
       if (num === 6) {
         return guaCommentary;
       }
@@ -99,7 +111,26 @@ vi.mock('../data', () => {
 
       return undefined;
     },
+    getBonusGuaCommentary: (num: number | null) => {
+      if (num === 1) {
+        return bonusGuaCommentary1;
+      }
+
+      if (num === 4) {
+        return bonusGuaCommentary4;
+      }
+
+      return undefined;
+    },
     getYaoCommentary: (num: number | null) => {
+      if (num === 1) {
+        return bonusYaoCommentary1;
+      }
+
+      if (num === 24) {
+        return bonusYaoCommentary24;
+      }
+
       if (num === 33) {
         return yaoProseCommentary;
       }
@@ -110,6 +141,17 @@ vi.mock('../data', () => {
 
       if (num === 59) {
         return yaoKeywordCommentary;
+      }
+
+      return undefined;
+    },
+    getBonusYaoCommentary: (num: number | null) => {
+      if (num === 1) {
+        return bonusYaoCommentary1;
+      }
+
+      if (num === 24) {
+        return bonusYaoCommentary24;
       }
 
       return undefined;
@@ -132,12 +174,30 @@ type BonusSectionProps = React.ComponentProps<typeof IChingSection> & {
   bonusYaoItems?: BonusYaoItemFixture[];
 };
 
-type BonusRuntimeGlobals = typeof globalThis & {
-  hasAnyBonusItems?: boolean;
-  hasDualBonusSets?: boolean;
-};
+const bonusGuaItemsContract = Array.from({ length: 4 }, (_, index) => {
+  const num = index + 1;
 
-const bonusRuntimeGlobals = globalThis as BonusRuntimeGlobals;
+  return {
+    num,
+    guaData: {
+      header: `${num}. Bonus Gua ${num}`,
+      meta: `Bonus gua meta ${num}`,
+    },
+  };
+});
+
+const bonusYaoItemsContract = Array.from({ length: 24 }, (_, index) => {
+  const num = index + 1;
+
+  return {
+    num,
+    yaoData: {
+      titleLine: `${num}. Bonus Yao ${num}`,
+      short: `Bonus yao short ${num}`,
+      body: `Bonus yao body ${num}`,
+    },
+  };
+});
 
 function renderSection(overrides?: Partial<React.ComponentProps<typeof MainContent>>) {
   const view = render(
@@ -201,34 +261,8 @@ function renderBonusSection(overrides?: Partial<BonusSectionProps>) {
         short: 'Short reading',
         body: 'Body text',
       }}
-      bonusGuaItems={[
-        {
-          num: 2,
-          guaData: { header: '2. Bonus Gua One', meta: 'Bonus gua meta one' },
-        },
-        {
-          num: 5,
-          guaData: { header: '5. Bonus Gua Two', meta: 'Bonus gua meta two' },
-        },
-      ]}
-      bonusYaoItems={[
-        {
-          num: 26,
-          yaoData: {
-            titleLine: '26. Bonus Yao One',
-            short: 'Bonus yao short one',
-            body: 'Bonus yao body one',
-          },
-        },
-        {
-          num: 29,
-          yaoData: {
-            titleLine: '29. Bonus Yao Two',
-            short: 'Bonus yao short two',
-            body: 'Bonus yao body two',
-          },
-        },
-      ]}
+      bonusGuaItems={bonusGuaItemsContract}
+      bonusYaoItems={bonusYaoItemsContract}
       {...overrides}
     />,
   );
@@ -346,86 +380,46 @@ describe('IChingSection', () => {
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
   });
 
-  it('renders bonus-day entries in the left panel and updates the active selection', () => {
-    const previousHasAnyBonusItems = bonusRuntimeGlobals.hasAnyBonusItems;
-    const previousHasDualBonusSets = bonusRuntimeGlobals.hasDualBonusSets;
+  it('renders bonus 괘사 selections from the real 1..4 contract and keeps commentary tied to the gua source', () => {
+    renderBonusSection({ commentarySource: 'gua' });
 
-    bonusRuntimeGlobals.hasAnyBonusItems = true;
-    bonusRuntimeGlobals.hasDualBonusSets = true;
+    const bonusSelector = screen.getByTestId('bonus-reading-selector');
+    const leftPanel = screen.getAllByRole('article')[0];
+    const guaButtons = within(bonusSelector).getAllByRole('button');
 
-    try {
-      const { rerender } = renderBonusSection({ commentarySource: 'gua' });
+    expect(bonusSelector).toHaveTextContent('보너스 괘사');
+    expect(bonusSelector).toHaveTextContent('4개');
+    expect(guaButtons).toHaveLength(4);
+    expect(guaButtons.map((button) => button.textContent?.trim())).toEqual([
+      '1. Bonus Gua 1',
+      '2. Bonus Gua 2',
+      '3. Bonus Gua 3',
+      '4. Bonus Gua 4',
+    ]);
+    expect(guaButtons[0]).toHaveAttribute('aria-pressed', 'true');
+    expect(guaButtons[3]).toHaveAttribute('aria-pressed', 'false');
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('1.png'));
+    expect(screen.getByRole('img', { name: '보너스 괘사 학습 이미지 1' })).toBeInTheDocument();
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute(
+      'src',
+      expect.stringContaining('%EB%B3%B4%EB%84%88%EC%8A%A4'),
+    );
 
-      const leftPanel = screen.getAllByRole('article')[0];
+    fireEvent.click(guaButtons[3]);
 
-      const guaOneButton = within(leftPanel).getByRole('button', { name: '2. Bonus Gua One' });
-      const guaTwoButton = within(leftPanel).getByRole('button', { name: '5. Bonus Gua Two' });
+    expect(guaButtons[0]).toHaveAttribute('aria-pressed', 'false');
+    expect(guaButtons[3]).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('4.png'));
+    expect(screen.getByRole('img', { name: '보너스 괘사 학습 이미지 4' })).toBeInTheDocument();
 
-      expect(screen.getByTestId('bonus-reading-selector')).toBeInTheDocument();
-      expect(guaOneButton).toHaveAttribute('aria-pressed', 'true');
-      expect(guaTwoButton).toHaveAttribute('aria-pressed', 'false');
+    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
 
-      fireEvent.click(guaTwoButton);
-
-      expect(guaTwoButton).toHaveAttribute('aria-pressed', 'true');
-      expect(guaOneButton).toHaveAttribute('aria-pressed', 'false');
-
-      rerender(
-        <IChingSection
-          commentarySource="yao"
-          yaoNum={33}
-          guaNum={6}
-          guaData={{ header: '62. Example', meta: 'Anamil explanation' }}
-          yaoData={{
-            titleLine: '33. Example',
-            short: 'Short reading',
-            body: 'Body text',
-          }}
-          bonusGuaItems={[
-            {
-              num: 2,
-              guaData: { header: '2. Bonus Gua One', meta: 'Bonus gua meta one' },
-            },
-            {
-              num: 5,
-              guaData: { header: '5. Bonus Gua Two', meta: 'Bonus gua meta two' },
-            },
-          ]}
-          bonusYaoItems={[
-            {
-              num: 26,
-              yaoData: {
-                titleLine: '26. Bonus Yao One',
-                short: 'Bonus yao short one',
-                body: 'Bonus yao body one',
-              },
-            },
-            {
-              num: 29,
-              yaoData: {
-                titleLine: '29. Bonus Yao Two',
-                short: 'Bonus yao short two',
-                body: 'Bonus yao body two',
-              },
-            },
-          ]}
-        />,
-      );
-
-      expect(within(leftPanel).getByRole('button', { name: '26. Bonus Yao One' })).toHaveAttribute(
-        'aria-pressed',
-        'true',
-      );
-      expect(within(leftPanel).getByRole('button', { name: '29. Bonus Yao Two' })).toHaveAttribute(
-        'aria-pressed',
-        'false',
-      );
-      expect(within(leftPanel).queryByRole('button', { name: '2. Bonus Gua One' })).not.toBeInTheDocument();
-      expect(within(leftPanel).queryByRole('button', { name: '5. Bonus Gua Two' })).not.toBeInTheDocument();
-    } finally {
-      bonusRuntimeGlobals.hasAnyBonusItems = previousHasAnyBonusItems;
-      bonusRuntimeGlobals.hasDualBonusSets = previousHasDualBonusSets;
-    }
+    expect(screen.queryByTestId('learning-comic-view')).not.toBeInTheDocument();
+    expect(screen.getByText('Bonus gua 4 commentary body')).toBeInTheDocument();
+    expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
+    expect(within(leftPanel).getByRole('heading', { level: 3, name: '4. Bonus Gua 4' })).toBeInTheDocument();
+    expect(within(leftPanel).getByText('Bonus gua meta 4')).toBeInTheDocument();
+    expect(screen.queryByText('Body text')).not.toBeInTheDocument();
   });
 
   it('renders bullet-marked commentary blocks as semantic lists', () => {
@@ -616,6 +610,43 @@ describe('IChingSection', () => {
     expect(commentaryBody).not.toHaveClass('text-[#4b3b29]');
     expect(screen.getByText('General commentary body')).toBeInTheDocument();
     expect(screen.getByTestId('commentary-keyword-line')).toBeInTheDocument();
+  });
+
+  it('renders bonus 효사 selections from the real 1..24 contract and keeps commentary tied to the yao source', () => {
+    renderBonusSection({ commentarySource: 'yao' });
+
+    const bonusSelector = screen.getByTestId('bonus-reading-selector');
+    const leftPanel = screen.getAllByRole('article')[0];
+    const yaoButtons = within(bonusSelector).getAllByRole('button');
+
+    expect(bonusSelector).toHaveTextContent('보너스 효사');
+    expect(bonusSelector).toHaveTextContent('24개');
+    expect(yaoButtons).toHaveLength(24);
+    expect(yaoButtons[0]).toHaveAttribute('aria-pressed', 'true');
+    expect(yaoButtons[23]).toHaveAttribute('aria-pressed', 'false');
+    expect(yaoButtons[0]).toHaveTextContent('1. Bonus Yao 1');
+    expect(yaoButtons[23]).toHaveTextContent('24. Bonus Yao 24');
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('1.png'));
+    expect(screen.getByRole('img', { name: '보너스 효사 학습 이미지 1' })).toBeInTheDocument();
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute(
+      'src',
+      expect.stringContaining('%EB%B3%B4%EB%84%88%EC%8A%A4'),
+    );
+
+    fireEvent.click(yaoButtons[23]);
+
+    expect(yaoButtons[0]).toHaveAttribute('aria-pressed', 'false');
+    expect(yaoButtons[23]).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('24.png'));
+    expect(screen.getByRole('img', { name: '보너스 효사 학습 이미지 24' })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
+
+    expect(screen.queryByTestId('learning-comic-view')).not.toBeInTheDocument();
+    expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Bonus yao body 24');
+    expect(screen.getByText('Bonus yao 24 commentary body')).toBeInTheDocument();
+    expect(within(leftPanel).getByRole('heading', { level: 4, name: '24. Bonus Yao 24' })).toBeInTheDocument();
+    expect(within(leftPanel).getByText('Bonus yao short 24')).toBeInTheDocument();
   });
 
   it('shows a 효사 comic toggle and switches the lower commentary area to the image view', () => {

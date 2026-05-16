@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { Images } from 'lucide-react';
-import { getGuaCommentary, getYaoCommentary } from '../data';
+import * as dataModule from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { formatWeeksLabel, SoulCalendarSection } from './SoulCalendarSection';
 
@@ -27,6 +27,23 @@ const guaLearningImageModules = import.meta.glob('../../image/괘사/*.{png,jpg,
   eager: true,
   import: 'default',
 }) as Record<string, string>;
+const bonusYaoLearningImageModules = import.meta.glob('../../보너스/효사/*.{png,jpg,jpeg,webp,avif,gif}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
+const bonusGuaLearningImageModules = import.meta.glob('../../보너스/괘사/*.{png,jpg,jpeg,webp,avif,gif}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
+
+interface CommentaryDataModule {
+  getGuaCommentary: (num: number | null) => string | undefined;
+  getYaoCommentary: (num: number | null) => string | undefined;
+  getBonusGuaCommentary?: (num: number | null) => string | undefined;
+  getBonusYaoCommentary?: (num: number | null) => string | undefined;
+}
+
+const commentaryData = dataModule as CommentaryDataModule;
 
 interface IChingSectionProps {
   commentarySource?: CommentarySource;
@@ -48,6 +65,7 @@ interface BonusReadingItemLike {
   titleLine?: string;
   short?: string;
   body?: string;
+  commentary?: string;
   num?: number;
   guaNum?: number;
   yaoNum?: number;
@@ -114,18 +132,20 @@ function buildLearningImageMap(modules: Record<string, string>): Record<number, 
 
 const yaoLearningImageMap = buildLearningImageMap(yaoLearningImageModules);
 const guaLearningImageMap = buildLearningImageMap(guaLearningImageModules);
+const bonusYaoLearningImageMap = buildLearningImageMap(bonusYaoLearningImageModules);
+const bonusGuaLearningImageMap = buildLearningImageMap(bonusGuaLearningImageModules);
 
-function getLearningImageSrc(source: CommentarySource, num: number | null): string | null {
+function getLearningImageSrc(source: CommentarySource, num: number | null, isBonusSelection: boolean): string | null {
   if (num === null) {
     return null;
   }
 
   if (source === 'yao') {
-    return yaoLearningImageMap[num] ?? null;
+    return (isBonusSelection ? bonusYaoLearningImageMap[num] : yaoLearningImageMap[num]) ?? null;
   }
 
   if (source === 'gua') {
-    return guaLearningImageMap[num] ?? null;
+    return (isBonusSelection ? bonusGuaLearningImageMap[num] : guaLearningImageMap[num]) ?? null;
   }
 
   return null;
@@ -268,6 +288,10 @@ function normalizeListItemText(text: string): string {
   return text.replace(/\s+/g, ' ').trim();
 }
 
+function normalizeCommentaryText(text: string | undefined): string {
+  return text?.trim() ?? '';
+}
+
 function isKeywordLeadLine(text: string): boolean {
   return text.trim().startsWith('🔑');
 }
@@ -407,6 +431,33 @@ function getCommentaryHeaderLabel(source: CommentarySource): string {
   }
 
   return '';
+}
+
+function getSelectedCommentaryText(
+  source: Exclude<CommentarySource, 'soul'>,
+  activeGuaNum: number | null,
+  activeYaoNum: number | null,
+  activeBonusItem: BonusReadingItemLike | null,
+): string {
+  if (source === 'gua') {
+    if (activeBonusItem) {
+      return (
+        normalizeCommentaryText(activeBonusItem.commentary) ||
+        normalizeCommentaryText(commentaryData.getBonusGuaCommentary?.(activeGuaNum))
+      );
+    }
+
+    return normalizeCommentaryText(commentaryData.getGuaCommentary(activeGuaNum));
+  }
+
+  if (activeBonusItem) {
+    return (
+      normalizeCommentaryText(activeBonusItem.commentary) ||
+      normalizeCommentaryText(commentaryData.getBonusYaoCommentary?.(activeYaoNum))
+    );
+  }
+
+  return normalizeCommentaryText(commentaryData.getYaoCommentary(activeYaoNum));
 }
 
 function LearningComicView({
@@ -553,22 +604,24 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     );
   }
 
+  const isBonusSelection = activeBonusItem !== null;
   const commentaryText =
     resolvedCommentarySource === 'gua'
-      ? (getGuaCommentary(activeGuaNum)?.trim() || '')
+      ? getSelectedCommentaryText('gua', activeGuaNum, activeYaoNum, activeBonusItem)
       : resolvedCommentarySource === 'yao'
-        ? (getYaoCommentary(activeYaoNum)?.trim() || '')
+        ? getSelectedCommentaryText('yao', activeGuaNum, activeYaoNum, activeBonusItem)
         : '';
   const commentary = commentaryText.length > 0 ? splitCommentary(commentaryText) : null;
   const showSoulPanel = resolvedCommentarySource === 'soul';
   const learningImageSrc = getLearningImageSrc(
     resolvedCommentarySource,
     resolvedCommentarySource === 'gua' ? activeGuaNum : resolvedCommentarySource === 'yao' ? activeYaoNum : null,
+    isBonusSelection,
   );
   const learningImageAlt =
     resolvedCommentarySource === 'gua'
-      ? `괘사 학습 이미지 ${activeGuaNum ?? ''}`.trim()
-      : `효사 학습 이미지 ${activeYaoNum ?? ''}`.trim();
+      ? `${isBonusSelection ? '보너스 ' : ''}괘사 학습 이미지 ${activeGuaNum ?? ''}`.trim()
+      : `${isBonusSelection ? '보너스 ' : ''}효사 학습 이미지 ${activeYaoNum ?? ''}`.trim();
   const leftSoulWeeksLabel = formatWeeksLabel(hitSoulGroup, soulSections);
   const guaMeta = activeGuaData.meta.trim();
   const commentaryHeaderLabel = getCommentaryHeaderLabel(resolvedCommentarySource);

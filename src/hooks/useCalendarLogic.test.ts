@@ -46,7 +46,7 @@ describe('useCalendarLogic', () => {
     expect(getYaoCommentary(current.yaoNum)).toBeDefined();
   });
 
-  it('flags April 5, 2026 as a bonus day and returns split bonus lists', () => {
+  it('flags April 5, 2026 as a bonus day and exposes the real 1..4 / 1..24 bonus contract', () => {
     const { result } = renderHook(() => useCalendarLogic());
 
     act(() => {
@@ -57,23 +57,15 @@ describe('useCalendarLogic', () => {
 
     expect(current.isBonusDay).toBe(true);
     expect(current.bonusDay).toMatchObject({ key: '4-5', month: 4, day: 5 });
-    expect(current.bonusDay?.guaNums).toHaveLength(4);
-    expect(current.bonusDay?.yaoNums).toHaveLength(24);
-    expect(current.bonusGuaItems).toBeDefined();
-    expect(current.bonusYaoItems).toBeDefined();
-    expect(current.bonusGuaItems).toHaveLength(current.bonusDay?.guaNums.length ?? 0);
-    expect(current.bonusYaoItems).toHaveLength(current.bonusDay?.yaoNums.length ?? 0);
-
-    const [firstGuaItem, secondGuaItem] = current.bonusGuaItems ?? [];
-    const [firstYaoItem, secondYaoItem] = current.bonusYaoItems ?? [];
-
-    expect(firstGuaItem.num).toBe(current.bonusDay?.guaNums[0]);
-    expect(firstYaoItem.num).toBe(current.bonusDay?.yaoNums[0]);
-    expect(secondGuaItem.num).toBe(current.bonusDay?.guaNums[1]);
-    expect(secondYaoItem.num).toBe(current.bonusDay?.yaoNums[1]);
-    expect(firstGuaItem.guaData).not.toBeNull();
-    expect(secondGuaItem.guaData).not.toBeNull();
-    expect(firstYaoItem.yaoData).not.toBeNull();
-    expect(secondYaoItem.yaoData).not.toBeNull();
+    expect(current.bonusDay?.guaNums).toEqual([1, 2, 3, 4]);
+    expect(current.bonusDay?.yaoNums).toEqual(Array.from({ length: 24 }, (_, index) => index + 1));
+    expect(current.bonusGuaItems).toHaveLength(4);
+    expect(current.bonusYaoItems).toHaveLength(24);
+    expect(current.bonusGuaItems?.map((item) => item.num)).toEqual([1, 2, 3, 4]);
+    expect(current.bonusYaoItems?.map((item) => item.num)).toEqual(
+      Array.from({ length: 24 }, (_, index) => index + 1),
+    );
+    expect(current.bonusGuaItems?.every((item) => item.guaData !== null)).toBe(true);
+    expect(current.bonusYaoItems?.every((item) => item.yaoData !== null)).toBe(true);
   });
 });

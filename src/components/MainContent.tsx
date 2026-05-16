@@ -7,6 +7,7 @@ interface BonusGuaItem {
   id: string;
   label: string;
   dateLabel: string;
+  commentary?: string;
   num: number;
   guaData: GuaData;
 }
@@ -15,6 +16,7 @@ interface BonusYaoItem {
   id: string;
   label: string;
   dateLabel: string;
+  commentary?: string;
   num: number;
   yaoData: YaoData;
 }

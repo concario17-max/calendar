@@ -7,6 +7,7 @@ interface BonusGuaUiItem {
   id: string;
   label: string;
   dateLabel: string;
+  commentary?: string;
   num: number;
   guaData: GuaData;
 }
@@ -15,12 +16,13 @@ interface BonusYaoUiItem {
   id: string;
   label: string;
   dateLabel: string;
+  commentary?: string;
   num: number;
   yaoData: YaoData;
 }
 
 function formatBonusDateLabel(month: number, day: number): string {
-  return `${month}월 ${day}일`;
+  return `${month}\uC6D4 ${day}\uC77C`;
 }
 
 function App() {
@@ -41,6 +43,7 @@ function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const bonusDateLabel = bonusDay ? formatBonusDateLabel(bonusDay.month, bonusDay.day) : '';
   const bonusGuaItems: BonusGuaUiItem[] = rawBonusGuaItems.map((item) => ({
+    commentary: (item as { commentary?: string }).commentary,
     id: `gua-${item.num}`,
     label: item.guaData.header,
     dateLabel: bonusDateLabel,
@@ -48,6 +51,7 @@ function App() {
     guaData: item.guaData,
   }));
   const bonusYaoItems: BonusYaoUiItem[] = rawBonusYaoItems.map((item) => ({
+    commentary: (item as { commentary?: string }).commentary,
     id: `yao-${item.num}`,
     label: item.yaoData.titleLine,
     dateLabel: bonusDateLabel,

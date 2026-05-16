@@ -45,10 +45,14 @@ export interface BonusDayReading {
 
 export interface BonusGuaItem {
   num: number;
+  commentary?: string;
+  commentaryMissing?: boolean;
   guaData: GuaData;
 }
 
 export interface BonusYaoItem {
   num: number;
+  commentary?: string;
+  commentaryMissing?: boolean;
   yaoData: YaoData;
 }
