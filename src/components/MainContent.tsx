@@ -47,8 +47,6 @@ export const MainContent: React.FC<MainContentProps> = ({
   bonusYaoItems = [],
 }) => {
   const [commentarySource, setCommentarySource] = useState<CommentarySource>('yao');
-  const activeBonusGuaItems = commentarySource === 'gua' ? bonusGuaItems : [];
-  const activeBonusYaoItems = commentarySource === 'yao' ? bonusYaoItems : [];
 
   return (
     <main className="reading-system curated-shell archive-shell relative flex min-h-dvh w-full flex-col overflow-x-hidden overflow-y-auto bg-shell-canvas text-on-surface lg:h-[100dvh] lg:overflow-hidden">
@@ -69,8 +67,8 @@ export const MainContent: React.FC<MainContentProps> = ({
             yaoData={yaoData}
             hitSoulGroup={hitSoulGroup}
             soulSections={soulSections}
-            bonusGuaItems={activeBonusGuaItems}
-            bonusYaoItems={activeBonusYaoItems}
+            bonusGuaItems={bonusGuaItems}
+            bonusYaoItems={bonusYaoItems}
           />
         </div>
       </div>
