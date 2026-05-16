@@ -1,15 +1,15 @@
 # Current Task
-- Active: extend the bonus-day data mapping so every null-date bonus day (`4/2`, `4/3`, `4/4`, `4/5`, `4/6`) uses the same populated bonus reading set instead of leaving only `4/5` connected.
+- Active: simplify the left rail on bonus days by hiding the sigil plus the default 효사/괘사 summary blocks while keeping the 영혼 block visible.
 
 # Route
 - Route A
-- Reason: this follow-up is a tiny one-file data-mapping change in `src/data/bonusReadings.ts`, with `STATE.md` updated for route logging, and does not require broader component or test changes.
+- Reason: this is a tiny single-component UI hotfix in `src/components/IChingSection.tsx` that conditionally hides three left-rail blocks for bonus days without changing shared data or tests.
 
 # Writer Slot
-- main: write-capable lane for `STATE.md`, `ERROR_LOG.md`, and `src/data/bonusReadings.ts`
+- main: write-capable lane for `STATE.md` and `src/components/IChingSection.tsx`
 
 # Contract Freeze
-- Goal: map all bonus dates from April 2 through April 6 to the same populated bonus gua/yao number arrays that April 5 already uses.
+- Goal: when any bonus-day reading is active, hide the left-rail sigil plus the 효사/괘사 manuscript units, while preserving the bonus selector cards and the 영혼 block.
 - Non-goals:
   - do not redesign the header
   - do not alter the existing regular-date numbering rules or bonus source files
@@ -17,18 +17,19 @@
   - do not add browser verification
 - Write sets:
   - main: `STATE.md`
-  - main: `ERROR_LOG.md`
-  - main: `src/data/bonusReadings.ts`
+  - main: `src/components/IChingSection.tsx`
 - Acceptance criteria:
-  - `4/2`, `4/3`, `4/4`, and `4/6` expose the same bonus gua/yao arrays as `4/5`
+  - bonus-day left rail no longer shows `Sigil not available`, the default 효사 summary block, or the default 괘사 summary block
+  - the bonus selector cards remain visible
+  - the 영혼 block remains visible
   - regular dates keep current behavior unchanged
   - `npm.cmd run build` passes
 - Why the write split is safe:
-  - the remaining gap is only in the date-to-bonus-array mapping table
-  - no component, hook, asset, or shared header work needs to move
+  - the change is contained to conditional rendering in one component
+  - no hook, asset, or shared header work needs to move
 
 # Reviewer
-- reviewer: not required for this Route A one-file mapping fix
+- reviewer: not required for this Route A one-file rendering fix
 
 # Last Update
-- 2026-05-16: reclassified the follow-up as a Route A one-file mapping update to connect every bonus date to the populated bonus reading arrays.
+- 2026-05-16: reclassified the follow-up as a Route A one-file UI cleanup for the bonus-day left rail.

@@ -545,6 +545,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
   const activeCommentarySource = resolvedCommentarySource === 'soul' ? null : resolvedCommentarySource;
   const activeBonusItems = activeCommentarySource === 'gua' ? bonusGuaItems : activeCommentarySource === 'yao' ? bonusYaoItems : [];
+  const isBonusDay = bonusGuaItems.length > 0 || bonusYaoItems.length > 0;
   const fallbackBonusGuaItem = bonusGuaItems[0] ?? null;
   const fallbackBonusYaoItem = bonusYaoItems[0] ?? null;
   const [bonusSelectionBySource, setBonusSelectionBySource] = React.useState<Record<'gua' | 'yao', number>>({
@@ -702,50 +703,56 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </div>
             ) : null}
 
-            <div data-testid="reading-sigil-unit" className="reading-fade-in -mt-2 flex justify-center pt-0 lg:-mt-2">
-              <div className="w-full max-w-[7.5rem] sm:max-w-[10rem] lg:max-w-[11.5rem]">
-                {sigilSrc ? (
-                  <img
-                    src={sigilSrc}
-                    alt={`sigil ${activeYaoNum}`}
-                    className="block h-auto w-full object-contain transition-transform duration-700 hover:scale-[1.04]"
-                  />
-                ) : (
-                  <span className="text-sm italic text-[#8b8178]">Sigil not available</span>
-                )}
+            {!isBonusDay ? (
+              <div data-testid="reading-sigil-unit" className="reading-fade-in -mt-2 flex justify-center pt-0 lg:-mt-2">
+                <div className="w-full max-w-[7.5rem] sm:max-w-[10rem] lg:max-w-[11.5rem]">
+                  {sigilSrc ? (
+                    <img
+                      src={sigilSrc}
+                      alt={`sigil ${activeYaoNum}`}
+                      className="block h-auto w-full object-contain transition-transform duration-700 hover:scale-[1.04]"
+                    />
+                  ) : (
+                    <span className="text-sm italic text-[#8b8178]">Sigil not available</span>
+                  )}
+                </div>
               </div>
-            </div>
+            ) : null}
 
-            <div data-testid="reading-verse-unit" className={`${manuscriptUnitClass} pt-2 md:pt-3`}>
-              <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/60 bg-[#f4eadc]/70 uppercase text-[#8e7a5d]`}>
-                효사
-              </p>
-              <h4 className="max-w-[40ch] break-keep font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
-                {activeYaoData.titleLine}
-              </h4>
-
-              <p className="max-w-[38ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
-                {activeYaoData.short}
-              </p>
-            </div>
-
-            <div data-testid="reading-top-unit" className={`${manuscriptUnitClass} pt-2 md:pt-3`}>
-              <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/50 bg-[#f4eadc]/55 uppercase text-[#9b886a]`}>
-                괘사
-              </p>
-              <h3 className="max-w-[40ch] break-keep font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
-                {activeGuaData.header}
-              </h3>
-
-              {guaMeta ? (
-                <p
-                  data-testid="reading-gua-meta"
-                  className="max-w-[38ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]"
-                >
-                  {guaMeta}
+            {!isBonusDay ? (
+              <div data-testid="reading-verse-unit" className={`${manuscriptUnitClass} pt-2 md:pt-3`}>
+                <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/60 bg-[#f4eadc]/70 uppercase text-[#8e7a5d]`}>
+                  효사
                 </p>
-              ) : null}
-            </div>
+                <h4 className="max-w-[40ch] break-keep font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
+                  {activeYaoData.titleLine}
+                </h4>
+
+                <p className="max-w-[38ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
+                  {activeYaoData.short}
+                </p>
+              </div>
+            ) : null}
+
+            {!isBonusDay ? (
+              <div data-testid="reading-top-unit" className={`${manuscriptUnitClass} pt-2 md:pt-3`}>
+                <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/50 bg-[#f4eadc]/55 uppercase text-[#9b886a]`}>
+                  괘사
+                </p>
+                <h3 className="max-w-[40ch] break-keep font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
+                  {activeGuaData.header}
+                </h3>
+
+                {guaMeta ? (
+                  <p
+                    data-testid="reading-gua-meta"
+                    className="max-w-[38ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]"
+                  >
+                    {guaMeta}
+                  </p>
+                ) : null}
+              </div>
+            ) : null}
 
             <div data-testid="reading-soul-title-unit" className={`${manuscriptUnitClass} pb-3 pt-1 md:pb-4`}>
               <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/50 bg-[#f4eadc]/55 text-[#9a8a75]`}>
