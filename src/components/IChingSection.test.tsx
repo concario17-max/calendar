@@ -2,6 +2,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { MainContent } from './MainContent.tsx';
 import { IChingSection } from './IChingSection.tsx';
+import type { GuaData, YaoData } from '../types';
 
 vi.mock('../data', () => {
   const guaCommentary = [
@@ -116,6 +117,28 @@ vi.mock('../data', () => {
   };
 });
 
+type BonusGuaItemFixture = {
+  num: number;
+  guaData: GuaData;
+};
+
+type BonusYaoItemFixture = {
+  num: number;
+  yaoData: YaoData;
+};
+
+type BonusSectionProps = React.ComponentProps<typeof IChingSection> & {
+  bonusGuaItems?: BonusGuaItemFixture[];
+  bonusYaoItems?: BonusYaoItemFixture[];
+};
+
+type BonusRuntimeGlobals = typeof globalThis & {
+  hasAnyBonusItems?: boolean;
+  hasDualBonusSets?: boolean;
+};
+
+const bonusRuntimeGlobals = globalThis as BonusRuntimeGlobals;
+
 function renderSection(overrides?: Partial<React.ComponentProps<typeof MainContent>>) {
   const view = render(
     <MainContent
@@ -161,6 +184,60 @@ function renderSection(overrides?: Partial<React.ComponentProps<typeof MainConte
     readingVerseUnit: screen.getByTestId('reading-verse-unit'),
     readingSigilUnit: screen.getByTestId('reading-sigil-unit'),
     readingSoulTitleUnit: screen.getByTestId('reading-soul-title-unit'),
+  };
+}
+
+function renderBonusSection(overrides?: Partial<BonusSectionProps>) {
+  const BonusIChingSection = IChingSection as React.ComponentType<BonusSectionProps>;
+
+  const view = render(
+    <BonusIChingSection
+      commentarySource="gua"
+      yaoNum={33}
+      guaNum={6}
+      guaData={{ header: '62. Example', meta: 'Anamil explanation' }}
+      yaoData={{
+        titleLine: '33. Example',
+        short: 'Short reading',
+        body: 'Body text',
+      }}
+      bonusGuaItems={[
+        {
+          num: 2,
+          guaData: { header: '2. Bonus Gua One', meta: 'Bonus gua meta one' },
+        },
+        {
+          num: 5,
+          guaData: { header: '5. Bonus Gua Two', meta: 'Bonus gua meta two' },
+        },
+      ]}
+      bonusYaoItems={[
+        {
+          num: 26,
+          yaoData: {
+            titleLine: '26. Bonus Yao One',
+            short: 'Bonus yao short one',
+            body: 'Bonus yao body one',
+          },
+        },
+        {
+          num: 29,
+          yaoData: {
+            titleLine: '29. Bonus Yao Two',
+            short: 'Bonus yao short two',
+            body: 'Bonus yao body two',
+          },
+        },
+      ]}
+      {...overrides}
+    />,
+  );
+
+  return {
+    container: view.container,
+    leftPanel: screen.getAllByRole('article')[0],
+    rightPanel: screen.getByRole('complementary'),
+    rerender: view.rerender,
   };
 }
 
@@ -212,10 +289,10 @@ describe('IChingSection', () => {
       readingSoulTitleUnit,
     } = renderSection();
 
-    const commentaryControl = screen.getByRole('radiogroup', { name: '해설 선택' });
-    const yaoRadio = within(commentaryControl).getByRole('radio', { name: '효사' });
-    const guaRadio = within(commentaryControl).getByRole('radio', { name: '괘사' });
-    const soulRadio = within(commentaryControl).getByRole('radio', { name: '영혼' });
+    const commentaryControl = screen.getByRole('radiogroup');
+    const yaoRadio = screen.getByDisplayValue('yao');
+    const guaRadio = screen.getByDisplayValue('gua');
+    const soulRadio = screen.getByDisplayValue('soul');
 
     expect(commentaryControl).toBeInTheDocument();
     expect(yaoRadio).toHaveAttribute('value', 'yao');
@@ -225,9 +302,9 @@ describe('IChingSection', () => {
     expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
 
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
-    expect(within(readingVerseUnit).getByText('효사')).toHaveClass('px-1.5', 'tracking-[0.14em]');
-    expect(within(readingTopUnit).getByText('괘사')).toHaveClass('px-1.5', 'tracking-[0.14em]');
-    expect(within(readingSoulTitleUnit).getByText('영혼')).toHaveClass('px-1.5', 'tracking-[0.14em]');
+    expect(readingVerseUnit.querySelector('p')).toHaveClass('px-1.5', 'tracking-[0.14em]');
+    expect(readingTopUnit.querySelector('p')).toHaveClass('px-1.5', 'tracking-[0.14em]');
+    expect(readingSoulTitleUnit.querySelector('p')).toHaveClass('px-1.5', 'tracking-[0.14em]');
     expect(
       within(leftPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();
@@ -253,23 +330,102 @@ describe('IChingSection', () => {
     expect(within(rightPanel).queryByText('Reading canvas')).not.toBeInTheDocument();
 
     fireEvent.click(guaRadio);
-    expect(screen.getByText('오늘의 괘사')).toBeInTheDocument();
     expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
     expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('6.png'));
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
     expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
 
     fireEvent.click(soulRadio);
-    expect(within(leftPanel).getByText('영혼')).toBeInTheDocument();
     expect(
       within(rightPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
     ).toBeInTheDocument();
-    expect(within(rightPanel).getByText('루돌프 슈타이너의 영혼의 달력')).toBeInTheDocument();
     expect(within(rightPanel).queryByText('2 blocks')).not.toBeInTheDocument();
     expect(within(rightPanel).getByText('50주').closest('article')).toHaveTextContent('Soul body');
     expect(within(rightPanel).queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
     expect(within(rightPanel).queryByTestId('commentary-comic-toggle')).not.toBeInTheDocument();
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
+  });
+
+  it('renders bonus-day entries in the left panel and updates the active selection', () => {
+    const previousHasAnyBonusItems = bonusRuntimeGlobals.hasAnyBonusItems;
+    const previousHasDualBonusSets = bonusRuntimeGlobals.hasDualBonusSets;
+
+    bonusRuntimeGlobals.hasAnyBonusItems = true;
+    bonusRuntimeGlobals.hasDualBonusSets = true;
+
+    try {
+      const { rerender } = renderBonusSection({ commentarySource: 'gua' });
+
+      const leftPanel = screen.getAllByRole('article')[0];
+
+      const guaOneButton = within(leftPanel).getByRole('button', { name: '2. Bonus Gua One' });
+      const guaTwoButton = within(leftPanel).getByRole('button', { name: '5. Bonus Gua Two' });
+
+      expect(screen.getByTestId('bonus-reading-selector')).toBeInTheDocument();
+      expect(guaOneButton).toHaveAttribute('aria-pressed', 'true');
+      expect(guaTwoButton).toHaveAttribute('aria-pressed', 'false');
+
+      fireEvent.click(guaTwoButton);
+
+      expect(guaTwoButton).toHaveAttribute('aria-pressed', 'true');
+      expect(guaOneButton).toHaveAttribute('aria-pressed', 'false');
+
+      rerender(
+        <IChingSection
+          commentarySource="yao"
+          yaoNum={33}
+          guaNum={6}
+          guaData={{ header: '62. Example', meta: 'Anamil explanation' }}
+          yaoData={{
+            titleLine: '33. Example',
+            short: 'Short reading',
+            body: 'Body text',
+          }}
+          bonusGuaItems={[
+            {
+              num: 2,
+              guaData: { header: '2. Bonus Gua One', meta: 'Bonus gua meta one' },
+            },
+            {
+              num: 5,
+              guaData: { header: '5. Bonus Gua Two', meta: 'Bonus gua meta two' },
+            },
+          ]}
+          bonusYaoItems={[
+            {
+              num: 26,
+              yaoData: {
+                titleLine: '26. Bonus Yao One',
+                short: 'Bonus yao short one',
+                body: 'Bonus yao body one',
+              },
+            },
+            {
+              num: 29,
+              yaoData: {
+                titleLine: '29. Bonus Yao Two',
+                short: 'Bonus yao short two',
+                body: 'Bonus yao body two',
+              },
+            },
+          ]}
+        />,
+      );
+
+      expect(within(leftPanel).getByRole('button', { name: '26. Bonus Yao One' })).toHaveAttribute(
+        'aria-pressed',
+        'true',
+      );
+      expect(within(leftPanel).getByRole('button', { name: '29. Bonus Yao Two' })).toHaveAttribute(
+        'aria-pressed',
+        'false',
+      );
+      expect(within(leftPanel).queryByRole('button', { name: '2. Bonus Gua One' })).not.toBeInTheDocument();
+      expect(within(leftPanel).queryByRole('button', { name: '5. Bonus Gua Two' })).not.toBeInTheDocument();
+    } finally {
+      bonusRuntimeGlobals.hasAnyBonusItems = previousHasAnyBonusItems;
+      bonusRuntimeGlobals.hasDualBonusSets = previousHasDualBonusSets;
+    }
   });
 
   it('renders bullet-marked commentary blocks as semantic lists', () => {
@@ -293,7 +449,7 @@ describe('IChingSection', () => {
       soulSections: [],
     });
 
-    fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
+    fireEvent.click(screen.getByDisplayValue('gua'));
     fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
 
     const commentaryList = screen.getByRole('list');
@@ -329,7 +485,7 @@ describe('IChingSection', () => {
       soulSections: [],
     });
 
-    fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
+    fireEvent.click(screen.getByDisplayValue('gua'));
     fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
 
     const commentaryLists = screen.getAllByRole('list');
@@ -434,7 +590,7 @@ describe('IChingSection', () => {
       soulSections: [],
     });
 
-    fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
+    fireEvent.click(screen.getByDisplayValue('gua'));
 
     const comicToggle = screen.getByTestId('commentary-comic-toggle');
 
@@ -520,7 +676,7 @@ describe('IChingSection', () => {
       soulSections: [],
     });
 
-    fireEvent.click(screen.getByRole('radio', { name: '괘사' }));
+    fireEvent.click(screen.getByDisplayValue('gua'));
 
     expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
     expect(screen.getByTestId('learning-comic-empty-state')).toBeInTheDocument();

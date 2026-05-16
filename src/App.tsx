@@ -1,6 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { MainContent } from './components/MainContent';
 import { useCalendarLogic } from './hooks/useCalendarLogic';
+import type { GuaData, YaoData } from './types';
+
+interface BonusGuaUiItem {
+  id: string;
+  label: string;
+  dateLabel: string;
+  num: number;
+  guaData: GuaData;
+}
+
+interface BonusYaoUiItem {
+  id: string;
+  label: string;
+  dateLabel: string;
+  num: number;
+  yaoData: YaoData;
+}
+
+function formatBonusDateLabel(month: number, day: number): string {
+  return `${month}월 ${day}일`;
+}
 
 function App() {
   const {
@@ -11,10 +32,28 @@ function App() {
     guaData,
     yaoData,
     hitSoulGroup,
-    soulSections
+    soulSections,
+    bonusDay,
+    bonusGuaItems: rawBonusGuaItems = [],
+    bonusYaoItems: rawBonusYaoItems = [],
   } = useCalendarLogic();
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const bonusDateLabel = bonusDay ? formatBonusDateLabel(bonusDay.month, bonusDay.day) : '';
+  const bonusGuaItems: BonusGuaUiItem[] = rawBonusGuaItems.map((item) => ({
+    id: `gua-${item.num}`,
+    label: item.guaData.header,
+    dateLabel: bonusDateLabel,
+    num: item.num,
+    guaData: item.guaData,
+  }));
+  const bonusYaoItems: BonusYaoUiItem[] = rawBonusYaoItems.map((item) => ({
+    id: `yao-${item.num}`,
+    label: item.yaoData.titleLine,
+    dateLabel: bonusDateLabel,
+    num: item.num,
+    yaoData: item.yaoData,
+  }));
 
   useEffect(() => {
     const handleToast = (e: Event) => {
@@ -39,6 +78,8 @@ function App() {
           yaoData={yaoData}
           hitSoulGroup={hitSoulGroup}
           soulSections={soulSections}
+          bonusGuaItems={bonusGuaItems}
+          bonusYaoItems={bonusYaoItems}
         />
       </div>
 
