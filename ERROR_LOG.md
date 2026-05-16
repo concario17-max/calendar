@@ -348,3 +348,51 @@ status: resolved
 - summary: verification blocked once by PowerShell execution policy, then completed via `cmd /c`
 - details: `npm.ps1` could not be loaded because script execution is disabled on the first `npm test` attempt; the targeted Vitest run was retried through `cmd /c` and `src/components/IChingSection.test.tsx` passed after the layout class updates and expectation adjustments.
 - status: resolved
+## 2026-05-15
+- time: 2026-05-15T00:00:00+09:00
+- location: build verification
+- summary: `npm run build` failed under PowerShell execution policy.
+- details: `npm.ps1` could not be loaded because script execution is disabled in this shell. Will retry with `npm.cmd` to complete verification.
+- status: resolved
+
+- time: 2026-05-16 21:??
+  location: npm.ps1 verification
+  summary: PowerShell execution policy blocked npm.ps1 during build/test verification
+  details: Initial build/test commands failed before execution because the shell resolved npm to npm.ps1, which is disabled under the current policy. Will rerun via npm.cmd.
+  status: open
+
+- time: 2026-05-16 21:12:38 +09:00
+  location: npm.ps1 verification
+  summary: PowerShell execution policy blocked npm.ps1 during build/test verification
+  details: Initial build/test commands failed before execution because the shell resolved npm to npm.ps1, which is disabled under the current policy. Will rerun via npm.cmd.
+  status: open
+
+- time: 2026-05-16 21:13:02 +09:00
+  location: npm.cmd run build
+  summary: Build failed in unrelated UI file during verification
+  details: TypeScript stopped in src/components/IChingSection.tsx with missing getGuaCommentary/getYaoCommentary names and an arity mismatch on getSelectedCommentaryText. This blocks full build verification but is outside the worker_data write set.
+  status: open
+
+- time: 2026-05-16 21:13 +09:00
+  location: PowerShell `npm run build`
+  summary: PowerShell blocked npm.ps1 during build verification
+  details: The first build attempt failed before execution because this shell resolved npm to npm.ps1, which is blocked by the local execution policy. The build will be retried via npm.cmd.
+  status: open
+
+- time: 2026-05-16 21:14 +09:00
+  location: PowerShell `npm run build` / `npm test`
+  summary: Build and targeted test verification succeeded after rerunning through npm.cmd
+  details: The PowerShell execution-policy block was bypassed by using `npm.cmd`; `npm.cmd run build` and `npm.cmd test -- --run src/components/IChingSection.test.tsx` both passed.
+  status: resolved
+
+- time: 2026-05-16 21:21:24 +09:00
+  location: verification follow-up
+  summary: Previously blocked verification paths are now resolved
+  details: Re-ran build with npm.cmd and the project built successfully. The earlier npm.ps1 policy issue was bypassed, and no code changes were needed for the build path.
+  status: resolved
+
+- time: 2026-05-16 22:10 +09:00
+  location: PowerShell git publish command
+  summary: Combined git stage/commit/push command failed before execution
+  details: PowerShell in this environment does not accept `&&` as a statement separator, so the combined publish command aborted with a parser error. Re-ran the git steps as separate commands.
+  status: resolved

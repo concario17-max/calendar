@@ -1,41 +1,34 @@
 # Current Task
-- Active: completed the `보너스` source-of-truth integration for bonus-day commentary text and bonus comic image folders, replacing the prior hardcoded bonus-only contract.
+- Active: fix the bonus-day empty-state regression where `IChingSection` exits early with `Reading data is not available yet.` before it can render bonus items.
 
 # Route
-- Route B
-- Reason: this changes shared data generation/loading, runtime hook logic, bonus commentary selection, asset loading, and tests across multiple files, while needing to stay isolated from unrelated in-progress header extraction files.
+- Route A
+- Reason: this is a tiny local hotfix in a single implementation file to relax an incorrect early-return guard for bonus days without changing the broader bonus-source contract.
 
 # Writer Slot
-- main: planner-only; may edit `STATE.md` only
-- worker_data: owns bonus source extraction/loading, generated bonus commentary data, and type updates
-- worker_ui: owns bonus image loading and commentary selection integration in the UI
-- worker_tests: owns test updates for the real bonus-source pipeline
+- main: write-capable lane for `STATE.md`, `ERROR_LOG.md`, and `src/components/IChingSection.tsx`
 
 # Contract Freeze
-- Goal: make the bonus-day system use the `보너스` folder as source-of-truth for bonus commentary text and bonus comic images, while keeping regular-date behavior unchanged.
+- Goal: allow bonus days to render from `bonusGuaItems` / `bonusYaoItems` even when regular `guaData` and `yaoData` are null for April 2-6.
 - Non-goals:
   - do not redesign the header
-  - do not alter the existing regular-date numbering rules
-  - do not touch unrelated in-progress header extraction files (`src/components/Header.tsx`, `src/components/Header.test.tsx`, `src/components/CommentaryModeTabs.tsx`, `ERROR_LOG.md`)
+  - do not alter the existing regular-date numbering rules or bonus source files
+  - do not touch unrelated in-progress header extraction files (`src/components/Header.tsx`, `src/components/Header.test.tsx`, `src/components/CommentaryModeTabs.tsx`)
   - do not add browser verification
 - Write sets:
   - main: `STATE.md`
-  - worker_data: `scripts/extract_commentary.py`, `src/data/bonusReadings.ts`, `src/data/bonusGuaCommentary.ts`, `src/data/bonusYaoCommentary.ts`, `src/data/index.ts`, `src/types/index.ts`, `src/hooks/useCalendarLogic.ts`
-  - worker_ui: `src/App.tsx`, `src/components/MainContent.tsx`, `src/components/IChingSection.tsx`
-  - worker_tests: `src/hooks/useCalendarLogic.test.ts`, `src/components/IChingSection.test.tsx`
+  - main: `ERROR_LOG.md`
+  - main: `src/components/IChingSection.tsx`
 - Acceptance criteria:
-  - bonus text/commentary is derived from actual `보너스` source files rather than only hardcoded arrays
-  - bonus comic images load from `보너스/괘사` and `보너스/효사` for bonus-day selections
-  - bonus day uses the real source numbering from the bonus files (`괘사 1..4`, `효사 1..24` unless parsing proves otherwise)
-  - regular dates still use the existing `image/괘사`, `image/효사`, and regular commentary flows unchanged
-  - build and the relevant tests pass
+  - bonus dates no longer hit the generic `Reading data is not available yet.` empty state solely because regular `guaData` / `yaoData` are null
+  - regular dates keep current behavior unchanged
+  - `npm.cmd run build` passes
 - Why the write split is safe:
-  - extraction/generation changes are isolated from rendering files
-  - UI wiring can consume the updated bonus commentary/image contract without editing generation logic
-  - tests can validate the integrated pipeline after data and UI workers settle
+  - the regression is caused by one guard in the section component
+  - no data generation, hook, asset, or shared header work needs to move
 
 # Reviewer
-- reviewer: review the bonus-source integration for regressions in regular-day rendering, bonus-day commentary/image sourcing, and test sufficiency
+- reviewer: not required for this Route A one-file guard fix
 
 # Last Update
-- 2026-05-16: completed the bonus-source integration, verified extractor regeneration plus targeted tests/build, and kept regular-date commentary/image flows unchanged.
+- 2026-05-16: reclassified the follow-up regression as a Route A single-file hotfix for the bonus-day early-return guard in `IChingSection`.

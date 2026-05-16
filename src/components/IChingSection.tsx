@@ -545,6 +545,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
   const activeCommentarySource = resolvedCommentarySource === 'soul' ? null : resolvedCommentarySource;
   const activeBonusItems = activeCommentarySource === 'gua' ? bonusGuaItems : activeCommentarySource === 'yao' ? bonusYaoItems : [];
+  const fallbackBonusGuaItem = bonusGuaItems[0] ?? null;
+  const fallbackBonusYaoItem = bonusYaoItems[0] ?? null;
   const [bonusSelectionBySource, setBonusSelectionBySource] = React.useState<Record<'gua' | 'yao', number>>({
     gua: 0,
     yao: 0,
@@ -565,9 +567,13 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   const activeYaoNum =
     activeCommentarySource === 'yao' && activeBonusItem ? activeBonusItem.num ?? activeBonusItem.yaoNum ?? yaoNum : yaoNum;
   const activeGuaData =
-    activeCommentarySource === 'gua' && activeBonusItem ? activeBonusItem.guaData ?? guaData : guaData;
+    activeCommentarySource === 'gua' && activeBonusItem
+      ? activeBonusItem.guaData ?? guaData
+      : guaData ?? fallbackBonusGuaItem?.guaData ?? null;
   const activeYaoData =
-    activeCommentarySource === 'yao' && activeBonusItem ? activeBonusItem.yaoData ?? yaoData : yaoData;
+    activeCommentarySource === 'yao' && activeBonusItem
+      ? activeBonusItem.yaoData ?? yaoData
+      : yaoData ?? fallbackBonusYaoItem?.yaoData ?? null;
   const sigilSrc = activeYaoNum !== null ? `/images/yao-${activeYaoNum}.png` : null;
   const [commentaryViewMode, setCommentaryViewMode] = React.useState<CommentaryViewMode>(() =>
     getDefaultCommentaryViewMode(commentarySource),
