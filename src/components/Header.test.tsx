@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { Header } from './Header';
 
 describe('Header', () => {
-  it('renders the renamed title and keeps the archive controls accessible in a compact row', () => {
+  it('renders the title and keeps the archive controls accessible in a compact row', () => {
     const onDateChange = vi.fn();
     const onCommentarySourceChange = vi.fn();
     const { container } = render(
@@ -19,27 +19,21 @@ describe('Header', () => {
     expect(screen.getByRole('heading', { name: 'Celestial Ephemeris' }).querySelector('svg')).toBeInTheDocument();
 
     const segmentedControl = screen.getByRole('radiogroup', { name: '해설 선택' });
-    expect(segmentedControl).toHaveClass('archive-segmented-control', 'inline-flex', 'items-stretch', 'gap-1');
+    expect(segmentedControl).toBeVisible();
     expect(within(segmentedControl).getByRole('radio', { name: '효사' })).toBeInTheDocument();
     expect(within(segmentedControl).getByRole('radio', { name: '괘사' })).toBeInTheDocument();
     expect(within(segmentedControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
-
-    const yaoOptionLabel = within(segmentedControl).getByRole('radio', { name: '효사' }).closest('label');
-    expect(yaoOptionLabel).toHaveClass('px-3', 'py-2', 'text-[9px]');
 
     const todayButton = screen.getByRole('button', { name: 'Today' });
 
     expect(screen.getByLabelText('Open date picker')).toBeInTheDocument();
     expect(todayButton).toBeInTheDocument();
-    expect(todayButton).toHaveClass('py-1.5');
     expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
 
     const header = container.querySelector('header');
     const controlsRow = header?.children[1];
-    expect(header).toHaveClass('archive-header', '-mb-px', 'flex-wrap', 'items-center', 'py-2');
-    expect(controlsRow).toHaveClass('archive-header__controls');
-    expect(controlsRow).not.toHaveClass('flex-col');
-    expect(controlsRow).toHaveClass('gap-1.5');
+    expect(header).toBeInTheDocument();
+    expect(controlsRow).toBeInTheDocument();
     expect(controlsRow?.children).toHaveLength(2);
     expect(controlsRow?.firstElementChild).toContainElement(segmentedControl);
 

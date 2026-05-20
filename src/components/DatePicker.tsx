@@ -112,10 +112,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
           ref={day === focusedDay ? focusedDayRef : undefined}
           aria-label={`${monthNames[month]} ${day}, ${year}`}
           aria-current={isSelected ? 'date' : undefined}
-          className={`flex h-9 w-9 items-center justify-center rounded-full transition-all active-scale focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elegant-gold/45 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-ray-dark ${
+          className={`ui-button flex h-9 w-9 items-center justify-center rounded-full p-0 text-xs transition-all active-scale focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-low ${
             isSelected
-              ? 'bg-elegant-gold text-white font-bold ring-2 ring-elegant-gold/30'
-              : 'text-warm-gray-600 dark:text-warm-gray-400 hover:bg-elegant-gold hover:text-white dark:hover:text-ray-dark'
+              ? 'ui-button--secondary font-bold'
+              : 'ui-button--ghost text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
           }`}
         >
           {day}
@@ -130,7 +130,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
         aria-modal="false"
         aria-labelledby="date-picker-title"
         tabIndex={-1}
-        className="fixed inset-x-4 top-20 z-50 mt-2 w-auto rounded-[2rem] border border-warm-gray-200 bg-white p-6 shadow-2xl transition-all duration-300 transform scale-100 opacity-100 backdrop-blur-2xl dark:border-warm-gray-800 dark:bg-ray-dark/95 sm:absolute sm:inset-auto sm:right-0 sm:top-14 sm:w-[320px]"
+        className="ui-modal ui-surface--overlay fixed inset-x-4 top-20 z-50 mt-2 w-auto p-6 text-on-surface transition-all duration-300 transform scale-100 opacity-100 backdrop-blur-2xl sm:absolute sm:inset-auto sm:right-0 sm:top-14 sm:w-[320px]"
         onKeyDown={(event) => {
           const { key } = event;
 
@@ -164,19 +164,19 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
           <button
             type="button"
             onClick={() => changeMonth(-1)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-warm-gray-600 transition-colors hover:bg-warm-gray-100 dark:text-warm-gray-400 dark:hover:bg-warm-gray-800"
+            className="ui-button ui-button--ghost h-10 w-10 rounded-full p-0 text-on-surface-variant"
             aria-label="Previous month"
           >
             <span className="sr-only">Previous month</span>
             <ChevronLeft size={20} />
           </button>
-          <span id="date-picker-title" className="font-body text-lg font-bold tracking-tight text-warm-gray-800 dark:text-warm-gray-200">
+          <span id="date-picker-title" className="font-headline text-lg font-semibold tracking-tight text-on-surface">
             {monthNames[month]} {year}
           </span>
           <button
             type="button"
             onClick={() => changeMonth(1)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-warm-gray-600 transition-colors hover:bg-warm-gray-100 dark:text-warm-gray-400 dark:hover:bg-warm-gray-800"
+            className="ui-button ui-button--ghost h-10 w-10 rounded-full p-0 text-on-surface-variant"
             aria-label="Next month"
           >
             <span className="sr-only">Next month</span>
@@ -185,7 +185,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
         </div>
         <div className="grid grid-cols-7 gap-x-2 gap-y-4 text-center text-sm">
           {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => (
-            <div key={day} className="text-xs font-bold text-warm-gray-400 mb-2">{day}</div>
+            <div key={day} className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-on-surface-variant">
+              {day}
+            </div>
           ))}
           {days}
         </div>
@@ -199,14 +201,14 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
         ref={triggerRef}
         type="button"
         onClick={() => setIsOpen((open) => !open)}
-        className="flex h-11 w-11 items-center justify-center rounded-full transition-all group cursor-pointer outline-none hover:bg-elegant-gold/10 focus-visible:ring-2 focus-visible:ring-elegant-gold/50 active-scale"
+        className="ui-button ui-button--secondary group flex h-11 w-11 cursor-pointer items-center justify-center rounded-full p-0 text-secondary active-scale"
         title="날짜 선택"
         aria-label="Open date picker"
         aria-haspopup="dialog"
         aria-controls="date-picker-popup"
         aria-expanded={isOpen}
       >
-        <CalendarDays className="text-elegant-gold w-5 h-5 group-hover:scale-110 transition-transform" />
+        <CalendarDays className="h-5 w-5 transition-transform group-hover:scale-110" />
       </button>
 
       {isOpen && renderCalendar()}

@@ -144,17 +144,22 @@ export const JournalModal: React.FC<JournalModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-warm-gray-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-background/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
-      <div className="relative bg-white/95 dark:bg-ray-dark/95 backdrop-blur-xl w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden border border-warm-gray-200 dark:border-warm-gray-800 transition-all transform scale-100 opacity-100">
-        <div className="px-6 py-5 border-b border-warm-gray-100 dark:border-warm-gray-800 flex justify-between items-center bg-warm-gray-50/50 dark:bg-warm-gray-900/50">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="journal-modal-title"
+        className="ui-modal ui-surface--overlay relative w-full max-w-2xl overflow-hidden text-on-surface transition-all transform scale-100 opacity-100"
+      >
+        <div className="flex items-center justify-between border-b border-outline-variant/50 bg-surface-container/70 px-6 py-5">
           <div className="flex flex-col">
-            <h3 className="text-xl font-headline font-bold text-warm-gray-800 dark:text-warm-gray-200 tracking-tight">
+            <h3 id="journal-modal-title" className="font-headline text-xl font-semibold tracking-tight text-on-surface">
               저널 기록
             </h3>
-            <span className="text-xs font-bold text-warm-gray-400 dark:text-warm-gray-500 uppercase tracking-widest mt-1">
+            <span className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-on-surface-variant">
               {selectedDate.toLocaleDateString('en-US', {
                 weekday: 'long',
                 year: 'numeric',
@@ -165,7 +170,7 @@ export const JournalModal: React.FC<JournalModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-warm-gray-400 hover:text-elegant-gold dark:hover:text-elegant-gold bg-white dark:bg-ray-dark hover:bg-warm-gray-50 dark:hover:bg-warm-gray-800 rounded-full transition-colors shadow-sm"
+            className="ui-button ui-button--ghost h-10 w-10 rounded-full p-0 text-on-surface-variant"
             aria-label="Close journal modal"
           >
             <X size={20} />
@@ -173,34 +178,34 @@ export const JournalModal: React.FC<JournalModalProps> = ({
         </div>
 
         <div className="p-6">
-          <div className="mb-6 bg-elegant-gold/5 dark:bg-elegant-gold/10 border border-elegant-gold/20 rounded-2xl p-5">
-            <h4 className="text-xs font-bold text-elegant-gold uppercase tracking-widest mb-2 flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-elegant-gold"></div>
+          <div className="mb-6 rounded-2xl border border-secondary/15 bg-secondary/5 p-5">
+            <h4 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-secondary">
+              <div className="h-1.5 w-1.5 rounded-full bg-secondary"></div>
               안내 질문
             </h4>
-            <p className="text-warm-gray-800 dark:text-warm-gray-200 font-body text-base md:text-[17px] leading-relaxed tracking-tight">
+            <p className="font-body text-base leading-relaxed tracking-tight text-on-surface md:text-[17px]">
               {question}
             </p>
           </div>
 
           <div className="relative">
             <div className="absolute top-4 left-4 w-12 h-12 flex items-center justify-center opacity-10 pointer-events-none">
-              <span className="font-headline italic text-6xl text-elegant-gold">"</span>
+              <span className="font-headline text-6xl italic text-secondary">"</span>
             </div>
             <textarea
               value={entry}
               onChange={(event) => setEntry(event.target.value)}
-              className="w-full h-48 md:h-64 p-5 pl-14 bg-warm-gray-50/50 dark:bg-warm-gray-900/50 border border-warm-gray-200 dark:border-warm-gray-700 rounded-2xl resize-none focus:ring-1 focus:ring-elegant-gold focus:border-elegant-gold dark:focus:ring-elegant-gold dark:focus:border-elegant-gold dark:text-warm-gray-200 transition-colors font-body text-base md:text-lg leading-relaxed"
+              className="ui-input h-48 w-full resize-none rounded-2xl p-5 pl-14 font-body text-base leading-relaxed text-on-surface transition-colors placeholder:text-on-surface-variant focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20 md:h-64 md:text-lg"
               placeholder="오늘 마음에 떠오르는 것을 적어보세요..."
             />
           </div>
         </div>
 
-        <div className="bg-warm-gray-50/50 dark:bg-warm-gray-900/50 px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-warm-gray-100 dark:border-warm-gray-800">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-outline-variant/50 bg-surface-container/50 px-6 py-4 sm:flex-row">
           <div className="relative w-full sm:w-auto" ref={downloadMenuRef}>
             <button
               onClick={() => setIsDownloadMenuOpen((open) => !open)}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 text-warm-gray-600 dark:text-warm-gray-400 hover:text-elegant-gold dark:hover:text-elegant-gold font-bold text-sm transition-colors border-2 border-transparent hover:border-elegant-gold/30 rounded-xl"
+              className="ui-button ui-button--ghost flex w-full items-center justify-center gap-2 rounded-xl px-6 py-2.5 text-sm font-semibold text-on-surface-variant sm:w-auto"
               aria-haspopup="menu"
               aria-expanded={isDownloadMenuOpen}
             >
@@ -211,19 +216,19 @@ export const JournalModal: React.FC<JournalModalProps> = ({
 
             {isDownloadMenuOpen && (
               <div
-                className="absolute left-0 bottom-full mb-2 w-full sm:w-72 rounded-2xl border border-warm-gray-200 dark:border-warm-gray-700 bg-white/95 dark:bg-ray-dark/95 backdrop-blur-xl shadow-2xl overflow-hidden"
+                className="ui-card ui-surface--raised absolute bottom-full left-0 mb-2 w-full overflow-hidden rounded-2xl backdrop-blur-xl sm:w-72"
                 role="menu"
               >
                 <button
                   onClick={handleDownloadCurrentPassage}
-                  className="w-full text-left px-4 py-3 text-sm font-bold text-warm-gray-700 dark:text-warm-gray-200 hover:bg-warm-gray-50 dark:hover:bg-warm-gray-800 transition-colors"
+                  className="ui-button ui-button--ghost w-full justify-start rounded-none px-4 py-3 text-left text-sm font-medium text-on-surface"
                   role="menuitem"
                 >
                   이 구절 저장
                 </button>
                 <button
                   onClick={handleDownloadAllPassages}
-                  className="w-full text-left px-4 py-3 text-sm font-bold text-warm-gray-700 dark:text-warm-gray-200 hover:bg-warm-gray-50 dark:hover:bg-warm-gray-800 transition-colors border-t border-warm-gray-100 dark:border-warm-gray-800"
+                  className="ui-button ui-button--ghost w-full justify-start rounded-none border-t border-outline-variant/40 px-4 py-3 text-left text-sm font-medium text-on-surface"
                   role="menuitem"
                 >
                   전체 구절 저장
@@ -235,13 +240,13 @@ export const JournalModal: React.FC<JournalModalProps> = ({
           <div className="flex gap-3 w-full sm:w-auto">
             <button
               onClick={onClose}
-              className="flex-1 sm:flex-none px-6 py-2.5 text-warm-gray-500 dark:text-warm-gray-400 font-bold hover:bg-warm-gray-200 dark:hover:bg-warm-gray-800 rounded-xl transition-colors"
+              className="ui-button ui-button--ghost flex-1 rounded-xl px-6 py-2.5 font-semibold text-on-surface-variant sm:flex-none"
             >
               취소
             </button>
             <button
               onClick={handleSave}
-              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-8 py-2.5 bg-elegant-gold hover:bg-yellow-600 dark:hover:bg-yellow-500 text-white dark:text-ray-dark font-bold rounded-xl transition-colors shadow-lg shadow-elegant-gold/20"
+              className="ui-button ui-button--primary flex flex-1 items-center justify-center gap-2 rounded-xl px-8 py-2.5 font-semibold sm:flex-none"
             >
               <Save size={18} />
               <span>저장하기</span>

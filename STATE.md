@@ -1,38 +1,48 @@
 # Current Task
-- Active: finalize the Route B modernization slice after the DatePicker focus fix; the targeted tests and build now pass.
+- Active: finalize the design-system review findings; the token bridge, component surface cleanup, and body tracking adjustment are complete.
 
 # Route
 - Route B
-- Reason: this is still a multi-file implementation slice with shared shell, header, date picker, and reading-surface edits that required worker/reviewer coordination.
+- Reason: the work still spans shared tokens plus multiple feature components and their tests, so it remains a multi-file design-system pass.
 
 # Writer Slot
 - main: planner-only lane for `STATE.md` and `MULTI_AGENT_LOG.md`
-- worker_shared: completed
-- worker_feature: completed
-- reviewer: completed after the DatePicker focus-tracking follow-up
+- worker_shared: `src/index.css`, `tailwind.config.js`
+- worker_feature: `src/components/Header.tsx`, `src/components/DatePicker.tsx`, `src/components/JournalModal.tsx`, `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/CommentaryModeTabs.tsx`
+- reviewer: required for the design-system pass
 
 # Contract Freeze
-- Goal: keep the modernization slice focused on shell spacing, accessibility polish, and date picker focus behavior without changing feature flows.
+- Goal: keep the design-system bridge intact and close out the remaining review findings without changing feature behavior.
 - Non-goals:
 - do not add new libraries
 - do not change data models, parsing, or bonus-day logic
-- do not touch unrelated in-progress feature work
+- do not change the reading/content semantics
 - do not do browser verification
 - Write sets:
   - main: `STATE.md`
   - main: `MULTI_AGENT_LOG.md`
+  - worker_shared: `src/index.css`
+  - worker_shared: `tailwind.config.js`
+  - worker_feature: `src/components/Header.tsx`
+  - worker_feature: `src/components/DatePicker.tsx`
+  - worker_feature: `src/components/JournalModal.tsx`
+  - worker_feature: `src/components/IChingSection.tsx`
+  - worker_feature: `src/components/SoulCalendarSection.tsx`
+  - worker_feature: `src/components/CommentaryModeTabs.tsx`
+  - worker_feature: related tests
 - Acceptance criteria:
-  - the shell spacing and panel balance feel more deliberate on mobile and desktop
-  - custom controls have cleaner focus, aria, and click-target behavior
-  - the date picker arrow keys follow the focused day and keep month paging anchored to the visible month
+  - the semantic token bridge remains aligned across light and dark mode
+  - body tracking is readable for mixed Korean/English text
+  - the shared button/card/input/modal/nav variants are used consistently
   - no existing feature flow regresses
-  - `npm.cmd test -- --run src/components/Header.test.tsx src/components/DatePicker.test.tsx src/components/IChingSection.test.tsx` passes
+  - the relevant targeted tests pass
   - `npm.cmd run build` passes
 - Why the write split is safe:
-  - the slice was split cleanly across shared shell and focused control polish, with review on the date picker behavior
+  - the slice stays within shared-token and component-surface cleanup
 
 # Reviewer
-- reviewer: completed with one DatePicker focus-navigation finding that was fixed and reverified
+- reviewer: design-system review completed
+- reviewer findings: token bridge drift resolved, remaining hardcoded shadow/color values reduced, and global body tracking relaxed for readability
 
 # Last Update
-- 2026-05-20: finalized the Route B modernization slice and verified the targeted tests plus build after the DatePicker follow-up fix.
+- 2026-05-20: resolved the design-system pass and verified the shared tokens plus component surfaces.

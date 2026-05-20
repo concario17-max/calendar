@@ -89,6 +89,20 @@
 - writer slots: main = `src/components/CommentaryModeTabs.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`
 - notes: the radiogroup label now reads `해설 선택`, the tab labels are readable Korean strings, and the bonus expectations match the current DOM; targeted tests passed
 
+## 2026-05-20
+- task: close the remaining design-system review findings by bridging tokens, reducing hardcoded visual values, and softening the global tracking rule
+- route: Route B
+- status: open
+- writer slots: worker_shared = `src/index.css`, `tailwind.config.js`; worker_feature = `src/components/Header.tsx`, `src/components/DatePicker.tsx`, `src/components/JournalModal.tsx`, `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/CommentaryModeTabs.tsx`
+- notes: reviewer flagged duplicated token families, lingering hardcoded shadow/color values, and overly tight global tracking; the follow-up pass should keep behavior intact and preserve dark-mode support
+
+## 2026-05-20
+- task: close the remaining design-system review findings by bridging tokens, reducing hardcoded visual values, and softening the global tracking rule
+- route: Route B
+- status: resolved
+- writer slots: worker_shared = `src/index.css`, `tailwind.config.js`; worker_feature = `src/components/Header.tsx`, `src/components/DatePicker.tsx`, `src/components/JournalModal.tsx`, `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/CommentaryModeTabs.tsx`
+- notes: the semantic tokens are bridged, the shared surface variants are in use, and the body tracking is relaxed enough for mixed Korean/English text; targeted tests and build passed
+
 ## 2026-04-21
 - task: normalize the soul test fixture to `50??3??16-22) / 3??4??21-27)`
 - route: Route A

@@ -402,3 +402,15 @@ status: resolved
   summary: Combined git stage/commit/push command failed before execution
   details: PowerShell again rejected `&&` as a statement separator while publishing the bonus-day mapping update. No repository state was lost; the git steps were rerun as separate commands.
   status: resolved
+
+- time: 2026-05-20 00:00 KST
+  location: `npm.cmd test -- --runInBand src/components/Header.test.tsx src/components/DatePicker.test.tsx src/components/JournalModal.test.tsx src/components/IChingSection.test.tsx src/components/SoulCalendarSection.test.tsx`
+  summary: Vitest rejected the `--runInBand` flag
+  details: The targeted component-test command failed before execution because this Vitest version does not support `--runInBand`. Verification will be rerun with the supported `vitest run` form.
+  status: open
+
+- time: 2026-05-20 00:00 KST
+  location: `npm.cmd exec vitest run src/components/Header.test.tsx src/components/DatePicker.test.tsx src/components/JournalModal.test.tsx src/components/IChingSection.test.tsx src/components/SoulCalendarSection.test.tsx`
+  summary: Vitest verification reran successfully with the supported command form
+  details: Re-ran the targeted component tests with `vitest run` after the unsupported flag failure, and all selected tests passed.
+  status: resolved

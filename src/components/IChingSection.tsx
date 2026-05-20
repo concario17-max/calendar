@@ -6,19 +6,19 @@ import { formatWeeksLabel, SoulCalendarSection } from './SoulCalendarSection';
 
 const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
 const compactLeftBadgeClass =
-  'inline-flex w-fit items-center rounded-full border px-1.5 py-0.5 text-[8px] font-semibold leading-none tracking-[0.14em]';
+  'inline-flex w-fit items-center rounded-full border border-secondary/15 bg-secondary/10 px-1.5 py-0.5 text-[8px] font-semibold leading-none tracking-[0.14em] text-secondary';
 const decoratedSurfaceClass =
-  'relative overflow-hidden rounded-[1.5rem] border border-[#d7c7a9]/55 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(249,243,232,0.92))] px-4 py-4 shadow-[0_14px_32px_rgba(105,82,48,0.09)] backdrop-blur-sm';
+  'ui-card ui-surface--raised relative overflow-hidden rounded-[1.5rem] px-4 py-4 backdrop-blur-sm';
 const manuscriptUnitClass =
-  'reading-section reading-fade-in border-l border-[#d9c5a3]/60 pl-5 md:pl-6';
+  'reading-section reading-fade-in border-l border-outline-variant/60 pl-5 md:pl-6';
 const commentaryFolioClass =
-  'relative overflow-hidden rounded-[2rem] border border-[#d8c4a1]/60 bg-[linear-gradient(180deg,rgba(250,244,235,0.98),rgba(243,235,220,0.9))] px-4 py-4 shadow-[0_24px_70px_rgba(109,84,47,0.12)]';
+  'ui-card ui-surface--raised relative overflow-hidden rounded-[2rem] px-4 py-4';
 const commentaryHeadingClass =
-  'mx-auto w-full max-w-[56rem] break-keep font-headline text-[2.05rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[2.7rem]';
+  'mx-auto w-full max-w-[56rem] break-keep font-headline text-[2.05rem] font-semibold leading-[1.08] tracking-[-0.035em] text-on-surface md:text-[2.7rem]';
 const commentaryBodyClass =
-  'mx-auto w-full max-w-[56rem] break-keep font-body text-[1rem] leading-[1.92] tracking-[-0.01em] text-[#566471] md:text-[1.08rem]';
+  'mx-auto w-full max-w-[56rem] break-keep font-body text-[1rem] leading-[1.92] tracking-[-0.01em] text-on-surface-variant md:text-[1.08rem]';
 const commentaryLeadLineClass =
-  'mx-auto flex w-full max-w-[56rem] flex-wrap items-start gap-2 break-keep rounded-[1rem] border border-[#d9c5a3]/55 bg-[#f4eadc] px-3 py-2 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#4b3b29] md:text-[16px]';
+  'mx-auto flex w-full max-w-[56rem] flex-wrap items-start gap-2 break-keep rounded-[1rem] border border-secondary/15 bg-secondary/5 px-3 py-2 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-on-surface md:text-[16px]';
 const yaoLearningImageModules = import.meta.glob('../../image/효사/*.{png,jpg,jpeg,webp,avif,gif}', {
   eager: true,
   import: 'default',
@@ -336,7 +336,7 @@ function renderCommentaryListItems(items: CommentaryListItem[], depth: number = 
   return (
     <ul
       className={[
-        'list-disc text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]',
+        'list-disc text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-on-surface-variant md:text-[16px]',
         depth === 0 ? 'mx-auto w-full max-w-[56rem] space-y-2 pl-5' : 'mt-2 space-y-2 pl-5',
       ].join(' ')}
     >
@@ -357,7 +357,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
     return (
       <div
         key={`table-${index}`}
-        className="mx-auto w-full max-w-[56rem] overflow-x-auto rounded-[1.4rem] border border-[#d9c5a3]/45 bg-[#f6f0e5] px-5 py-4 shadow-[0_10px_24px_rgba(105,82,48,0.06)]"
+        className="ui-card ui-surface--raised mx-auto w-full max-w-[56rem] overflow-x-auto rounded-[1.4rem] px-5 py-4"
       >
         <table className="min-w-full border-collapse text-left text-[0.95rem] md:text-[1rem]">
           <thead>
@@ -366,7 +366,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
                 <th
                   key={`table-${index}-head-${cellIndex}`}
                   scope="col"
-                  className="px-0 py-3 pr-5 font-semibold text-[#4b3b29]"
+                  className="px-0 py-3 pr-5 font-semibold text-on-surface"
                 >
                   {cell}
                 </th>
@@ -379,7 +379,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
                 {row.map((cell, cellIndex) => (
                   <td
                     key={`table-${index}-row-${rowIndex}-cell-${cellIndex}`}
-                    className="py-3 pr-5 align-top text-[#566471]"
+                    className="py-3 pr-5 align-top text-on-surface-variant"
                   >
                     {cell}
                   </td>
@@ -405,7 +405,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
         data-testid="commentary-keyword-line"
         className={commentaryLeadLineClass}
       >
-        <span className="inline-flex shrink-0 items-center rounded-full bg-[#dcc18e] px-2 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
+        <span className="inline-flex shrink-0 items-center rounded-full border border-secondary/15 bg-secondary/10 px-2 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-secondary">
           핵심
         </span>
         {block.text}
@@ -416,7 +416,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   return (
     <p
       key={`paragraph-${index}`}
-      className="mx-auto w-full max-w-[56rem] break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-[#566471] md:text-[16px]"
+        className="mx-auto w-full max-w-[56rem] break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-on-surface-variant md:text-[16px]"
     >
       {block.text}
     </p>
@@ -472,14 +472,14 @@ function LearningComicView({
   return (
     <div
       data-testid="learning-comic-view"
-      className="-mx-4 -my-4 px-0 py-0 sm:mx-0 sm:my-0 sm:rounded-[1.5rem] sm:border sm:border-[#d9c5a3]/55 sm:bg-[linear-gradient(180deg,rgba(246,240,229,0.92),rgba(255,252,246,0.96))] sm:px-4 sm:py-4 sm:shadow-[0_10px_24px_rgba(105,82,48,0.06)]"
+      className="ui-card ui-surface--raised -mx-4 -my-4 px-0 py-0 sm:mx-0 sm:my-0 sm:rounded-[1.5rem] sm:px-4 sm:py-4"
     >
       <figure className="reading-section mx-auto w-full max-w-[56rem]">
         <img
           src={imageSrc}
           alt={imageAlt}
           data-testid="learning-comic-image"
-          className="mx-auto h-auto w-full object-contain sm:rounded-[1rem] sm:border sm:border-[#d9c5a3]/55 sm:bg-[#fffdf8] sm:shadow-[0_12px_28px_rgba(105,82,48,0.08)]"
+          className="mx-auto h-auto w-full object-contain sm:rounded-[1rem] sm:border sm:border-outline-variant/50 sm:bg-surface-container-lowest"
           loading="lazy"
         />
       </figure>
@@ -491,15 +491,15 @@ function LearningComicEmptyState() {
   return (
     <div
       data-testid="learning-comic-empty-state"
-      className="mx-auto flex w-full max-w-[56rem] flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-[#d9c5a3]/65 bg-[#f7f1e6] px-6 py-10 text-center"
+      className="ui-card ui-surface--raised mx-auto flex w-full max-w-[56rem] flex-col items-center justify-center rounded-[1.5rem] border-dashed border-outline-variant/60 px-6 py-10 text-center"
     >
-      <p className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-[#9c845e]">
+      <p className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-secondary">
         학습 만화
       </p>
-      <p className="mt-3 font-headline text-[1.15rem] font-semibold text-[#4b3b29]">
+      <p className="mt-3 font-headline text-[1.15rem] font-semibold text-on-surface">
         아직 업로드된 만화 이미지가 없다
       </p>
-      <p className="mt-2 max-w-[28rem] font-body text-[0.98rem] leading-[1.8] text-[#6b5a47]">
+      <p className="mt-2 max-w-[28rem] font-body text-[0.98rem] leading-[1.8] text-on-surface-variant">
         이 항목은 학습만화 버튼은 열리지만, 연결된 이미지 파일이 아직 준비되지 않았다.
       </p>
     </div>
@@ -516,13 +516,10 @@ function DecoratedSurfaceCard({
   className?: string;
 }) {
   return (
-    <article
-      data-testid={testId}
-      className={[decoratedSurfaceClass, className].filter(Boolean).join(' ')}
-    >
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d6c19a]/80 to-transparent" />
-      <div className="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-[#d8c2a0]/20 blur-2xl" />
-      <div className="absolute -left-6 bottom-0 h-24 w-24 rounded-full bg-[#bba070]/10 blur-3xl" />
+    <article data-testid={testId} className={[decoratedSurfaceClass, className].filter(Boolean).join(' ')}>
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent" />
+      <div className="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-secondary/10 blur-2xl" />
+      <div className="absolute -left-6 bottom-0 h-24 w-24 rounded-full bg-secondary/5 blur-3xl" />
       <div className="relative">{children}</div>
     </article>
   );
@@ -609,7 +606,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
   if (!activeGuaData || !activeYaoData) {
     return (
-      <div className="px-6 py-6 text-sm italic text-[#7f756c] opacity-70 md:px-8 md:py-8 lg:px-10">
+      <div className="px-6 py-6 text-sm italic text-on-surface-variant opacity-70 md:px-8 md:py-8 lg:px-10">
         Reading data is not available yet.
       </div>
     );
@@ -639,7 +636,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   const canShowComicToggle = resolvedCommentarySource === 'gua' || resolvedCommentarySource === 'yao';
   const isComicView = canShowComicToggle && commentaryViewMode === 'comic';
   const commentaryFolioSurfaceClass = isComicView
-    ? 'relative overflow-visible border-0 bg-transparent px-0 py-0 shadow-none sm:overflow-hidden sm:rounded-[2rem] sm:border sm:border-[#d8c4a1]/60 sm:bg-[linear-gradient(180deg,rgba(250,244,235,0.98),rgba(243,235,220,0.9))] sm:px-4 sm:py-4 sm:shadow-[0_24px_70px_rgba(109,84,47,0.12)]'
+    ? 'ui-card ui-surface--raised relative overflow-visible border-0 bg-transparent px-0 py-0 shadow-none sm:overflow-hidden sm:rounded-[2rem] sm:border sm:border-outline-variant/60 sm:bg-surface-container-low/95 sm:px-4 sm:py-4'
     : commentaryFolioClass;
   const renderedCommentaryBlocks = commentary
     ? commentary.blocks.map((block, index) => (
@@ -664,18 +661,18 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   return (
     <section className="flex w-full flex-1 flex-col overflow-visible stagger-1 lg:overflow-hidden">
       <div className="flex min-h-0 w-full flex-col gap-5 lg:grid lg:h-full lg:min-w-[720px] lg:grid-cols-[336px_minmax(0,1fr)] lg:gap-0 lg:overflow-x-auto">
-        <article className="reading-panel reading-panel--left flex w-full flex-col bg-[#f2eadc] text-[#4b3b29] lg:sticky lg:top-0 lg:h-full lg:min-h-0 lg:min-w-[320px] lg:overflow-y-auto">
+        <article className="reading-panel reading-panel--left flex w-full flex-col bg-surface-container-low text-on-surface lg:sticky lg:top-0 lg:h-full lg:min-h-0 lg:min-w-[320px] lg:overflow-y-auto">
           <div className="flex min-h-0 flex-1 flex-col gap-[0.9rem] md:gap-[1.05rem]">
             {hasAnyBonusItems && activeCommentarySource !== null ? (
               <div
                 data-testid="bonus-reading-selector"
-                className="reading-fade-in rounded-[1.35rem] border border-[#d7c7a9]/55 bg-[#f7f1e6] px-3 py-3 shadow-[0_10px_24px_rgba(105,82,48,0.05)]"
+                className="ui-card ui-surface--raised reading-fade-in rounded-[1.35rem] px-3 py-3"
               >
                 <div className="mb-2 flex items-center justify-between gap-2">
-                  <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/50 bg-[#efe4d1] text-[#8e7a5d]`}>
+                  <p className={compactLeftBadgeClass}>
                     {activeCommentarySource === 'gua' ? '보너스 괘사' : '보너스 효사'}
                   </p>
-                  <span className="font-body text-[0.72rem] font-medium tracking-[0.18em] text-[#9c845e]">
+                  <span className="font-body text-[0.72rem] font-medium tracking-[0.18em] text-secondary">
                     {activeBonusItems.length}개
                   </span>
                 </div>
@@ -698,18 +695,18 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                             [activeCommentarySource]: index,
                           }))
                         }
-                        className={`min-h-11 rounded-[1rem] border px-3 py-2 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c79b45]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f1e6] ${
+                  className={`ui-button min-h-11 w-full rounded-[1rem] border px-3 py-2 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-low ${
                           isActive
-                            ? 'border-[#c79b45] bg-[#efe1bf] text-[#4b3b29] shadow-[0_0_0_1px_rgba(199,155,69,0.18)_inset]'
-                            : 'border-[#d7c7a9]/60 bg-[#fbf8f1] text-[#7f756c] hover:bg-[#f4eadc]'
+                            ? 'ui-button--secondary text-on-surface'
+                            : 'ui-button--ghost border-outline-variant/60 bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
                         }`}
                       >
                         {entry.dateLabel ? (
-                          <span className="mb-1 block font-body text-[0.72rem] font-semibold tracking-[0.18em] text-[#9c845e]">
+                            <span className="mb-1 block font-body text-[0.72rem] font-semibold tracking-[0.18em] text-secondary">
                             {entry.dateLabel}
                           </span>
                         ) : null}
-                        <span className="block break-keep font-headline text-[0.98rem] font-semibold leading-[1.4] tracking-[-0.02em]">
+                        <span className="block break-keep font-headline text-[0.98rem] font-semibold leading-[1.4] tracking-[-0.02em] text-on-surface">
                           {entryLabel}
                         </span>
                       </button>
@@ -729,7 +726,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                       className="block h-auto w-full object-contain transition-transform duration-700 hover:scale-[1.04]"
                     />
                   ) : (
-                    <span className="text-sm italic text-[#8b8178]">Sigil not available</span>
+                  <span className="text-sm italic text-on-surface-variant">Sigil not available</span>
                   )}
                 </div>
               </div>
@@ -737,14 +734,14 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
             {!isBonusDay ? (
               <div data-testid="reading-verse-unit" className={`${manuscriptUnitClass} pt-2 md:pt-3`}>
-                <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/60 bg-[#f4eadc]/70 uppercase text-[#8e7a5d]`}>
+                <p className={`${compactLeftBadgeClass} uppercase`}>
                   효사
                 </p>
-                <h4 className="max-w-[40ch] break-keep font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
+                <h4 className="max-w-[40ch] break-keep font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-on-surface md:text-[1.78rem]">
                   {activeYaoData.titleLine}
                 </h4>
 
-                <p className="max-w-[38ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
+                <p className="max-w-[38ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-on-surface-variant md:text-[1.05rem]">
                   {activeYaoData.short}
                 </p>
               </div>
@@ -752,17 +749,17 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
             {!isBonusDay ? (
               <div data-testid="reading-top-unit" className={`${manuscriptUnitClass} pt-2 md:pt-3`}>
-                <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/50 bg-[#f4eadc]/55 uppercase text-[#9b886a]`}>
+                <p className={`${compactLeftBadgeClass} uppercase`}>
                   괘사
                 </p>
-                <h3 className="max-w-[40ch] break-keep font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
+                <h3 className="max-w-[40ch] break-keep font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-on-surface md:text-[1.78rem]">
                   {activeGuaData.header}
                 </h3>
 
                 {guaMeta ? (
                   <p
                     data-testid="reading-gua-meta"
-                    className="max-w-[38ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]"
+                    className="max-w-[38ch] break-keep font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-on-surface-variant md:text-[1.05rem]"
                   >
                     {guaMeta}
                   </p>
@@ -771,14 +768,14 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             ) : null}
 
             <div data-testid="reading-soul-title-unit" className={`${manuscriptUnitClass} pb-3 pt-1 md:pb-4`}>
-              <p className={`${compactLeftBadgeClass} border-[#d7c7a9]/50 bg-[#f4eadc]/55 text-[#9a8a75]`}>
+              <p className={compactLeftBadgeClass}>
                 영혼
               </p>
-              <h2 className="max-w-[40ch] font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-current md:text-[1.78rem]">
+              <h2 className="max-w-[40ch] font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-on-surface md:text-[1.78rem]">
                 {SOUL_TITLE}
               </h2>
               {leftSoulWeeksLabel ? (
-                <p className="max-w-[38ch] font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-[#566471] md:text-[1.05rem]">
+                <p className="max-w-[38ch] font-body text-[1rem] font-medium italic leading-[1.82] tracking-[-0.01em] text-on-surface-variant md:text-[1.05rem]">
                   {leftSoulWeeksLabel}
                 </p>
               ) : null}
@@ -786,7 +783,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
           </div>
         </article>
 
-        <aside className="reading-panel reading-panel--right relative flex w-full min-w-0 flex-col bg-[#fbf8f1] lg:h-full lg:min-h-0 lg:overflow-y-auto">
+        <aside className="reading-panel reading-panel--right relative flex w-full min-w-0 flex-col bg-surface-container-lowest lg:h-full lg:min-h-0 lg:overflow-y-auto">
           {selectedDate && onDateChange ? (
             <div className="pointer-events-none sticky top-1/2 z-20 hidden h-0 -translate-y-1/2 lg:block">
               <div className="relative h-0">
@@ -794,7 +791,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   type="button"
                   aria-label="이전날로 이동"
                   onClick={() => shiftSelectedDate(-1)}
-                  className="pointer-events-auto absolute left-5 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#d8c4a1]/65 bg-[rgba(251,248,241,0.92)] text-[#8a7451] shadow-[0_12px_30px_rgba(105,82,48,0.12)] backdrop-blur-sm transition-colors hover:border-[#c79b45] hover:text-[#6f542d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c79b45]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fbf8f1] xl:left-6"
+                  className="ui-button ui-button--ghost pointer-events-auto absolute left-5 h-12 w-12 -translate-y-1/2 rounded-full p-0 text-secondary backdrop-blur-sm xl:left-6"
                 >
                   <ChevronLeft size={20} strokeWidth={2.1} />
                 </button>
@@ -802,7 +799,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   type="button"
                   aria-label="다음날로 이동"
                   onClick={() => shiftSelectedDate(1)}
-                  className="pointer-events-auto absolute right-5 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#d8c4a1]/65 bg-[rgba(251,248,241,0.92)] text-[#8a7451] shadow-[0_12px_30px_rgba(105,82,48,0.12)] backdrop-blur-sm transition-colors hover:border-[#c79b45] hover:text-[#6f542d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c79b45]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fbf8f1] xl:right-6"
+                  className="ui-button ui-button--ghost pointer-events-auto absolute right-5 h-12 w-12 -translate-y-1/2 rounded-full p-0 text-secondary backdrop-blur-sm xl:right-6"
                 >
                   <ChevronRight size={20} strokeWidth={2.1} />
                 </button>
@@ -818,8 +815,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               <div key={resolvedCommentarySource} className="reading-fade-in space-y-[var(--reading-section-gap)]">
                 {commentary ? (
                   <div className="space-y-[var(--reading-section-gap)]">
-                    <div className="flex items-center justify-between gap-3 border-b border-[#d9c5a3]/45 pb-2">
-                      <span className="inline-flex items-center rounded-full bg-[#dcc18e] px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-[#74542b]">
+                    <div className="flex items-center justify-between gap-3 border-b border-outline-variant/50 pb-2">
+                      <span className="inline-flex items-center rounded-full border border-secondary/15 bg-secondary/10 px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-secondary">
                         {commentaryHeaderLabel}
                       </span>
                       {canShowComicToggle ? (
@@ -831,10 +828,10 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                           onClick={() =>
                             setCommentaryViewMode((current) => (current === 'comic' ? 'text' : 'comic'))
                           }
-                          className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c79b45]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fbf8f1] ${
+                          className={`ui-button inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest ${
                             isComicView
-                              ? 'border-[#c79b45] bg-[#efe1bf] text-[#74542b]'
-                              : 'border-[#d9c5a3]/65 bg-[#fbf8f1] text-[#8f7c62] hover:bg-[#f4eadc]'
+                              ? 'ui-button--secondary text-secondary'
+                              : 'ui-button--ghost border-outline-variant/60 bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
                           }`}
                         >
                           <Images size={14} strokeWidth={2.2} />
@@ -843,9 +840,9 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     </div>
 
                     <div data-testid="commentary-folio" className={commentaryFolioSurfaceClass}>
-                      <div className={isComicView ? 'hidden sm:block absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d1b68a]/85 to-transparent' : 'absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d1b68a]/85 to-transparent'} />
-                      <div className={isComicView ? 'hidden sm:block absolute -right-2 top-2 h-16 w-16 rounded-full bg-[#efdebc]/45 blur-2xl' : 'absolute -right-2 top-2 h-16 w-16 rounded-full bg-[#efdebc]/45 blur-2xl'} />
-                      <div className={isComicView ? 'hidden sm:block absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-[#cfb07f]/12 blur-3xl' : 'absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-[#cfb07f]/12 blur-3xl'} />
+                      <div className={isComicView ? 'hidden sm:block absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent' : 'absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent'} />
+                      <div className={isComicView ? 'hidden sm:block absolute -right-2 top-2 h-16 w-16 rounded-full bg-secondary/10 blur-2xl' : 'absolute -right-2 top-2 h-16 w-16 rounded-full bg-secondary/10 blur-2xl'} />
+                      <div className={isComicView ? 'hidden sm:block absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-secondary/5 blur-3xl' : 'absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-secondary/5 blur-3xl'} />
 
                       <div className="relative space-y-[var(--reading-block-gap)]">
                         {isComicView ? (
@@ -871,7 +868,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                               </div>
                             ) : null}
 
-                            <div className="space-y-[var(--reading-section-gap)] border-t border-[#d9c5a3]/35 pt-[var(--reading-block-gap)]">
+                            <div className="space-y-[var(--reading-section-gap)] border-t border-outline-variant/35 pt-[var(--reading-block-gap)]">
                               {renderedCommentaryBlocks}
                             </div>
                           </>
@@ -881,7 +878,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   </div>
                 ) : (
                   <DecoratedSurfaceCard>
-                    <div className="pt-1 text-[0.98rem] leading-relaxed text-[#7f756c]">
+                    <div className="pt-1 text-[0.98rem] leading-relaxed text-on-surface-variant">
                       Commentary is not available for this selection yet.
                     </div>
                   </DecoratedSurfaceCard>
