@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Images } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Images } from 'lucide-react';
 import * as dataModule from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { formatWeeksLabel, SoulCalendarSection } from './SoulCalendarSection';
@@ -46,6 +46,8 @@ interface CommentaryDataModule {
 const commentaryData = dataModule as CommentaryDataModule;
 
 interface IChingSectionProps {
+  selectedDate?: Date;
+  onDateChange?: (date: Date) => void;
   commentarySource?: CommentarySource;
   yaoNum: number | null;
   guaNum: number | null;
@@ -527,6 +529,8 @@ function DecoratedSurfaceCard({
 }
 
 export const IChingSection: React.FC<IChingSectionProps> = ({
+  selectedDate,
+  onDateChange,
   commentarySource = 'yao',
   yaoNum,
   guaNum,
@@ -644,6 +648,18 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         </div>
       ))
     : [];
+  const shiftSelectedDate = React.useCallback(
+    (offset: number) => {
+      if (!selectedDate || !onDateChange) {
+        return;
+      }
+
+      const nextDate = new Date(selectedDate);
+      nextDate.setDate(nextDate.getDate() + offset);
+      onDateChange(nextDate);
+    },
+    [onDateChange, selectedDate],
+  );
 
   return (
     <section className="flex w-full flex-1 flex-col overflow-visible stagger-1 lg:overflow-hidden">
@@ -770,7 +786,27 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
           </div>
         </article>
 
-        <aside className="reading-panel reading-panel--right flex w-full min-w-0 flex-col bg-[#fbf8f1] lg:h-full lg:min-h-0 lg:overflow-y-auto">
+        <aside className="reading-panel reading-panel--right relative flex w-full min-w-0 flex-col bg-[#fbf8f1] lg:h-full lg:min-h-0 lg:overflow-y-auto">
+          {selectedDate && onDateChange ? (
+            <>
+              <button
+                type="button"
+                aria-label="이전날로 이동"
+                onClick={() => shiftSelectedDate(-1)}
+                className="absolute left-3 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#d8c4a1]/65 bg-[rgba(251,248,241,0.92)] text-[#8a7451] shadow-[0_12px_30px_rgba(105,82,48,0.12)] backdrop-blur-sm transition-colors hover:border-[#c79b45] hover:text-[#6f542d] lg:inline-flex xl:left-4"
+              >
+                <ChevronLeft size={20} strokeWidth={2.1} />
+              </button>
+              <button
+                type="button"
+                aria-label="다음날로 이동"
+                onClick={() => shiftSelectedDate(1)}
+                className="absolute right-3 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#d8c4a1]/65 bg-[rgba(251,248,241,0.92)] text-[#8a7451] shadow-[0_12px_30px_rgba(105,82,48,0.12)] backdrop-blur-sm transition-colors hover:border-[#c79b45] hover:text-[#6f542d] lg:inline-flex xl:right-4"
+              >
+                <ChevronRight size={20} strokeWidth={2.1} />
+              </button>
+            </>
+          ) : null}
           <div className="mt-1 flex-1 space-y-0">
             {showSoulPanel ? (
               <div key="soul" className="reading-fade-in">
