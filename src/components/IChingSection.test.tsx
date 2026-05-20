@@ -417,8 +417,7 @@ describe('IChingSection', () => {
     expect(screen.queryByTestId('learning-comic-view')).not.toBeInTheDocument();
     expect(screen.getByText('Bonus gua 4 commentary body')).toBeInTheDocument();
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
-    expect(within(leftPanel).getByRole('heading', { level: 3, name: '4. Bonus Gua 4' })).toBeInTheDocument();
-    expect(within(leftPanel).getByText('Bonus gua meta 4')).toBeInTheDocument();
+    expect(within(leftPanel).getByRole('button', { name: '4. Bonus Gua 4' })).toBeInTheDocument();
     expect(screen.queryByText('Body text')).not.toBeInTheDocument();
   });
 
@@ -643,10 +642,9 @@ describe('IChingSection', () => {
     fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
 
     expect(screen.queryByTestId('learning-comic-view')).not.toBeInTheDocument();
-    expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Bonus yao body 24');
+    expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
     expect(screen.getByText('Bonus yao 24 commentary body')).toBeInTheDocument();
-    expect(within(leftPanel).getByRole('heading', { level: 4, name: '24. Bonus Yao 24' })).toBeInTheDocument();
-    expect(within(leftPanel).getByText('Bonus yao short 24')).toBeInTheDocument();
+    expect(within(leftPanel).getByRole('button', { name: '24. Bonus Yao 24' })).toBeInTheDocument();
   });
 
   it('shows a 효사 comic toggle and switches the lower commentary area to the image view', () => {

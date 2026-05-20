@@ -50,7 +50,7 @@ export const MainContent: React.FC<MainContentProps> = ({
 
   return (
     <main className="reading-system curated-shell archive-shell relative flex min-h-dvh w-full flex-col overflow-x-hidden overflow-y-auto bg-shell-canvas text-on-surface lg:h-[100dvh] lg:overflow-hidden">
-      <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+      <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-[var(--shell-content-width)] flex-1 flex-col gap-[var(--shell-stack-gap)]">
         <Header
           selectedDate={selectedDate}
           onDateChange={onDateChange}

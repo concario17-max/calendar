@@ -1,61 +1,13 @@
 import { DatePicker } from './DatePicker';
 import type { CommentarySource } from '../types';
-import { BookText, Crown, ScrollText, Sparkles } from 'lucide-react';
+import { Crown } from 'lucide-react';
+import { CommentaryModeTabs } from './CommentaryModeTabs';
 
 interface HeaderProps {
   selectedDate: Date;
   onDateChange: (date: Date) => void;
   commentarySource: CommentarySource;
   onCommentarySourceChange: (source: CommentarySource) => void;
-}
-
-function CommentarySegmentedControl({
-  value,
-  onChange,
-}: {
-  value: CommentarySource;
-  onChange: (source: CommentarySource) => void;
-}) {
-  const options: Array<{ value: CommentarySource; label: string; icon: typeof ScrollText }> = [
-    { value: 'yao', label: '효사', icon: ScrollText },
-    { value: 'gua', label: '괘사', icon: BookText },
-    { value: 'soul', label: '영혼', icon: Sparkles },
-  ];
-
-  return (
-    <div
-      role="radiogroup"
-      aria-label="해설 선택"
-      className="archive-segmented-control inline-flex items-center gap-1 rounded-full px-1 py-1"
-    >
-      {options.map((option) => {
-        const active = value === option.value;
-        const Icon = option.icon;
-
-        return (
-          <label
-            key={option.value}
-            className={`archive-segmented-control__option flex cursor-pointer items-center gap-1 rounded-full px-2.5 py-1.5 text-[9px] font-semibold leading-none whitespace-nowrap ${
-              active
-                ? 'bg-[#efe8db] text-[#342515] shadow-[0_0_0_1px_rgba(186,147,82,0.18)_inset]'
-                : 'text-[#8b8178] hover:text-[#5a4a39]'
-            }`}
-          >
-            <input
-              type="radio"
-              name="header-commentary-target"
-              value={option.value}
-              checked={active}
-              onChange={() => onChange(option.value)}
-              className="sr-only"
-            />
-            <Icon size={12} strokeWidth={2.3} className="shrink-0" aria-hidden="true" />
-            <span>{option.label}</span>
-          </label>
-        );
-      })}
-    </div>
-  );
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -80,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       <div className="archive-header__controls flex min-w-0 flex-[0_1_auto] items-center justify-end gap-1.5 sm:ml-auto sm:gap-2">
         <div className="flex min-w-0 items-center justify-start">
-          <CommentarySegmentedControl
+          <CommentaryModeTabs
             value={commentarySource}
             onChange={onCommentarySourceChange}
           />
@@ -91,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={() => onDateChange(new Date())}
-            className="rounded-full px-2.5 py-1.5 font-label text-[0.64rem] uppercase tracking-[0.16em] text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary active-scale"
+            className="inline-flex min-h-10 items-center justify-center rounded-full px-3 py-1.5 font-label text-[0.64rem] uppercase tracking-[0.16em] text-on-surface-variant transition-colors hover:bg-secondary/8 hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 active-scale"
           >
             Today
           </button>

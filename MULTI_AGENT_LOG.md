@@ -68,6 +68,27 @@
 
 # Multi-Agent Log
 
+## 2026-05-20
+- task: finish the Route B modernization slice and resolve the DatePicker focus-tracking review finding
+- route: Route B
+- status: resolved
+- writer slots: worker-shell = `src/index.css`, `src/components/MainContent.tsx`; worker-feature = `src/components/Header.tsx`, `src/components/DatePicker.tsx`, `src/components/CommentaryModeTabs.tsx`, `src/components/IChingSection.tsx`; reviewer = `DatePicker` focus navigation review
+- notes: the date picker now tracks the focused day for arrow-key navigation, preserves PageUp/PageDown month paging on the visible month, and still returns focus to the trigger on Escape; targeted tests and build passed
+
+## 2026-05-20
+- task: fix the commentary tab labels and align the header/bonus tests with the current DOM
+- route: Route B
+- status: open
+- writer slots: main = `src/components/CommentaryModeTabs.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the task is limited to label text and test expectation alignment; bonus commentary rendering and accessibility polish must stay intact
+
+## 2026-05-20
+- task: fix the commentary tab labels and align the header/bonus tests with the current DOM
+- route: Route B
+- status: resolved
+- writer slots: main = `src/components/CommentaryModeTabs.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`
+- notes: the radiogroup label now reads `해설 선택`, the tab labels are readable Korean strings, and the bonus expectations match the current DOM; targeted tests passed
+
 ## 2026-04-21
 - task: normalize the soul test fixture to `50??3??16-22) / 3??4??21-27)`
 - route: Route A

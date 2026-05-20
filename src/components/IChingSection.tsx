@@ -698,7 +698,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                             [activeCommentarySource]: index,
                           }))
                         }
-                        className={`rounded-[1rem] border px-3 py-2 text-left transition-colors ${
+                        className={`min-h-11 rounded-[1rem] border px-3 py-2 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c79b45]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f1e6] ${
                           isActive
                             ? 'border-[#c79b45] bg-[#efe1bf] text-[#4b3b29] shadow-[0_0_0_1px_rgba(199,155,69,0.18)_inset]'
                             : 'border-[#d7c7a9]/60 bg-[#fbf8f1] text-[#7f756c] hover:bg-[#f4eadc]'
@@ -794,7 +794,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   type="button"
                   aria-label="이전날로 이동"
                   onClick={() => shiftSelectedDate(-1)}
-                  className="pointer-events-auto absolute left-5 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#d8c4a1]/65 bg-[rgba(251,248,241,0.92)] text-[#8a7451] shadow-[0_12px_30px_rgba(105,82,48,0.12)] backdrop-blur-sm transition-colors hover:border-[#c79b45] hover:text-[#6f542d] xl:left-6"
+                  className="pointer-events-auto absolute left-5 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#d8c4a1]/65 bg-[rgba(251,248,241,0.92)] text-[#8a7451] shadow-[0_12px_30px_rgba(105,82,48,0.12)] backdrop-blur-sm transition-colors hover:border-[#c79b45] hover:text-[#6f542d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c79b45]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fbf8f1] xl:left-6"
                 >
                   <ChevronLeft size={20} strokeWidth={2.1} />
                 </button>
@@ -802,7 +802,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   type="button"
                   aria-label="다음날로 이동"
                   onClick={() => shiftSelectedDate(1)}
-                  className="pointer-events-auto absolute right-5 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#d8c4a1]/65 bg-[rgba(251,248,241,0.92)] text-[#8a7451] shadow-[0_12px_30px_rgba(105,82,48,0.12)] backdrop-blur-sm transition-colors hover:border-[#c79b45] hover:text-[#6f542d] xl:right-6"
+                  className="pointer-events-auto absolute right-5 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#d8c4a1]/65 bg-[rgba(251,248,241,0.92)] text-[#8a7451] shadow-[0_12px_30px_rgba(105,82,48,0.12)] backdrop-blur-sm transition-colors hover:border-[#c79b45] hover:text-[#6f542d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c79b45]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fbf8f1] xl:right-6"
                 >
                   <ChevronRight size={20} strokeWidth={2.1} />
                 </button>
@@ -831,7 +831,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                           onClick={() =>
                             setCommentaryViewMode((current) => (current === 'comic' ? 'text' : 'comic'))
                           }
-                          className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition-colors ${
+                          className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c79b45]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fbf8f1] ${
                             isComicView
                               ? 'border-[#c79b45] bg-[#efe1bf] text-[#74542b]'
                               : 'border-[#d9c5a3]/65 bg-[#fbf8f1] text-[#8f7c62] hover:bg-[#f4eadc]'

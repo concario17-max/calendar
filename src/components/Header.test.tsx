@@ -19,16 +19,19 @@ describe('Header', () => {
     expect(screen.getByRole('heading', { name: 'Celestial Ephemeris' }).querySelector('svg')).toBeInTheDocument();
 
     const segmentedControl = screen.getByRole('radiogroup', { name: '해설 선택' });
+    expect(segmentedControl).toHaveClass('archive-segmented-control', 'inline-flex', 'items-stretch', 'gap-1');
     expect(within(segmentedControl).getByRole('radio', { name: '효사' })).toBeInTheDocument();
     expect(within(segmentedControl).getByRole('radio', { name: '괘사' })).toBeInTheDocument();
     expect(within(segmentedControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
 
     const yaoOptionLabel = within(segmentedControl).getByRole('radio', { name: '효사' }).closest('label');
-    expect(yaoOptionLabel).toHaveClass('px-2.5', 'py-1.5', 'text-[9px]');
+    expect(yaoOptionLabel).toHaveClass('px-3', 'py-2', 'text-[9px]');
+
+    const todayButton = screen.getByRole('button', { name: 'Today' });
 
     expect(screen.getByLabelText('Open date picker')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Today' })).toHaveClass('py-1.5');
+    expect(todayButton).toBeInTheDocument();
+    expect(todayButton).toHaveClass('py-1.5');
     expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
 
     const header = container.querySelector('header');
@@ -42,7 +45,7 @@ describe('Header', () => {
 
     const utilityRow = controlsRow?.lastElementChild;
     expect(utilityRow).toContainElement(screen.getByLabelText('Open date picker'));
-    expect(utilityRow).toContainElement(screen.getByRole('button', { name: 'Today' }));
+    expect(utilityRow).toContainElement(todayButton);
     expect(utilityRow?.children).toHaveLength(2);
   });
 });
