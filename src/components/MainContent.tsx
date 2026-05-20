@@ -58,6 +58,12 @@ export const MainContent: React.FC<MainContentProps> = ({
           onCommentarySourceChange={setCommentarySource}
         />
 
+        <div className="px-3 sm:px-4 lg:px-8">
+          <p className="max-w-[18rem] border-t border-border-subtle/60 pt-2 text-[0.72rem] leading-snug text-on-surface-variant sm:max-w-none sm:text-[0.78rem]">
+            날짜를 고르고 해설을 전환해 읽는 아카이브입니다.
+          </p>
+        </div>
+
         <div className="curated-shell__frame flex min-h-0 flex-1 flex-col overflow-visible lg:overflow-hidden">
           <IChingSection
             selectedDate={selectedDate}

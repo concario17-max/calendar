@@ -103,6 +103,20 @@
 - writer slots: worker_shared = `src/index.css`, `tailwind.config.js`; worker_feature = `src/components/Header.tsx`, `src/components/DatePicker.tsx`, `src/components/JournalModal.tsx`, `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/CommentaryModeTabs.tsx`
 - notes: the semantic tokens are bridged, the shared surface variants are in use, and the body tracking is relaxed enough for mixed Korean/English text; targeted tests and build passed
 
+## 2026-05-20
+- task: improve the core UX flow for first-time visitors by clarifying the page purpose and CTA hierarchy, then fix only P0 issues
+- route: Route B
+- status: open
+- writer slots: worker_feature = `src/components/Header.tsx`, `src/components/MainContent.tsx`, `src/components/Header.test.tsx`; reviewer = UX pass review
+- notes: the pass is scoped to first-visit comprehension and CTA clarity; mobile density, loading/empty states, and deeper accessibility polish are deferred to later priority buckets
+
+## 2026-05-20
+- task: improve the core UX flow for first-time visitors by clarifying the page purpose and CTA hierarchy, then fix only P0 issues
+- route: Route B
+- status: resolved
+- writer slots: worker_feature = `src/components/Header.tsx`, `src/components/MainContent.tsx`, `src/components/CommentaryModeTabs.tsx`, `src/components/Header.test.tsx`, `src/components/IChingSection.test.tsx`; reviewer = UX pass review
+- notes: the header now states the archive purpose directly, the primary CTA reads `오늘`, and the main shell adds a short guidance line; targeted tests and build passed
+
 ## 2026-04-21
 - task: normalize the soul test fixture to `50??3??16-22) / 3??4??21-27)`
 - route: Route A

@@ -1,18 +1,17 @@
 # Current Task
-- Active: finalize the design-system review findings; the token bridge, component surface cleanup, and body tracking adjustment are complete.
+- Active: UX P0 fixes are complete; first-visit purpose and CTA hierarchy are now explicit, and follow-up P1/P2 work can be planned separately.
 
 # Route
 - Route B
-- Reason: the work still spans shared tokens plus multiple feature components and their tests, so it remains a multi-file design-system pass.
+- Reason: the UX pass touches multiple feature components and tests (`src/components/Header.tsx`, `src/components/MainContent.tsx`, `src/components/Header.test.tsx`), so it exceeds Route A.
 
 # Writer Slot
 - main: planner-only lane for `STATE.md` and `MULTI_AGENT_LOG.md`
-- worker_shared: `src/index.css`, `tailwind.config.js`
-- worker_feature: `src/components/Header.tsx`, `src/components/DatePicker.tsx`, `src/components/JournalModal.tsx`, `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/components/CommentaryModeTabs.tsx`
-- reviewer: required for the design-system pass
+- worker_feature: `src/components/Header.tsx`, `src/components/MainContent.tsx`, `src/components/Header.test.tsx`
+- reviewer: required for the UX pass
 
 # Contract Freeze
-- Goal: keep the design-system bridge intact and close out the remaining review findings without changing feature behavior.
+- Goal: make the first visit understandable within a few seconds by adding a clear purpose cue and stronger CTA hierarchy, while keeping behavior intact.
 - Non-goals:
 - do not add new libraries
 - do not change data models, parsing, or bonus-day logic
@@ -21,28 +20,22 @@
 - Write sets:
   - main: `STATE.md`
   - main: `MULTI_AGENT_LOG.md`
-  - worker_shared: `src/index.css`
-  - worker_shared: `tailwind.config.js`
-  - worker_feature: `src/components/Header.tsx`
-  - worker_feature: `src/components/DatePicker.tsx`
-  - worker_feature: `src/components/JournalModal.tsx`
-  - worker_feature: `src/components/IChingSection.tsx`
-  - worker_feature: `src/components/SoulCalendarSection.tsx`
-  - worker_feature: `src/components/CommentaryModeTabs.tsx`
-  - worker_feature: related tests
+- worker_feature: `src/components/Header.tsx`
+- worker_feature: `src/components/CommentaryModeTabs.tsx`
+- worker_feature: `src/components/MainContent.tsx`
+- worker_feature: `src/components/Header.test.tsx`
 - Acceptance criteria:
-  - the semantic token bridge remains aligned across light and dark mode
-  - body tracking is readable for mixed Korean/English text
-  - the shared button/card/input/modal/nav variants are used consistently
+  - the page purpose is understandable at a glance
+  - the primary navigation CTA is clearer
   - no existing feature flow regresses
   - the relevant targeted tests pass
   - `npm.cmd run build` passes
 - Why the write split is safe:
-  - the slice stays within shared-token and component-surface cleanup
+  - the slice stays within header and shell copy/CTA polish
 
 # Reviewer
-- reviewer: design-system review completed
-- reviewer findings: token bridge drift resolved, remaining hardcoded shadow/color values reduced, and global body tracking relaxed for readability
+- reviewer: required for the UX pass
+- reviewer findings to close: first-visit purpose is still too implicit, and the primary action hierarchy can be made more explicit
 
 # Last Update
-- 2026-05-20: resolved the design-system pass and verified the shared tokens plus component surfaces.
+- 2026-05-20: closed the UX P0 pass after clarifying the site purpose and CTA hierarchy for first-time visitors.

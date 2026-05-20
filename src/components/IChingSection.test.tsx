@@ -325,7 +325,7 @@ describe('IChingSection', () => {
     expect(yaoRadio).toHaveAttribute('value', 'yao');
     expect(guaRadio).toHaveAttribute('value', 'gua');
     expect(soulRadio).toHaveAttribute('value', 'soul');
-    expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '오늘' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
 
     expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
