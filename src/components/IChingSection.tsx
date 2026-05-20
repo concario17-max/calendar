@@ -788,24 +788,26 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
         <aside className="reading-panel reading-panel--right relative flex w-full min-w-0 flex-col bg-[#fbf8f1] lg:h-full lg:min-h-0 lg:overflow-y-auto">
           {selectedDate && onDateChange ? (
-            <>
-              <button
-                type="button"
-                aria-label="이전날로 이동"
-                onClick={() => shiftSelectedDate(-1)}
-                className="absolute left-3 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#d8c4a1]/65 bg-[rgba(251,248,241,0.92)] text-[#8a7451] shadow-[0_12px_30px_rgba(105,82,48,0.12)] backdrop-blur-sm transition-colors hover:border-[#c79b45] hover:text-[#6f542d] lg:inline-flex xl:left-4"
-              >
-                <ChevronLeft size={20} strokeWidth={2.1} />
-              </button>
-              <button
-                type="button"
-                aria-label="다음날로 이동"
-                onClick={() => shiftSelectedDate(1)}
-                className="absolute right-3 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#d8c4a1]/65 bg-[rgba(251,248,241,0.92)] text-[#8a7451] shadow-[0_12px_30px_rgba(105,82,48,0.12)] backdrop-blur-sm transition-colors hover:border-[#c79b45] hover:text-[#6f542d] lg:inline-flex xl:right-4"
-              >
-                <ChevronRight size={20} strokeWidth={2.1} />
-              </button>
-            </>
+            <div className="pointer-events-none sticky top-1/2 z-20 hidden h-0 -translate-y-1/2 lg:block">
+              <div className="relative h-0">
+                <button
+                  type="button"
+                  aria-label="이전날로 이동"
+                  onClick={() => shiftSelectedDate(-1)}
+                  className="pointer-events-auto absolute left-3 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#d8c4a1]/65 bg-[rgba(251,248,241,0.92)] text-[#8a7451] shadow-[0_12px_30px_rgba(105,82,48,0.12)] backdrop-blur-sm transition-colors hover:border-[#c79b45] hover:text-[#6f542d] xl:left-4"
+                >
+                  <ChevronLeft size={20} strokeWidth={2.1} />
+                </button>
+                <button
+                  type="button"
+                  aria-label="다음날로 이동"
+                  onClick={() => shiftSelectedDate(1)}
+                  className="pointer-events-auto absolute right-3 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#d8c4a1]/65 bg-[rgba(251,248,241,0.92)] text-[#8a7451] shadow-[0_12px_30px_rgba(105,82,48,0.12)] backdrop-blur-sm transition-colors hover:border-[#c79b45] hover:text-[#6f542d] xl:right-4"
+                >
+                  <ChevronRight size={20} strokeWidth={2.1} />
+                </button>
+              </div>
+            </div>
           ) : null}
           <div className="mt-1 flex-1 space-y-0">
             {showSoulPanel ? (
