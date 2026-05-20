@@ -1,36 +1,34 @@
 # Current Task
-- Active: keep the desktop prev/next day arrow controls floating beside the body margins while the reading panel scrolls, and keep the one-day date navigation wired up.
+- Active: produce a repo-wide modernization plan that raises visual polish, UX clarity, code quality, performance, and accessibility without changing features yet.
 
 # Route
 - Route A
-- Reason: this is a contained follow-up UI hotfix inside `src/components/IChingSection.tsx` plus task-state logging in `STATE.md`, with no shared data, assets, tests, or cross-directory changes required.
+- Reason: this is a planning/documentation task only, scoped to `STATE.md` and `plan.md`, with no feature code changes, shared assets, or cross-directory edits required.
 
 # Writer Slot
-- main: write-capable lane for `STATE.md` and `src/components/IChingSection.tsx`
+- main: write-capable lane for `STATE.md` and `plan.md`
 
 # Contract Freeze
-- Goal: keep the previous-day and next-day arrow buttons floating beside the main reading body margins on desktop even while the right reading panel scrolls, while still moving the selected date by one day backward or forward.
+- Goal: create a structured improvement plan for the whole site, covering design, UI/UX, code quality, performance, and accessibility, with priorities, risks, file targets, and verification notes.
 - Non-goals:
-  - do not redesign the header
-  - do not change the bonus-day data model or commentary parsing
-  - do not touch unrelated in-progress header extraction files (`src/components/Header.tsx`, `src/components/Header.test.tsx`, `src/components/CommentaryModeTabs.tsx`)
-  - do not add browser verification
+  - do not change runtime code yet
+  - do not add new libraries
+  - do not touch unrelated in-progress feature work
+  - do not do browser verification
 - Write sets:
   - main: `STATE.md`
-  - main: `src/components/IChingSection.tsx`
+  - main: `plan.md`
 - Acceptance criteria:
-  - desktop view shows left and right arrow controls beside the main reading body area
-  - desktop arrows stay visually floating while the right reading panel scrolls
-  - clicking the left arrow moves to the previous calendar day
-  - clicking the right arrow moves to the next calendar day
-  - mobile layout does not get a cramped floating arrow treatment
-  - `npm.cmd run build` passes
+  - `plan.md` exists and is written in a clean, actionable structure
+  - priorities are split into `P0`, `P1`, and `P2`
+  - each item includes expected files, risk, and verification method
+  - the plan reflects the current codebase structure and constraints
 - Why the write split is safe:
-  - state ownership and handlers are already wired, so this is just a local positioning change
-  - no hook, parser, or data-file changes are needed
+  - no source code behavior changes are needed for a planning pass
+  - the scope is limited to documentation/state tracking
 
 # Reviewer
-- reviewer: not required for this Route A UI hotfix
+- reviewer: not required for this Route A planning task
 
 # Last Update
-- 2026-05-20: narrowed the Route A task to a sticky/floating follow-up for the existing body-side date navigation arrows.
+- 2026-05-20: reclassified the work as a repository-wide modernization planning task.
