@@ -10,18 +10,11 @@ const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'Jul
 
 export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChange }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [pickerDate, setPickerDate] = useState(new Date(selectedDate));
   const [focusedDate, setFocusedDate] = useState(new Date(selectedDate));
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const focusedDayRef = useRef<HTMLButtonElement>(null);
   const wasOpenRef = useRef(isOpen);
-
-  useEffect(() => {
-    const nextDate = new Date(selectedDate);
-    setFocusedDate(nextDate);
-    setPickerDate(new Date(nextDate.getFullYear(), nextDate.getMonth(), 1));
-  }, [selectedDate, isOpen]);
 
   useEffect(() => {
     if (wasOpenRef.current && !isOpen) {
@@ -53,11 +46,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
     }
 
     focusedDayRef.current?.focus();
-  }, [isOpen, pickerDate, focusedDate]);
+  }, [isOpen, focusedDate]);
 
   const focusDate = (date: Date) => {
     setFocusedDate(date);
-    setPickerDate(new Date(date.getFullYear(), date.getMonth(), 1));
   };
 
   const moveFocusedDate = (offset: number) => {
@@ -81,13 +73,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
   };
 
   const handleDateClick = (day: number) => {
-    onDateChange(new Date(pickerDate.getFullYear(), pickerDate.getMonth(), day));
+    onDateChange(new Date(focusedDate.getFullYear(), focusedDate.getMonth(), day));
     setIsOpen(false);
   };
 
   const renderCalendar = () => {
-    const year = pickerDate.getFullYear();
-    const month = pickerDate.getMonth();
+    const year = focusedDate.getFullYear();
+    const month = focusedDate.getMonth();
 
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -97,14 +89,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
     const selectedDay = selectedDate.getDate();
     const focusedDay = focusedDate.getDate();
 
-    const days: React.ReactNode[] = [];
-    for (let index = 0; index < firstDay; index += 1) {
-      days.push(<div key={`empty-${index}`} />);
-    }
-
-    for (let day = 1; day <= daysInMonth; day += 1) {
+    const emptyDays = Array.from({ length: firstDay }, (_, index) => <div key={`empty-${index}`} />);
+    const dayButtons = Array.from({ length: daysInMonth }, (_, index) => {
+      const day = index + 1;
       const isSelected = year === selectedYear && month === selectedMonth && day === selectedDay;
-      days.push(
+
+      return (
         <button
           type="button"
           key={`day-${day}`}
@@ -119,9 +109,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
           }`}
         >
           {day}
-        </button>,
+        </button>
       );
-    }
+    });
 
     return (
       <div
@@ -189,7 +179,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
               {day}
             </div>
           ))}
-          {days}
+          {emptyDays}
+          {dayButtons}
         </div>
       </div>
     );
@@ -200,7 +191,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
       <button
         ref={triggerRef}
         type="button"
-        onClick={() => setIsOpen((open) => !open)}
+        onClick={() => {
+          setFocusedDate(new Date(selectedDate));
+          setIsOpen((open) => !open);
+        }}
         className="ui-button ui-button--secondary group flex h-11 w-11 cursor-pointer items-center justify-center rounded-full p-0 text-secondary active-scale"
         title="날짜 선택"
         aria-label="Open date picker"

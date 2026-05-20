@@ -32,93 +32,17 @@
     --color-shadow: rgba(66, 46, 27, 0.08);
     --color-shadow-strong: rgba(66, 46, 27, 0.16);
     --color-overlay: rgba(250, 247, 239, 0.92);
-    --space-shell-x: clamp(0.8rem, 2vw, 1.5rem);
-    --space-shell-y: clamp(0.8rem, 1.4vw, 1.15rem);
-    --space-shell-gap: clamp(0.8rem, 1.3vw, 1.1rem);
-    --space-content-max: 92rem;
-    --space-content-gap: clamp(0.95rem, 1.4vw, 1.3rem);
-    --space-panel-x: clamp(0.95rem, 1.7vw, 1.65rem);
-    --space-panel-y: clamp(1.1rem, 1.85vw, 1.9rem);
-    --space-panel-gap: clamp(0.7rem, 1.05vw, 0.95rem);
-    --space-card-x: clamp(0.95rem, 1.5vw, 1.25rem);
-    --space-card-y: clamp(0.9rem, 1.45vw, 1.15rem);
-    --radius-control: 0.875rem;
-    --radius-card: 1.125rem;
-    --radius-panel: 1.375rem;
-    --radius-modal: 1.75rem;
-    --radius-pill: 999px;
-    --shadow-control: 0 8px 18px -16px var(--color-shadow);
-    --shadow-card: 0 16px 36px -26px var(--color-shadow);
-    --shadow-panel: 0 18px 44px -28px var(--color-shadow);
-    --shadow-modal: 0 28px 60px -36px var(--color-shadow-strong);
-    --type-display: clamp(2.25rem, 4vw, 3.5rem);
-    --type-heading: clamp(1.5rem, 2.4vw, 2.25rem);
-    --type-title: clamp(1.125rem, 1.8vw, 1.5rem);
-    --type-body: 1rem;
-    --type-small: 0.875rem;
-    --leading-tight: 1.15;
-    --leading-snug: 1.35;
-    --leading-normal: 1.55;
-    --leading-relaxed: 1.7;
-    --tracking-tight: -0.03em;
-    --tracking-normal: 0em;
-    --tracking-wide: 0.08em;
-    --tracking-label: 0.1em;
-    --surface: var(--color-surface);
-    --surface-container-lowest: var(--color-surface-raised);
-    --surface-container-low: var(--color-surface-elevated);
-    --surface-container: var(--color-surface-muted);
-    --surface-container-high: var(--color-surface-subtle);
-    --surface-container-highest: var(--color-surface-strong);
-    --surface-variant: var(--color-surface-variant);
-    --surface-dim: var(--color-surface-dim);
-    --surface-bright: var(--color-surface-bright);
-    --background: var(--color-background);
-    --primary: var(--color-primary);
-    --primary-container: var(--color-primary-strong);
-    --secondary: var(--color-accent);
-    --secondary-container: var(--color-accent-strong);
-    --tertiary: var(--color-text-muted);
-    --tertiary-container: var(--color-text-subtle);
-    --outline: var(--color-border-strong);
     --outline-variant: var(--color-border);
-    --on-background: var(--color-text);
-    --on-surface: var(--color-text);
-    --on-surface-variant: var(--color-text-muted);
-    --on-primary: var(--color-primary-contrast);
-    --on-primary-container: var(--color-primary-strong);
-    --on-secondary: var(--color-accent-contrast);
-    --on-secondary-container: var(--color-accent);
-    --on-tertiary: var(--color-text-inverse);
-    --on-tertiary-container: var(--color-text-subtle);
-    --primary-fixed: var(--color-primary-strong);
-    --primary-fixed-dim: var(--color-primary);
-    --secondary-fixed: var(--color-accent-strong);
-    --secondary-fixed-dim: var(--color-accent);
-    --tertiary-fixed: var(--color-text-muted);
-    --tertiary-fixed-dim: var(--color-text-subtle);
-    --surface-tint: var(--color-primary-strong);
 
     --elegant-gold: #b8860b;
     --elegant-gold-light: #fef8ed;
     --ray-dark: #0e0a07;
     --ray-body: #3b2d22;
-    --warm-gray-50: #fbf7f0;
-    --warm-gray-100: #f4ecdf;
-    --warm-gray-200: #e8dcc8;
-    --warm-gray-300: #d5c1a7;
-    --warm-gray-400: #b89c7c;
-    --warm-gray-500: #9b7d5b;
-    --warm-gray-600: #806145;
-    --warm-gray-700: #674d35;
-    --warm-gray-800: #4d3928;
-    --warm-gray-900: #33261a;
     --shell-rail: #efe2cf;
     --shell-canvas: #faf7ef;
     --shell-card: #f6efe4;
     --shell-line: rgba(99, 75, 47, 0.12);
     --shell-shadow: rgba(66, 46, 27, 0.08);
-    --shell-focus: rgba(184, 134, 11, 0.22);
   }
 
   .dark {
@@ -149,6 +73,21 @@
     --color-shadow: rgba(0, 0, 0, 0.3);
     --color-shadow-strong: rgba(0, 0, 0, 0.45);
     --color-overlay: rgba(24, 19, 14, 0.94);
+    --outline-variant: var(--color-border-subtle);
+
+    --elegant-gold: #d4af37;
+    --elegant-gold-light: #f6e7bd;
+    --ray-dark: #0d0907;
+    --ray-body: #e8d8c1;
+    --shell-rail: #221a14;
+    --shell-canvas: #16120d;
+    --shell-card: #1e1812;
+    --shell-line: rgba(216, 181, 118, 0.12);
+    --shell-shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  :root,
+  .dark {
     --space-shell-x: clamp(0.8rem, 2vw, 1.5rem);
     --space-shell-y: clamp(0.8rem, 1.4vw, 1.15rem);
     --space-shell-gap: clamp(0.8rem, 1.3vw, 1.1rem);
@@ -198,7 +137,6 @@
     --tertiary: var(--color-text-muted);
     --tertiary-container: var(--color-text-subtle);
     --outline: var(--color-border-strong);
-    --outline-variant: var(--color-border-subtle);
     --on-background: var(--color-text);
     --on-surface: var(--color-text);
     --on-surface-variant: var(--color-text-muted);
@@ -215,11 +153,6 @@
     --tertiary-fixed: var(--color-text-muted);
     --tertiary-fixed-dim: var(--color-text-subtle);
     --surface-tint: var(--color-primary-strong);
-
-    --elegant-gold: #d4af37;
-    --elegant-gold-light: #f6e7bd;
-    --ray-dark: #0d0907;
-    --ray-body: #e8d8c1;
     --warm-gray-50: #fbf7f0;
     --warm-gray-100: #f4ecdf;
     --warm-gray-200: #e8dcc8;
@@ -230,12 +163,7 @@
     --warm-gray-700: #674d35;
     --warm-gray-800: #4d3928;
     --warm-gray-900: #33261a;
-    --shell-rail: #221a14;
-    --shell-canvas: #16120d;
-    --shell-card: #1e1812;
-    --shell-line: rgba(216, 181, 118, 0.12);
-    --shell-shadow: rgba(0, 0, 0, 0.3);
-    --shell-focus: rgba(212, 175, 55, 0.22);
+    --shell-focus: rgba(184, 134, 11, 0.22);
   }
 
   html,

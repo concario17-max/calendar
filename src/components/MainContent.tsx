@@ -24,6 +24,8 @@ interface BonusYaoItem {
 interface MainContentProps {
   selectedDate: Date;
   onDateChange: (date: Date) => void;
+  commentarySource?: CommentarySource;
+  onCommentarySourceChange?: (source: CommentarySource) => void;
   yaoNum: number | null;
   guaNum: number | null;
   guaData: GuaData | null;
@@ -37,6 +39,8 @@ interface MainContentProps {
 export const MainContent: React.FC<MainContentProps> = ({
   selectedDate,
   onDateChange,
+  commentarySource,
+  onCommentarySourceChange,
   yaoNum,
   guaNum,
   guaData,
@@ -46,7 +50,9 @@ export const MainContent: React.FC<MainContentProps> = ({
   bonusGuaItems = [],
   bonusYaoItems = [],
 }) => {
-  const [commentarySource, setCommentarySource] = useState<CommentarySource>('yao');
+  const [localCommentarySource, setLocalCommentarySource] = useState<CommentarySource>('yao');
+  const activeCommentarySource = commentarySource ?? localCommentarySource;
+  const handleCommentarySourceChange = onCommentarySourceChange ?? setLocalCommentarySource;
 
   return (
     <main className="reading-system curated-shell archive-shell relative flex min-h-dvh w-full flex-col overflow-x-hidden overflow-y-auto bg-shell-canvas text-on-surface lg:h-[100dvh] lg:overflow-hidden">
@@ -54,8 +60,8 @@ export const MainContent: React.FC<MainContentProps> = ({
         <Header
           selectedDate={selectedDate}
           onDateChange={onDateChange}
-          commentarySource={commentarySource}
-          onCommentarySourceChange={setCommentarySource}
+          commentarySource={activeCommentarySource}
+          onCommentarySourceChange={handleCommentarySourceChange}
         />
 
         <div className="px-3 sm:px-4 lg:px-8">
@@ -68,7 +74,7 @@ export const MainContent: React.FC<MainContentProps> = ({
           <IChingSection
             selectedDate={selectedDate}
             onDateChange={onDateChange}
-            commentarySource={commentarySource}
+            commentarySource={activeCommentarySource}
             yaoNum={yaoNum}
             guaNum={guaNum}
             guaData={guaData}

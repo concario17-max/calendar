@@ -40,7 +40,7 @@ export function parseDateSpec(specRaw: string): DateSpec | null {
 export function mdToOrdinal(m: number, d: number): number {
   const dim = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   let ord = 0;
-  for (let i = 1; i < m; i++) ord += dim[i - 1];
+  for (let i = 1; i < m; i += 1) ord += dim[i - 1];
   return ord + d;
 }
 
@@ -51,6 +51,7 @@ export function isInRangeMD(targetM: number, targetD: number, range: DateSpec): 
   const t = mdToOrdinal(targetM, targetD);
   const s = mdToOrdinal(range.start.m, range.start.d);
   const e = mdToOrdinal(range.end.m, range.end.d);
+
   if (s <= e) return t >= s && t <= e;
   return t >= s || t <= e;
 }
@@ -59,22 +60,29 @@ export function isInRangeMD(targetM: number, targetD: number, range: DateSpec): 
  * Extracts a display label like "52주 · 1주" from a group heading.
  */
 export function extractWeeksLabel(titleLine: string): { label: string; a: number | null; b: number | null } {
-  const l = String(titleLine || '').trim();
-  const m = l.match(/Weeks\s+(\d{1,2})\s+and\s+(\d{1,2})/i);
-  if (m) return { label: `${m[1]}주 · ${m[2]}주`, a: +m[1], b: +m[2] };
+  const line = String(titleLine || '').trim();
+  const matchedPair = line.match(/Weeks\s+(\d{1,2})\s+and\s+(\d{1,2})/i);
 
-  const m2 = l.match(/Weeks\s+(\d{1,2})/i);
-  if (m2) return { label: `${m2[1]}주`, a: +m2[1], b: null };
+  if (matchedPair) {
+    const [, first, second] = matchedPair;
+    return { label: `${first}주 · ${second}주`, a: Number(first), b: Number(second) };
+  }
 
-  return { label: l || '주차 정보 없음', a: null, b: null };
+  const matchedSingle = line.match(/Weeks\s+(\d{1,2})/i);
+  if (matchedSingle) {
+    const [, week] = matchedSingle;
+    return { label: `${week}주`, a: Number(week), b: null };
+  }
+
+  return { label: line || 'soul calendar info unavailable', a: null, b: null };
 }
 
 const isGroupTitle = (line: string) => /CoTS\s+Verses\s+for\s+Weeks/i.test(String(line || '').trim());
 
 const isDateLine = (line: string) => {
-  const l = String(line || '').trim();
-  if (!l.includes('(') || !l.includes(')')) return false;
-  const inside = l.slice(l.indexOf('(') + 1, l.lastIndexOf(')'));
+  const trimmed = String(line || '').trim();
+  if (!trimmed.includes('(') || !trimmed.includes(')')) return false;
+  const inside = trimmed.slice(trimmed.indexOf('(') + 1, trimmed.lastIndexOf(')'));
   return /\d/.test(inside);
 };
 
@@ -82,8 +90,8 @@ const isDateLine = (line: string) => {
  * Parses all soul-calendar groups from the raw source text.
  */
 export function parseSoulGroups(text: string): SoulGroup[] {
-  const t = normalizeNewlines(text);
-  const lines = t.split('\n');
+  const normalized = normalizeNewlines(text);
+  const lines = normalized.split('\n');
   const titleIdxs = lines.reduce((acc: number[], line, i) => {
     if (isGroupTitle(line)) acc.push(i);
     return acc;
@@ -98,42 +106,101 @@ export function parseSoulGroups(text: string): SoulGroup[] {
 function parseSingleGroup(lines: string[], start: number, end: number): SoulGroup {
   const titleLine = lines[start].trim();
   const block = lines.slice(start, end).join('\n').trim();
-  const ranges = lines.slice(start, end)
+  const ranges = lines
+    .slice(start, end)
     .filter(isDateLine)
     .map((line) => {
-      const l = line.trim();
-      return parseDateSpec(l.slice(l.indexOf('(') + 1, l.lastIndexOf(')')));
+      const trimmed = line.trim();
+      return parseDateSpec(trimmed.slice(trimmed.indexOf('(') + 1, trimmed.lastIndexOf(')')));
     })
-    .filter((r): r is DateSpec => r !== null);
+    .filter((range): range is DateSpec => range !== null);
 
-  const wk = extractWeeksLabel(titleLine);
-  return { titleLine, weeksLabel: wk.label, weekA: wk.a, weekB: wk.b, ranges, block };
+  const label = extractWeeksLabel(titleLine);
+  return { titleLine, weeksLabel: label.label, weekA: label.a, weekB: label.b, ranges, block };
 }
 
 /**
  * Splits a group block into per-week sections.
  */
 export function parseWeekSectionsFromGroupBlock(block: string): SoulSection[] {
-  const t = normalizeNewlines(block);
-  const lines = t.split('\n');
+  const normalized = normalizeNewlines(block);
+  const lines = normalized.split('\n');
   const headerRe = /^\s*(\d{1,2})[^\d(]*\(([^)]+)\)(.*)$/;
 
   const heads = lines.reduce((acc: { idx: number; week: number; range: string; tail: string }[], line, i) => {
-    const m = line.match(headerRe);
-    if (m) acc.push({ idx: i, week: +m[1], range: m[2].trim(), tail: m[3].trim() });
+    const match = line.match(headerRe);
+    if (match) acc.push({ idx: i, week: Number(match[1]), range: match[2].trim(), tail: match[3].trim() });
     return acc;
   }, []);
 
   if (heads.length === 0) return [];
 
-  return heads.map((h, i) => {
-    const end = i + 1 < heads.length ? heads[i + 1].idx : lines.length;
-    const bodyText = lines.slice(h.idx + 1, end).join('\n')
+  return heads.map((head, index) => {
+    const end = index + 1 < heads.length ? heads[index + 1].idx : lines.length;
+    const bodyText = lines
+      .slice(head.idx + 1, end)
+      .join('\n')
       .replace(/^\s*\n+/, '')
       .replace(/\n+\s*$/, '')
       .trim();
 
-    const text = h.tail ? `${h.tail}\n${bodyText}`.trim() : bodyText;
-    return { week: h.week, range: h.range, text };
+    const text = head.tail ? `${head.tail}\n${bodyText}`.trim() : bodyText;
+    return { week: head.week, range: head.range, text };
   });
+}
+
+export function formatSoulDateRange(range: string): string {
+  const normalized = range.replace(/\s+/g, ' ').trim().replace(/[()]/g, '');
+  const match = normalized.match(/(\d{1,2})\D+(\d{1,2})\D*-\D*(\d{1,2})(?:\D+(\d{1,2}))?/u);
+
+  if (!match) {
+    return normalized.replace(/\s*-\s*/g, '-');
+  }
+
+  const [, startMonth, startDay, endMonth, endDay] = match;
+  if (endDay) {
+    return `${startMonth}월 ${startDay}일-${endMonth}월 ${endDay}일`;
+  }
+
+  return `${startMonth}월 ${startDay}일-${endMonth}일`;
+}
+
+function normalizeWeeksLabel(label: string): string {
+  const normalized = label.replace(/\s+/g, ' ').trim();
+  const segments = normalized
+    .split(/\s*\/\s*/u)
+    .map((segment) => segment.trim())
+    .filter(Boolean);
+
+  if (segments.length === 0) {
+    return normalized;
+  }
+
+  return segments
+    .map((segment) => {
+      const match = segment.match(/(\d{1,2})\D+(.*)/u);
+      if (!match) {
+        return segment;
+      }
+
+      const [, week, rawRange] = match;
+      return `${Number(week)}주(${formatSoulDateRange(rawRange)})`;
+    })
+    .join(' · ');
+}
+
+function formatWeekRange(week: number, range: string): string {
+  return `${week}주(${formatSoulDateRange(range)})`;
+}
+
+export function formatWeeksLabel(hitSoulGroup: SoulGroup | undefined, soulSections: SoulSection[]): string {
+  if (soulSections.length > 0) {
+    return soulSections.map((section) => formatWeekRange(section.week, section.range)).join(' · ');
+  }
+
+  if (hitSoulGroup?.weeksLabel) {
+    return normalizeWeeksLabel(hitSoulGroup.weeksLabel);
+  }
+
+  return '';
 }

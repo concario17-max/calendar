@@ -1,25 +1,25 @@
-import type { CommentarySource } from '../types';
 import { BookText, ScrollText, Sparkles } from 'lucide-react';
+import type { CommentarySource } from '../types';
 
 interface CommentaryModeTabsProps {
   value: CommentarySource;
   onChange: (source: CommentarySource) => void;
 }
 
-export function CommentaryModeTabs({ value, onChange }: CommentaryModeTabsProps) {
-  const options: Array<{ value: CommentarySource; label: string; icon: typeof ScrollText }> = [
-    { value: 'yao', label: '효사', icon: ScrollText },
-    { value: 'gua', label: '괘사', icon: BookText },
-    { value: 'soul', label: '영혼', icon: Sparkles },
-  ];
+const COMMENTARY_MODE_OPTIONS: Array<{ value: CommentarySource; label: string; icon: typeof ScrollText }> = [
+  { value: 'yao', label: '효사', icon: ScrollText },
+  { value: 'gua', label: '괘사', icon: BookText },
+  { value: 'soul', label: '영혼', icon: Sparkles },
+];
 
+export function CommentaryModeTabs({ value, onChange }: CommentaryModeTabsProps) {
   return (
     <div
       role="radiogroup"
       aria-label="해설 선택"
       className="ui-nav archive-segmented-control inline-flex items-stretch gap-1 rounded-full px-1 py-1"
     >
-      {options.map((option) => {
+      {COMMENTARY_MODE_OPTIONS.map((option) => {
         const active = value === option.value;
         const Icon = option.icon;
 

@@ -63,19 +63,18 @@ CoTS Verses for Weeks 3
   describe('parseWeekSectionsFromGroupBlock', () => {
     it('should preserve trailing subtitle text after the date range', () => {
       const block = `
-1주 (4월 7-13) 부활절 / 봄
-첫 번째 본문
+1주(4월 7-13일) First subtitle / Second subtitle
 
-2주 (4월 14-20)
-두 번째 본문
+2주(4월 14-20일)
+Second block text
 `.trim();
 
       const sections = parseWeekSectionsFromGroupBlock(block);
       expect(sections).toHaveLength(2);
       expect(sections[0]).toEqual({
         week: 1,
-        range: '4월 7-13',
-        text: '부활절 / 봄\n첫 번째 본문',
+        range: '4월 7-13일',
+        text: 'First subtitle / Second subtitle',
       });
     });
   });

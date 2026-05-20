@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
 import type { SoulGroup, SoulSection } from '../types';
+import { formatSoulDateRange, formatWeeksLabel } from '../utils/soulLogic';
 
 interface SoulCalendarSectionProps {
   hitSoulGroup?: SoulGroup;
@@ -8,102 +9,14 @@ interface SoulCalendarSectionProps {
 }
 
 const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
-const SOUL_BADGE = '루돌프 슈타이너의 영혼의 달력';
-const SOUL_EMPTY = '영혼 본문이 아직 없어.';
+const SOUL_BADGE = 'SOUL';
+const SOUL_EMPTY = 'Soul verses are not available yet.';
 const commentaryFolioClass =
   'ui-card ui-surface--raised relative overflow-hidden rounded-[2rem] px-4 py-4';
 const commentaryHeadingClass =
   'mx-auto w-full max-w-[52rem] break-keep font-headline text-[2.05rem] font-semibold leading-[1.08] tracking-[-0.035em] text-on-surface md:text-[2.7rem]';
 const commentaryBodyClass =
   'mx-auto w-full max-w-[52rem] break-keep font-body text-[1rem] leading-[1.92] tracking-[-0.01em] text-on-surface-variant md:text-[1.08rem]';
-
-interface ParsedDateRange {
-  startMonth: number;
-  startDay: number;
-  endMonth: number;
-  endDay: number;
-}
-
-function parseDateRange(range: string): ParsedDateRange | null {
-  const compact = range.replace(/\s+/g, ' ').trim();
-  const crossMonthMatch = compact.match(/(\d{1,2})\D+(\d{1,2})\D*-\D*(\d{1,2})\D+(\d{1,2})/u);
-
-  if (crossMonthMatch) {
-    const [, startMonth, startDay, endMonth, endDay] = crossMonthMatch;
-    return {
-      startMonth: Number(startMonth),
-      startDay: Number(startDay),
-      endMonth: Number(endMonth),
-      endDay: Number(endDay),
-    };
-  }
-
-  const sameMonthMatch = compact.match(/(\d{1,2})\D+(\d{1,2})\D*-\D*(\d{1,2})/u);
-  if (!sameMonthMatch) {
-    return null;
-  }
-
-  const [, month, startDay, endDay] = sameMonthMatch;
-  return {
-    startMonth: Number(month),
-    startDay: Number(startDay),
-    endMonth: Number(month),
-    endDay: Number(endDay),
-  };
-}
-
-function normalizeDateRange(range: string): string {
-  const parsed = parseDateRange(range);
-  if (!parsed) {
-    return range.replace(/\s+/g, ' ').trim().replace(/\s*-\s*/g, '-');
-  }
-
-  if (parsed.startMonth === parsed.endMonth) {
-    return `${parsed.startMonth}월 ${parsed.startDay}일-${parsed.endDay}일`;
-  }
-
-  return `${parsed.startMonth}월 ${parsed.startDay}일-${parsed.endMonth}월 ${parsed.endDay}일`;
-}
-
-function formatWeekRange(week: number, range: string): string {
-  return `${week}주(${normalizeDateRange(range)})`;
-}
-
-function normalizeWeeksLabel(label: string): string {
-  const normalized = label.replace(/\s+/g, ' ').trim();
-  const segments = normalized
-    .split(/\s*\/\s*/u)
-    .map((segment) => segment.trim())
-    .filter(Boolean);
-
-  if (segments.length === 0) {
-    return normalized;
-  }
-
-  const formattedSegments = segments.map((segment) => {
-    const match = segment.match(/(\d{1,2})\D+(.*)/u);
-    if (!match) {
-      return segment;
-    }
-
-    const [, week, rawRange] = match;
-    return `${Number(week)}주(${normalizeDateRange(rawRange)})`;
-  });
-
-  return formattedSegments.join(' · ');
-}
-
-export function formatWeeksLabel(hitSoulGroup: SoulGroup | undefined, soulSections: SoulSection[]): string {
-  if (soulSections.length > 0) {
-    return soulSections.map((section) => formatWeekRange(section.week, section.range)).join(' · ');
-  }
-
-  if (hitSoulGroup?.weeksLabel) {
-    return normalizeWeeksLabel(hitSoulGroup.weeksLabel);
-  }
-
-  return '';
-}
 
 function SoulSectionBlock({ section, isFirst }: { section: SoulSection; isFirst: boolean }) {
   return (
@@ -118,7 +31,7 @@ function SoulSectionBlock({ section, isFirst }: { section: SoulSection; isFirst:
           {section.week}주
         </span>
         <span className="text-[0.78rem] italic tracking-[0.12em] text-on-surface-variant">
-          {normalizeDateRange(section.range)}
+          {formatSoulDateRange(section.range)}
         </span>
       </div>
 

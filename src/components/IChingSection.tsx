@@ -1,8 +1,14 @@
 ﻿import React from 'react';
 import { ChevronLeft, ChevronRight, Images } from 'lucide-react';
-import * as dataModule from '../data';
+import {
+  getBonusGuaCommentary,
+  getBonusYaoCommentary,
+  getGuaCommentary,
+  getYaoCommentary,
+} from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
-import { formatWeeksLabel, SoulCalendarSection } from './SoulCalendarSection';
+import { formatWeeksLabel } from '../utils/soulLogic';
+import { SoulCalendarSection } from './SoulCalendarSection';
 
 const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
 const compactLeftBadgeClass =
@@ -19,31 +25,22 @@ const commentaryBodyClass =
   'mx-auto w-full max-w-[56rem] break-keep font-body text-[1rem] leading-[1.92] tracking-[-0.01em] text-on-surface-variant md:text-[1.08rem]';
 const commentaryLeadLineClass =
   'mx-auto flex w-full max-w-[56rem] flex-wrap items-start gap-2 break-keep rounded-[1rem] border border-secondary/15 bg-secondary/5 px-3 py-2 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-on-surface md:text-[16px]';
-const yaoLearningImageModules = import.meta.glob('../../image/효사/*.{png,jpg,jpeg,webp,avif,gif}', {
+const yaoLearningImageModules = import.meta.glob('../../image/효사/*.png', {
   eager: true,
   import: 'default',
 }) as Record<string, string>;
-const guaLearningImageModules = import.meta.glob('../../image/괘사/*.{png,jpg,jpeg,webp,avif,gif}', {
+const guaLearningImageModules = import.meta.glob('../../image/괘사/*.png', {
   eager: true,
   import: 'default',
 }) as Record<string, string>;
-const bonusYaoLearningImageModules = import.meta.glob('../../보너스/효사/*.{png,jpg,jpeg,webp,avif,gif}', {
+const bonusYaoLearningImageModules = import.meta.glob('../../보너스/효사/*.png', {
   eager: true,
   import: 'default',
 }) as Record<string, string>;
-const bonusGuaLearningImageModules = import.meta.glob('../../보너스/괘사/*.{png,jpg,jpeg,webp,avif,gif}', {
+const bonusGuaLearningImageModules = import.meta.glob('../../보너스/괘사/*.png', {
   eager: true,
   import: 'default',
 }) as Record<string, string>;
-
-interface CommentaryDataModule {
-  getGuaCommentary: (num: number | null) => string | undefined;
-  getYaoCommentary: (num: number | null) => string | undefined;
-  getBonusGuaCommentary?: (num: number | null) => string | undefined;
-  getBonusYaoCommentary?: (num: number | null) => string | undefined;
-}
-
-const commentaryData = dataModule as CommentaryDataModule;
 
 interface IChingSectionProps {
   selectedDate?: Date;
@@ -445,21 +442,21 @@ function getSelectedCommentaryText(
     if (activeBonusItem) {
       return (
         normalizeCommentaryText(activeBonusItem.commentary) ||
-        normalizeCommentaryText(commentaryData.getBonusGuaCommentary?.(activeGuaNum))
+        normalizeCommentaryText(getBonusGuaCommentary(activeGuaNum))
       );
     }
 
-    return normalizeCommentaryText(commentaryData.getGuaCommentary(activeGuaNum));
+    return normalizeCommentaryText(getGuaCommentary(activeGuaNum));
   }
 
   if (activeBonusItem) {
     return (
       normalizeCommentaryText(activeBonusItem.commentary) ||
-      normalizeCommentaryText(commentaryData.getBonusYaoCommentary?.(activeYaoNum))
-    );
-  }
+      normalizeCommentaryText(getBonusYaoCommentary(activeYaoNum))
+  );
+}
 
-  return normalizeCommentaryText(commentaryData.getYaoCommentary(activeYaoNum));
+  return normalizeCommentaryText(getYaoCommentary(activeYaoNum));
 }
 
 function LearningComicView({
@@ -538,14 +535,11 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   bonusGuaItems = [],
   bonusYaoItems = [],
 }) => {
-  const [resolvedCommentarySource, setResolvedCommentarySource] = React.useState<CommentarySource>(commentarySource);
-
-  React.useEffect(() => {
-    setResolvedCommentarySource(commentarySource);
-  }, [commentarySource]);
-
-  const activeCommentarySource = resolvedCommentarySource === 'soul' ? null : resolvedCommentarySource;
-  const activeBonusItems = activeCommentarySource === 'gua' ? bonusGuaItems : activeCommentarySource === 'yao' ? bonusYaoItems : [];
+  const activeCommentarySource = commentarySource === 'soul' ? null : commentarySource;
+  const activeBonusItems = React.useMemo(
+    () => (activeCommentarySource === 'gua' ? bonusGuaItems : activeCommentarySource === 'yao' ? bonusYaoItems : []),
+    [activeCommentarySource, bonusGuaItems, bonusYaoItems],
+  );
   const isBonusDay = bonusGuaItems.length > 0 || bonusYaoItems.length > 0;
   const fallbackBonusGuaItem = bonusGuaItems[0] ?? null;
   const fallbackBonusYaoItem = bonusYaoItems[0] ?? null;
@@ -576,6 +570,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     activeCommentarySource === 'yao' && activeBonusItem
       ? activeBonusItem.yaoData ?? yaoData
       : yaoData ?? fallbackBonusYaoItem?.yaoData ?? null;
+
   const sigilSrc = activeYaoNum !== null ? `/images/yao-${activeYaoNum}.png` : null;
   const [commentaryViewMode, setCommentaryViewMode] = React.useState<CommentaryViewMode>(() =>
     getDefaultCommentaryViewMode(commentarySource),
@@ -583,8 +578,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   const hasAnyBonusItems = activeBonusItems.length > 0;
 
   React.useEffect(() => {
-    setCommentaryViewMode(getDefaultCommentaryViewMode(resolvedCommentarySource));
-  }, [resolvedCommentarySource, activeYaoNum, activeGuaNum, activeBonusItem?.id]);
+    setCommentaryViewMode(getDefaultCommentaryViewMode(commentarySource));
+  }, [commentarySource, activeYaoNum, activeGuaNum, activeBonusItem?.id]);
 
   React.useEffect(() => {
     if (activeCommentarySource === null || activeBonusItems.length === 0) {
@@ -604,6 +599,32 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     });
   }, [activeCommentarySource, activeBonusItems.length]);
 
+  const shiftSelectedDate = (offset: number) => {
+    if (!selectedDate || !onDateChange) {
+      return;
+    }
+
+    const nextDate = new Date(selectedDate);
+    nextDate.setDate(nextDate.getDate() + offset);
+    onDateChange(nextDate);
+  };
+
+  const commentaryText = React.useMemo(() => {
+    if (commentarySource === 'gua') {
+      return getSelectedCommentaryText('gua', activeGuaNum, activeYaoNum, activeBonusItem);
+    }
+
+    if (commentarySource === 'yao') {
+      return getSelectedCommentaryText('yao', activeGuaNum, activeYaoNum, activeBonusItem);
+    }
+
+    return '';
+  }, [activeBonusItem, activeGuaNum, activeYaoNum, commentarySource]);
+
+  const commentary = React.useMemo(
+    () => (commentaryText.length > 0 ? splitCommentary(commentaryText) : null),
+    [commentaryText],
+  );
   if (!activeGuaData || !activeYaoData) {
     return (
       <div className="px-6 py-6 text-sm italic text-on-surface-variant opacity-70 md:px-8 md:py-8 lg:px-10">
@@ -612,28 +633,21 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     );
   }
 
+  const showSoulPanel = commentarySource === 'soul';
   const isBonusSelection = activeBonusItem !== null;
-  const commentaryText =
-    resolvedCommentarySource === 'gua'
-      ? getSelectedCommentaryText('gua', activeGuaNum, activeYaoNum, activeBonusItem)
-      : resolvedCommentarySource === 'yao'
-        ? getSelectedCommentaryText('yao', activeGuaNum, activeYaoNum, activeBonusItem)
-        : '';
-  const commentary = commentaryText.length > 0 ? splitCommentary(commentaryText) : null;
-  const showSoulPanel = resolvedCommentarySource === 'soul';
   const learningImageSrc = getLearningImageSrc(
-    resolvedCommentarySource,
-    resolvedCommentarySource === 'gua' ? activeGuaNum : resolvedCommentarySource === 'yao' ? activeYaoNum : null,
+    commentarySource,
+    commentarySource === 'gua' ? activeGuaNum : commentarySource === 'yao' ? activeYaoNum : null,
     isBonusSelection,
   );
   const learningImageAlt =
-    resolvedCommentarySource === 'gua'
+    commentarySource === 'gua'
       ? `${isBonusSelection ? '보너스 ' : ''}괘사 학습 이미지 ${activeGuaNum ?? ''}`.trim()
       : `${isBonusSelection ? '보너스 ' : ''}효사 학습 이미지 ${activeYaoNum ?? ''}`.trim();
   const leftSoulWeeksLabel = formatWeeksLabel(hitSoulGroup, soulSections);
   const guaMeta = activeGuaData.meta.trim();
-  const commentaryHeaderLabel = getCommentaryHeaderLabel(resolvedCommentarySource);
-  const canShowComicToggle = resolvedCommentarySource === 'gua' || resolvedCommentarySource === 'yao';
+  const commentaryHeaderLabel = getCommentaryHeaderLabel(commentarySource);
+  const canShowComicToggle = commentarySource === 'gua' || commentarySource === 'yao';
   const isComicView = canShowComicToggle && commentaryViewMode === 'comic';
   const commentaryFolioSurfaceClass = isComicView
     ? 'ui-card ui-surface--raised relative overflow-visible border-0 bg-transparent px-0 py-0 shadow-none sm:overflow-hidden sm:rounded-[2rem] sm:border sm:border-outline-variant/60 sm:bg-surface-container-low/95 sm:px-4 sm:py-4'
@@ -645,18 +659,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         </div>
       ))
     : [];
-  const shiftSelectedDate = React.useCallback(
-    (offset: number) => {
-      if (!selectedDate || !onDateChange) {
-        return;
-      }
-
-      const nextDate = new Date(selectedDate);
-      nextDate.setDate(nextDate.getDate() + offset);
-      onDateChange(nextDate);
-    },
-    [onDateChange, selectedDate],
-  );
 
   return (
     <section className="flex w-full flex-1 flex-col overflow-visible stagger-1 lg:overflow-hidden">
@@ -786,7 +788,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         <aside className="reading-panel reading-panel--right relative flex w-full min-w-0 flex-col bg-surface-container-lowest lg:h-full lg:min-h-0 lg:overflow-y-auto">
           {selectedDate && onDateChange ? (
             <div className="pointer-events-none sticky top-1/2 z-20 hidden h-0 -translate-y-1/2 lg:block">
-              <div className="relative h-0">
+          <div className="relative h-0">
                 <button
                   type="button"
                   aria-label="이전날로 이동"
@@ -812,7 +814,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
               </div>
             ) : (
-              <div key={resolvedCommentarySource} className="reading-fade-in space-y-[var(--reading-section-gap)]">
+              <div key={commentarySource} className="reading-fade-in space-y-[var(--reading-section-gap)]">
                 {commentary ? (
                   <div className="space-y-[var(--reading-section-gap)]">
                     <div className="flex items-center justify-between gap-3 border-b border-outline-variant/50 pb-2">
@@ -859,7 +861,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                               </h5>
                             ) : null}
 
-                            {resolvedCommentarySource === 'yao' && !isBonusSelection ? (
+                            {commentarySource === 'yao' && !isBonusSelection ? (
                               <div
                                 data-testid="commentary-reading-body"
                                 className={commentaryBodyClass}

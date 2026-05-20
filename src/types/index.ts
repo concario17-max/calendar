@@ -1,14 +1,21 @@
-export interface DateSpec {
-  start: { m: number; d: number };
-  end: { m: number; d: number };
+export interface MonthDay {
+  m: number;
+  d: number;
 }
+
+export interface DateRange {
+  start: MonthDay;
+  end: MonthDay;
+}
+
+export type DateSpec = DateRange;
 
 export interface SoulGroup {
   titleLine: string;
   weeksLabel: string;
   weekA: number | null;
   weekB: number | null;
-  ranges: DateSpec[];
+  ranges: DateRange[];
   block: string;
 }
 
@@ -33,7 +40,8 @@ export interface GuaData {
 }
 
 export type MonthDayKey = `${number}-${number}`;
-export type BonusMonthDayKey = '4-2' | '4-3' | '4-4' | '4-5' | '4-6';
+export const BONUS_MONTH_DAY_KEYS = ['4-2', '4-3', '4-4', '4-5', '4-6'] as const;
+export type BonusMonthDayKey = (typeof BONUS_MONTH_DAY_KEYS)[number];
 
 export interface BonusDayReading {
   key: BonusMonthDayKey;
@@ -43,16 +51,16 @@ export interface BonusDayReading {
   yaoNums: number[];
 }
 
-export interface BonusGuaItem {
+export interface BonusItemBase {
   num: number;
   commentary?: string;
   commentaryMissing?: boolean;
+}
+
+export interface BonusGuaItem extends BonusItemBase {
   guaData: GuaData;
 }
 
-export interface BonusYaoItem {
-  num: number;
-  commentary?: string;
-  commentaryMissing?: boolean;
+export interface BonusYaoItem extends BonusItemBase {
   yaoData: YaoData;
 }

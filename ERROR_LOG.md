@@ -414,3 +414,8 @@ status: resolved
   summary: Vitest verification reran successfully with the supported command form
   details: Re-ran the targeted component tests with `vitest run` after the unsupported flag failure, and all selected tests passed.
   status: resolved
+- time: 2026-05-21 00:05 KST
+  location: `npm.cmd run lint` / `npm.cmd test` / `npm.cmd run build`
+  summary: Repository verification is blocked by pre-existing feature-file errors outside the allowed shared slice
+  details: ESLint still reports `src/components/DatePicker.tsx` and `src/components/IChingSection.tsx`; Vitest and the build fail because `formatWeeksLabel` is not exported from `src/components/SoulCalendarSection.tsx`. Those files are outside the requested edit scope, so the shared contracts/helpers slice cannot make the repo green on its own.
+  status: open

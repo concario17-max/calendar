@@ -524,3 +524,17 @@
 - status: resolved
 - writer slots: worker-mobile-header-rows = `src/components/Header.tsx`, `src/components/Header.test.tsx`; reviewer = `mobile header rows review`
 - notes: the mobile header now keeps the title isolated on the first row, places the controls together on the second row, and preserves desktop behavior; targeted test and build passed
+
+## 2026-05-20
+- task: refactor the frontend to reduce duplication, split shared UI and business logic, and keep lint/type/build clean without changing behavior
+- route: Route B
+- status: open
+- writer slots: worker_shared = `src/types/index.ts`, `src/utils/logic.ts`, `src/index.css`; worker_reading = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/hooks/useCalendarLogic.ts`; worker_shell = `src/App.tsx`, `src/components/MainContent.tsx`, `src/components/Header.tsx`, `src/components/CommentaryModeTabs.tsx`, `src/components/DatePicker.tsx`, `src/components/JournalModal.tsx`; reviewer = `frontend refactor review`
+- notes: the task is split so shared contracts, reading logic, and shell composition can move independently without overlapping write ownership
+
+## 2026-05-21
+- task: refactor the frontend to reduce duplication, split shared UI and business logic, and keep lint/type/build clean without changing behavior
+- route: Route B
+- status: resolved
+- writer slots: worker_shared = `src/types/index.ts`, `src/utils/logic.ts`, `src/index.css`; worker_reading = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/hooks/useCalendarLogic.ts`; worker_shell = `src/App.tsx`, `src/components/MainContent.tsx`, `src/components/Header.tsx`, `src/components/CommentaryModeTabs.tsx`, `src/components/DatePicker.tsx`, `src/components/JournalModal.tsx`; reviewer = `frontend refactor review`
+- notes: duplicate shared contracts were normalized, reading-panel state mirroring was reduced, shell state ownership was centralized, DatePicker/JournalModal responsibilities were tightened, and lint/test/build all passed

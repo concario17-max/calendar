@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MainContent } from './components/MainContent';
 import { useCalendarLogic } from './hooks/useCalendarLogic';
-import type { GuaData, YaoData } from './types';
+import type { CommentarySource, GuaData, YaoData } from './types';
 
 interface BonusGuaUiItem {
   id: string;
@@ -40,10 +40,11 @@ function App() {
     bonusYaoItems: rawBonusYaoItems = [],
   } = useCalendarLogic();
 
+  const [commentarySource, setCommentarySource] = useState<CommentarySource>('yao');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const bonusDateLabel = bonusDay ? formatBonusDateLabel(bonusDay.month, bonusDay.day) : '';
   const bonusGuaItems: BonusGuaUiItem[] = rawBonusGuaItems.map((item) => ({
-    commentary: (item as { commentary?: string }).commentary,
+    commentary: item.commentary,
     id: `gua-${item.num}`,
     label: item.guaData.header,
     dateLabel: bonusDateLabel,
@@ -51,7 +52,7 @@ function App() {
     guaData: item.guaData,
   }));
   const bonusYaoItems: BonusYaoUiItem[] = rawBonusYaoItems.map((item) => ({
-    commentary: (item as { commentary?: string }).commentary,
+    commentary: item.commentary,
     id: `yao-${item.num}`,
     label: item.yaoData.titleLine,
     dateLabel: bonusDateLabel,
@@ -76,6 +77,8 @@ function App() {
         <MainContent
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}
+          commentarySource={commentarySource}
+          onCommentarySourceChange={setCommentarySource}
           yaoNum={yaoNum}
           guaNum={guaNum}
           guaData={guaData}

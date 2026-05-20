@@ -42,8 +42,8 @@ export function useCalendarLogic() {
   const rawGua = guaNum !== null ? GUA_MAP.get(guaNum) : undefined;
   const rawYao = yaoNum !== null ? YAO_MAP.get(yaoNum) : undefined;
 
-  const guaData = rawGua ? splitGua(rawGua) : null;
-  const yaoData = rawYao ? splitYao(rawYao) : null;
+  const guaData = useMemo(() => (rawGua ? splitGua(rawGua) : null), [rawGua]);
+  const yaoData = useMemo(() => (rawYao ? splitYao(rawYao) : null), [rawYao]);
 
   const month = selectedDate.getMonth() + 1;
   const day = selectedDate.getDate();
@@ -63,8 +63,14 @@ export function useCalendarLogic() {
     return bonusDay.yaoNums.map((num) => buildBonusYaoItem(num));
   }, [bonusDay]);
 
-  const hitSoulGroup = SOUL_GROUPS.find((group) => group.ranges.some((range) => isInRangeMD(month, day, range)));
-  const soulSections = hitSoulGroup ? parseWeekSectionsFromGroupBlock(hitSoulGroup.block) : [];
+  const hitSoulGroup = useMemo(
+    () => SOUL_GROUPS.find((group) => group.ranges.some((range) => isInRangeMD(month, day, range))),
+    [SOUL_GROUPS, month, day],
+  );
+  const soulSections = useMemo(
+    () => (hitSoulGroup ? parseWeekSectionsFromGroupBlock(hitSoulGroup.block) : []),
+    [hitSoulGroup],
+  );
 
   return {
     selectedDate,

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { formatWeeksLabel, SoulCalendarSection } from './SoulCalendarSection';
+import { SoulCalendarSection } from './SoulCalendarSection';
+import { formatWeeksLabel } from '../utils/soulLogic';
 
 describe('SoulCalendarSection', () => {
   it('formats week labels with explicit parenthesized date ranges', () => {
@@ -8,7 +9,7 @@ describe('SoulCalendarSection', () => {
       formatWeeksLabel(
         {
           titleLine: 'Weeks 3',
-          weeksLabel: '47주(2월 23-3월 1) / 6주(5월 12-18일)',
+          weeksLabel: '47주(2월 23일-3월 1일) / 6주(5월 12일-18일)',
           weekA: 47,
           weekB: 6,
           ranges: [],
@@ -22,8 +23,8 @@ describe('SoulCalendarSection', () => {
   it('formats fallback week labels from soul sections', () => {
     expect(
       formatWeeksLabel(undefined, [
-        { week: 47, range: '2월 23 - 3월 1', text: 'Soul body A' },
-        { week: 6, range: '5월 12-18일', text: 'Soul body B' },
+        { week: 47, range: '2월 23일-3월 1일', text: 'Soul body A' },
+        { week: 6, range: '5월 12일-18일', text: 'Soul body B' },
       ]),
     ).toBe('47주(2월 23일-3월 1일) · 6주(5월 12일-18일)');
   });
@@ -31,9 +32,9 @@ describe('SoulCalendarSection', () => {
   it('renders the soul panel header and shared empty state when there are no verses', () => {
     render(<SoulCalendarSection hitSoulGroup={undefined} soulSections={[]} />);
 
-    expect(screen.getByText('루돌프 슈타이너의 영혼의 달력')).toBeInTheDocument();
+    expect(screen.getByText('SOUL')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
-    expect(screen.getByText('영혼 본문이 아직 없어.')).toBeInTheDocument();
+    expect(screen.getByText('Soul verses are not available yet.')).toBeInTheDocument();
   });
 
   it('renders normalized week labels in the soul panel body', () => {
@@ -41,13 +42,13 @@ describe('SoulCalendarSection', () => {
       <SoulCalendarSection
         hitSoulGroup={undefined}
         soulSections={[
-          { week: 47, range: '2월 23 - 3월 1', text: 'Soul body A' },
-          { week: 6, range: '5월 12-18일', text: 'Soul body B' },
+          { week: 47, range: '2월 23일-3월 1일', text: 'Soul body A' },
+          { week: 6, range: '5월 12일-18일', text: 'Soul body B' },
         ]}
       />,
     );
 
-    expect(screen.getByText('루돌프 슈타이너의 영혼의 달력')).toBeInTheDocument();
+    expect(screen.getByText('SOUL')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
     expect(screen.getByText('47주(2월 23일-3월 1일) · 6주(5월 12일-18일)')).toBeInTheDocument();
     expect(screen.getByText('2월 23일-3월 1일')).toBeInTheDocument();

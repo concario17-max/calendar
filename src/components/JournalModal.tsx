@@ -6,6 +6,23 @@ import { generateGuidedQuestion } from '../utils/logic';
 
 const SOUL_JOURNAL_TITLE = "Rudolf Steiner's Calendar of the Soul";
 
+function formatJournalDateKey(date: Date) {
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${date.getFullYear()}-${month}-${day}`;
+}
+
+function getJournalStorageKeys(date: Date) {
+  const dateKey = formatJournalDateKey(date);
+
+  return {
+    dateKey,
+    entryKey: `journal_${dateKey}`,
+    questionKey: `journal_q_${dateKey}`,
+  };
+}
+
 interface JournalModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -68,18 +85,16 @@ export const JournalModal: React.FC<JournalModalProps> = ({
   yaoData,
   soulSections,
 }) => {
-  const dateStr = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
+  const { dateKey: dateStr, entryKey, questionKey } = getJournalStorageKeys(selectedDate);
   const [isDownloadMenuOpen, setIsDownloadMenuOpen] = useState(false);
   const downloadMenuRef = useRef<HTMLDivElement>(null);
 
   const [entry, setEntry] = useState(() => {
-    const savedKey = `journal_${dateStr}`;
-    return localStorage.getItem(savedKey) || '';
+    return localStorage.getItem(entryKey) || '';
   });
 
   const [question] = useState(() => {
-    const savedQuestionKey = `journal_q_${dateStr}`;
-    const savedQuestion = localStorage.getItem(savedQuestionKey);
+    const savedQuestion = localStorage.getItem(questionKey);
     return savedQuestion || generateGuidedQuestion(yaoTitle);
   });
 
@@ -107,8 +122,8 @@ export const JournalModal: React.FC<JournalModalProps> = ({
   }, []);
 
   const handleSave = () => {
-    localStorage.setItem(`journal_${dateStr}`, entry);
-    localStorage.setItem(`journal_q_${dateStr}`, question);
+    localStorage.setItem(entryKey, entry);
+    localStorage.setItem(questionKey, question);
 
     const toastEvent = new CustomEvent('show-toast', { detail: '저장되었습니다' });
     window.dispatchEvent(toastEvent);
