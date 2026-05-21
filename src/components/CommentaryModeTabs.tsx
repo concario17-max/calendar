@@ -17,7 +17,8 @@ export function CommentaryModeTabs({ value, onChange }: CommentaryModeTabsProps)
     <div
       role="radiogroup"
       aria-label="해설 선택"
-      className="ui-nav archive-segmented-control inline-flex items-stretch gap-1 rounded-full px-1 py-1"
+      aria-orientation="horizontal"
+      className="ui-nav archive-segmented-control inline-flex items-stretch gap-1.5 rounded-full px-1 py-1"
     >
       {COMMENTARY_MODE_OPTIONS.map((option) => {
         const active = value === option.value;
@@ -26,7 +27,7 @@ export function CommentaryModeTabs({ value, onChange }: CommentaryModeTabsProps)
         return (
           <label
             key={option.value}
-            className={`archive-segmented-control__option ui-nav__item flex min-h-10 cursor-pointer items-center gap-1.5 rounded-full px-3 py-2 text-[9px] font-semibold leading-none whitespace-nowrap transition-colors focus-within:ring-2 focus-within:ring-secondary/30 focus-within:ring-offset-2 focus-within:ring-offset-transparent ${
+            className={`archive-segmented-control__option ui-nav__item flex min-h-10 cursor-pointer items-center gap-1.5 rounded-full px-3 py-2 text-[9px] font-semibold leading-none whitespace-nowrap transition-colors transition-shadow focus-within:ring-2 focus-within:ring-secondary/30 focus-within:ring-offset-2 focus-within:ring-offset-transparent ${
               active
                 ? 'bg-surface-container-high text-on-surface'
                 : 'text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'

@@ -561,6 +561,13 @@
 - writer slots: worker_bundle_lazy = `src/hooks/useCalendarLogic.ts`, `src/components/IChingSection.tsx`, `src/components/MainContent.tsx`, `src/App.tsx`, `src/hooks/useCalendarLogic.test.ts`, `src/components/IChingSection.test.tsx`, `src/data/guaData.ts`, `src/data/yaoData.ts`, `src/data/soulData.ts`, `src/data/guaCommentary.ts`, `src/data/yaoCommentary.ts`, `src/data/bonusGuaCommentary.ts`, `src/data/bonusYaoCommentary.ts`; reviewer = leaf-module bundle lazy-load review
 - notes: the previous barrel import still left the heavy reading-data graph on the initial synchronous path, so the follow-up must import the leaf modules directly and keep the existing behavior intact
 
+## 2026-05-21
+- task: close the remaining build fix after the leaf-module lazy-loading cleanup
+- route: Route B
+- status: resolved
+- writer slots: worker_bundle_lazy = `src/components/IChingSection.tsx`; reviewer = leaf-module bundle lazy-load review
+- notes: a nullable commentary heading reference in `IChingSection` was tightened, and lint, targeted tests, and build all passed again
+
 - time: 2026-05-21 17:33 KST
   location: npm.cmd test -- --run
   summary: regression in IChingSection empty comic state
@@ -570,4 +577,16 @@
   location: STATE.md / MULTI_AGENT_LOG.md
   summary: scope widened to restore empty comic fallback text
   details: keep the leaf-module test alignment, but add a minimal IChingSection fallback change so commentary text remains visible when comic art is missing.
+  status: resolved
+
+- time: 2026-05-21 17:40 KST
+  location: STATE.md
+  summary: design-system cleanup task frozen as Route B
+  details: new task spans shared tokens plus multiple component variants; worker split recorded for token/global and surface adoption passes.
+  status: open
+
+- time: 2026-05-21 17:55 KST
+  location: STATE.md / MULTI_AGENT_LOG.md
+  summary: design-system cleanup implementation kicked off with refreshed token contract
+  details: token layer and component surface adoption stay split so shared primitives can settle first, then existing UI variants can adopt the new system without behavior drift.
   status: resolved

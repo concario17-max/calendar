@@ -102,7 +102,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
           ref={day === focusedDay ? focusedDayRef : undefined}
           aria-label={`${monthNames[month]} ${day}, ${year}`}
           aria-current={isSelected ? 'date' : undefined}
-          className={`ui-button flex h-9 w-9 items-center justify-center rounded-full p-0 text-xs transition-all active-scale focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-low ${
+          className={`ui-button flex h-9 w-9 items-center justify-center rounded-full p-0 text-xs transition-colors transition-shadow active-scale focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-low ${
             isSelected
               ? 'ui-button--secondary font-bold'
               : 'ui-button--ghost text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
@@ -121,20 +121,29 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
         aria-labelledby="date-picker-title"
         tabIndex={-1}
         className="ui-modal ui-surface--overlay fixed inset-x-4 top-20 z-50 mt-2 w-auto p-6 text-on-surface transition-all duration-300 transform scale-100 opacity-100 backdrop-blur-2xl sm:absolute sm:inset-auto sm:right-0 sm:top-14 sm:w-[320px]"
-        onKeyDown={(event) => {
-          const { key } = event;
+          onKeyDown={(event) => {
+            const { key } = event;
 
-          if (key === 'Escape') {
-            event.preventDefault();
-            setIsOpen(false);
-            return;
-          }
+            if (key === 'Escape') {
+              event.preventDefault();
+              setIsOpen(false);
+              return;
+            }
 
-          if (key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown') {
-            event.preventDefault();
-            if (key === 'ArrowLeft') {
-              moveFocusedDate(-1);
-            } else if (key === 'ArrowRight') {
+            if (key === 'Home' || key === 'End') {
+              event.preventDefault();
+              const newDate = new Date(focusedDate);
+              const dayOfWeek = newDate.getDay();
+              const delta = key === 'Home' ? -dayOfWeek : 6 - dayOfWeek;
+              moveFocusedDate(delta);
+              return;
+            }
+
+            if (key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown') {
+              event.preventDefault();
+              if (key === 'ArrowLeft') {
+                moveFocusedDate(-1);
+              } else if (key === 'ArrowRight') {
               moveFocusedDate(1);
             } else if (key === 'ArrowUp') {
               moveFocusedDate(-7);
@@ -150,7 +159,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
           }
         }}
       >
-        <div className="mb-6 flex items-center justify-between px-2">
+        <div className="mb-5 flex items-center justify-between gap-2 px-1.5">
           <button
             type="button"
             onClick={() => changeMonth(-1)}
@@ -160,7 +169,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
             <span className="sr-only">Previous month</span>
             <ChevronLeft size={20} />
           </button>
-          <span id="date-picker-title" className="font-headline text-lg font-semibold tracking-tight text-on-surface">
+          <span
+            id="date-picker-title"
+            aria-live="polite"
+            aria-atomic="true"
+            className="font-headline text-base font-semibold tracking-tight text-on-surface sm:text-lg"
+          >
             {monthNames[month]} {year}
           </span>
           <button
@@ -173,7 +187,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
             <ChevronRight size={20} />
           </button>
         </div>
-        <div className="grid grid-cols-7 gap-x-2 gap-y-4 text-center text-sm">
+        <div className="grid grid-cols-7 gap-x-2 gap-y-3 text-center text-sm">
           {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => (
             <div key={day} className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-on-surface-variant">
               {day}

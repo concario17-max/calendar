@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown, Download, Save, X } from 'lucide-react';
 import type { GuaData, SoulSection, YaoData } from '../types';
-import { GUA_TEXT, SOUL_TEXT, YAO_TEXT } from '../data';
+import { GUA_TEXT } from '../data/guaData';
+import { YAO_TEXT } from '../data/yaoData';
+import { SOUL_TEXT } from '../data/soulData';
 import { generateGuidedQuestion } from '../utils/logic';
 
 const SOUL_JOURNAL_TITLE = "Rudolf Steiner's Calendar of the Soul";

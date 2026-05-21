@@ -15,6 +15,22 @@ export default defineConfig({
             return 'vendor';
           }
 
+          if (id.includes('/src/data/yaoCommentary.ts')) {
+            return 'yao-commentary';
+          }
+
+          if (id.includes('/src/data/guaCommentary.ts')) {
+            return 'gua-commentary';
+          }
+
+          if (id.includes('/src/data/bonusYaoCommentary.ts')) {
+            return 'bonus-yao-commentary';
+          }
+
+          if (id.includes('/src/data/bonusGuaCommentary.ts')) {
+            return 'bonus-gua-commentary';
+          }
+
           if (id.includes('/src/data/guaData.ts')) {
             return 'gua-texts';
           }
@@ -25,6 +41,10 @@ export default defineConfig({
 
           if (id.includes('/src/data/soulData.ts')) {
             return 'soul-texts';
+          }
+
+          if (id.includes('/src/data/bonusReadings.ts')) {
+            return 'bonus-readings';
           }
 
           return undefined;

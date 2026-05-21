@@ -1,7 +1,7 @@
-﻿import { useMemo, useState } from 'react';
-import { GUA_TEXT, SOUL_TEXT, YAO_TEXT, getBonusGuaCommentary, getBonusYaoCommentary } from '../data';
+import { useEffect, useMemo, useState } from 'react';
 import { BONUS_DAY_READINGS } from '../data/bonusReadings';
 import type { BonusGuaItem, BonusMonthDayKey, BonusYaoItem, SoulGroup } from '../types';
+import { loadReadingDataBundle, type ReadingDataBundle } from '../utils/readingDataLoader';
 import {
   calcGuaNum,
   calcYaoNum,
@@ -15,17 +15,46 @@ import {
 
 export function useCalendarLogic() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [readingData, setReadingData] = useState<ReadingDataBundle | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void loadReadingDataBundle()
+      .then((module) => {
+        if (!cancelled) {
+          setReadingData(module);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setReadingData(null);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const { GUA_MAP, YAO_MAP, SOUL_GROUPS } = useMemo<{
     GUA_MAP: Map<number, string>;
     YAO_MAP: Map<number, string>;
     SOUL_GROUPS: SoulGroup[];
   }>(() => {
+    if (!readingData) {
+      return {
+        GUA_MAP: new Map<number, string>(),
+        YAO_MAP: new Map<number, string>(),
+        SOUL_GROUPS: [],
+      };
+    }
+
     try {
       return {
-        GUA_MAP: parseNumberedBlocks(GUA_TEXT),
-        YAO_MAP: parseNumberedBlocks(YAO_TEXT),
-        SOUL_GROUPS: parseSoulGroups(SOUL_TEXT),
+        GUA_MAP: parseNumberedBlocks(readingData.GUA_TEXT),
+        YAO_MAP: parseNumberedBlocks(readingData.YAO_TEXT),
+        SOUL_GROUPS: parseSoulGroups(readingData.SOUL_TEXT),
       };
     } catch {
       return {
@@ -34,7 +63,7 @@ export function useCalendarLogic() {
         SOUL_GROUPS: [],
       };
     }
-  }, []);
+  }, [readingData]);
 
   const yaoNum = calcYaoNum(selectedDate);
   const guaNum = calcGuaNum(yaoNum);
@@ -52,16 +81,16 @@ export function useCalendarLogic() {
   const isBonusDay = bonusDay !== null;
 
   const bonusGuaItems = useMemo<BonusGuaItem[]>(() => {
-    if (!bonusDay) return [];
+    if (!bonusDay || !readingData) return [];
 
-    return bonusDay.guaNums.map((num) => buildBonusGuaItem(num));
-  }, [bonusDay]);
+    return bonusDay.guaNums.map((num) => buildBonusGuaItem(num, readingData));
+  }, [bonusDay, readingData]);
 
   const bonusYaoItems = useMemo<BonusYaoItem[]>(() => {
-    if (!bonusDay) return [];
+    if (!bonusDay || !readingData) return [];
 
-    return bonusDay.yaoNums.map((num) => buildBonusYaoItem(num));
-  }, [bonusDay]);
+    return bonusDay.yaoNums.map((num) => buildBonusYaoItem(num, readingData));
+  }, [bonusDay, readingData]);
 
   const hitSoulGroup = useMemo(
     () => SOUL_GROUPS.find((group) => group.ranges.some((range) => isInRangeMD(month, day, range))),
@@ -92,8 +121,8 @@ function isBonusMonthDayKey(key: string): key is BonusMonthDayKey {
   return key === '4-2' || key === '4-3' || key === '4-4' || key === '4-5' || key === '4-6';
 }
 
-function buildBonusGuaItem(num: number): BonusGuaItem {
-  const commentary = getBonusGuaCommentary(num);
+function buildBonusGuaItem(num: number, readingData: ReadingDataBundle): BonusGuaItem {
+  const commentary = readingData.getBonusGuaCommentary(num);
 
   if (commentary) {
     return {
@@ -112,8 +141,8 @@ function buildBonusGuaItem(num: number): BonusGuaItem {
   };
 }
 
-function buildBonusYaoItem(num: number): BonusYaoItem {
-  const commentary = getBonusYaoCommentary(num);
+function buildBonusYaoItem(num: number, readingData: ReadingDataBundle): BonusYaoItem {
+  const commentary = readingData.getBonusYaoCommentary(num);
 
   if (commentary) {
     return {

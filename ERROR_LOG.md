@@ -419,3 +419,15 @@ status: resolved
   summary: Repository verification is blocked by pre-existing feature-file errors outside the allowed shared slice
   details: ESLint still reports `src/components/DatePicker.tsx` and `src/components/IChingSection.tsx`; Vitest and the build fail because `formatWeeksLabel` is not exported from `src/components/SoulCalendarSection.tsx`. Those files are outside the requested edit scope, so the shared contracts/helpers slice cannot make the repo green on its own.
   status: open
+
+- time: 2026-05-21
+  location: src/hooks/useCalendarLogic.test.ts, src/components/IChingSection.test.tsx
+  summary: leaf-loader test fixtures were still mocking the old barrel path
+  details: After switching JournalModal and the shared reading hook to direct leaf imports, the tests no longer saw the expected commentary fixture data. Updated both tests to mock `../utils/readingDataLoader` directly and restored the leaf-load expectations.
+  status: resolved
+
+- time: 2026-05-21 17:39 KST
+  location: `src/components/IChingSection.tsx`
+  summary: build failed on a nullable commentary heading reference after the leaf-loader cleanup
+  details: `tsc -b` rejected the direct `commentary.heading` read because `commentary` can be null in the render path. Tightened the heading access to a local nullable value, then reran lint, targeted tests, and build successfully.
+  status: resolved

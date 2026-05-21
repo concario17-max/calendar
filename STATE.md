@@ -1,40 +1,41 @@
 # Current Task
-- Active: restore the empty-comic fallback so commentary text still renders when the leaf-loaded reading data has no comic image.
+- Active: design-system token cleanup and component variant harmonization for launch readiness, with existing behavior preserved.
 
 # Route
 - Route B
-- Reason: the scope now spans a feature-file render fix plus the matching hook/component test updates after the lazy-load refactor.
+- Reason: the scope spans shared style assets plus multiple component surfaces, and it needs coordinated token + variant changes with tests and build verification.
 
 # Writer Slot
 - main: planner-only for STATE and log updates
-- feature_tests: write lane for `src/hooks/useCalendarLogic.test.ts` and `src/components/IChingSection.test.tsx`
-- feature_feature_render: write lane for `src/components/IChingSection.tsx` only for the empty-comic fallback restore
+- worker_tokens: shared design tokens, globals, and only the shared primitives that are truly needed
+- worker_surfaces: component-side adoption of the unified variants across navigation, cards, forms, modal, and reading surfaces
+- reviewer: pending for the design-system integration pass
 
 # Contract Freeze
-- Goal: keep the visible behavior unchanged while restoring commentary text rendering in the empty-comic fallback after the leaf-module lazy-load path.
+- Goal: make the app feel premium, fast, trustworthy, and mobile-first by unifying the design system without changing features.
 - Non-goals:
   - do not add new libraries
-  - do not change reading/content semantics
-  - do not touch shell/accessibility files
+  - do not change route behavior or content semantics
+  - do not touch untracked user folders/files
 - Write sets:
-  - feature_tests: `src/hooks/useCalendarLogic.test.ts`
-  - feature_tests: `src/components/IChingSection.test.tsx`
-  - feature_feature_render: `src/components/IChingSection.tsx`
-  - main: `STATE.md`
-  - main: `MULTI_AGENT_LOG.md`
+  - worker_tokens: `src/index.css`, `tailwind.config.js`, `src/components/shared/*` if truly needed
+  - worker_surfaces: `src/components/Header.tsx`, `src/components/CommentaryModeTabs.tsx`, `src/components/DatePicker.tsx`, `src/components/JournalModal.tsx`, `src/components/MainContent.tsx`, `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`
+  - main: `STATE.md`, `MULTI_AGENT_LOG.md`
 - Acceptance criteria:
-  - tests mock the new `../utils/readingDataLoader` helper instead of the old barrel path
-  - hook/component behavior stays the same after async leaf-module resolution
-  - empty comic state still renders commentary text blocks
-  - `npm.cmd run lint`, `npm.cmd run test -- --run src/hooks/useCalendarLogic.test.ts src/components/IChingSection.test.tsx`, and `npm.cmd run build` pass
-- Why the write split is safe:
-  - this is a narrow render fallback fix plus test alignment slice; the shared loader implementation stays untouched
+  - color, type, spacing, radius, shadow, and border rules come from a single coherent system
+  - buttons, cards, inputs, modal, and navigation share consistent variants and states
+  - dark mode stays supported through existing tokens or token bridges
+  - existing UI behavior remains intact
+  - `npm.cmd run lint`, `npm.cmd run test -- --run`, and `npm.cmd run build` pass
+- Why the split is safe:
+  - token/global changes are separable from component adoption, but they must agree on the same shared contract
 
 # Reviewer
-- reviewer: pending for the shared-data test alignment slice
+- reviewer: pending for the design-system integration pass
 - reviewer focus:
-  - async leaf-module expectation parity for hook/component tests
-  - empty comic fallback still exposes commentary text
+  - token consistency and semantic usage
+  - shared component variant consistency across screens
+  - mobile-first spacing/typography balance without regressions
 
 # Last Update
-- 2026-05-21: empty comic fallback restored so commentary text still renders when the comic image is missing.
+- 2026-05-21: design-system cleanup implemented and verified with lint, test, and build; typecheck script is still not defined in package.json.

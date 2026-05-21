@@ -1,6 +1,10 @@
-import { BONUS_GUA_COMMENTARY_NUMS } from './bonusGuaCommentary';
-import { BONUS_YAO_COMMENTARY_NUMS } from './bonusYaoCommentary';
 import type { BonusDayReading, BonusMonthDayKey } from '../types';
+
+const BONUS_GUA_COMMENTARY_NUMS = [1, 2, 3, 4] as const;
+const BONUS_YAO_COMMENTARY_NUMS = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+  13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+] as const;
 
 function createBonusReading(
   key: BonusMonthDayKey,

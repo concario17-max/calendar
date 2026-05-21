@@ -64,8 +64,8 @@ export const MainContent: React.FC<MainContentProps> = ({
           onCommentarySourceChange={handleCommentarySourceChange}
         />
 
-        <div className="px-3 sm:px-4 lg:px-8">
-          <p className="max-w-[18rem] border-t border-border-subtle/60 pt-2 text-[0.72rem] leading-snug text-on-surface-variant sm:max-w-none sm:text-[0.78rem]">
+        <div className="px-4 sm:px-4 lg:px-8">
+          <p className="max-w-[18rem] rounded-[1rem] border border-outline-variant/35 bg-surface-container-low/70 px-3 py-2 text-[0.72rem] leading-snug text-on-surface-variant shadow-[0_10px_24px_-26px_var(--color-shadow)] sm:max-w-none sm:text-[0.78rem]">
             날짜를 고르고 해설을 전환해 읽는 아카이브입니다.
           </p>
         </div>
