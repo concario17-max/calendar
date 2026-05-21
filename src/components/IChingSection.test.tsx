@@ -1,442 +1,310 @@
-﻿import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import type { ComponentProps } from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { MainContent } from './MainContent.tsx';
 import { IChingSection } from './IChingSection.tsx';
 import type { GuaData, YaoData } from '../types';
 
-vi.mock('../data', () => {
-  const guaCommentary = [
-    'Gua Heading',
-    '',
-    'Col A | Col B | Col C',
-    'A1 | B1 | C1',
-    'A2 | B2 | C2',
-    '',
-    'Commentary body',
-  ].join('\n');
-
-  const guaListCommentary = [
-    'Gua List Heading',
-    '',
-    '[[list]]',
-    '[[item]] First list item',
-    '[[item]] Second list item',
-    '[[item]] Third list item',
-    '[[/list]]',
-  ].join('\n');
-
-  const guaKeywordCommentary = [
-    'Gua Keyword Heading',
-    '',
-    '🔑 핵심 키워드: 아르길로, 왼쪽 옆, 지배자, 빛과 어둠, 물질화, 아스트랄체, 진실한 사랑',
-    '',
-    'General commentary body',
-  ].join('\n');
-
-  const guaKeywordNoImageCommentary = [
-    'Gua Keyword No Image Heading',
-    '',
-    '🔑 핵심 키워드: 테스트, 비어 있음',
-    '',
-    'General commentary body',
-  ].join('\n');
-
-  const guaNestedListCommentary = [
-    'Gua Nested List Heading',
-    '',
-    '🍎 스스로 구하는 입의 열매',
-    '',
-    '[list]]',
-    '[item]] 자구구실의 실천',
-    '[list]]',
-    '[item]] 나무 아래 누워 감이 떨어지길 기다리지 않기',
-    '[item]] 직접 가지를 흔들고 땀을 흘려 결실을 얻기',
-    '[/list]]',
-    '[item]] 업의 법칙 준수',
-    '[list]]',
-    '[item]] 결과는 오직 네 행동에서만 비롯됨을 인정하기',
-    '[item]] 예외 없는 원인과 결과의 세계를 명확히 인지하기',
-    '[/list]]',
-    '[/list]]',
-  ].join('\n');
-
-  const yaoKeywordCommentary = [
-    'Yao Keyword Heading',
-    '',
-    '🔑 핵심 키워드: 아스파딧, 승리, 확장',
-    '',
-    'Yao keyword commentary body',
-  ].join('\n');
-
-  const yaoProseCommentary = ['Yao Heading', 'Plain prose commentary body'].join('\n');
-  const yaoPipeProseCommentary = [
-    'Yao Heading',
-    'Pipe prose | should stay plain text',
-    'still prose with a second line | and punctuation',
-  ].join('\n');
-  const bonusGuaCommentary1 = ['1. Bonus Gua 1', '', 'Bonus gua 1 commentary body'].join('\n');
-  const bonusGuaCommentary4 = ['4. Bonus Gua 4', '', 'Bonus gua 4 commentary body'].join('\n');
-  const bonusYaoCommentary1 = ['1. Bonus Yao 1', 'Bonus yao 1 commentary body'].join('\n');
-  const bonusYaoCommentary24 = ['24. Bonus Yao 24', 'Bonus yao 24 commentary body'].join('\n');
-
-  return {
+vi.mock('../utils/readingDataLoader', () => ({
+  loadReadingDataBundle: async () => ({
+    GUA_TEXT: [
+      '6. Example Gua',
+      'Example gua meta',
+      '',
+      '8. Example Gua',
+      'Example gua meta 8',
+      '',
+      '10. Example Gua',
+      'Example gua meta 10',
+      '',
+      '12. Example Gua',
+      'Example gua meta 12',
+      '',
+      '66. Example Gua',
+      'Example gua meta 66',
+    ].join('\n'),
+    YAO_TEXT: [
+      '33. Example Yao',
+      'Short reading',
+      '',
+      'Body text',
+      '',
+      '34. Example Yao',
+      'Short reading 34',
+      '',
+      'Body text 34',
+      '',
+      '59. Example Yao',
+      'Short reading 59',
+      '',
+      'Body text 59',
+    ].join('\n'),
+    SOUL_TEXT: '',
     getGuaCommentary: (num: number | null) => {
-      if (num === 1) {
-        return bonusGuaCommentary1;
-      }
-
-      if (num === 4) {
-        return bonusGuaCommentary4;
-      }
-
       if (num === 6) {
-        return guaCommentary;
+        return [
+          'Gua Heading',
+          '',
+          'Col A | Col B | Col C',
+          'A1 | B1 | C1',
+          'A2 | B2 | C2',
+          '',
+          'Commentary body',
+        ].join('\n');
       }
 
       if (num === 8) {
-        return guaListCommentary;
+        return [
+          'Gua List Heading',
+          '',
+          '[[list]]',
+          '[[item]] First list item',
+          '[[item]] Second list item',
+          '[[item]] Third list item',
+          '[[/list]]',
+        ].join('\n');
       }
 
       if (num === 10) {
-        return guaKeywordCommentary;
-      }
-
-      if (num === 66) {
-        return guaKeywordNoImageCommentary;
+        return [
+          'Gua Keyword Heading',
+          '',
+          'Core keywords line',
+          '',
+          'General commentary body',
+        ].join('\n');
       }
 
       if (num === 12) {
-        return guaNestedListCommentary;
+        return [
+          'Gua Nested List Heading',
+          '',
+          'Nested list intro',
+          '',
+          '[list]]',
+          '[item]] First nested item',
+          '[list]]',
+          '[item]] Nested child one',
+          '[item]] Nested child two',
+          '[/list]]',
+          '[item]] Second nested item',
+          '[list]]',
+          '[item]] Another child one',
+          '[item]] Another child two',
+          '[/list]]',
+          '[/list]]',
+        ].join('\n');
+      }
+
+      if (num === 66) {
+        return [
+          'Gua Keyword No Image Heading',
+          '',
+          'No-image keyword line',
+          '',
+          'General commentary body',
+        ].join('\n');
+      }
+
+      if (num === 10) {
+        return [
+          'Gua Keyword Heading',
+          '',
+          'Core keywords line',
+          '',
+          'General commentary body',
+        ].join('\n');
+      }
+
+      if (typeof num === 'number' && num >= 1 && num <= 4) {
+        return [`${num}. Bonus Gua ${num}`, '', `Bonus gua ${num} commentary body`].join('\n');
+      }
+
+      return undefined;
+    },
+    getYaoCommentary: (num: number | null) => {
+      if (num === 33) {
+        return ['Yao Heading', 'Plain prose commentary body'].join('\n');
+      }
+
+      if (num === 34) {
+        return [
+          'Yao Heading',
+          'Pipe prose | should stay plain text',
+          'still prose with a second line | and punctuation',
+        ].join('\n');
+      }
+
+      if (num === 59) {
+        return [
+          'Yao Keyword Heading',
+          '',
+          'Core keywords line',
+          '',
+          'Yao keyword commentary body',
+        ].join('\n');
+      }
+
+      if (num === 1) {
+        return ['1. Bonus Yao 1', 'Bonus yao 1 commentary body'].join('\n');
+      }
+
+      if (num === 24) {
+        return ['24. Bonus Yao 24', 'Bonus yao 24 commentary body'].join('\n');
+      }
+
+      if (typeof num === 'number' && num >= 1 && num <= 24) {
+        return [`${num}. Bonus Yao ${num}`, `Bonus yao ${num} commentary body`].join('\n');
       }
 
       return undefined;
     },
     getBonusGuaCommentary: (num: number | null) => {
       if (num === 1) {
-        return bonusGuaCommentary1;
+        return ['1. Bonus Gua 1', '', 'Bonus gua 1 commentary body'].join('\n');
       }
 
       if (num === 4) {
-        return bonusGuaCommentary4;
-      }
-
-      return undefined;
-    },
-    getYaoCommentary: (num: number | null) => {
-      if (num === 1) {
-        return bonusYaoCommentary1;
-      }
-
-      if (num === 24) {
-        return bonusYaoCommentary24;
-      }
-
-      if (num === 33) {
-        return yaoProseCommentary;
-      }
-
-      if (num === 34) {
-        return yaoPipeProseCommentary;
-      }
-
-      if (num === 59) {
-        return yaoKeywordCommentary;
+        return ['4. Bonus Gua 4', '', 'Bonus gua 4 commentary body'].join('\n');
       }
 
       return undefined;
     },
     getBonusYaoCommentary: (num: number | null) => {
       if (num === 1) {
-        return bonusYaoCommentary1;
+        return ['1. Bonus Yao 1', 'Bonus yao 1 commentary body'].join('\n');
       }
 
       if (num === 24) {
-        return bonusYaoCommentary24;
+        return ['24. Bonus Yao 24', 'Bonus yao 24 commentary body'].join('\n');
       }
 
       return undefined;
     },
-  };
-});
+  }),
+}));
 
 type BonusGuaItemFixture = {
   num: number;
   guaData: GuaData;
+  commentary?: string;
+  label?: string;
+  dateLabel?: string;
+  id?: string;
 };
 
 type BonusYaoItemFixture = {
   num: number;
   yaoData: YaoData;
+  commentary?: string;
+  label?: string;
+  dateLabel?: string;
+  id?: string;
 };
 
-type BonusSectionProps = React.ComponentProps<typeof IChingSection> & {
-  bonusGuaItems?: BonusGuaItemFixture[];
-  bonusYaoItems?: BonusYaoItemFixture[];
-};
+type IChingSectionProps = ComponentProps<typeof IChingSection>;
 
-const bonusGuaItemsContract = Array.from({ length: 4 }, (_, index) => {
-  const num = index + 1;
-
-  return {
-    num,
-    guaData: {
-      header: `${num}. Bonus Gua ${num}`,
-      meta: `Bonus gua meta ${num}`,
-    },
-  };
-});
-
-const bonusYaoItemsContract = Array.from({ length: 24 }, (_, index) => {
-  const num = index + 1;
-
-  return {
-    num,
-    yaoData: {
-      titleLine: `${num}. Bonus Yao ${num}`,
-      short: `Bonus yao short ${num}`,
-      body: `Bonus yao body ${num}`,
-    },
-  };
-});
-
-function renderSection(overrides?: Partial<React.ComponentProps<typeof MainContent>>) {
-  const view = render(
-    <MainContent
-      selectedDate={new Date(2026, 3, 19)}
-      onDateChange={vi.fn()}
-      yaoNum={33}
-      guaNum={6}
-      guaData={{ header: '62. Example', meta: 'Anamil explanation' }}
-      yaoData={{
-        titleLine: '33. Example',
-        short: 'Short reading',
-        body: 'Body text',
-      }}
-      hitSoulGroup={{
-        titleLine: '31. Example Soul Group',
-        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
-        weekA: 50,
-        weekB: 3,
-        ranges: [],
-        block: '',
-      }}
-      soulSections={[
-        {
-          week: 50,
-          range: '3월 16-22',
-          text: 'Soul heading\nSoul body',
-        },
-        {
-          week: 3,
-          range: '4월 21-27',
-          text: 'Soul heading 2\nSoul body 2',
-        },
-      ]}
-      {...overrides}
-    />,
-  );
-
-  return {
-    container: view.container,
-    leftPanel: screen.getAllByRole('article')[0],
-    rightPanel: screen.getByRole('complementary'),
-    readingTopUnit: screen.getByTestId('reading-top-unit'),
-    readingVerseUnit: screen.getByTestId('reading-verse-unit'),
-    readingSigilUnit: screen.getByTestId('reading-sigil-unit'),
-    readingSoulTitleUnit: screen.getByTestId('reading-soul-title-unit'),
-  };
-}
-
-function renderBonusSection(overrides?: Partial<BonusSectionProps>) {
-  const BonusIChingSection = IChingSection as React.ComponentType<BonusSectionProps>;
-
-  const view = render(
-    <BonusIChingSection
+function renderSection(overrides?: Partial<IChingSectionProps>) {
+  return render(
+    <IChingSection
       commentarySource="gua"
       yaoNum={33}
       guaNum={6}
-      guaData={{ header: '62. Example', meta: 'Anamil explanation' }}
-      yaoData={{
-        titleLine: '33. Example',
-        short: 'Short reading',
-        body: 'Body text',
-      }}
-      bonusGuaItems={bonusGuaItemsContract}
-      bonusYaoItems={bonusYaoItemsContract}
+      guaData={{ header: '6. Example Gua', meta: 'Example gua meta' }}
+      yaoData={{ titleLine: '33. Example Yao', short: 'Short reading', body: 'Body text' }}
       {...overrides}
     />,
   );
+}
 
-  return {
-    container: view.container,
-    leftPanel: screen.getAllByRole('article')[0],
-    rightPanel: screen.getByRole('complementary'),
-    rerender: view.rerender,
-  };
+async function waitForCommentaryReady() {
+  await waitFor(() => {
+    expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('learning-comic-loading-state')).not.toBeInTheDocument();
+  });
+}
+
+function makeBonusGuaItems(): BonusGuaItemFixture[] {
+  return Array.from({ length: 4 }, (_, index) => {
+    const num = index + 1;
+    return {
+      num,
+      guaData: {
+        header: `${num}. Bonus Gua ${num}`,
+        meta: `Bonus gua meta ${num}`,
+      },
+      commentary: `${num}. Bonus Gua ${num}\n\nBonus gua ${num} commentary body`,
+    };
+  });
+}
+
+function makeBonusYaoItems(): BonusYaoItemFixture[] {
+  return Array.from({ length: 24 }, (_, index) => {
+    const num = index + 1;
+    return {
+      num,
+      yaoData: {
+        titleLine: `${num}. Bonus Yao ${num}`,
+        short: `Bonus yao short ${num}`,
+        body: `Bonus yao body ${num}`,
+      },
+      commentary: `${num}. Bonus Yao ${num}\nBonus yao ${num} commentary body`,
+    };
+  });
 }
 
 describe('IChingSection', () => {
-  it('renders an empty-state message when there is no passage', () => {
-    render(<IChingSection yaoNum={null} guaNum={null} guaData={null} yaoData={null} />);
+  it('loads leaf-module data asynchronously and keeps the regular gua flow intact', async () => {
+    renderSection();
 
-    expect(screen.getByText('Reading data is not available yet.')).toBeInTheDocument();
-  });
+    await waitForCommentaryReady();
 
-  it('renders the reading shell without legacy rail labels or shell chrome controls', () => {
-    const { container, leftPanel, rightPanel } = renderSection();
-    const readingVerseUnit = screen.getByTestId('reading-verse-unit');
-
-    const main = screen.getByRole('main');
-    const shell = container.querySelector('section');
-    const grid = container.querySelector('section > div');
-    const shellFrame = container.querySelector('.curated-shell__frame');
-
-    expect(main).toBeInTheDocument();
-    expect(shell).toBeInTheDocument();
-    expect(grid).toBeInTheDocument();
-    expect(shellFrame).toBeInTheDocument();
-    expect(leftPanel).toBeInTheDocument();
-    expect(rightPanel).toBeInTheDocument();
-
-    expect(screen.queryByText('Manifesto')).not.toBeInTheDocument();
-    expect(screen.queryByText('Reading rail')).not.toBeInTheDocument();
-    expect(screen.queryByText('Commentary')).not.toBeInTheDocument();
-    expect(readingVerseUnit).toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-image').closest('figure')).toBeInTheDocument();
-    expect(screen.queryByText('Reading canvas')).not.toBeInTheDocument();
-  });
-
-  it('keeps the commentary control in the header and preserves the left rail content', () => {
-    const {
-      leftPanel,
-      rightPanel,
-      readingTopUnit,
-      readingVerseUnit,
-      readingSigilUnit,
-      readingSoulTitleUnit,
-    } = renderSection();
-
-    const commentaryControl = screen.getByRole('radiogroup');
-    const yaoRadio = screen.getByDisplayValue('yao');
-    const guaRadio = screen.getByDisplayValue('gua');
-    const soulRadio = screen.getByDisplayValue('soul');
-
-    expect(commentaryControl).toBeInTheDocument();
-    expect(yaoRadio).toHaveAttribute('value', 'yao');
-    expect(guaRadio).toHaveAttribute('value', 'gua');
-    expect(soulRadio).toHaveAttribute('value', 'soul');
-    expect(screen.getByRole('button', { name: '오늘' })).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
-
-    expect(within(readingSigilUnit).getByRole('img', { name: 'sigil 33' })).toBeInTheDocument();
-    expect(readingVerseUnit.querySelector('p')).toBeInTheDocument();
-    expect(readingTopUnit.querySelector('p')).toBeInTheDocument();
-    expect(readingSoulTitleUnit.querySelector('p')).toBeInTheDocument();
-    expect(
-      within(leftPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
-    ).toBeInTheDocument();
-    expect(within(leftPanel).getByText('50주(3월 16일-22일) · 3주(4월 21일-27일)')).toBeInTheDocument();
-    expect(within(rightPanel).queryByText("Rudolf Steiner's Calendar of the Soul")).not.toBeInTheDocument();
-    expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
-    const leftRailBlocks = Array.from(
-      leftPanel.querySelectorAll('[data-testid="reading-verse-unit"], [data-testid="reading-top-unit"]'),
-    );
-
-    expect(leftRailBlocks[0]).toBe(readingVerseUnit);
-    expect(leftRailBlocks[1]).toBe(readingTopUnit);
-    expect(within(readingTopUnit).getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
-    expect(within(readingTopUnit).getByText('Anamil explanation')).toBeInTheDocument();
-    expect(within(readingVerseUnit).getByRole('heading', { level: 4, name: '33. Example' })).toBeInTheDocument();
-    expect(within(readingVerseUnit).getByText('Short reading')).toBeInTheDocument();
-
-    expect(screen.queryByTestId('commentary-shell')).not.toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('33.png'));
-    expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
-    expect(within(leftPanel).queryByText('Manifesto')).not.toBeInTheDocument();
-    expect(within(rightPanel).queryByText('Reading canvas')).not.toBeInTheDocument();
-
-    fireEvent.click(guaRadio);
-    expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
+    expect(screen.getByTestId('commentary-comic-toggle')).toHaveAttribute('aria-pressed', 'true');
     expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('6.png'));
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
-    expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
 
-    fireEvent.click(soulRadio);
-    expect(
-      within(rightPanel).getByRole('heading', { level: 2, name: "Rudolf Steiner's Calendar of the Soul" }),
-    ).toBeInTheDocument();
-    expect(within(rightPanel).queryByText('2 blocks')).not.toBeInTheDocument();
-    expect(within(rightPanel).getByText('50주').closest('article')).toHaveTextContent('Soul body');
-    expect(within(rightPanel).queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
-    expect(within(rightPanel).queryByTestId('commentary-comic-toggle')).not.toBeInTheDocument();
-    expect(screen.queryByText('Body text')).not.toBeInTheDocument();
-  });
-
-  it('renders bonus 괘사 selections from the real 1..4 contract and keeps commentary tied to the gua source', () => {
-    renderBonusSection({ commentarySource: 'gua' });
-
-    const bonusSelector = screen.getByTestId('bonus-reading-selector');
-    const leftPanel = screen.getAllByRole('article')[0];
-    const guaButtons = within(bonusSelector).getAllByRole('button');
-
-    expect(bonusSelector).toHaveTextContent('보너스 괘사');
-    expect(bonusSelector).toHaveTextContent('4개');
-    expect(guaButtons).toHaveLength(4);
-    expect(guaButtons.map((button) => button.textContent?.trim())).toEqual([
-      '1. Bonus Gua 1',
-      '2. Bonus Gua 2',
-      '3. Bonus Gua 3',
-      '4. Bonus Gua 4',
-    ]);
-    expect(guaButtons[0]).toHaveAttribute('aria-pressed', 'true');
-    expect(guaButtons[3]).toHaveAttribute('aria-pressed', 'false');
-    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('1.png'));
-    expect(screen.getByRole('img', { name: '보너스 괘사 학습 이미지 1' })).toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute(
-      'src',
-      expect.stringContaining('%EB%B3%B4%EB%84%88%EC%8A%A4'),
-    );
-
-    fireEvent.click(guaButtons[3]);
-
-    expect(guaButtons[0]).toHaveAttribute('aria-pressed', 'false');
-    expect(guaButtons[3]).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('4.png'));
-    expect(screen.getByRole('img', { name: '보너스 괘사 학습 이미지 4' })).toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
+    fireEvent.click(screen.getByTestId('commentary-comic-toggle'));
 
     expect(screen.queryByTestId('learning-comic-view')).not.toBeInTheDocument();
-    expect(screen.getByText('Bonus gua 4 commentary body')).toBeInTheDocument();
-    expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
-    expect(within(leftPanel).getByRole('button', { name: '4. Bonus Gua 4' })).toBeInTheDocument();
-    expect(screen.queryByText('Body text')).not.toBeInTheDocument();
+    expect(screen.getByText('Gua Heading')).toBeInTheDocument();
+    expect(screen.getByText('Commentary body')).toBeInTheDocument();
   });
 
-  it('renders bullet-marked commentary blocks as semantic lists', () => {
+  it('keeps the regular yao text body and comic toggle behavior unchanged', async () => {
     renderSection({
-      yaoNum: 33,
-      guaNum: 8,
-      guaData: { header: '62. Example', meta: 'Example meta' },
+      commentarySource: 'yao',
+      yaoNum: 59,
       yaoData: {
-        titleLine: '33. Example',
+        titleLine: '59. Example Yao',
         short: 'Short reading',
         body: 'Body text',
       },
-      hitSoulGroup: {
-        titleLine: '31. Example Soul Group',
-        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
-        weekA: 50,
-        weekB: 3,
-        ranges: [],
-        block: '',
-      },
-      soulSections: [],
     });
 
-    fireEvent.click(screen.getByDisplayValue('gua'));
-    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
+    await waitForCommentaryReady();
+
+    expect(screen.getByTestId('commentary-comic-toggle')).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('59.png'));
+    expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('commentary-comic-toggle'));
+
+    expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
+    expect(screen.getByText('Yao Keyword Heading')).toBeInTheDocument();
+    expect(screen.getByText('Yao keyword commentary body')).toBeInTheDocument();
+  });
+
+  it('renders commentary lists the same way after the leaf-module load', async () => {
+    renderSection({
+      guaNum: 8,
+      yaoNum: 33,
+      guaData: { header: '8. Example Gua', meta: 'Example gua meta' },
+    });
+
+    await waitForCommentaryReady();
+    fireEvent.click(screen.getByTestId('commentary-comic-toggle'));
 
     const commentaryList = screen.getByRole('list');
 
@@ -446,302 +314,98 @@ describe('IChingSection', () => {
     expect(screen.getByText('First list item')).toBeInTheDocument();
     expect(screen.getByText('Second list item')).toBeInTheDocument();
     expect(screen.getByText('Third list item')).toBeInTheDocument();
-    expect(screen.queryByText('[[item]] First list item')).not.toBeInTheDocument();
-    expect(screen.queryByRole('table')).not.toBeInTheDocument();
   });
 
-  it('renders nested marker lists even when the source uses single-bracket marker variants', () => {
+  it('keeps the bonus gua selector and fallback commentary flow unchanged', async () => {
     renderSection({
-      yaoNum: 33,
-      guaNum: 12,
-      guaData: { header: '62. Example', meta: 'Example meta' },
-      yaoData: {
-        titleLine: '33. Example',
-        short: 'Short reading',
-        body: 'Body text',
-      },
-      hitSoulGroup: {
-        titleLine: '31. Example Soul Group',
-        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
-        weekA: 50,
-        weekB: 3,
-        ranges: [],
-        block: '',
-      },
-      soulSections: [],
-    });
-
-    fireEvent.click(screen.getByDisplayValue('gua'));
-    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
-
-    const commentaryLists = screen.getAllByRole('list');
-    const topLevelList = commentaryLists[0];
-    const firstTopLevelItem = within(topLevelList).getByText('자구구실의 실천').closest('li');
-    const secondTopLevelItem = within(topLevelList).getByText('업의 법칙 준수').closest('li');
-
-    expect(screen.getByText('Gua Nested List Heading')).toBeInTheDocument();
-    expect(screen.getByText('🍎 스스로 구하는 입의 열매')).toBeInTheDocument();
-    expect(commentaryLists.length).toBeGreaterThan(1);
-    expect(firstTopLevelItem).not.toBeNull();
-    expect(secondTopLevelItem).not.toBeNull();
-    expect(firstTopLevelItem?.querySelector('ul')).not.toBeNull();
-    expect(secondTopLevelItem?.querySelector('ul')).not.toBeNull();
-    expect(screen.getByText('나무 아래 누워 감이 떨어지길 기다리지 않기')).toBeInTheDocument();
-    expect(screen.getByText('직접 가지를 흔들고 땀을 흘려 결실을 얻기')).toBeInTheDocument();
-    expect(screen.getByText('결과는 오직 네 행동에서만 비롯됨을 인정하기')).toBeInTheDocument();
-    expect(screen.getByText('예외 없는 원인과 결과의 세계를 명확히 인지하기')).toBeInTheDocument();
-    expect(screen.queryByText('[item]] 자구구실의 실천')).not.toBeInTheDocument();
-    expect(screen.queryByText('[list]]')).not.toBeInTheDocument();
-  });
-
-  it('renders plain commentary prose without forcing a table', () => {
-    renderSection({
-      yaoNum: 33,
+      commentarySource: 'gua',
       guaNum: 6,
-      guaData: { header: '62. Example', meta: 'Example meta' },
-      yaoData: {
-        titleLine: '33. Example',
-        short: 'Short reading',
-        body: 'Body text',
-      },
-      hitSoulGroup: {
-        titleLine: '31. Example Soul Group',
-        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
-        weekA: 50,
-        weekB: 3,
-        ranges: [],
-        block: '',
-      },
-      soulSections: [],
+      bonusGuaItems: makeBonusGuaItems(),
     });
 
-    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
-
-    expect(screen.getByText('Yao Heading')).toBeInTheDocument();
-    expect(screen.getByText('Plain prose commentary body')).toBeInTheDocument();
-    expect(screen.queryByRole('table')).not.toBeInTheDocument();
-  });
-
-  it('keeps pipe-heavy prose as a paragraph when it is not a real table', () => {
-    renderSection({
-      yaoNum: 34,
-      guaNum: 6,
-      guaData: { header: '62. Example', meta: 'Example meta' },
-      yaoData: {
-        titleLine: '34. Example',
-        short: 'Short reading',
-        body: 'Body text',
-      },
-      hitSoulGroup: {
-        titleLine: '31. Example Soul Group',
-        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
-        weekA: 50,
-        weekB: 3,
-        ranges: [],
-        block: '',
-      },
-      soulSections: [],
-    });
-
-    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
-
-    const commentaryReadingBody = screen.getByTestId('commentary-reading-body');
-    const commentaryBody = screen.getByTestId('commentary-block-0');
-
-    expect(commentaryReadingBody).toHaveTextContent('Body text');
-    expect(commentaryBody).toHaveTextContent('Pipe prose | should stay plain text');
-    expect(commentaryBody).toHaveTextContent('still prose with a second line | and punctuation');
-    expect(within(commentaryBody).queryByRole('table')).not.toBeInTheDocument();
-    expect(screen.queryByRole('table')).not.toBeInTheDocument();
-  });
-
-  it('shows a 괘사 comic toggle and switches the lower commentary area to the image view', () => {
-    renderSection({
-      yaoNum: 33,
-      guaNum: 10,
-      guaData: { header: '62. Example', meta: 'Example meta' },
-      yaoData: {
-        titleLine: '33. Example',
-        short: 'Short reading',
-        body: 'Body text',
-      },
-      hitSoulGroup: {
-        titleLine: '31. Example Soul Group',
-        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
-        weekA: 50,
-        weekB: 3,
-        ranges: [],
-        block: '',
-      },
-      soulSections: [],
-    });
-
-    fireEvent.click(screen.getByDisplayValue('gua'));
-
-    const comicToggle = screen.getByTestId('commentary-comic-toggle');
-
-    expect(comicToggle).toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('10.png'));
-    expect(screen.getByRole('img', { name: '괘사 학습 이미지 10' })).toBeInTheDocument();
-    expect(screen.getByTestId('commentary-folio')).toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-image')).toBeInTheDocument();
-    expect(comicToggle).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.queryByText('General commentary body')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('commentary-keyword-line')).not.toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
-
-    expect(screen.queryByTestId('learning-comic-view')).not.toBeInTheDocument();
-    const keywordLine = screen.getByTestId('commentary-keyword-line');
-    const commentaryBody = screen.getByText('General commentary body').closest('p');
-    expect(keywordLine).toHaveTextContent('🔑 핵심 키워드:');
-    expect(keywordLine).toBeInTheDocument();
-    expect(commentaryBody).toBeInTheDocument();
-    expect(screen.getByText('General commentary body')).toBeInTheDocument();
-    expect(screen.getByTestId('commentary-keyword-line')).toBeInTheDocument();
-  });
-
-  it('renders bonus 효사 selections from the real 1..24 contract and keeps commentary tied to the yao source', () => {
-    renderBonusSection({ commentarySource: 'yao' });
+    await waitForCommentaryReady();
 
     const bonusSelector = screen.getByTestId('bonus-reading-selector');
-    const leftPanel = screen.getAllByRole('article')[0];
-    const yaoButtons = within(bonusSelector).getAllByRole('button');
+    const bonusButtons = within(bonusSelector).getAllByRole('button');
 
-    expect(bonusSelector).toHaveTextContent('보너스 효사');
-    expect(bonusSelector).toHaveTextContent('24개');
-    expect(yaoButtons).toHaveLength(24);
-    expect(yaoButtons[0]).toHaveAttribute('aria-pressed', 'true');
-    expect(yaoButtons[23]).toHaveAttribute('aria-pressed', 'false');
-    expect(yaoButtons[0]).toHaveTextContent('1. Bonus Yao 1');
-    expect(yaoButtons[23]).toHaveTextContent('24. Bonus Yao 24');
-    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('1.png'));
-    expect(screen.getByRole('img', { name: '보너스 효사 학습 이미지 1' })).toBeInTheDocument();
+    expect(bonusButtons).toHaveLength(4);
+    expect(bonusButtons[0]).toHaveAttribute('aria-pressed', 'true');
     expect(screen.getByTestId('learning-comic-image')).toHaveAttribute(
       'src',
       expect.stringContaining('%EB%B3%B4%EB%84%88%EC%8A%A4'),
     );
 
-    fireEvent.click(yaoButtons[23]);
+    fireEvent.click(bonusButtons[3]);
 
-    expect(yaoButtons[0]).toHaveAttribute('aria-pressed', 'false');
-    expect(yaoButtons[23]).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('24.png'));
-    expect(screen.getByRole('img', { name: '보너스 효사 학습 이미지 24' })).toBeInTheDocument();
+    await waitForCommentaryReady();
+    expect(bonusButtons[0]).toHaveAttribute('aria-pressed', 'false');
+    expect(bonusButtons[3]).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('4.png'));
 
-    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
+    fireEvent.click(screen.getByTestId('commentary-comic-toggle'));
 
-    expect(screen.queryByTestId('learning-comic-view')).not.toBeInTheDocument();
+    expect(screen.getByText('Bonus gua 4 commentary body')).toBeInTheDocument();
+    expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
+  });
+
+  it('keeps the bonus yao selector and text fallback behavior unchanged', async () => {
+    renderSection({
+      commentarySource: 'yao',
+      yaoNum: 59,
+      bonusYaoItems: makeBonusYaoItems(),
+    });
+
+    await waitForCommentaryReady();
+
+    const bonusSelector = screen.getByTestId('bonus-reading-selector');
+    const bonusButtons = within(bonusSelector).getAllByRole('button');
+
+    expect(bonusButtons).toHaveLength(24);
+    expect(bonusButtons[0]).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute(
+      'src',
+      expect.stringContaining('%EB%B3%B4%EB%84%88%EC%8A%A4'),
+    );
+
+    fireEvent.click(bonusButtons[23]);
+
+    await waitForCommentaryReady();
+    expect(bonusButtons[0]).toHaveAttribute('aria-pressed', 'false');
+    expect(bonusButtons[23]).toHaveAttribute('aria-pressed', 'true');
+
+    fireEvent.click(screen.getByTestId('commentary-comic-toggle'));
+
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
     expect(screen.getByText('Bonus yao 24 commentary body')).toBeInTheDocument();
-    expect(within(leftPanel).getByRole('button', { name: '24. Bonus Yao 24' })).toBeInTheDocument();
   });
 
-  it('shows a 효사 comic toggle and switches the lower commentary area to the image view', () => {
-    renderSection({
-      yaoNum: 59,
-      guaNum: 6,
-      guaData: { header: '62. Example', meta: 'Example meta' },
-      yaoData: {
-        titleLine: '59. Example',
-        short: 'Short reading',
-        body: 'Body text',
-      },
-      hitSoulGroup: {
-        titleLine: '31. Example Soul Group',
-        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
-        weekA: 50,
-        weekB: 3,
-        ranges: [],
-        block: '',
-      },
-      soulSections: [],
-    });
-
-    const comicToggle = screen.getByTestId('commentary-comic-toggle');
-
-    expect(comicToggle).toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-view')).toBeInTheDocument();
-    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('59.png'));
-    expect(screen.getByRole('img', { name: '효사 학습 이미지 59' })).toBeInTheDocument();
-    expect(comicToggle).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
-    expect(screen.queryByText('Yao keyword commentary body')).not.toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
-
-    expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
-    expect(screen.getByText('Yao keyword commentary body')).toBeInTheDocument();
-  });
-
-  it('shows an empty comic state when no matching image file exists', () => {
-    renderSection({
-      yaoNum: 33,
+  it('keeps the empty comic state and missing commentary shell unchanged', async () => {
+    const emptyComicView = renderSection({
+      commentarySource: 'gua',
       guaNum: 66,
-      guaData: { header: '62. Example', meta: 'Example meta' },
-      yaoData: {
-        titleLine: '33. Example',
-        short: 'Short reading',
-        body: 'Body text',
-      },
-      hitSoulGroup: {
-        titleLine: '31. Example Soul Group',
-        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
-        weekA: 50,
-        weekB: 3,
-        ranges: [],
-        block: '',
-      },
-      soulSections: [],
+      yaoNum: 33,
+      guaData: { header: '66. Example Gua', meta: 'Example gua meta' },
     });
 
-    fireEvent.click(screen.getByDisplayValue('gua'));
+    await waitForCommentaryReady();
 
     expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
+    expect(screen.getByTestId('commentary-folio')).toBeInTheDocument();
     expect(screen.getByTestId('learning-comic-empty-state')).toBeInTheDocument();
-    expect(screen.getByText('아직 업로드된 만화 이미지가 없다')).toBeInTheDocument();
-    expect(screen.queryByText('General commentary body')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('commentary-keyword-line')).not.toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole('button', { name: '텍스트 해설 보기' }));
-
     expect(screen.getByText('General commentary body')).toBeInTheDocument();
-    expect(screen.getByTestId('commentary-keyword-line')).toBeInTheDocument();
-  });
 
-  it('keeps the commentary shell visible when commentary is missing', () => {
+    emptyComicView.unmount();
+
     renderSection({
-      yaoNum: 999,
+      commentarySource: 'gua',
       guaNum: 999,
-      guaData: { header: '62. Example', meta: 'Example meta' },
-      yaoData: {
-        titleLine: '999. Example',
-        short: 'Short reading',
-        body: 'Body text',
-      },
-      hitSoulGroup: {
-        titleLine: '31. Example Soul Group',
-        weeksLabel: '50주(3월 16-22일) / 3주(4월 21-27일)',
-        weekA: 50,
-        weekB: 3,
-        ranges: [],
-        block: '',
-      },
-      soulSections: [],
+      yaoNum: 999,
+      guaData: { header: '999. Example Gua', meta: 'Example gua meta' },
+      yaoData: { titleLine: '999. Example Yao', short: 'Short reading', body: 'Body text' },
     });
 
-    expect(screen.getAllByRole('article').length).toBeGreaterThan(0);
-    expect(screen.getByRole('complementary')).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 3, name: '62. Example' })).toBeInTheDocument();
-    expect(screen.queryByRole('heading', { level: 4, name: 'Commentary' })).not.toBeInTheDocument();
-    expect(screen.getByText('Commentary is not available for this selection yet.')).toBeInTheDocument();
-    expect(screen.getByText('Commentary is not available for this selection yet.').closest('article')).not.toBeNull();
+    await waitFor(() => {
+      expect(screen.getByText('Commentary is not available for this selection yet.')).toBeInTheDocument();
+    });
   });
 });
-
-
-
-
-

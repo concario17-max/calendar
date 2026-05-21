@@ -1,12 +1,7 @@
-﻿import React from 'react';
+import React from 'react';
 import { ChevronLeft, ChevronRight, Images } from 'lucide-react';
-import {
-  getBonusGuaCommentary,
-  getBonusYaoCommentary,
-  getGuaCommentary,
-  getYaoCommentary,
-} from '../data';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
+import { loadReadingDataBundle, type ReadingDataBundle } from '../utils/readingDataLoader';
 import { formatWeeksLabel } from '../utils/soulLogic';
 import { SoulCalendarSection } from './SoulCalendarSection';
 
@@ -26,21 +21,17 @@ const commentaryBodyClass =
 const commentaryLeadLineClass =
   'mx-auto flex w-full max-w-[56rem] flex-wrap items-start gap-2 break-keep rounded-[1rem] border border-secondary/15 bg-secondary/5 px-3 py-2 text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-on-surface md:text-[16px]';
 const yaoLearningImageModules = import.meta.glob('../../image/효사/*.png', {
-  eager: true,
   import: 'default',
-}) as Record<string, string>;
+}) as Record<string, () => Promise<string>>;
 const guaLearningImageModules = import.meta.glob('../../image/괘사/*.png', {
-  eager: true,
   import: 'default',
-}) as Record<string, string>;
+}) as Record<string, () => Promise<string>>;
 const bonusYaoLearningImageModules = import.meta.glob('../../보너스/효사/*.png', {
-  eager: true,
   import: 'default',
-}) as Record<string, string>;
+}) as Record<string, () => Promise<string>>;
 const bonusGuaLearningImageModules = import.meta.glob('../../보너스/괘사/*.png', {
-  eager: true,
   import: 'default',
-}) as Record<string, string>;
+}) as Record<string, () => Promise<string>>;
 
 interface IChingSectionProps {
   selectedDate?: Date;
@@ -114,37 +105,41 @@ function parseMarkerItemToken(line: string): string | null {
   return text.length > 0 ? text : null;
 }
 
-function buildLearningImageMap(modules: Record<string, string>): Record<number, string> {
+function buildLearningImageLoaderMap(modules: Record<string, () => Promise<string>>): Record<number, () => Promise<string>> {
   const entries = Object.entries(modules)
-    .map(([path, src]) => {
+    .map(([path, loader]) => {
       const match = path.match(/\/(\d+)\.[^.]+$/);
       if (!match) {
         return null;
       }
 
-      return [Number(match[1]), src] as const;
+      return [Number(match[1]), loader] as const;
     })
-    .filter((entry): entry is readonly [number, string] => entry !== null);
+    .filter((entry): entry is readonly [number, () => Promise<string>] => entry !== null);
 
   return Object.fromEntries(entries);
 }
 
-const yaoLearningImageMap = buildLearningImageMap(yaoLearningImageModules);
-const guaLearningImageMap = buildLearningImageMap(guaLearningImageModules);
-const bonusYaoLearningImageMap = buildLearningImageMap(bonusYaoLearningImageModules);
-const bonusGuaLearningImageMap = buildLearningImageMap(bonusGuaLearningImageModules);
+const yaoLearningImageLoaderMap = buildLearningImageLoaderMap(yaoLearningImageModules);
+const guaLearningImageLoaderMap = buildLearningImageLoaderMap(guaLearningImageModules);
+const bonusYaoLearningImageLoaderMap = buildLearningImageLoaderMap(bonusYaoLearningImageModules);
+const bonusGuaLearningImageLoaderMap = buildLearningImageLoaderMap(bonusGuaLearningImageModules);
 
-function getLearningImageSrc(source: CommentarySource, num: number | null, isBonusSelection: boolean): string | null {
+function getLearningImageLoader(
+  source: CommentarySource,
+  num: number | null,
+  isBonusSelection: boolean,
+): (() => Promise<string>) | null {
   if (num === null) {
     return null;
   }
 
   if (source === 'yao') {
-    return (isBonusSelection ? bonusYaoLearningImageMap[num] : yaoLearningImageMap[num]) ?? null;
+    return isBonusSelection ? bonusYaoLearningImageLoaderMap[num] ?? null : yaoLearningImageLoaderMap[num] ?? null;
   }
 
   if (source === 'gua') {
-    return (isBonusSelection ? bonusGuaLearningImageMap[num] : guaLearningImageMap[num]) ?? null;
+    return isBonusSelection ? bonusGuaLearningImageLoaderMap[num] ?? null : guaLearningImageLoaderMap[num] ?? null;
   }
 
   return null;
@@ -259,7 +254,7 @@ function parseListBlock(block: string): CommentaryListItem[] | null {
     return null;
   }
 
-  const listItemPattern = /^(?:[-*??|\d+[.)])\s*(.+)$/u;
+  const listItemPattern = /^(?:[-*]|\d+[.)])\s*(.+)$/u;
 
   const items: CommentaryListItem[] = [];
 
@@ -397,11 +392,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
 
   if (isKeywordLeadLine(trimmedText)) {
     return (
-      <p
-        key={`keyword-${index}`}
-        data-testid="commentary-keyword-line"
-        className={commentaryLeadLineClass}
-      >
+      <p key={`keyword-${index}`} data-testid="commentary-keyword-line" className={commentaryLeadLineClass}>
         <span className="inline-flex shrink-0 items-center rounded-full border border-secondary/15 bg-secondary/10 px-2 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-secondary">
           핵심
         </span>
@@ -413,7 +404,7 @@ function renderCommentaryBlock(block: CommentaryBlock, index: number): React.Rea
   return (
     <p
       key={`paragraph-${index}`}
-        className="mx-auto w-full max-w-[56rem] break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-on-surface-variant md:text-[16px]"
+      className="mx-auto w-full max-w-[56rem] break-keep text-[15px] font-body leading-[1.95] tracking-[-0.01em] text-on-surface-variant md:text-[16px]"
     >
       {block.text}
     </p>
@@ -433,30 +424,35 @@ function getCommentaryHeaderLabel(source: CommentarySource): string {
 }
 
 function getSelectedCommentaryText(
+  readingData: ReadingDataBundle | null,
   source: Exclude<CommentarySource, 'soul'>,
   activeGuaNum: number | null,
   activeYaoNum: number | null,
   activeBonusItem: BonusReadingItemLike | null,
 ): string {
+  if (!readingData) {
+    return '';
+  }
+
   if (source === 'gua') {
     if (activeBonusItem) {
       return (
         normalizeCommentaryText(activeBonusItem.commentary) ||
-        normalizeCommentaryText(getBonusGuaCommentary(activeGuaNum))
+        normalizeCommentaryText(readingData.getBonusGuaCommentary(activeGuaNum))
       );
     }
 
-    return normalizeCommentaryText(getGuaCommentary(activeGuaNum));
+    return normalizeCommentaryText(readingData.getGuaCommentary(activeGuaNum));
   }
 
   if (activeBonusItem) {
     return (
       normalizeCommentaryText(activeBonusItem.commentary) ||
-      normalizeCommentaryText(getBonusYaoCommentary(activeYaoNum))
-  );
-}
+      normalizeCommentaryText(readingData.getBonusYaoCommentary(activeYaoNum))
+    );
+  }
 
-  return normalizeCommentaryText(getYaoCommentary(activeYaoNum));
+  return normalizeCommentaryText(readingData.getYaoCommentary(activeYaoNum));
 }
 
 function LearningComicView({
@@ -490,14 +486,27 @@ function LearningComicEmptyState() {
       data-testid="learning-comic-empty-state"
       className="ui-card ui-surface--raised mx-auto flex w-full max-w-[56rem] flex-col items-center justify-center rounded-[1.5rem] border-dashed border-outline-variant/60 px-6 py-10 text-center"
     >
-      <p className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-secondary">
-        학습 만화
-      </p>
+      <p className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-secondary">학습 만화</p>
       <p className="mt-3 font-headline text-[1.15rem] font-semibold text-on-surface">
         아직 업로드된 만화 이미지가 없다
       </p>
       <p className="mt-2 max-w-[28rem] font-body text-[0.98rem] leading-[1.8] text-on-surface-variant">
         이 항목은 학습만화 버튼은 열리지만, 연결된 이미지 파일이 아직 준비되지 않았다.
+      </p>
+    </div>
+  );
+}
+
+function LearningComicLoadingState() {
+  return (
+    <div
+      data-testid="learning-comic-loading-state"
+      className="ui-card ui-surface--raised mx-auto flex w-full max-w-[56rem] flex-col items-center justify-center rounded-[1.5rem] border border-outline-variant/40 px-6 py-10 text-center"
+    >
+      <p className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-secondary">학습 만화</p>
+      <p className="mt-3 font-headline text-[1.15rem] font-semibold text-on-surface">이미지를 불러오는 중이다</p>
+      <p className="mt-2 max-w-[28rem] font-body text-[0.98rem] leading-[1.8] text-on-surface-variant">
+        선택한 학습 만화 이미지를 지연 로딩하는 중이다.
       </p>
     </div>
   );
@@ -535,6 +544,33 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   bonusGuaItems = [],
   bonusYaoItems = [],
 }) => {
+  const [readingData, setReadingData] = React.useState<ReadingDataBundle | null>(null);
+  const [commentaryViewMode, setCommentaryViewMode] = React.useState<CommentaryViewMode>(() =>
+    getDefaultCommentaryViewMode(commentarySource),
+  );
+  const [learningImageSrc, setLearningImageSrc] = React.useState<string | null>(null);
+  const [isLearningImageLoading, setIsLearningImageLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    let cancelled = false;
+
+    void loadReadingDataBundle()
+      .then((module) => {
+        if (!cancelled) {
+          setReadingData(module);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setReadingData(null);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const activeCommentarySource = commentarySource === 'soul' ? null : commentarySource;
   const activeBonusItems = React.useMemo(
     () => (activeCommentarySource === 'gua' ? bonusGuaItems : activeCommentarySource === 'yao' ? bonusYaoItems : []),
@@ -572,9 +608,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
       : yaoData ?? fallbackBonusYaoItem?.yaoData ?? null;
 
   const sigilSrc = activeYaoNum !== null ? `/images/yao-${activeYaoNum}.png` : null;
-  const [commentaryViewMode, setCommentaryViewMode] = React.useState<CommentaryViewMode>(() =>
-    getDefaultCommentaryViewMode(commentarySource),
-  );
   const hasAnyBonusItems = activeBonusItems.length > 0;
 
   React.useEffect(() => {
@@ -611,47 +644,82 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
   const commentaryText = React.useMemo(() => {
     if (commentarySource === 'gua') {
-      return getSelectedCommentaryText('gua', activeGuaNum, activeYaoNum, activeBonusItem);
+      return getSelectedCommentaryText(readingData, 'gua', activeGuaNum, activeYaoNum, activeBonusItem);
     }
 
     if (commentarySource === 'yao') {
-      return getSelectedCommentaryText('yao', activeGuaNum, activeYaoNum, activeBonusItem);
+      return getSelectedCommentaryText(readingData, 'yao', activeGuaNum, activeYaoNum, activeBonusItem);
     }
 
     return '';
-  }, [activeBonusItem, activeGuaNum, activeYaoNum, commentarySource]);
+  }, [readingData, activeBonusItem, activeGuaNum, activeYaoNum, commentarySource]);
 
   const commentary = React.useMemo(
     () => (commentaryText.length > 0 ? splitCommentary(commentaryText) : null),
     [commentaryText],
   );
-  if (!activeGuaData || !activeYaoData) {
-    return (
-      <div className="px-6 py-6 text-sm italic text-on-surface-variant opacity-70 md:px-8 md:py-8 lg:px-10">
-        Reading data is not available yet.
-      </div>
-    );
-  }
 
-  const showSoulPanel = commentarySource === 'soul';
+  const isComicView = (commentarySource === 'gua' || commentarySource === 'yao') && commentaryViewMode === 'comic';
   const isBonusSelection = activeBonusItem !== null;
-  const learningImageSrc = getLearningImageSrc(
-    commentarySource,
-    commentarySource === 'gua' ? activeGuaNum : commentarySource === 'yao' ? activeYaoNum : null,
-    isBonusSelection,
+  const learningImageLoader = React.useMemo(
+    () =>
+      getLearningImageLoader(
+        commentarySource,
+        commentarySource === 'gua' ? activeGuaNum : commentarySource === 'yao' ? activeYaoNum : null,
+        isBonusSelection,
+      ),
+    [commentarySource, activeGuaNum, activeYaoNum, isBonusSelection],
   );
-  const learningImageAlt =
-    commentarySource === 'gua'
-      ? `${isBonusSelection ? '보너스 ' : ''}괘사 학습 이미지 ${activeGuaNum ?? ''}`.trim()
-      : `${isBonusSelection ? '보너스 ' : ''}효사 학습 이미지 ${activeYaoNum ?? ''}`.trim();
-  const leftSoulWeeksLabel = formatWeeksLabel(hitSoulGroup, soulSections);
-  const guaMeta = activeGuaData.meta.trim();
   const commentaryHeaderLabel = getCommentaryHeaderLabel(commentarySource);
   const canShowComicToggle = commentarySource === 'gua' || commentarySource === 'yao';
-  const isComicView = canShowComicToggle && commentaryViewMode === 'comic';
+  const guaMeta = activeGuaData?.meta.trim() ?? '';
+  const leftSoulWeeksLabel = formatWeeksLabel(hitSoulGroup, soulSections);
   const commentaryFolioSurfaceClass = isComicView
     ? 'ui-card ui-surface--raised relative overflow-visible border-0 bg-transparent px-0 py-0 shadow-none sm:overflow-hidden sm:rounded-[2rem] sm:border sm:border-outline-variant/60 sm:bg-surface-container-low/95 sm:px-4 sm:py-4'
     : commentaryFolioClass;
+
+  React.useEffect(() => {
+    let cancelled = false;
+
+    if (!isComicView) {
+      setLearningImageSrc(null);
+      setIsLearningImageLoading(false);
+      return;
+    }
+
+    if (!learningImageLoader) {
+      setLearningImageSrc(null);
+      setIsLearningImageLoading(false);
+      return;
+    }
+
+    setIsLearningImageLoading(true);
+    setLearningImageSrc(null);
+
+    void learningImageLoader()
+      .then((src) => {
+        if (!cancelled) {
+          setLearningImageSrc(src);
+          setIsLearningImageLoading(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setLearningImageSrc(null);
+          setIsLearningImageLoading(false);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isComicView, learningImageLoader]);
+
+  if (!activeGuaData || !activeYaoData) {
+    return <div className="px-6 py-6 text-sm italic text-on-surface-variant opacity-70 md:px-8 md:py-8 lg:px-10">Reading data is not available yet.</div>;
+  }
+
+  const commentaryHeading = commentary?.heading ?? null;
   const renderedCommentaryBlocks = commentary
     ? commentary.blocks.map((block, index) => (
         <div key={`commentary-block-${index}`} data-testid={`commentary-block-${index}`}>
@@ -660,25 +728,53 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
       ))
     : [];
 
+  const renderCommentaryTextContent = () => (
+    <>
+      {commentaryHeading ? <h5 className={commentaryHeadingClass}>{commentaryHeading}</h5> : null}
+
+      {commentarySource === 'yao' && !isBonusSelection ? (
+        <div data-testid="commentary-reading-body" className={commentaryBodyClass}>
+          {activeYaoData.body}
+        </div>
+      ) : null}
+
+      <div className="space-y-[var(--reading-section-gap)] border-t border-outline-variant/35 pt-[var(--reading-block-gap)]">
+        {renderedCommentaryBlocks}
+      </div>
+    </>
+  );
+
+  const renderComicArea = () => {
+    if (isLearningImageLoading) {
+      return <LearningComicLoadingState />;
+    }
+
+    if (learningImageSrc) {
+      return <LearningComicView imageSrc={learningImageSrc} imageAlt={learningImageAlt(commentarySource, isBonusSelection, activeGuaNum, activeYaoNum)} />;
+    }
+
+    return (
+      <>
+        <LearningComicEmptyState />
+        {commentary ? renderCommentaryTextContent() : null}
+      </>
+    );
+  };
+
   return (
-    <section className="flex w-full flex-1 flex-col overflow-visible stagger-1 lg:overflow-hidden">
-      <div className="flex min-h-0 w-full flex-col gap-5 lg:grid lg:h-full lg:min-w-[720px] lg:grid-cols-[336px_minmax(0,1fr)] lg:gap-0 lg:overflow-x-auto">
+    <section className="flex w-full flex-1 flex-col overflow-visible gap-4 stagger-1 lg:overflow-hidden">
+      <div className="flex min-h-0 w-full flex-col gap-4 md:gap-5 lg:grid lg:h-full lg:min-w-[720px] lg:grid-cols-[336px_minmax(0,1fr)] lg:gap-0 lg:overflow-x-auto">
         <article className="reading-panel reading-panel--left flex w-full flex-col bg-surface-container-low text-on-surface lg:sticky lg:top-0 lg:h-full lg:min-h-0 lg:min-w-[320px] lg:overflow-y-auto">
-          <div className="flex min-h-0 flex-1 flex-col gap-[0.9rem] md:gap-[1.05rem]">
+          <div className="flex min-h-0 flex-1 flex-col gap-4 md:gap-5">
             {hasAnyBonusItems && activeCommentarySource !== null ? (
-              <div
-                data-testid="bonus-reading-selector"
-                className="ui-card ui-surface--raised reading-fade-in rounded-[1.35rem] px-3 py-3"
-              >
-                <div className="mb-2 flex items-center justify-between gap-2">
-                  <p className={compactLeftBadgeClass}>
-                    {activeCommentarySource === 'gua' ? '보너스 괘사' : '보너스 효사'}
-                  </p>
+              <div data-testid="bonus-reading-selector" className="ui-card ui-surface--raised reading-fade-in rounded-[1.35rem] px-4 py-4">
+                <div className="mb-3 flex items-center justify-between gap-2">
+                  <p className={compactLeftBadgeClass}>{activeCommentarySource === 'gua' ? '보너스 괘사' : '보너스 효사'}</p>
                   <span className="font-body text-[0.72rem] font-medium tracking-[0.18em] text-secondary">
                     {activeBonusItems.length}개
                   </span>
                 </div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2.5">
                   {activeBonusItems.map((entry, index) => {
                     const isActive = index === activeBonusIndex;
                     const entryLabel =
@@ -697,14 +793,14 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                             [activeCommentarySource]: index,
                           }))
                         }
-                  className={`ui-button min-h-11 w-full rounded-[1rem] border px-3 py-2 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-low ${
+                        className={`ui-button min-h-11 w-full rounded-[1rem] border px-3 py-2 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-low ${
                           isActive
                             ? 'ui-button--secondary text-on-surface'
                             : 'ui-button--ghost border-outline-variant/60 bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
                         }`}
                       >
                         {entry.dateLabel ? (
-                            <span className="mb-1 block font-body text-[0.72rem] font-semibold tracking-[0.18em] text-secondary">
+                          <span className="mb-1 block font-body text-[0.72rem] font-semibold tracking-[0.18em] text-secondary">
                             {entry.dateLabel}
                           </span>
                         ) : null}
@@ -728,7 +824,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                       className="block h-auto w-full object-contain transition-transform duration-700 hover:scale-[1.04]"
                     />
                   ) : (
-                  <span className="text-sm italic text-on-surface-variant">Sigil not available</span>
+                    <span className="text-sm italic text-on-surface-variant">Sigil not available</span>
                   )}
                 </div>
               </div>
@@ -736,9 +832,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
             {!isBonusDay ? (
               <div data-testid="reading-verse-unit" className={`${manuscriptUnitClass} pt-2 md:pt-3`}>
-                <p className={`${compactLeftBadgeClass} uppercase`}>
-                  효사
-                </p>
+                <p className={`${compactLeftBadgeClass} uppercase`}>효사</p>
                 <h4 className="max-w-[40ch] break-keep font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-on-surface md:text-[1.78rem]">
                   {activeYaoData.titleLine}
                 </h4>
@@ -751,9 +845,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
             {!isBonusDay ? (
               <div data-testid="reading-top-unit" className={`${manuscriptUnitClass} pt-2 md:pt-3`}>
-                <p className={`${compactLeftBadgeClass} uppercase`}>
-                  괘사
-                </p>
+                <p className={`${compactLeftBadgeClass} uppercase`}>괘사</p>
                 <h3 className="max-w-[40ch] break-keep font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-on-surface md:text-[1.78rem]">
                   {activeGuaData.header}
                 </h3>
@@ -770,9 +862,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
             ) : null}
 
             <div data-testid="reading-soul-title-unit" className={`${manuscriptUnitClass} pb-3 pt-1 md:pb-4`}>
-              <p className={compactLeftBadgeClass}>
-                영혼
-              </p>
+              <p className={compactLeftBadgeClass}>영혼</p>
               <h2 className="max-w-[40ch] font-headline text-[1.42rem] font-semibold leading-[1.08] tracking-[-0.035em] text-on-surface md:text-[1.78rem]">
                 {SOUL_TITLE}
               </h2>
@@ -788,7 +878,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         <aside className="reading-panel reading-panel--right relative flex w-full min-w-0 flex-col bg-surface-container-lowest lg:h-full lg:min-h-0 lg:overflow-y-auto">
           {selectedDate && onDateChange ? (
             <div className="pointer-events-none sticky top-1/2 z-20 hidden h-0 -translate-y-1/2 lg:block">
-          <div className="relative h-0">
+              <div className="relative h-0">
                 <button
                   type="button"
                   aria-label="이전날로 이동"
@@ -808,8 +898,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </div>
             </div>
           ) : null}
-          <div className="mt-1 flex-1 space-y-0">
-            {showSoulPanel ? (
+          <div className="mt-2 flex-1 space-y-0">
+            {commentarySource === 'soul' ? (
               <div key="soul" className="reading-fade-in">
                 <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />
               </div>
@@ -827,9 +917,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                           data-testid="commentary-comic-toggle"
                           aria-pressed={isComicView}
                           aria-label={isComicView ? '텍스트 해설 보기' : '학습 만화 보기'}
-                          onClick={() =>
-                            setCommentaryViewMode((current) => (current === 'comic' ? 'text' : 'comic'))
-                          }
+                          onClick={() => setCommentaryViewMode((current) => (current === 'comic' ? 'text' : 'comic'))}
                           className={`ui-button inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest ${
                             isComicView
                               ? 'ui-button--secondary text-secondary'
@@ -842,38 +930,33 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     </div>
 
                     <div data-testid="commentary-folio" className={commentaryFolioSurfaceClass}>
-                      <div className={isComicView ? 'hidden sm:block absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent' : 'absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent'} />
-                      <div className={isComicView ? 'hidden sm:block absolute -right-2 top-2 h-16 w-16 rounded-full bg-secondary/10 blur-2xl' : 'absolute -right-2 top-2 h-16 w-16 rounded-full bg-secondary/10 blur-2xl'} />
-                      <div className={isComicView ? 'hidden sm:block absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-secondary/5 blur-3xl' : 'absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-secondary/5 blur-3xl'} />
+                      <div
+                        className={
+                          isComicView
+                            ? 'hidden sm:block absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent'
+                            : 'absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent'
+                        }
+                      />
+                      <div
+                        className={
+                          isComicView
+                            ? 'hidden sm:block absolute -right-2 top-2 h-16 w-16 rounded-full bg-secondary/10 blur-2xl'
+                            : 'absolute -right-2 top-2 h-16 w-16 rounded-full bg-secondary/10 blur-2xl'
+                        }
+                      />
+                      <div
+                        className={
+                          isComicView
+                            ? 'hidden sm:block absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-secondary/5 blur-3xl'
+                            : 'absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-secondary/5 blur-3xl'
+                        }
+                      />
 
                       <div className="relative space-y-[var(--reading-block-gap)]">
                         {isComicView ? (
-                          learningImageSrc ? (
-                            <LearningComicView imageSrc={learningImageSrc} imageAlt={learningImageAlt} />
-                          ) : (
-                            <LearningComicEmptyState />
-                          )
+                          renderComicArea()
                         ) : (
-                          <>
-                            {commentary.heading ? (
-                              <h5 className={commentaryHeadingClass}>
-                                {commentary.heading}
-                              </h5>
-                            ) : null}
-
-                            {commentarySource === 'yao' && !isBonusSelection ? (
-                              <div
-                                data-testid="commentary-reading-body"
-                                className={commentaryBodyClass}
-                              >
-                                {activeYaoData.body}
-                              </div>
-                            ) : null}
-
-                            <div className="space-y-[var(--reading-section-gap)] border-t border-outline-variant/35 pt-[var(--reading-block-gap)]">
-                              {renderedCommentaryBlocks}
-                            </div>
-                          </>
+                          renderCommentaryTextContent()
                         )}
                       </div>
                     </div>
@@ -894,4 +977,15 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   );
 };
 
+function learningImageAlt(
+  source: CommentarySource,
+  isBonusSelection: boolean,
+  activeGuaNum: number | null,
+  activeYaoNum: number | null,
+): string {
+  if (source === 'gua') {
+    return `${isBonusSelection ? '보너스 ' : ''}괘사 학습 이미지 ${activeGuaNum ?? ''}`.trim();
+  }
 
+  return `${isBonusSelection ? '보너스 ' : ''}효사 학습 이미지 ${activeYaoNum ?? ''}`.trim();
+}

@@ -68,6 +68,13 @@
 
 # Multi-Agent Log
 
+# 2026-05-21
+- task: align the feature-side tests with the leaf-module lazy-loading refactor for reading data
+- route: Route B
+- status: open
+- writer slots: feature_tests = `src/hooks/useCalendarLogic.test.ts`, `src/components/IChingSection.test.tsx`; reviewer = `leaf-module lazy-load test alignment review`
+- notes: keep visible behavior unchanged, assert async hook resolution from leaf data modules, and update UI expectations to mock the leaf modules rather than the barrel entry
+
 ## 2026-05-20
 - task: finish the Route B modernization slice and resolve the DatePicker focus-tracking review finding
 - route: Route B
@@ -538,3 +545,29 @@
 - status: resolved
 - writer slots: worker_shared = `src/types/index.ts`, `src/utils/logic.ts`, `src/index.css`; worker_reading = `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/hooks/useCalendarLogic.ts`; worker_shell = `src/App.tsx`, `src/components/MainContent.tsx`, `src/components/Header.tsx`, `src/components/CommentaryModeTabs.tsx`, `src/components/DatePicker.tsx`, `src/components/JournalModal.tsx`; reviewer = `frontend refactor review`
 - notes: duplicate shared contracts were normalized, reading-panel state mirroring was reduced, shell state ownership was centralized, DatePicker/JournalModal responsibilities were tightened, and lint/test/build all passed
+# 2026-05-21 Launch-readiness modernization
+- Route: Route B
+- Summary: reclassified the workspace from the completed refactor pass to a new launch-readiness pass covering shell/spacing, accessibility, and bundle-pressure reduction.
+- Contract freeze: updated `STATE.md` with a follow-up write set for `worker_bundle_lazy` after reviewer feedback that the previous chunk split did not reduce startup pressure.
+- Contract freeze: `worker_bundle_lazy` now owns the async data-loading boundary plus its hook/component tests.
+- Reviewer target: pending.
+- Status: open
+- 2026-05-21T16:46:42+09:00: implementation starting for the shell/spacing and accessibility slice; scope remains limited to the frozen shell write set.
+- 2026-05-21T17:00:00+09:00: shell/spacing normalization and accessibility tightening are implemented and verified with targeted component tests plus lint/build; bundle/data slice remains untouched.
+## 2026-05-21
+- task: re-scope the bundle-pressure follow-up from barrel-based lazy loading to leaf-module lazy loading after reviewer feedback
+- route: Route B
+- status: open
+- writer slots: worker_bundle_lazy = `src/hooks/useCalendarLogic.ts`, `src/components/IChingSection.tsx`, `src/components/MainContent.tsx`, `src/App.tsx`, `src/hooks/useCalendarLogic.test.ts`, `src/components/IChingSection.test.tsx`, `src/data/guaData.ts`, `src/data/yaoData.ts`, `src/data/soulData.ts`, `src/data/guaCommentary.ts`, `src/data/yaoCommentary.ts`, `src/data/bonusGuaCommentary.ts`, `src/data/bonusYaoCommentary.ts`; reviewer = leaf-module bundle lazy-load review
+- notes: the previous barrel import still left the heavy reading-data graph on the initial synchronous path, so the follow-up must import the leaf modules directly and keep the existing behavior intact
+
+- time: 2026-05-21 17:33 KST
+  location: npm.cmd test -- --run
+  summary: regression in IChingSection empty comic state
+  details: comic-view fallback no longer shows the commentary body when the learning image is missing; needs a small render/test alignment.
+  status: resolved
+- time: 2026-05-21 17:40 KST
+  location: STATE.md / MULTI_AGENT_LOG.md
+  summary: scope widened to restore empty comic fallback text
+  details: keep the leaf-module test alignment, but add a minimal IChingSection fallback change so commentary text remains visible when comic art is missing.
+  status: resolved

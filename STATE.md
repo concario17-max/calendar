@@ -1,50 +1,40 @@
 # Current Task
-- Active: frontend refactor completed for shared contracts, reading panels, shell controls, and local controls; duplicate adapters/state were reduced while lint/test/build stayed green.
+- Active: restore the empty-comic fallback so commentary text still renders when the leaf-loaded reading data has no comic image.
 
 # Route
 - Route B
-- Reason: the refactor spans shared contracts, reading panels, shell controls, and local controls across many files, so it exceeds the Route A small-slice threshold.
+- Reason: the scope now spans a feature-file render fix plus the matching hook/component test updates after the lazy-load refactor.
 
 # Writer Slot
-- main: planner-only lane for `STATE.md` and `MULTI_AGENT_LOG.md`
-- worker_shared: completed for `src/types/index.ts`, `src/utils/logic.ts`, `src/index.css`
-- worker_reading: completed for `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`, `src/hooks/useCalendarLogic.ts`
-- worker_shell: completed for `src/App.tsx`, `src/components/MainContent.tsx`, `src/components/Header.tsx`, `src/components/CommentaryModeTabs.tsx`, `src/components/DatePicker.tsx`, `src/components/JournalModal.tsx`
-- reviewer: completed for the refactor pass
+- main: planner-only for STATE and log updates
+- feature_tests: write lane for `src/hooks/useCalendarLogic.test.ts` and `src/components/IChingSection.test.tsx`
+- feature_feature_render: write lane for `src/components/IChingSection.tsx` only for the empty-comic fallback restore
 
 # Contract Freeze
-- Goal: reduce duplicate adapters/state across the frontend while preserving current behavior.
+- Goal: keep the visible behavior unchanged while restoring commentary text rendering in the empty-comic fallback after the leaf-module lazy-load path.
 - Non-goals:
-- do not add new libraries
-- do not change reading/content semantics
-- do not change user-visible flows except for internal structure and lint/type/build fixes
-- do not remove existing accessibility affordances
-- do not do browser verification
+  - do not add new libraries
+  - do not change reading/content semantics
+  - do not touch shell/accessibility files
 - Write sets:
+  - feature_tests: `src/hooks/useCalendarLogic.test.ts`
+  - feature_tests: `src/components/IChingSection.test.tsx`
+  - feature_feature_render: `src/components/IChingSection.tsx`
   - main: `STATE.md`
   - main: `MULTI_AGENT_LOG.md`
-- worker_shared: `src/types/index.ts`
-- worker_shared: `src/utils/logic.ts`
-- worker_shared: `src/index.css`
-- worker_reading: `src/components/IChingSection.tsx`
-- worker_reading: `src/components/SoulCalendarSection.tsx`
-- worker_reading: `src/hooks/useCalendarLogic.ts`
-- worker_shell: `src/App.tsx`
-- worker_shell: `src/components/MainContent.tsx`
-- worker_shell: `src/components/Header.tsx`
-- worker_shell: `src/components/CommentaryModeTabs.tsx`
-- worker_shell: `src/components/DatePicker.tsx`
-- worker_shell: `src/components/JournalModal.tsx`
 - Acceptance criteria:
-  - duplicate adapters/state are removed where they repeat across the shell/control layer
-  - behavior stays unchanged for the current flows
-  - `npm.cmd run lint`, `npm.cmd run test`, and `npm.cmd run build` pass
+  - tests mock the new `../utils/readingDataLoader` helper instead of the old barrel path
+  - hook/component behavior stays the same after async leaf-module resolution
+  - empty comic state still renders commentary text blocks
+  - `npm.cmd run lint`, `npm.cmd run test -- --run src/hooks/useCalendarLogic.test.ts src/components/IChingSection.test.tsx`, and `npm.cmd run build` pass
 - Why the write split is safe:
-  - the requested changes were split into non-overlapping shared, reading, and shell slices
+  - this is a narrow render fallback fix plus test alignment slice; the shared loader implementation stays untouched
 
 # Reviewer
-- reviewer: completed for the refactor pass
-- reviewer findings to close: none blocking; DatePicker focused-date drift and bundle size remain follow-up risks
+- reviewer: pending for the shared-data test alignment slice
+- reviewer focus:
+  - async leaf-module expectation parity for hook/component tests
+  - empty comic fallback still exposes commentary text
 
 # Last Update
-- 2026-05-21: completed the frontend refactor pass and verified lint/test/build green.
+- 2026-05-21: empty comic fallback restored so commentary text still renders when the comic image is missing.
