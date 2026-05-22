@@ -266,18 +266,13 @@
   }
 
   .archive-header {
-    margin-bottom: -1px;
-    background:
-      linear-gradient(180deg, var(--color-overlay), color-mix(in srgb, var(--color-surface-raised) 82%, transparent));
-    box-shadow:
-      0 1px 0 color-mix(in srgb, var(--color-text-inverse) 60%, transparent) inset,
-      0 1px 0 color-mix(in srgb, var(--color-primary) 4%, transparent),
-      var(--shadow-panel);
+    margin-bottom: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .dark .archive-header {
-    background:
-      linear-gradient(180deg, var(--color-overlay), color-mix(in srgb, var(--color-surface) 86%, transparent));
+    background: transparent;
   }
 
   .archive-header__masthead {

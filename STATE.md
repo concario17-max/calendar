@@ -1,33 +1,35 @@
 ﻿# Current Task
-- Active: small UI hotfix in the header: tighten the top/bottom spacing so the header feels less airy while preserving its current structure.
+- Active: remove the header's surrounding top/bottom background so the header bar sits directly on the page canvas while preserving all current behavior.
 
 # Route
-- Route A
-- Reason: this is a small layout-only hotfix in a single feature component with no shared asset changes, no new state paths, and no reviewer fan-out required.
+- Route B
+- Reason: the fix touches shared surface styling and needs coordinated implementation plus review under the workspace route rules.
 
 # Writer Slot
-- main: single-write lane for the hotfix
+- main: planner-only; may edit only STATE.md and MULTI_AGENT_LOG.md until contract freeze and write sets are recorded.
 
 # Contract Freeze
-- Goal: reduce the header's vertical padding slightly so it feels tighter and more premium, while preserving all other behavior.
+- Goal: remove the decorative top/bottom background around the header while keeping the header content, controls, and sticky behavior unchanged.
 - Non-goals:
   - do not add new libraries
   - do not change reading outcomes, date mapping, or commentary content
   - do not alter user-provided untracked folders/files
-  - do not do unrelated visual redesign
+  - do not redesign the header beyond removing the surrounding background treatment
 - Write sets:
-  - main:
+  - worker_header_bg:
+    - `src/index.css`
     - `src/components/Header.tsx`
-    - `STATE.md`
+  - reviewer_header_bg:
+    - review the same files for visual regressions and behavior preservation
 - Acceptance criteria:
-  - the header vertical spacing is slightly tighter
-  - no behavior changes elsewhere
+  - the header no longer shows decorative top/bottom background bands
+  - header content, sticky behavior, and controls remain unchanged
   - `npm.cmd run lint` and `npm.cmd run build` pass
-- Why this is Route A:
-  - this is a small hotfix in a tight slice and does not require worker fan-out or reviewer coordination.
+- Why this is Route B:
+  - this touches a shared surface style and needs explicit write-set ownership and review coordination.
 
 # Reviewer
-- reviewer: not used for this hotfix
+- reviewer: reviewer_header_bg
 
 # Last Update
-- 2026-05-22: reclassified as Route A hotfix to tighten the header vertical spacing.
+- 2026-05-22: header background-band removal implemented and verified with `npm.cmd run lint` and `npm.cmd run build`.
