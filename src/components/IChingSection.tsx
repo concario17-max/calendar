@@ -707,13 +707,13 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                           aria-pressed={isComicView}
                           aria-label={isComicView ? '텍스트 해설 보기' : '학습 만화 보기'}
                           onClick={() => setCommentaryViewMode((current) => (current === 'comic' ? 'text' : 'comic'))}
-                          className={`ui-button inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest ${
+                          className={`ui-button inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest sm:h-12 sm:w-12 ${
                             isComicView
                               ? 'ui-button--secondary text-secondary'
                               : 'ui-button--ghost border-outline-variant/60 bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
                           }`}
                         >
-                          <Images size={14} strokeWidth={2.2} />
+                          <Images size={16} strokeWidth={2.2} />
                         </button>
                       ) : null}
                     </div>
