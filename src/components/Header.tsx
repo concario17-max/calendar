@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({
   const handleTodayClick = () => onDateChange(new Date());
 
   return (
-    <header className="ui-surface--raised archive-header sticky top-0 z-30 -mb-px flex min-h-[4rem] w-full flex-col gap-3 border-0 bg-transparent px-4 py-4 text-on-surface backdrop-blur-xl sm:flex-row sm:items-center sm:gap-2 sm:px-4 sm:py-3 lg:px-8">
+    <header className="ui-surface--raised archive-header sticky top-0 z-30 -mb-px flex min-h-[4rem] w-full flex-col gap-2.5 border-0 bg-transparent px-4 py-3 text-on-surface backdrop-blur-xl sm:flex-row sm:items-center sm:gap-2 sm:px-4 sm:py-2.5 lg:px-8">
       <div className="archive-header__masthead flex min-w-0 flex-[1_1_16rem] flex-col items-start gap-1 sm:gap-1.5">
         <h1 className="archive-header__title inline-flex min-w-0 items-center gap-2 truncate font-headline text-[1.18rem] italic leading-none text-primary sm:text-[1.58rem]">
           <span

@@ -1,5 +1,5 @@
 ﻿# Current Task
-- Active: small UI hotfix in the commentary comic toggle: enlarge the right-panel comic toggle button so it reads as a proper control again.
+- Active: small UI hotfix in the header: tighten the top/bottom spacing so the header feels less airy while preserving its current structure.
 
 # Route
 - Route A
@@ -9,7 +9,7 @@
 - main: single-write lane for the hotfix
 
 # Contract Freeze
-- Goal: enlarge the commentary comic toggle button so it is easier to notice and tap, while preserving all other behavior.
+- Goal: reduce the header's vertical padding slightly so it feels tighter and more premium, while preserving all other behavior.
 - Non-goals:
   - do not add new libraries
   - do not change reading outcomes, date mapping, or commentary content
@@ -17,10 +17,10 @@
   - do not do unrelated visual redesign
 - Write sets:
   - main:
-    - `src/components/IChingSection.tsx`
+    - `src/components/Header.tsx`
     - `STATE.md`
 - Acceptance criteria:
-  - the commentary comic toggle button is visually larger and clearer
+  - the header vertical spacing is slightly tighter
   - no behavior changes elsewhere
   - `npm.cmd run lint` and `npm.cmd run build` pass
 - Why this is Route A:
@@ -30,4 +30,4 @@
 - reviewer: not used for this hotfix
 
 # Last Update
-- 2026-05-22: reclassified as Route A hotfix to enlarge the commentary comic toggle button.
+- 2026-05-22: reclassified as Route A hotfix to tighten the header vertical spacing.
