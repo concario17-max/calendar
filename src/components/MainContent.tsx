@@ -64,12 +64,6 @@ export const MainContent: React.FC<MainContentProps> = ({
           onCommentarySourceChange={handleCommentarySourceChange}
         />
 
-        <div className="px-4 sm:px-4 lg:px-8">
-          <p className="max-w-[22rem] rounded-[1.125rem] border border-outline-variant/35 bg-surface-container-low/70 px-4 py-3 text-[0.76rem] leading-relaxed text-on-surface-variant shadow-[0_10px_24px_-26px_var(--color-shadow)] sm:max-w-none sm:text-[0.78rem]">
-            ? ì§œë¥?ê³ ë¥´ë©??¤ëŠ˜???¨ì‚¬Â·ê´˜ì‚¬Â·?í˜¼ ?´ì„¤???´ë¦½?ˆë‹¤.
-          </p>
-        </div>
-
         <div className="curated-shell__frame flex min-h-0 flex-1 flex-col overflow-visible lg:overflow-hidden">
           <IChingSection
             selectedDate={selectedDate}
