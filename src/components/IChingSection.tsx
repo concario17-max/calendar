@@ -147,6 +147,8 @@ function getLearningImageLoader(
 
 type CommentaryViewMode = 'text' | 'comic';
 
+type ReadingDataStatus = 'loading' | 'ready' | 'error';
+
 function getDefaultCommentaryViewMode(source: CommentarySource): CommentaryViewMode {
   return source === 'soul' ? 'text' : 'comic';
 }
@@ -465,6 +467,7 @@ function LearningComicView({
   return (
     <div
       data-testid="learning-comic-view"
+      aria-busy="false"
       className="ui-card ui-surface--raised -mx-4 -my-4 px-0 py-0 sm:mx-0 sm:my-0 sm:rounded-[1.5rem] sm:px-4 sm:py-4"
     >
       <figure className="reading-section mx-auto w-full max-w-[56rem]">
@@ -484,6 +487,8 @@ function LearningComicEmptyState() {
   return (
     <div
       data-testid="learning-comic-empty-state"
+      role="status"
+      aria-live="polite"
       className="ui-card ui-surface--raised mx-auto flex w-full max-w-[56rem] flex-col items-center justify-center rounded-[1.5rem] border-dashed border-outline-variant/60 px-6 py-10 text-center"
     >
       <p className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-secondary">학습 만화</p>
@@ -501,6 +506,9 @@ function LearningComicLoadingState() {
   return (
     <div
       data-testid="learning-comic-loading-state"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
       className="ui-card ui-surface--raised mx-auto flex w-full max-w-[56rem] flex-col items-center justify-center rounded-[1.5rem] border border-outline-variant/40 px-6 py-10 text-center"
     >
       <p className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-secondary">학습 만화</p>
@@ -516,13 +524,22 @@ function DecoratedSurfaceCard({
   children,
   testId,
   className = '',
+  role,
+  ariaLive,
 }: {
   children: React.ReactNode;
   testId?: string;
   className?: string;
+  role?: React.AriaRole;
+  ariaLive?: 'polite' | 'assertive' | 'off';
 }) {
   return (
-    <article data-testid={testId} className={[decoratedSurfaceClass, className].filter(Boolean).join(' ')}>
+    <article
+      data-testid={testId}
+      role={role}
+      aria-live={ariaLive}
+      className={[decoratedSurfaceClass, className].filter(Boolean).join(' ')}
+    >
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent" />
       <div className="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-secondary/10 blur-2xl" />
       <div className="absolute -left-6 bottom-0 h-24 w-24 rounded-full bg-secondary/5 blur-3xl" />
@@ -545,6 +562,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   bonusYaoItems = [],
 }) => {
   const [readingData, setReadingData] = React.useState<ReadingDataBundle | null>(null);
+  const [readingDataStatus, setReadingDataStatus] = React.useState<ReadingDataStatus>('loading');
   const [commentaryViewMode, setCommentaryViewMode] = React.useState<CommentaryViewMode>(() =>
     getDefaultCommentaryViewMode(commentarySource),
   );
@@ -558,11 +576,13 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
       .then((module) => {
         if (!cancelled) {
           setReadingData(module);
+          setReadingDataStatus('ready');
         }
       })
       .catch(() => {
         if (!cancelled) {
           setReadingData(null);
+          setReadingDataStatus('error');
         }
       });
 
@@ -715,8 +735,46 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     };
   }, [isComicView, learningImageLoader]);
 
+  if (readingDataStatus === 'loading') {
+    return (
+      <DecoratedSurfaceCard
+        testId="reading-data-loading-state"
+        role="status"
+        ariaLive="polite"
+        className="px-6 py-6 md:px-8 md:py-8 lg:px-10"
+      >
+        <p className="sr-only">Reading data loading state.</p>
+        <div className="text-sm italic text-on-surface-variant opacity-70">Reading data is not available yet.</div>
+      </DecoratedSurfaceCard>
+    );
+  }
+
+  if (readingDataStatus === 'error') {
+    return (
+      <DecoratedSurfaceCard
+        testId="reading-data-error-state"
+        role="alert"
+        ariaLive="assertive"
+        className="px-6 py-6 md:px-8 md:py-8 lg:px-10"
+      >
+        <p className="sr-only">Reading data unavailable state.</p>
+        <div className="text-sm italic text-on-surface-variant opacity-70">Reading data is not available yet.</div>
+      </DecoratedSurfaceCard>
+    );
+  }
+
   if (!activeGuaData || !activeYaoData) {
-    return <div className="px-6 py-6 text-sm italic text-on-surface-variant opacity-70 md:px-8 md:py-8 lg:px-10">Reading data is not available yet.</div>;
+    return (
+      <DecoratedSurfaceCard
+        testId="reading-data-empty-state"
+        role="status"
+        ariaLive="polite"
+        className="px-6 py-6 md:px-8 md:py-8 lg:px-10"
+      >
+        <p className="sr-only">Reading data empty state.</p>
+        <div className="text-sm italic text-on-surface-variant opacity-70">Reading data is not available yet.</div>
+      </DecoratedSurfaceCard>
+    );
   }
 
   const commentaryHeading = commentary?.heading ?? null;
@@ -962,7 +1020,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     </div>
                   </div>
                 ) : (
-                  <DecoratedSurfaceCard>
+                  <DecoratedSurfaceCard testId="commentary-empty-state" role="status" ariaLive="polite">
                     <div className="pt-1 text-[0.98rem] leading-relaxed text-on-surface-variant">
                       Commentary is not available for this selection yet.
                     </div>

@@ -35,6 +35,8 @@ describe('SoulCalendarSection', () => {
     expect(screen.getByText('SOUL')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: "Rudolf Steiner's Calendar of the Soul" })).toBeInTheDocument();
     expect(screen.getByText('Soul verses are not available yet.')).toBeInTheDocument();
+    expect(screen.getByTestId('soul-empty-state')).toHaveAttribute('role', 'status');
+    expect(screen.getByTestId('soul-empty-state')).toHaveAttribute('aria-live', 'polite');
   });
 
   it('renders normalized week labels in the soul panel body', () => {

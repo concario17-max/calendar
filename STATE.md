@@ -1,41 +1,44 @@
 # Current Task
-- Completed: UX P1 mobile ergonomics pass; touch targets, spacing, and clickable clarity were tightened for the shared shell controls without changing behavior.
+- Active: UX P2 hardening pass completed; reading-panel loading, empty, and missing-commentary states now expose clear assistive semantics without changing behavior or copy.
 
 # Route
 - Route B
-- Reason: the scope still spans shared shell surfaces plus coordinated component updates and verification.
+- Reason: the scope still touches two shared reading surfaces that need coordinated accessibility semantics and review.
 
 # Writer Slot
 - main: planner-only for STATE and log updates
-- worker_p1: completed mobile-first interaction polish for Header, CommentaryModeTabs, DatePicker, MainContent, and JournalModal
-- worker_p2: deferred
-- reviewer: completed for the P1 pass
+- worker_iching: completed
+- worker_soul: completed
+- reviewer: completed
 
 # Contract Freeze
-- Goal: make the mobile shell easier to use by improving touch targets, spacing, density, and clickable affordances while preserving behavior.
+- Goal: make reading-panel loading, empty, and missing-commentary states available to screen readers with clear role, aria-live, and aria-busy semantics, while preserving existing behavior and wording.
 - Non-goals:
   - do not add new libraries
   - do not change reading/content semantics
+  - do not redesign unrelated surfaces beyond the P2 pass
   - do not touch untracked user folders/files
-  - do not redesign unrelated surfaces beyond the P1 pass
-  - do not change loading/error/empty states yet; that is the later P2 pass
+  - do not change labels or visible copy
+  - do not touch implementation files outside the declared write sets
 - Write sets:
-  - worker_p1: `src/components/Header.tsx`, `src/components/CommentaryModeTabs.tsx`, `src/components/DatePicker.tsx`, `src/components/MainContent.tsx`, `src/components/JournalModal.tsx`
+  - worker_iching: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
+  - worker_soul: `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
   - main: `STATE.md`, `MULTI_AGENT_LOG.md`
 - Acceptance criteria:
-  - mobile menu, buttons, and form-like controls feel easier to tap without changing behavior
-  - clickable and non-clickable elements are visually distinct
-  - the shell keeps the same information and actions, just with clearer spacing and touch targets
+  - loading, empty, and missing-commentary states expose useful role and aria semantics
+  - interactive vs non-interactive content is clearer to assistive tech
+  - the existing reading flows still behave the same
+  - tests validate the new state semantics only
   - `npm.cmd run lint`, `npm.cmd run test -- --run`, and `npm.cmd run build` pass
-- Why the split is safe:
-  - P1 stays on shell ergonomics only, so P2 can still harden states and accessibility without overlapping writes
+- Why this is Route B:
+  - the state-feedback updates touch multiple shared reading surfaces and should be verified together so semantics stay aligned
 
 # Reviewer
-- reviewer: completed for the P1 pass
+- reviewer: completed
 - reviewer focus:
-  - mobile ergonomics on shared controls
-  - accidental tap risk / control density
-  - no behavior regressions
+  - loading/empty/missing-commentary semantics
+  - aria-live / aria-busy / role coverage
+  - no regressions in reading surface behavior
 
 # Last Update
-- 2026-05-22: completed the P1 mobile ergonomics pass; lint, tests, and build all passed.
+- 2026-05-22: completed the narrowed P2 pass for reading-panel state feedback and accessibility semantics.

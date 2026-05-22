@@ -81,7 +81,9 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
                   />
                 ))
               ) : (
-                <p className={`${commentaryBodyClass} italic text-on-surface-variant`}>{SOUL_EMPTY}</p>
+                <div data-testid="soul-empty-state" role="status" aria-live="polite" className="mx-auto w-full max-w-[52rem]">
+                  <p className={`${commentaryBodyClass} italic text-on-surface-variant`}>{SOUL_EMPTY}</p>
+                </div>
               )}
             </div>
           </div>

@@ -446,3 +446,8 @@ status: resolved
   summary: malformed closing span broke lint during the mobile modal spacing pass
   details: the save button label was left with a missing '<' in the closing span after the text-density refactor; fixed immediately and re-ran lint/test/build.
   status: resolved
+- time: 2026-05-22 11:27 KST
+  location: shell command during P2 commit step
+  summary: PowerShell rejected `&&` while chaining git staging and commit
+  details: attempted to combine `git add` and `git commit` with `&&`; this shell needs separate calls or semicolon-separated commands, so the commit step was retried as split commands.
+  status: resolved

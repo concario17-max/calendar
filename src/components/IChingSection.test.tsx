@@ -259,6 +259,9 @@ describe('IChingSection', () => {
   it('loads leaf-module data asynchronously and keeps the regular gua flow intact', async () => {
     renderSection();
 
+    expect(screen.getByTestId('reading-data-loading-state')).toHaveAttribute('role', 'status');
+    expect(screen.getByTestId('reading-data-loading-state')).toHaveAttribute('aria-live', 'polite');
+
     await waitForCommentaryReady();
 
     expect(screen.getByTestId('commentary-comic-toggle')).toHaveAttribute('aria-pressed', 'true');
@@ -392,6 +395,8 @@ describe('IChingSection', () => {
     expect(screen.getByTestId('commentary-comic-toggle')).toBeInTheDocument();
     expect(screen.getByTestId('commentary-folio')).toBeInTheDocument();
     expect(screen.getByTestId('learning-comic-empty-state')).toBeInTheDocument();
+    expect(screen.getByTestId('learning-comic-empty-state')).toHaveAttribute('role', 'status');
+    expect(screen.getByTestId('learning-comic-empty-state')).toHaveAttribute('aria-live', 'polite');
     expect(screen.getByText('General commentary body')).toBeInTheDocument();
 
     emptyComicView.unmount();
@@ -407,5 +412,8 @@ describe('IChingSection', () => {
     await waitFor(() => {
       expect(screen.getByText('Commentary is not available for this selection yet.')).toBeInTheDocument();
     });
+
+    expect(screen.getByTestId('commentary-empty-state')).toHaveAttribute('role', 'status');
+    expect(screen.getByTestId('commentary-empty-state')).toHaveAttribute('aria-live', 'polite');
   });
 });

@@ -620,8 +620,38 @@
   summary: P1 UX task narrowed to mobile ergonomics only
   details: split the earlier combined P1/P2 pass so the current write set stays focused on touch targets, spacing, and clickable clarity for the shared shell controls.
   status: open
+
+- time: 2026-05-22 11:18 KST
+  location: STATE.md / MULTI_AGENT_LOG.md
+  summary: P1 write set narrowed to exclude Header.tsx
+  details: the active lane now covers CommentaryModeTabs, DatePicker, MainContent, and JournalModal only; Header.tsx is reserved for the other lane and remains untouched here.
+  status: open
 - time: 2026-05-22 11:10 KST
   location: STATE.md / MULTI_AGENT_LOG.md
   summary: P1 UX task narrowed to mobile ergonomics only
   details: split the earlier combined P1/P2 pass so the current write set stays focused on touch targets, spacing, and clickable clarity for the shared shell controls.
+  status: resolved
+
+- time: 2026-05-22 11:10 KST
+  location: STATE.md
+  summary: UX P2 hardening task frozen as Route B
+  details: reading-state feedback and accessibility were split from P1 mobile ergonomics into a separate pass to keep the write sets clean.
+  status: open
+
+- time: 2026-05-22 11:13 KST
+  location: STATE.md / MULTI_AGENT_LOG.md
+  summary: P2 pass re-scoped into separate reading and test slices
+  details: split the accessibility and state-feedback work into IChing, Soul, and shared test slices so the reading surfaces can be hardened without changing behavior.
+  status: open
+
+- time: 2026-05-22 11:13 KST
+  location: STATE.md / MULTI_AGENT_LOG.md
+  summary: P2 reading-state scope narrowed to status semantics only
+  details: reduced the pass to loading, empty, and missing-commentary role/aria feedback on the reading surfaces, with copy and behavior left untouched.
+  status: open
+
+- time: 2026-05-22 11:22 KST
+  location: STATE.md / MULTI_AGENT_LOG.md
+  summary: P2 reading-state semantics pass completed
+  details: loading, empty, and missing-commentary states now expose status semantics on the reading surfaces; copy and behavior stayed unchanged.
   status: resolved
