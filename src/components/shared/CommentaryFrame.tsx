@@ -7,7 +7,7 @@ interface CommentaryFrameProps {
   decorationClassName?: string;
 }
 
-const baseClassName = 'ui-card ui-surface--raised relative overflow-hidden rounded-[2rem] px-4 py-4';
+const baseClassName = 'ui-card ui-surface--raised relative overflow-hidden rounded-[2rem] px-4 py-2';
 
 export function CommentaryFrame({
   children,

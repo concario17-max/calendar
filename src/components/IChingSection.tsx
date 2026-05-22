@@ -687,7 +687,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </div>
             </div>
           ) : null}
-          <div className="mt-2 flex-1 space-y-0">
+          <div className="flex-1 space-y-0">
             {commentarySource === 'soul' ? (
               <div key="soul" className="reading-fade-in">
                 <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />

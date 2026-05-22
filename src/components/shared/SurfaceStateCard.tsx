@@ -9,7 +9,7 @@ interface SurfaceStateCardProps {
 }
 
 const baseClassName =
-  'ui-card ui-surface--raised relative overflow-hidden rounded-[1.5rem] px-4 py-4 backdrop-blur-sm';
+  'ui-card ui-surface--raised relative overflow-hidden rounded-[1.5rem] px-4 py-2 backdrop-blur-sm';
 
 export function SurfaceStateCard({
   children,

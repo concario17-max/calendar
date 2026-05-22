@@ -513,6 +513,8 @@
   }
 
   .reading-system .reading-panel--right {
+    padding-top: clamp(0.8rem, 1.3vw, 1rem) !important;
+    padding-bottom: clamp(0.8rem, 1.3vw, 1rem) !important;
     box-shadow: inset 1px 0 0 color-mix(in srgb, var(--color-primary) 3%, transparent);
   }
 
