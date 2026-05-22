@@ -655,3 +655,13 @@
   summary: P2 reading-state semantics pass completed
   details: loading, empty, and missing-commentary states now expose status semantics on the reading surfaces; copy and behavior stayed unchanged.
   status: resolved
+- time: 2026-05-22 11:33 KST
+  location: STATE.md / MULTI_AGENT_LOG.md
+  summary: frontend quality refactor task reclassified to Route B
+  details: opened a new multi-slice pass for dedupe, shared UI extraction, page-vs-logic separation, redundant state/render cleanup, and verification gates with worker_ui_shared + worker_logic_perf + reviewer lanes.
+  status: open
+- time: 2026-05-22 12:00 KST
+  location: src/utils/commentaryParser.ts / src/utils/learningImage.ts / src/hooks/useCalendarLogic.ts / src/utils/readingDataLoader.ts / src/components/IChingSection.tsx
+  summary: worker_logic_perf refactor completed
+  details: extracted commentary parsing and learning-image glob helpers into utils, cached reading-data loading, and kept the reading UI/tests passing with lint/build verification.
+  status: resolved

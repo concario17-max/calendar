@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { BONUS_DAY_READINGS } from '../data/bonusReadings';
-import type { BonusGuaItem, BonusMonthDayKey, BonusYaoItem, SoulGroup } from '../types';
+import type { BonusGuaItem, BonusYaoItem, SoulGroup } from '../types';
 import { loadReadingDataBundle, type ReadingDataBundle } from '../utils/readingDataLoader';
 import {
   calcGuaNum,
   calcYaoNum,
+  isBonusMonthDayKey,
   isInRangeMD,
   parseNumberedBlocks,
   parseSoulGroups,
@@ -115,10 +116,6 @@ export function useCalendarLogic() {
     hitSoulGroup,
     soulSections,
   };
-}
-
-function isBonusMonthDayKey(key: string): key is BonusMonthDayKey {
-  return key === '4-2' || key === '4-3' || key === '4-4' || key === '4-5' || key === '4-6';
 }
 
 function buildBonusGuaItem(num: number, readingData: ReadingDataBundle): BonusGuaItem {

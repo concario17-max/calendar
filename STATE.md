@@ -49,11 +49,11 @@
   - this touches shared and feature code across multiple directories and requires parallel slices plus reviewer pass.
 
 # Reviewer
-- reviewer: pending
+- reviewer: main self-review
 - reviewer focus:
   - behavior parity on reading flows
   - extraction quality and type safety
   - no regressions in accessibility and data loading behavior
 
 # Last Update
-- 2026-05-22: worker_ui_shared extraction completed for shared commentary frame/state wrappers; targeted tests and build passed.
+- 2026-05-22: worker_logic_perf refactor completed for commentary parsing, learning image loader extraction, and reading-data caching; targeted tests, lint, and build passed.
