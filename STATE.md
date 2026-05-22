@@ -1,41 +1,40 @@
 # Current Task
-- Active: design-system token cleanup and component variant harmonization for launch readiness, with existing behavior preserved.
+- Active: completed P0 UX clarity pass for first-visit clarity and CTA clarity; the copy refresh is merged and verified.
 
 # Route
 - Route B
-- Reason: the scope spans shared style assets plus multiple component surfaces, and it needs coordinated token + variant changes with tests and build verification.
+- Reason: the work touched shared shell surfaces and required coordinated copy, control, and test updates without changing behavior.
 
 # Writer Slot
 - main: planner-only for STATE and log updates
-- worker_tokens: shared design tokens, globals, and only the shared primitives that are truly needed
-- worker_surfaces: component-side adoption of the unified variants across navigation, cards, forms, modal, and reading surfaces
-- reviewer: pending for the design-system integration pass
+- worker_copy_clarity: completed
+- reviewer: completed
 
 # Contract Freeze
-- Goal: make the app feel premium, fast, trustworthy, and mobile-first by unifying the design system without changing features.
+- Goal: improve the first-impression UX so first-time users understand the site purpose quickly and the primary CTA is explicit, while preserving existing behavior.
 - Non-goals:
   - do not add new libraries
-  - do not change route behavior or content semantics
+  - do not change reading/content semantics
   - do not touch untracked user folders/files
+  - do not redesign unrelated surfaces beyond the P0 clarity pass
 - Write sets:
-  - worker_tokens: `src/index.css`, `tailwind.config.js`, `src/components/shared/*` if truly needed
-  - worker_surfaces: `src/components/Header.tsx`, `src/components/CommentaryModeTabs.tsx`, `src/components/DatePicker.tsx`, `src/components/JournalModal.tsx`, `src/components/MainContent.tsx`, `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`
+  - worker_copy_clarity: `src/components/Header.tsx`, `src/components/MainContent.tsx`, `src/components/Header.test.tsx`
   - main: `STATE.md`, `MULTI_AGENT_LOG.md`
 - Acceptance criteria:
-  - color, type, spacing, radius, shadow, and border rules come from a single coherent system
-  - buttons, cards, inputs, modal, and navigation share consistent variants and states
-  - dark mode stays supported through existing tokens or token bridges
-  - existing UI behavior remains intact
+  - first-visit purpose is obvious from the header/top copy within a few seconds
+  - primary action is clearly labeled and not vague
+  - mobile layout remains usable and unchanged in behavior
+  - existing controls stay accessible
   - `npm.cmd run lint`, `npm.cmd run test -- --run`, and `npm.cmd run build` pass
-- Why the split is safe:
-  - token/global changes are separable from component adoption, but they must agree on the same shared contract
+- Why the slice is Route B:
+  - the first-impression copy and CTA are spread across shared shell components and should be updated together so the messaging stays consistent
 
 # Reviewer
-- reviewer: pending for the design-system integration pass
+- reviewer: completed
 - reviewer focus:
-  - token consistency and semantic usage
-  - shared component variant consistency across screens
-  - mobile-first spacing/typography balance without regressions
+  - purpose clarity on first load
+  - CTA clarity and accessibility labels
+  - no regression in header/mobile control layout
 
 # Last Update
-- 2026-05-21: design-system cleanup implemented and verified with lint, test, and build; typecheck script is still not defined in package.json.
+- 2026-05-22: P0 UX clarity pass completed, reviewed, and verified.

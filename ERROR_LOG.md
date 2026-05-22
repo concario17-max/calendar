@@ -431,3 +431,13 @@ status: resolved
   summary: build failed on a nullable commentary heading reference after the leaf-loader cleanup
   details: `tsc -b` rejected the direct `commentary.heading` read because `commentary` can be null in the render path. Tightened the heading access to a local nullable value, then reran lint, targeted tests, and build successfully.
   status: resolved
+- time: 2026-05-21 18:05 KST
+  location: Route B / design-system component adoption
+  summary: implementation blocked because no worker delegation tool is exposed in the current session
+  details: STATE.md has been re-scoped and the component-adoption contract is frozen, but the session cannot spawn the required worker/reviewer lane to edit the seven target component files without violating Route B constraints.
+  status: open
+- time: 2026-05-22 10:41 KST
+  location: shell command during UX clarity pass
+  summary: PowerShell rejected the `&&` separator in a staging and commit command
+  details: attempted to chain `git add` and `git commit` with `&&`; this shell requires semicolon-separated commands or separate calls
+  status: resolved

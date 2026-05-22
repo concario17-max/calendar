@@ -590,3 +590,22 @@
   summary: design-system cleanup implementation kicked off with refreshed token contract
   details: token layer and component surface adoption stay split so shared primitives can settle first, then existing UI variants can adopt the new system without behavior drift.
   status: resolved
+
+# 2026-05-21
+- task: re-scope the design-system pass from broad token cleanup to component adoption on the shared surface layer
+- route: Route B
+- status: open
+- writer slots: worker_surfaces = `src/components/Header.tsx`, `src/components/CommentaryModeTabs.tsx`, `src/components/DatePicker.tsx`, `src/components/JournalModal.tsx`, `src/components/MainContent.tsx`, `src/components/IChingSection.tsx`, `src/components/SoulCalendarSection.tsx`; reviewer = component-adoption review
+- notes: token bridges are already in place; this pass now focuses on getting the listed component surfaces onto the same shared button/card/input/modal/navigation variants without changing behavior
+
+- time: 2026-05-22 09:10 KST
+  location: STATE.md
+  summary: UX P0 clarity task frozen as Route B
+  details: first-visit purpose clarity and CTA clarity were re-scoped into a focused shell-copy pass with one worker and reviewer.
+  status: open
+
+- time: 2026-05-22 10:50 KST
+  location: STATE.md
+  summary: UX P0 clarity task closed
+  details: first-visit purpose and CTA clarity were reviewed and verified; task state moved to completed.
+  status: resolved
