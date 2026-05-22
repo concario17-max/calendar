@@ -1,3 +1,9 @@
+time: 2026-05-22 11:46 KST
+location: `npm.cmd run test -- --run src/components/IChingSection.test.tsx src/components/SoulCalendarSection.test.tsx`
+summary: Initial targeted test run failed after shared wrapper extraction
+details: `IChingSection.test.tsx` could not find `data-testid="commentary-folio"` because the new shared `CommentaryFrame` prop was passed as `data-testid` instead of `testId`. The prop name was corrected and the targeted tests passed on retry.
+status: resolved
+
 time: 2026-04-14 17:29 KST
 location: scripts/check-encoding.mjs
 summary: Existing encoding check failed in `src/components/IChingSection.tsx`

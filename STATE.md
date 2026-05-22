@@ -1,44 +1,59 @@
 # Current Task
-- Active: UX P2 hardening pass completed; reading-panel loading, empty, and missing-commentary states now expose clear assistive semantics without changing behavior or copy.
+- Active: frontend quality refactor pass (P1/P2 scope): remove duplicated view logic, extract shared UI primitives, separate page/render from commentary parsing logic, reduce redundant state/render paths, and verify bundle/build quality without changing behavior.
 
 # Route
 - Route B
-- Reason: the scope still touches two shared reading surfaces that need coordinated accessibility semantics and review.
+- Reason: this pass crosses shared UI primitives, heavy feature components, hook-level state boundaries, and test coverage across multiple files/directories, so implementation must be parallelized and reviewed.
 
 # Writer Slot
-- main: planner-only for STATE and log updates
-- worker_iching: completed
-- worker_soul: completed
-- reviewer: completed
+- main: planner-only for `STATE.md` and `MULTI_AGENT_LOG.md`
+- worker_ui_shared: shared UI/component extraction and integration
+- worker_logic_perf: hook/util refactor and redundant-state/render cleanup
+- reviewer: pending
 
 # Contract Freeze
-- Goal: make reading-panel loading, empty, and missing-commentary states available to screen readers with clear role, aria-live, and aria-busy semantics, while preserving existing behavior and wording.
+- Goal: improve code quality in priority order (dedupe/extract/separate/remove redundant state/reduce rerender/image+bundle checks), keep existing runtime behavior, and finish with lint/test/build verification.
 - Non-goals:
   - do not add new libraries
-  - do not change reading/content semantics
-  - do not redesign unrelated surfaces beyond the P2 pass
-  - do not touch untracked user folders/files
-  - do not change labels or visible copy
-  - do not touch implementation files outside the declared write sets
+  - do not change reading outcomes, date mapping, or commentary content
+  - do not alter user-provided untracked folders/files
+  - do not do unrelated visual redesign
 - Write sets:
-  - worker_iching: `src/components/IChingSection.tsx`, `src/components/IChingSection.test.tsx`
-  - worker_soul: `src/components/SoulCalendarSection.tsx`, `src/components/SoulCalendarSection.test.tsx`
-  - main: `STATE.md`, `MULTI_AGENT_LOG.md`
+  - worker_ui_shared:
+    - `src/components/shared/CommentaryFrame.tsx` (new)
+    - `src/components/shared/SurfaceStateCard.tsx` (new)
+    - `src/components/IChingSection.tsx`
+    - `src/components/SoulCalendarSection.tsx`
+    - `src/components/IChingSection.test.tsx`
+    - `src/components/SoulCalendarSection.test.tsx`
+  - worker_logic_perf:
+    - `src/utils/commentaryParser.ts` (new)
+    - `src/utils/learningImage.ts` (new)
+    - `src/hooks/useCalendarLogic.ts`
+    - `src/utils/readingDataLoader.ts`
+    - `src/components/MainContent.tsx`
+    - `src/components/DatePicker.tsx`
+    - `src/hooks/useCalendarLogic.test.ts`
+  - main:
+    - `STATE.md`
+    - `MULTI_AGENT_LOG.md`
+    - `ERROR_LOG.md` (only if needed by execution errors)
 - Acceptance criteria:
-  - loading, empty, and missing-commentary states expose useful role and aria semantics
-  - interactive vs non-interactive content is clearer to assistive tech
-  - the existing reading flows still behave the same
-  - tests validate the new state semantics only
-  - `npm.cmd run lint`, `npm.cmd run test -- --run`, and `npm.cmd run build` pass
+  - duplicated commentary surface/state UI is extracted and reused
+  - parsing/image-loader logic is moved out of page components into utils
+  - redundant state/render paths are reduced without behavior change
+  - image rendering uses existing optimization-friendly attributes and avoids regressions
+  - bundle output is checked and reported
+  - `npm.cmd run lint`, `npm.cmd run test -- --run`, `npm.cmd run build` pass
 - Why this is Route B:
-  - the state-feedback updates touch multiple shared reading surfaces and should be verified together so semantics stay aligned
+  - this touches shared and feature code across multiple directories and requires parallel slices plus reviewer pass.
 
 # Reviewer
-- reviewer: completed
+- reviewer: pending
 - reviewer focus:
-  - loading/empty/missing-commentary semantics
-  - aria-live / aria-busy / role coverage
-  - no regressions in reading surface behavior
+  - behavior parity on reading flows
+  - extraction quality and type safety
+  - no regressions in accessibility and data loading behavior
 
 # Last Update
-- 2026-05-22: completed the narrowed P2 pass for reading-panel state feedback and accessibility semantics.
+- 2026-05-22: worker_ui_shared extraction completed for shared commentary frame/state wrappers; targeted tests and build passed.

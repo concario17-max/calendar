@@ -3,17 +3,15 @@ import { ChevronLeft, ChevronRight, Images } from 'lucide-react';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { loadReadingDataBundle, type ReadingDataBundle } from '../utils/readingDataLoader';
 import { formatWeeksLabel } from '../utils/soulLogic';
+import { CommentaryFrame } from './shared/CommentaryFrame';
+import { SurfaceStateCard } from './shared/SurfaceStateCard';
 import { SoulCalendarSection } from './SoulCalendarSection';
 
 const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
 const compactLeftBadgeClass =
   'inline-flex w-fit items-center rounded-full border border-secondary/15 bg-secondary/10 px-1.5 py-0.5 text-[8px] font-semibold leading-none tracking-[0.14em] text-secondary';
-const decoratedSurfaceClass =
-  'ui-card ui-surface--raised relative overflow-hidden rounded-[1.5rem] px-4 py-4 backdrop-blur-sm';
 const manuscriptUnitClass =
   'reading-section reading-fade-in border-l border-outline-variant/60 pl-5 md:pl-6';
-const commentaryFolioClass =
-  'ui-card ui-surface--raised relative overflow-hidden rounded-[2rem] px-4 py-4';
 const commentaryHeadingClass =
   'mx-auto w-full max-w-[56rem] break-keep font-headline text-[2.05rem] font-semibold leading-[1.08] tracking-[-0.035em] text-on-surface md:text-[2.7rem]';
 const commentaryBodyClass =
@@ -520,34 +518,6 @@ function LearningComicLoadingState() {
   );
 }
 
-function DecoratedSurfaceCard({
-  children,
-  testId,
-  className = '',
-  role,
-  ariaLive,
-}: {
-  children: React.ReactNode;
-  testId?: string;
-  className?: string;
-  role?: React.AriaRole;
-  ariaLive?: 'polite' | 'assertive' | 'off';
-}) {
-  return (
-    <article
-      data-testid={testId}
-      role={role}
-      aria-live={ariaLive}
-      className={[decoratedSurfaceClass, className].filter(Boolean).join(' ')}
-    >
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent" />
-      <div className="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-secondary/10 blur-2xl" />
-      <div className="absolute -left-6 bottom-0 h-24 w-24 rounded-full bg-secondary/5 blur-3xl" />
-      <div className="relative">{children}</div>
-    </article>
-  );
-}
-
 export const IChingSection: React.FC<IChingSectionProps> = ({
   selectedDate,
   onDateChange,
@@ -695,8 +665,8 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   const guaMeta = activeGuaData?.meta.trim() ?? '';
   const leftSoulWeeksLabel = formatWeeksLabel(hitSoulGroup, soulSections);
   const commentaryFolioSurfaceClass = isComicView
-    ? 'ui-card ui-surface--raised relative overflow-visible border-0 bg-transparent px-0 py-0 shadow-none sm:overflow-hidden sm:rounded-[2rem] sm:border sm:border-outline-variant/60 sm:bg-surface-container-low/95 sm:px-4 sm:py-4'
-    : commentaryFolioClass;
+    ? 'relative overflow-visible border-0 bg-transparent px-0 py-0 shadow-none sm:overflow-hidden sm:rounded-[2rem] sm:border sm:border-outline-variant/60 sm:bg-surface-container-low/95 sm:px-4 sm:py-4'
+    : undefined;
 
   React.useEffect(() => {
     let cancelled = false;
@@ -737,7 +707,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
   if (readingDataStatus === 'loading') {
     return (
-      <DecoratedSurfaceCard
+      <SurfaceStateCard
         testId="reading-data-loading-state"
         role="status"
         ariaLive="polite"
@@ -745,13 +715,13 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
       >
         <p className="sr-only">Reading data loading state.</p>
         <div className="text-sm italic text-on-surface-variant opacity-70">Reading data is not available yet.</div>
-      </DecoratedSurfaceCard>
+      </SurfaceStateCard>
     );
   }
 
   if (readingDataStatus === 'error') {
     return (
-      <DecoratedSurfaceCard
+      <SurfaceStateCard
         testId="reading-data-error-state"
         role="alert"
         ariaLive="assertive"
@@ -759,13 +729,13 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
       >
         <p className="sr-only">Reading data unavailable state.</p>
         <div className="text-sm italic text-on-surface-variant opacity-70">Reading data is not available yet.</div>
-      </DecoratedSurfaceCard>
+      </SurfaceStateCard>
     );
   }
 
   if (!activeGuaData || !activeYaoData) {
     return (
-      <DecoratedSurfaceCard
+      <SurfaceStateCard
         testId="reading-data-empty-state"
         role="status"
         ariaLive="polite"
@@ -773,7 +743,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
       >
         <p className="sr-only">Reading data empty state.</p>
         <div className="text-sm italic text-on-surface-variant opacity-70">Reading data is not available yet.</div>
-      </DecoratedSurfaceCard>
+      </SurfaceStateCard>
     );
   }
 
@@ -987,44 +957,26 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                       ) : null}
                     </div>
 
-                    <div data-testid="commentary-folio" className={commentaryFolioSurfaceClass}>
-                      <div
-                        className={
-                          isComicView
-                            ? 'hidden sm:block absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent'
-                            : 'absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent'
-                        }
-                      />
-                      <div
-                        className={
-                          isComicView
-                            ? 'hidden sm:block absolute -right-2 top-2 h-16 w-16 rounded-full bg-secondary/10 blur-2xl'
-                            : 'absolute -right-2 top-2 h-16 w-16 rounded-full bg-secondary/10 blur-2xl'
-                        }
-                      />
-                      <div
-                        className={
-                          isComicView
-                            ? 'hidden sm:block absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-secondary/5 blur-3xl'
-                            : 'absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-secondary/5 blur-3xl'
-                        }
-                      />
-
-                      <div className="relative space-y-[var(--reading-block-gap)]">
+                    <CommentaryFrame
+                      testId="commentary-folio"
+                      className={commentaryFolioSurfaceClass}
+                      decorationClassName={isComicView ? 'hidden sm:block' : ''}
+                    >
+                      <div className="space-y-[var(--reading-block-gap)]">
                         {isComicView ? (
                           renderComicArea()
                         ) : (
                           renderCommentaryTextContent()
                         )}
                       </div>
-                    </div>
+                    </CommentaryFrame>
                   </div>
                 ) : (
-                  <DecoratedSurfaceCard testId="commentary-empty-state" role="status" ariaLive="polite">
+                  <SurfaceStateCard testId="commentary-empty-state" role="status" ariaLive="polite">
                     <div className="pt-1 text-[0.98rem] leading-relaxed text-on-surface-variant">
                       Commentary is not available for this selection yet.
                     </div>
-                  </DecoratedSurfaceCard>
+                  </SurfaceStateCard>
                 )}
               </div>
             )}

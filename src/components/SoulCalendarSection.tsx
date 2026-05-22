@@ -2,6 +2,7 @@ import React from 'react';
 import { Sparkles } from 'lucide-react';
 import type { SoulGroup, SoulSection } from '../types';
 import { formatSoulDateRange, formatWeeksLabel } from '../utils/soulLogic';
+import { CommentaryFrame } from './shared/CommentaryFrame';
 
 interface SoulCalendarSectionProps {
   hitSoulGroup?: SoulGroup;
@@ -11,8 +12,6 @@ interface SoulCalendarSectionProps {
 const SOUL_TITLE = "Rudolf Steiner's Calendar of the Soul";
 const SOUL_BADGE = 'SOUL';
 const SOUL_EMPTY = 'Soul verses are not available yet.';
-const commentaryFolioClass =
-  'ui-card ui-surface--raised relative overflow-hidden rounded-[2rem] px-4 py-4';
 const commentaryHeadingClass =
   'mx-auto w-full max-w-[52rem] break-keep font-headline text-[2.05rem] font-semibold leading-[1.08] tracking-[-0.035em] text-on-surface md:text-[2.7rem]';
 const commentaryBodyClass =
@@ -61,12 +60,8 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
           </span>
         </div>
 
-        <div className={commentaryFolioClass}>
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent" />
-          <div className="absolute -right-2 top-2 h-16 w-16 rounded-full bg-secondary/10 blur-2xl" />
-          <div className="absolute -left-4 bottom-0 h-24 w-24 rounded-full bg-secondary/5 blur-3xl" />
-
-          <div className="relative space-y-[var(--reading-block-gap)]">
+        <CommentaryFrame>
+          <div className="space-y-[var(--reading-block-gap)]">
             <h2 className={commentaryHeadingClass}>{SOUL_TITLE}</h2>
 
             {weeksLabel ? <p className={`${commentaryBodyClass} italic text-on-surface-variant`}>{weeksLabel}</p> : null}
@@ -87,7 +82,7 @@ export const SoulCalendarSection: React.FC<SoulCalendarSectionProps> = ({ hitSou
               )}
             </div>
           </div>
-        </div>
+        </CommentaryFrame>
       </div>
     </section>
   );
