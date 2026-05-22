@@ -19,8 +19,8 @@ export const Header: React.FC<HeaderProps> = ({
   const handleTodayClick = () => onDateChange(new Date());
 
   return (
-    <header className="ui-surface--raised archive-header sticky top-0 z-30 -mb-px flex min-h-[3.5rem] w-full flex-col gap-3 border-0 bg-transparent px-4 py-3 text-on-surface backdrop-blur-xl sm:flex-row sm:items-center sm:gap-2 sm:px-4 lg:px-8">
-      <div className="archive-header__masthead flex min-w-0 flex-[1_1_16rem] flex-col items-start gap-1.5">
+    <header className="ui-surface--raised archive-header sticky top-0 z-30 -mb-px flex min-h-[4rem] w-full flex-col gap-3 border-0 bg-transparent px-4 py-4 text-on-surface backdrop-blur-xl sm:flex-row sm:items-center sm:gap-2 sm:px-4 sm:py-3 lg:px-8">
+      <div className="archive-header__masthead flex min-w-0 flex-[1_1_16rem] flex-col items-start gap-1 sm:gap-1.5">
         <h1 className="archive-header__title inline-flex min-w-0 items-center gap-2 truncate font-headline text-[1.18rem] italic leading-none text-primary sm:text-[1.58rem]">
           <span
             aria-hidden="true"
@@ -30,22 +30,22 @@ export const Header: React.FC<HeaderProps> = ({
           </span>
           <span className="truncate">Celestial Ephemeris</span>
         </h1>
-        <p className="max-w-[18rem] text-[0.72rem] leading-snug text-on-surface-variant sm:max-w-[28rem] sm:text-[0.78rem]">
+        <p className="max-w-[20rem] text-[0.76rem] leading-snug text-on-surface-variant sm:max-w-[28rem] sm:text-[0.78rem]">
           효사·괘사·영혼을 날짜별로 읽는 아카이브
         </p>
       </div>
 
-      <div className="archive-header__controls flex w-full min-w-0 flex-wrap items-center justify-between gap-2 sm:ml-auto sm:w-auto sm:flex-nowrap sm:justify-end sm:gap-2">
-        <div className="flex min-w-0 items-center justify-start">
+      <div className="archive-header__controls flex w-full min-w-0 flex-wrap items-stretch justify-between gap-3 sm:ml-auto sm:w-auto sm:flex-nowrap sm:items-center sm:justify-end sm:gap-2">
+        <div className="flex min-w-0 items-center justify-start sm:w-auto">
           <CommentaryModeTabs value={commentarySource} onChange={onCommentarySourceChange} />
         </div>
 
-        <div className="flex shrink-0 items-center justify-end gap-1.5">
+        <div className="flex w-full shrink-0 items-center justify-between gap-2 sm:w-auto sm:justify-end">
           <DatePicker selectedDate={selectedDate} onDateChange={onDateChange} />
           <button
             type="button"
             onClick={handleTodayClick}
-            className="ui-button ui-button--ghost min-h-10 rounded-full px-3.5 py-1.5 font-label text-[0.64rem] uppercase tracking-[0.16em] text-on-surface-variant active-scale"
+            className="ui-button ui-button--ghost min-h-11 rounded-full px-4 py-2 font-label text-[0.68rem] uppercase tracking-[0.16em] text-on-surface-variant active-scale sm:px-3.5 sm:py-1.5"
           >
             오늘
           </button>

@@ -609,3 +609,19 @@
   summary: UX P0 clarity task closed
   details: first-visit purpose and CTA clarity were reviewed and verified; task state moved to completed.
   status: resolved
+
+- time: 2026-05-22 11:02 KST
+  location: STATE.md
+  summary: UX P1/P2 pass frozen as Route B
+  details: mobile ergonomics were separated as P1 and state/accessibility hardening as P2 so the shared surfaces can be updated in order.
+  status: open
+- time: 2026-05-22 11:10 KST
+  location: STATE.md / MULTI_AGENT_LOG.md
+  summary: P1 UX task narrowed to mobile ergonomics only
+  details: split the earlier combined P1/P2 pass so the current write set stays focused on touch targets, spacing, and clickable clarity for the shared shell controls.
+  status: open
+- time: 2026-05-22 11:10 KST
+  location: STATE.md / MULTI_AGENT_LOG.md
+  summary: P1 UX task narrowed to mobile ergonomics only
+  details: split the earlier combined P1/P2 pass so the current write set stays focused on touch targets, spacing, and clickable clarity for the shared shell controls.
+  status: resolved

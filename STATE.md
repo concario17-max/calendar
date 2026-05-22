@@ -1,40 +1,41 @@
 # Current Task
-- Active: completed P0 UX clarity pass for first-visit clarity and CTA clarity; the copy refresh is merged and verified.
+- Completed: UX P1 mobile ergonomics pass; touch targets, spacing, and clickable clarity were tightened for the shared shell controls without changing behavior.
 
 # Route
 - Route B
-- Reason: the work touched shared shell surfaces and required coordinated copy, control, and test updates without changing behavior.
+- Reason: the scope still spans shared shell surfaces plus coordinated component updates and verification.
 
 # Writer Slot
 - main: planner-only for STATE and log updates
-- worker_copy_clarity: completed
-- reviewer: completed
+- worker_p1: completed mobile-first interaction polish for Header, CommentaryModeTabs, DatePicker, MainContent, and JournalModal
+- worker_p2: deferred
+- reviewer: completed for the P1 pass
 
 # Contract Freeze
-- Goal: improve the first-impression UX so first-time users understand the site purpose quickly and the primary CTA is explicit, while preserving existing behavior.
+- Goal: make the mobile shell easier to use by improving touch targets, spacing, density, and clickable affordances while preserving behavior.
 - Non-goals:
   - do not add new libraries
   - do not change reading/content semantics
   - do not touch untracked user folders/files
-  - do not redesign unrelated surfaces beyond the P0 clarity pass
+  - do not redesign unrelated surfaces beyond the P1 pass
+  - do not change loading/error/empty states yet; that is the later P2 pass
 - Write sets:
-  - worker_copy_clarity: `src/components/Header.tsx`, `src/components/MainContent.tsx`, `src/components/Header.test.tsx`
+  - worker_p1: `src/components/Header.tsx`, `src/components/CommentaryModeTabs.tsx`, `src/components/DatePicker.tsx`, `src/components/MainContent.tsx`, `src/components/JournalModal.tsx`
   - main: `STATE.md`, `MULTI_AGENT_LOG.md`
 - Acceptance criteria:
-  - first-visit purpose is obvious from the header/top copy within a few seconds
-  - primary action is clearly labeled and not vague
-  - mobile layout remains usable and unchanged in behavior
-  - existing controls stay accessible
+  - mobile menu, buttons, and form-like controls feel easier to tap without changing behavior
+  - clickable and non-clickable elements are visually distinct
+  - the shell keeps the same information and actions, just with clearer spacing and touch targets
   - `npm.cmd run lint`, `npm.cmd run test -- --run`, and `npm.cmd run build` pass
-- Why the slice is Route B:
-  - the first-impression copy and CTA are spread across shared shell components and should be updated together so the messaging stays consistent
+- Why the split is safe:
+  - P1 stays on shell ergonomics only, so P2 can still harden states and accessibility without overlapping writes
 
 # Reviewer
-- reviewer: completed
+- reviewer: completed for the P1 pass
 - reviewer focus:
-  - purpose clarity on first load
-  - CTA clarity and accessibility labels
-  - no regression in header/mobile control layout
+  - mobile ergonomics on shared controls
+  - accidental tap risk / control density
+  - no behavior regressions
 
 # Last Update
-- 2026-05-22: P0 UX clarity pass completed, reviewed, and verified.
+- 2026-05-22: completed the P1 mobile ergonomics pass; lint, tests, and build all passed.

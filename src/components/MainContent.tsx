@@ -65,8 +65,8 @@ export const MainContent: React.FC<MainContentProps> = ({
         />
 
         <div className="px-4 sm:px-4 lg:px-8">
-          <p className="max-w-[18rem] rounded-[1rem] border border-outline-variant/35 bg-surface-container-low/70 px-3 py-2 text-[0.72rem] leading-snug text-on-surface-variant shadow-[0_10px_24px_-26px_var(--color-shadow)] sm:max-w-none sm:text-[0.78rem]">
-            날짜를 고르면 오늘의 효사·괘사·영혼 해설이 열립니다.
+          <p className="max-w-[22rem] rounded-[1.125rem] border border-outline-variant/35 bg-surface-container-low/70 px-4 py-3 text-[0.76rem] leading-relaxed text-on-surface-variant shadow-[0_10px_24px_-26px_var(--color-shadow)] sm:max-w-none sm:text-[0.78rem]">
+            ?�짜�?고르�??�늘???�사·괘사·?�혼 ?�설???�립?�다.
           </p>
         </div>
 

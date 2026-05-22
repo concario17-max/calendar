@@ -102,7 +102,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
           ref={day === focusedDay ? focusedDayRef : undefined}
           aria-label={`${monthNames[month]} ${day}, ${year}`}
           aria-current={isSelected ? 'date' : undefined}
-          className={`ui-button flex h-9 w-9 items-center justify-center rounded-full p-0 text-xs transition-colors transition-shadow active-scale focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-low ${
+          className={`ui-button flex h-10 w-10 items-center justify-center rounded-full p-0 text-[0.8rem] transition-colors transition-shadow active-scale focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-low sm:h-9 sm:w-9 sm:text-xs ${
             isSelected
               ? 'ui-button--secondary font-bold'
               : 'ui-button--ghost text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
@@ -120,7 +120,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
         aria-modal="false"
         aria-labelledby="date-picker-title"
         tabIndex={-1}
-        className="ui-modal ui-surface--overlay fixed inset-x-4 top-20 z-50 mt-2 w-auto p-6 text-on-surface transition-all duration-300 transform scale-100 opacity-100 backdrop-blur-2xl sm:absolute sm:inset-auto sm:right-0 sm:top-14 sm:w-[320px]"
+        className="ui-modal ui-surface--overlay fixed inset-x-4 top-20 z-50 mt-2 w-auto p-5 text-on-surface transition-all duration-300 transform scale-100 opacity-100 backdrop-blur-2xl sm:absolute sm:inset-auto sm:right-0 sm:top-14 sm:w-[320px] sm:p-6"
           onKeyDown={(event) => {
             const { key } = event;
 
@@ -163,7 +163,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
           <button
             type="button"
             onClick={() => changeMonth(-1)}
-            className="ui-button ui-button--ghost h-10 w-10 rounded-full p-0 text-on-surface-variant"
+            className="ui-button ui-button--ghost h-11 w-11 rounded-full p-0 text-on-surface-variant sm:h-10 sm:w-10"
             aria-label="Previous month"
           >
             <span className="sr-only">Previous month</span>
@@ -173,23 +173,23 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
             id="date-picker-title"
             aria-live="polite"
             aria-atomic="true"
-            className="font-headline text-base font-semibold tracking-tight text-on-surface sm:text-lg"
+            className="font-headline text-[1rem] font-semibold tracking-tight text-on-surface sm:text-lg"
           >
             {monthNames[month]} {year}
           </span>
           <button
             type="button"
             onClick={() => changeMonth(1)}
-            className="ui-button ui-button--ghost h-10 w-10 rounded-full p-0 text-on-surface-variant"
+            className="ui-button ui-button--ghost h-11 w-11 rounded-full p-0 text-on-surface-variant sm:h-10 sm:w-10"
             aria-label="Next month"
           >
             <span className="sr-only">Next month</span>
             <ChevronRight size={20} />
           </button>
         </div>
-        <div className="grid grid-cols-7 gap-x-2 gap-y-3 text-center text-sm">
+        <div className="grid grid-cols-7 gap-x-2.5 gap-y-3 text-center text-sm">
           {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => (
-            <div key={day} className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-on-surface-variant">
+            <div key={day} className="mb-2 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-on-surface-variant sm:text-xs">
               {day}
             </div>
           ))}
@@ -209,14 +209,14 @@ export const DatePicker: React.FC<DatePickerProps> = ({ selectedDate, onDateChan
           setFocusedDate(new Date(selectedDate));
           setIsOpen((open) => !open);
         }}
-        className="ui-button ui-button--secondary group flex h-11 w-11 cursor-pointer items-center justify-center rounded-full p-0 text-secondary active-scale"
+        className="ui-button ui-button--secondary group flex h-12 w-12 cursor-pointer items-center justify-center rounded-full p-0 text-secondary active-scale sm:h-11 sm:w-11"
         title="날짜 선택"
         aria-label="Open date picker"
         aria-haspopup="dialog"
         aria-controls="date-picker-popup"
         aria-expanded={isOpen}
       >
-        <CalendarDays className="h-5 w-5 transition-transform group-hover:scale-110" />
+        <CalendarDays className="h-5 w-5 transition-transform group-hover:scale-110 sm:h-[1.05rem] sm:w-[1.05rem]" />
       </button>
 
       {isOpen && renderCalendar()}

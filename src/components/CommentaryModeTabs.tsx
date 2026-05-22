@@ -18,7 +18,7 @@ export function CommentaryModeTabs({ value, onChange }: CommentaryModeTabsProps)
       role="radiogroup"
       aria-label="해설 선택"
       aria-orientation="horizontal"
-      className="ui-nav archive-segmented-control inline-flex items-stretch gap-1.5 rounded-full px-1 py-1"
+      className="ui-nav archive-segmented-control flex w-full items-stretch gap-1 rounded-full px-1.5 py-1 sm:w-auto sm:gap-1.5"
     >
       {COMMENTARY_MODE_OPTIONS.map((option) => {
         const active = value === option.value;
@@ -27,7 +27,7 @@ export function CommentaryModeTabs({ value, onChange }: CommentaryModeTabsProps)
         return (
           <label
             key={option.value}
-            className={`archive-segmented-control__option ui-nav__item flex min-h-10 cursor-pointer items-center gap-1.5 rounded-full px-3 py-2 text-[9px] font-semibold leading-none whitespace-nowrap transition-colors transition-shadow focus-within:ring-2 focus-within:ring-secondary/30 focus-within:ring-offset-2 focus-within:ring-offset-transparent ${
+            className={`archive-segmented-control__option ui-nav__item flex min-h-11 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-full px-3.5 py-2.5 text-[10px] font-semibold leading-none whitespace-nowrap transition-colors transition-shadow focus-within:ring-2 focus-within:ring-secondary/30 focus-within:ring-offset-2 focus-within:ring-offset-transparent sm:flex-none sm:px-3 sm:py-2 sm:text-[9px] ${
               active
                 ? 'bg-surface-container-high text-on-surface'
                 : 'text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
@@ -41,7 +41,7 @@ export function CommentaryModeTabs({ value, onChange }: CommentaryModeTabsProps)
               onChange={() => onChange(option.value)}
               className="sr-only"
             />
-            <Icon size={12} strokeWidth={2.3} className="shrink-0" aria-hidden="true" />
+            <Icon size={13} strokeWidth={2.3} className="shrink-0 sm:size-3" aria-hidden="true" />
             <span>{option.label}</span>
           </label>
         );

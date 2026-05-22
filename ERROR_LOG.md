@@ -441,3 +441,8 @@ status: resolved
   summary: PowerShell rejected the `&&` separator in a staging and commit command
   details: attempted to chain `git add` and `git commit` with `&&`; this shell requires semicolon-separated commands or separate calls
   status: resolved
+- time: 2026-05-22 11:05 KST
+  location: src/components/JournalModal.tsx
+  summary: malformed closing span broke lint during the mobile modal spacing pass
+  details: the save button label was left with a missing '<' in the closing span after the text-density refactor; fixed immediately and re-ran lint/test/build.
+  status: resolved
