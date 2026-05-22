@@ -457,3 +457,18 @@ status: resolved
   summary: PowerShell rejected `&&` while chaining git staging and commit
   details: attempted to combine `git add` and `git commit` with `&&`; this shell needs separate calls or semicolon-separated commands, so the commit step was retried as split commands.
   status: resolved
+- time: 2026-05-22 11:40 KST
+  location: reviewer subagent spawn (Route B closeout)
+  summary: reviewer run failed due to model capacity
+  details: reviewer agent returned "Selected model is at capacity. Please try a different model."; re-queued a new reviewer run to satisfy mandatory Route B reviewer pass.
+  status: open
+- time: 2026-05-22 11:42 KST
+  location: reviewer subagent rerun (Route B closeout)
+  summary: second reviewer spawn also failed due to model capacity
+  details: retry with reviewer role failed with the same capacity error; fallback is to run a read-only review pass using a default subagent lane.
+  status: open
+- time: 2026-05-22 12:21 KST
+  location: reviewer subagent spawn (Route B closeout)
+  summary: reviewer model-capacity errors resolved via fallback reviewer lane
+  details: two reviewer-role subagent attempts failed due model capacity; completed mandatory reviewer pass using a default-agent read-only review lane and finalized verification.
+  status: resolved

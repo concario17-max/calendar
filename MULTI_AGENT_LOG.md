@@ -665,3 +665,8 @@
   summary: worker_logic_perf refactor completed
   details: extracted commentary parsing and learning-image glob helpers into utils, cached reading-data loading, and kept the reading UI/tests passing with lint/build verification.
   status: resolved
+- time: 2026-05-22 12:20 KST
+  location: STATE.md / MULTI_AGENT_LOG.md
+  summary: frontend quality Route B refactor pass completed
+  details: worker_ui_shared extracted shared commentary wrappers; worker_logic_perf extracted commentary/image loader utilities and added reading data cache; fallback reviewer lane completed after reviewer model-capacity failures; full lint/test/build verification passed.
+  status: resolved

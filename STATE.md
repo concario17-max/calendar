@@ -1,5 +1,5 @@
 # Current Task
-- Active: frontend quality refactor pass (P1/P2 scope): remove duplicated view logic, extract shared UI primitives, separate page/render from commentary parsing logic, reduce redundant state/render paths, and verify bundle/build quality without changing behavior.
+- Active: frontend quality refactor pass completed; duplicated view wrappers were extracted, parsing/image-loader logic moved to utils, redundant loading path was reduced via cache, and all verification gates passed without behavior changes.
 
 # Route
 - Route B
@@ -7,9 +7,9 @@
 
 # Writer Slot
 - main: planner-only for `STATE.md` and `MULTI_AGENT_LOG.md`
-- worker_ui_shared: shared UI/component extraction and integration
-- worker_logic_perf: hook/util refactor and redundant-state/render cleanup
-- reviewer: pending
+- worker_ui_shared: completed
+- worker_logic_perf: completed
+- reviewer: completed (fallback default agent review due reviewer model-capacity errors)
 
 # Contract Freeze
 - Goal: improve code quality in priority order (dedupe/extract/separate/remove redundant state/reduce rerender/image+bundle checks), keep existing runtime behavior, and finish with lint/test/build verification.
@@ -49,11 +49,11 @@
   - this touches shared and feature code across multiple directories and requires parallel slices plus reviewer pass.
 
 # Reviewer
-- reviewer: main self-review
+- reviewer: fallback default-agent review completed
 - reviewer focus:
   - behavior parity on reading flows
   - extraction quality and type safety
   - no regressions in accessibility and data loading behavior
 
 # Last Update
-- 2026-05-22: worker_logic_perf refactor completed for commentary parsing, learning image loader extraction, and reading-data caching; targeted tests, lint, and build passed.
+- 2026-05-22: Route B refactor completed with shared UI extraction, util separation, cache optimization, reviewer pass, and full lint/test/build verification.
