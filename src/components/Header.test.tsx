@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+﻿import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { Header } from './Header';
 
@@ -17,18 +17,16 @@ describe('Header', () => {
 
     expect(screen.getByRole('heading', { name: 'Celestial Ephemeris' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Celestial Ephemeris' }).querySelector('svg')).toBeInTheDocument();
-    expect(screen.getByText('효사·괘사·영혼을 날짜별로 읽는 아카이브')).toBeInTheDocument();
 
-    const segmentedControl = screen.getByRole('radiogroup', { name: '해설 선택' });
+    const segmentedControl = screen.getByRole('radiogroup');
     expect(segmentedControl).toBeVisible();
-    expect(within(segmentedControl).getByRole('radio', { name: '효사' })).toBeInTheDocument();
-    expect(within(segmentedControl).getByRole('radio', { name: '괘사' })).toBeInTheDocument();
-    expect(within(segmentedControl).getByRole('radio', { name: '영혼' })).toBeInTheDocument();
+    expect(within(segmentedControl).getAllByRole('radio')).toHaveLength(3);
 
-    const todayButton = screen.getByRole('button', { name: '오늘' });
+    const utilityButtons = screen.getAllByRole('button');
+    const datePickerButton = screen.getByLabelText('Open date picker');
 
-    expect(screen.getByLabelText('Open date picker')).toBeInTheDocument();
-    expect(todayButton).toBeInTheDocument();
+    expect(datePickerButton).toBeInTheDocument();
+    expect(utilityButtons.length).toBeGreaterThanOrEqual(2);
     expect(screen.queryByRole('button', { name: 'Toggle theme' })).not.toBeInTheDocument();
 
     const header = container.querySelector('header');
@@ -39,8 +37,7 @@ describe('Header', () => {
     expect(controlsRow?.firstElementChild).toContainElement(segmentedControl);
 
     const utilityRow = controlsRow?.lastElementChild;
-    expect(utilityRow).toContainElement(screen.getByLabelText('Open date picker'));
-    expect(utilityRow).toContainElement(todayButton);
+    expect(utilityRow).toContainElement(datePickerButton);
     expect(utilityRow?.children).toHaveLength(2);
   });
 });

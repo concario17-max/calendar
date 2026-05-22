@@ -30,9 +30,6 @@ export const Header: React.FC<HeaderProps> = ({
           </span>
           <span className="truncate">Celestial Ephemeris</span>
         </h1>
-        <p className="max-w-[20rem] text-[0.76rem] leading-snug text-on-surface-variant sm:max-w-[28rem] sm:text-[0.78rem]">
-          효사·괘사·영혼을 날짜별로 읽는 아카이브
-        </p>
       </div>
 
       <div className="archive-header__controls flex w-full min-w-0 flex-wrap items-stretch justify-between gap-3 sm:ml-auto sm:w-auto sm:flex-nowrap sm:items-center sm:justify-end sm:gap-2">
@@ -47,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={handleTodayClick}
             className="ui-button ui-button--ghost min-h-11 rounded-full px-4 py-2 font-label text-[0.68rem] uppercase tracking-[0.16em] text-on-surface-variant active-scale sm:px-3.5 sm:py-1.5"
           >
-            오늘
+            ?�늘
           </button>
         </div>
       </div>
