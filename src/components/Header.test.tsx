@@ -17,7 +17,7 @@ describe('Header', () => {
 
     expect(screen.getByRole('heading', { name: 'Celestial Ephemeris' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Celestial Ephemeris' }).querySelector('svg')).toBeInTheDocument();
-    expect(screen.getByText('괘사 / 효사 / 영혼의 달력을 한 화면에서 읽는 아카이브')).toBeInTheDocument();
+    expect(screen.getByText('효사·괘사·영혼을 날짜별로 읽는 아카이브')).toBeInTheDocument();
 
     const segmentedControl = screen.getByRole('radiogroup', { name: '해설 선택' });
     expect(segmentedControl).toBeVisible();

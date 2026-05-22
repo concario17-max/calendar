@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
           <span className="truncate">Celestial Ephemeris</span>
         </h1>
         <p className="max-w-[18rem] text-[0.72rem] leading-snug text-on-surface-variant sm:max-w-[28rem] sm:text-[0.78rem]">
-          괘사 / 효사 / 영혼의 달력을 한 화면에서 읽는 아카이브
+          효사·괘사·영혼을 날짜별로 읽는 아카이브
         </p>
       </div>
 
