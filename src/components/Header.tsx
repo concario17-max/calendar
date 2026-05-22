@@ -1,4 +1,4 @@
-import { Crown } from 'lucide-react';
+﻿import { Crown } from 'lucide-react';
 import type { CommentarySource } from '../types';
 import { DatePicker } from './DatePicker';
 import { CommentaryModeTabs } from './CommentaryModeTabs';
@@ -44,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={handleTodayClick}
             className="ui-button ui-button--ghost min-h-11 rounded-full px-4 py-2 font-label text-[0.68rem] uppercase tracking-[0.16em] text-on-surface-variant active-scale sm:px-3.5 sm:py-1.5"
           >
-            ?�늘
+            오늘
           </button>
         </div>
       </div>
