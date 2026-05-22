@@ -224,11 +224,11 @@ function LearningComicView({
   imageAlt: string;
 }) {
   return (
-    <div
-      data-testid="learning-comic-view"
-      aria-busy="false"
-      className="ui-card ui-surface--raised -mx-4 -my-4 px-0 py-0 sm:mx-0 sm:my-0 sm:rounded-[1.5rem] sm:px-4 sm:py-4"
-    >
+      <div
+        data-testid="learning-comic-view"
+        aria-busy="false"
+        className="-mx-4 -my-4 px-0 py-0 sm:mx-0 sm:my-0 sm:px-4 sm:py-4"
+      >
       <figure className="reading-section mx-auto w-full max-w-[56rem]">
         <img
           src={imageSrc}
