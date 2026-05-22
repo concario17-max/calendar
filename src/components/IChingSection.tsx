@@ -234,7 +234,7 @@ function LearningComicView({
           src={imageSrc}
           alt={imageAlt}
           data-testid="learning-comic-image"
-          className="mx-auto h-auto w-full object-contain sm:rounded-[1rem] sm:bg-surface-container-lowest"
+          className="mx-auto h-auto w-full object-contain"
           loading="lazy"
         />
       </figure>
