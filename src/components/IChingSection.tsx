@@ -665,28 +665,52 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
         </article>
 
         <aside className="reading-panel reading-panel--right relative flex w-full min-w-0 flex-col bg-surface-container-lowest lg:h-full lg:min-h-0 lg:overflow-y-auto">
-          {selectedDate && onDateChange ? (
-            <div className="pointer-events-none sticky top-1/2 z-20 hidden h-0 -translate-y-1/2 lg:block">
-              <div className="relative h-0">
+          <div className="flex items-center justify-between gap-3 border-b border-outline-variant/50 pb-2">
+            <span className="inline-flex items-center rounded-full border border-secondary/15 bg-secondary/10 px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-secondary">
+              {commentarySource === 'soul' ? '영혼' : commentaryHeaderLabel}
+            </span>
+
+            <div className="flex items-center gap-2">
+              {commentarySource !== 'soul' && canShowComicToggle ? (
                 <button
                   type="button"
-                  aria-label="이전날로 이동"
-                  onClick={() => shiftSelectedDate(-1)}
-                  className="ui-button ui-button--ghost pointer-events-auto absolute left-5 h-12 w-12 -translate-y-1/2 rounded-full p-0 text-secondary backdrop-blur-sm xl:left-6"
+                  data-testid="commentary-comic-toggle"
+                  aria-pressed={isComicView}
+                  aria-label={isComicView ? '텍스트 해설 보기' : '학습 만화 보기'}
+                  onClick={() => setCommentaryViewMode((current) => (current === 'comic' ? 'text' : 'comic'))}
+                  className={`ui-button inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest sm:h-12 sm:w-12 ${
+                    isComicView
+                      ? 'ui-button--secondary text-secondary'
+                      : 'ui-button--ghost border-outline-variant/60 bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
+                  }`}
                 >
-                  <ChevronLeft size={20} strokeWidth={2.1} />
+                  <Images size={16} strokeWidth={2.2} />
                 </button>
-                <button
-                  type="button"
-                  aria-label="다음날로 이동"
-                  onClick={() => shiftSelectedDate(1)}
-                  className="ui-button ui-button--ghost pointer-events-auto absolute right-5 h-12 w-12 -translate-y-1/2 rounded-full p-0 text-secondary backdrop-blur-sm xl:right-6"
-                >
-                  <ChevronRight size={20} strokeWidth={2.1} />
-                </button>
-              </div>
+              ) : null}
+
+              {selectedDate && onDateChange ? (
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    aria-label="이전날로 이동"
+                    onClick={() => shiftSelectedDate(-1)}
+                    className="ui-button ui-button--ghost pointer-events-auto h-10 w-10 rounded-full border border-outline-variant/50 bg-surface-container-lowest/95 p-0 text-secondary shadow-[0_10px_24px_-18px_rgba(0,0,0,0.35)] backdrop-blur-md sm:h-11 sm:w-11"
+                  >
+                    <ChevronLeft size={18} strokeWidth={2.1} />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="다음날로 이동"
+                    onClick={() => shiftSelectedDate(1)}
+                    className="ui-button ui-button--ghost pointer-events-auto h-10 w-10 rounded-full border border-outline-variant/50 bg-surface-container-lowest/95 p-0 text-secondary shadow-[0_10px_24px_-18px_rgba(0,0,0,0.35)] backdrop-blur-md sm:h-11 sm:w-11"
+                  >
+                    <ChevronRight size={18} strokeWidth={2.1} />
+                  </button>
+                </div>
+              ) : null}
             </div>
-          ) : null}
+          </div>
+
           <div className="flex-1 space-y-0">
             {commentarySource === 'soul' ? (
               <div key="soul" className="reading-fade-in">
@@ -696,28 +720,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               <div key={commentarySource} className="reading-fade-in space-y-[var(--reading-section-gap)]">
                 {commentary ? (
                   <div className="space-y-[var(--reading-section-gap)]">
-                    <div className="flex items-center justify-between gap-3 border-b border-outline-variant/50 pb-2">
-                      <span className="inline-flex items-center rounded-full border border-secondary/15 bg-secondary/10 px-3 py-0.5 text-[9px] font-semibold tracking-[0.24em] text-secondary">
-                        {commentaryHeaderLabel}
-                      </span>
-                      {canShowComicToggle ? (
-                        <button
-                          type="button"
-                          data-testid="commentary-comic-toggle"
-                          aria-pressed={isComicView}
-                          aria-label={isComicView ? '텍스트 해설 보기' : '학습 만화 보기'}
-                          onClick={() => setCommentaryViewMode((current) => (current === 'comic' ? 'text' : 'comic'))}
-                          className={`ui-button inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest sm:h-12 sm:w-12 ${
-                            isComicView
-                              ? 'ui-button--secondary text-secondary'
-                              : 'ui-button--ghost border-outline-variant/60 bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
-                          }`}
-                        >
-                          <Images size={16} strokeWidth={2.2} />
-                        </button>
-                      ) : null}
-                    </div>
-
                     <CommentaryFrame
                       testId="commentary-folio"
                       className={commentaryFolioSurfaceClass}
