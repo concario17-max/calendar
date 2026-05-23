@@ -1,33 +1,34 @@
-﻿# Current Task
-- Active: small UI hotfix in the learning comic viewer: remove the remaining inner comic card shell so only the outer commentary frame remains.
+# Current Task
+- Active: nudge the right-panel day navigation arrows a little farther outward so they sit at the body border line without covering the readable content.
 
 # Route
 - Route A
-- Reason: this is still a small visual tweak in a single feature component with no shared asset changes, no new state paths, and no reviewer fan-out required.
+- Reason: this is a tiny layout adjustment in one feature slice plus shared CSS, with no new state paths or reviewer fan-out required.
 
 # Writer Slot
 - main: single-write lane for the hotfix
 
 # Contract Freeze
-- Goal: remove the remaining inner comic card shell so only the outer commentary frame remains, while preserving all other behavior.
+- Goal: move the right-panel previous/next arrows slightly outward to the body border line and keep them out of readable content.
 - Non-goals:
   - do not add new libraries
   - do not change reading outcomes, date mapping, or commentary content
   - do not alter user-provided untracked folders/files
-  - do not redesign the reading panel beyond removing the remaining inner comic shell
+  - do not redesign the reading panel beyond a small outward nudge and matching gutter padding
 - Write sets:
   - main:
     - `src/components/IChingSection.tsx`
+    - `src/index.css`
     - `STATE.md`
 - Acceptance criteria:
-  - the learning comic has only one visible outer frame
-  - no behavior changes elsewhere
+  - the arrows sit a little farther toward the panel edge
+  - the body content keeps clear of the arrows
   - `npm.cmd run lint` and `npm.cmd run build` pass
 - Why this is Route A:
-  - this is a small hotfix in a tight slice and does not require worker fan-out or reviewer coordination.
+  - this is a tiny layout-only tweak with no feature split or reviewer coordination.
 
 # Reviewer
 - reviewer: not used for this hotfix
 
 # Last Update
-- 2026-05-22: reclassified as Route A hotfix to remove the remaining inner comic shell.
+- 2026-05-23: re-scoped to a small outward nudge of the right-panel navigation arrows.

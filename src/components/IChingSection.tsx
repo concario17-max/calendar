@@ -672,7 +672,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   type="button"
                   aria-label="이전날로 이동"
                   onClick={() => shiftSelectedDate(-1)}
-                  className="ui-button ui-button--ghost pointer-events-auto absolute left-5 h-12 w-12 -translate-y-1/2 rounded-full p-0 text-secondary backdrop-blur-sm xl:left-6"
+                  className="ui-button ui-button--ghost pointer-events-auto absolute left-2.5 h-12 w-12 -translate-y-1/2 rounded-full p-0 text-secondary backdrop-blur-sm xl:left-3"
                 >
                   <ChevronLeft size={20} strokeWidth={2.1} />
                 </button>
@@ -680,7 +680,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                   type="button"
                   aria-label="다음날로 이동"
                   onClick={() => shiftSelectedDate(1)}
-                  className="ui-button ui-button--ghost pointer-events-auto absolute right-5 h-12 w-12 -translate-y-1/2 rounded-full p-0 text-secondary backdrop-blur-sm xl:right-6"
+                  className="ui-button ui-button--ghost pointer-events-auto absolute right-2.5 h-12 w-12 -translate-y-1/2 rounded-full p-0 text-secondary backdrop-blur-sm xl:right-3"
                 >
                   <ChevronRight size={20} strokeWidth={2.1} />
                 </button>
