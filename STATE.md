@@ -1,34 +1,33 @@
-# Current Task
-- Active: move the right-panel day navigation arrows into a dedicated gutter so they no longer overlap the body text.
+﻿# Current Task
+- Active: small UI hotfix in the learning comic viewer: remove the remaining inner comic card shell so only the outer commentary frame remains.
 
 # Route
 - Route A
-- Reason: this is a small layout hotfix confined to the reading panel and one shared state file; no shared asset fan-out or reviewer split is needed.
+- Reason: this is still a small visual tweak in a single feature component with no shared asset changes, no new state paths, and no reviewer fan-out required.
 
 # Writer Slot
 - main: single-write lane for the hotfix
 
 # Contract Freeze
-- Goal: move the right-panel previous/next arrows into a dedicated outer gutter so they no longer cover the body text.
+- Goal: remove the remaining inner comic card shell so only the outer commentary frame remains, while preserving all other behavior.
 - Non-goals:
   - do not add new libraries
   - do not change reading outcomes, date mapping, or commentary content
   - do not alter user-provided untracked folders/files
-  - do not redesign the reading panel beyond relocating the arrows and reserving gutter space
+  - do not redesign the reading panel beyond removing the remaining inner comic shell
 - Write sets:
   - main:
     - `src/components/IChingSection.tsx`
-    - `src/components/MainContent.tsx`
     - `STATE.md`
 - Acceptance criteria:
-  - the arrows no longer overlap readable body content
-  - the body keeps the same reading behavior
+  - the learning comic has only one visible outer frame
+  - no behavior changes elsewhere
   - `npm.cmd run lint` and `npm.cmd run build` pass
 - Why this is Route A:
-  - the change is a small layout-only hotfix with no new state model or cross-feature refactor.
+  - this is a small hotfix in a tight slice and does not require worker fan-out or reviewer coordination.
 
 # Reviewer
 - reviewer: not used for this hotfix
 
 # Last Update
-- 2026-05-23: moved the right-panel day navigation arrows into a reserved gutter and padded the reading column to prevent overlap.
+- 2026-05-22: reclassified as Route A hotfix to remove the remaining inner comic shell.
