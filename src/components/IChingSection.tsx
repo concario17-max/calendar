@@ -666,28 +666,29 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
         <aside className="reading-panel reading-panel--right relative flex w-full min-w-0 flex-col bg-surface-container-lowest lg:h-full lg:min-h-0 lg:overflow-y-auto">
           {selectedDate && onDateChange ? (
-            <div className="pointer-events-none sticky top-1/2 z-20 hidden h-0 -translate-y-1/2 lg:block">
-              <div className="relative h-0">
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-20 hidden items-center lg:flex">
+              <div className="pointer-events-none flex h-fit -translate-x-1/2 flex-col items-center justify-center gap-3">
                 <button
                   type="button"
                   aria-label="이전날로 이동"
                   onClick={() => shiftSelectedDate(-1)}
-                  className="ui-button ui-button--ghost pointer-events-auto absolute left-5 h-12 w-12 -translate-y-1/2 rounded-full p-0 text-secondary backdrop-blur-sm xl:left-6"
+                  className="ui-button ui-button--ghost pointer-events-auto h-12 w-12 rounded-full border border-outline-variant/50 bg-surface-container-lowest/95 p-0 text-secondary shadow-[0_10px_24px_-18px_rgba(0,0,0,0.35)] backdrop-blur-md"
                 >
                   <ChevronLeft size={20} strokeWidth={2.1} />
                 </button>
+                <div className="h-8 w-px bg-outline-variant/45" aria-hidden="true" />
                 <button
                   type="button"
                   aria-label="다음날로 이동"
                   onClick={() => shiftSelectedDate(1)}
-                  className="ui-button ui-button--ghost pointer-events-auto absolute right-5 h-12 w-12 -translate-y-1/2 rounded-full p-0 text-secondary backdrop-blur-sm xl:right-6"
+                  className="ui-button ui-button--ghost pointer-events-auto h-12 w-12 rounded-full border border-outline-variant/50 bg-surface-container-lowest/95 p-0 text-secondary shadow-[0_10px_24px_-18px_rgba(0,0,0,0.35)] backdrop-blur-md"
                 >
                   <ChevronRight size={20} strokeWidth={2.1} />
                 </button>
               </div>
             </div>
           ) : null}
-          <div className="flex-1 space-y-0">
+          <div className="relative z-0 flex-1 space-y-0">
             {commentarySource === 'soul' ? (
               <div key="soul" className="reading-fade-in">
                 <SoulCalendarSection hitSoulGroup={hitSoulGroup} soulSections={soulSections} />

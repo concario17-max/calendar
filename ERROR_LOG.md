@@ -472,3 +472,9 @@ status: resolved
   summary: reviewer model-capacity errors resolved via fallback reviewer lane
   details: two reviewer-role subagent attempts failed due model capacity; completed mandatory reviewer pass using a default-agent read-only review lane and finalized verification.
   status: resolved
+# 2026-05-23
+- time: 2026-05-23T00:00:00+09:00
+- location: git revert 8cf1284
+- summary: revert blocked by local STATE.md changes
+- details: `git revert --no-edit 8cf1284` failed because STATE.md had unstaged local edits from the rollback task and would have been overwritten.
+- status: open
