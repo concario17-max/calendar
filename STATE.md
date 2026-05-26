@@ -1,15 +1,15 @@
 # Current Task
-- Active: move the right-panel prev/next buttons to the left of the comic/text toggle in `src/components/IChingSection.tsx`.
+- Active: reduce the mobile header height in `src/components/Header.tsx` with a minimal padding change.
 
 # Route
 - Route A
-- Reason: this is a small header-layout tweak confined to one component file.
+- Reason: this is a single-file mobile spacing tweak.
 
 # Writer Slot
 - main: write-capable
 
 # Contract Freeze
-- Goal: place the prev/next navigation buttons immediately to the left of the comic/text toggle in the right-panel header.
+- Goal: reduce the mobile header height with the smallest safe spacing change.
 - Non-goals:
   - do not add new libraries
   - do not change reading outcomes, date mapping, commentary content, or component APIs
@@ -18,11 +18,12 @@
   - do not change routing behavior
   - do not change image assets or file formats
   - do not change the comic/text toggle behavior
+  - do not change desktop header spacing unless needed for the same edit
 - Write sets:
   - main:
-    - `src/components/IChingSection.tsx`
+    - `src/components/Header.tsx`
 - Acceptance criteria:
-  - the prev/next buttons appear immediately to the left of the comic/text toggle in the right-panel header
+  - the mobile header is shorter with a minimal visual change
   - content and routing behavior remain unchanged
   - `npm.cmd run lint` and `npm.cmd run build` pass
 
@@ -30,4 +31,4 @@
 - reviewer: not needed
 
 # Last Update
-- 2026-05-26: moved to a compact right-panel header control layout task.
+- 2026-05-26: re-scoped to a minimal mobile header height reduction.
