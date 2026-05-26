@@ -711,30 +711,26 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                 {commentaryHeaderLabel}
               </span>
 
-              <div className="inline-flex items-center rounded-full border border-outline-variant/50 bg-surface-container-lowest/95 p-1 shadow-[0_10px_24px_-18px_rgba(0,0,0,0.35)] backdrop-blur-md">
+              <div className="flex items-center gap-2">
                 {selectedDate && onDateChange ? (
-                  <div className="flex items-center">
+                  <div className="flex items-center gap-1">
                     <button
                       type="button"
                       aria-label="이전날로 이동"
                       onClick={() => shiftSelectedDate(-1)}
-                      className="ui-button ui-button--ghost pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full border-0 bg-transparent p-0 text-secondary transition-colors hover:bg-surface-container-high/70 sm:h-10 sm:w-10"
+                      className="ui-button ui-button--ghost pointer-events-auto h-10 w-10 rounded-full border border-outline-variant/50 bg-surface-container-lowest/95 p-0 text-secondary shadow-[0_10px_24px_-18px_rgba(0,0,0,0.35)] backdrop-blur-md sm:h-11 sm:w-11"
                     >
-                      <ChevronLeft size={17} strokeWidth={2.15} />
+                      <ChevronLeft size={18} strokeWidth={2.1} />
                     </button>
                     <button
                       type="button"
                       aria-label="다음날로 이동"
                       onClick={() => shiftSelectedDate(1)}
-                      className="ui-button ui-button--ghost pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full border-0 bg-transparent p-0 text-secondary transition-colors hover:bg-surface-container-high/70 sm:h-10 sm:w-10"
+                      className="ui-button ui-button--ghost pointer-events-auto h-10 w-10 rounded-full border border-outline-variant/50 bg-surface-container-lowest/95 p-0 text-secondary shadow-[0_10px_24px_-18px_rgba(0,0,0,0.35)] backdrop-blur-md sm:h-11 sm:w-11"
                     >
-                      <ChevronRight size={17} strokeWidth={2.15} />
+                      <ChevronRight size={18} strokeWidth={2.1} />
                     </button>
                   </div>
-                ) : null}
-
-                {selectedDate && onDateChange && canShowComicToggle ? (
-                  <span className="mx-1 h-5 w-px rounded-full bg-outline-variant/50" aria-hidden="true" />
                 ) : null}
 
                 {canShowComicToggle ? (
@@ -744,10 +740,10 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                     aria-pressed={isComicView}
                     aria-label={isComicView ? '텍스트 해설 보기' : '학습 만화 보기'}
                     onClick={() => setCommentaryViewMode((current) => (current === 'comic' ? 'text' : 'comic'))}
-                      className={`ui-button inline-flex h-9 w-9 items-center justify-center rounded-full border-0 px-0 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 sm:h-10 sm:w-10 ${
+                    className={`ui-button inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest sm:h-12 sm:w-12 ${
                       isComicView
-                        ? 'bg-secondary/10 text-secondary'
-                        : 'bg-transparent text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
+                        ? 'ui-button--secondary text-secondary'
+                        : 'ui-button--ghost border-outline-variant/60 bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
                     }`}
                   >
                     <Images size={16} strokeWidth={2.2} />
