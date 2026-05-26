@@ -2,7 +2,7 @@ import React from 'react';
 import { ChevronLeft, ChevronRight, Images } from 'lucide-react';
 import type { CommentarySource, GuaData, SoulGroup, SoulSection, YaoData } from '../types';
 import { splitCommentary } from '../utils/commentaryParser';
-import { getLearningImageLoader } from '../utils/learningImage';
+import { getLearningImageLoader, getLearningImageUrlFromCache } from '../utils/learningImage';
 import { loadReadingDataBundle, type ReadingDataBundle } from '../utils/readingDataLoader';
 import { formatWeeksLabel } from '../utils/soulLogic';
 import { CommentaryFrame } from './shared/CommentaryFrame';
@@ -219,14 +219,16 @@ function getSelectedCommentaryText(
 function LearningComicView({
   imageSrc,
   imageAlt,
+  isBusy,
 }: {
   imageSrc: string;
   imageAlt: string;
+  isBusy: boolean;
 }) {
   return (
       <div
         data-testid="learning-comic-view"
-        aria-busy="false"
+        aria-busy={isBusy}
         className="-mx-4 -my-4 px-0 py-0 sm:mx-0 sm:my-0 sm:px-4 sm:py-4"
       >
       <figure className="reading-section mx-auto w-full max-w-[56rem]">
@@ -235,7 +237,8 @@ function LearningComicView({
           alt={imageAlt}
           data-testid="learning-comic-image"
           className="mx-auto h-auto w-full object-contain"
-          loading="lazy"
+          loading="eager"
+          fetchPriority="high"
         />
       </figure>
     </div>
@@ -298,6 +301,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     getDefaultCommentaryViewMode(commentarySource),
   );
   const [learningImageSrc, setLearningImageSrc] = React.useState<string | null>(null);
+  const [learningImageSelectionKey, setLearningImageSelectionKey] = React.useState<string | null>(null);
   const [isLearningImageLoading, setIsLearningImageLoading] = React.useState(false);
 
   React.useEffect(() => {
@@ -412,6 +416,22 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
   const isComicView = (commentarySource === 'gua' || commentarySource === 'yao') && commentaryViewMode === 'comic';
   const isBonusSelection = activeBonusItem !== null;
+  const activeLearningImageKey = React.useMemo(
+    () =>
+      `${commentarySource}:${commentarySource === 'gua' ? activeGuaNum : commentarySource === 'yao' ? activeYaoNum : 'null'}:${
+        isBonusSelection ? 'bonus' : 'base'
+      }`,
+    [commentarySource, activeGuaNum, activeYaoNum, isBonusSelection],
+  );
+  const cachedLearningImageSrc = React.useMemo(
+    () =>
+      getLearningImageUrlFromCache(
+        commentarySource,
+        commentarySource === 'gua' ? activeGuaNum : commentarySource === 'yao' ? activeYaoNum : null,
+        isBonusSelection,
+      ),
+    [commentarySource, activeGuaNum, activeYaoNum, isBonusSelection],
+  );
   const learningImageLoader = React.useMemo(
     () =>
       getLearningImageLoader(
@@ -434,23 +454,34 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
 
     if (!isComicView) {
       setLearningImageSrc(null);
+      setLearningImageSelectionKey(null);
       setIsLearningImageLoading(false);
       return;
     }
 
     if (!learningImageLoader) {
       setLearningImageSrc(null);
+      setLearningImageSelectionKey(null);
+      setIsLearningImageLoading(false);
+      return;
+    }
+
+    if (cachedLearningImageSrc) {
+      setLearningImageSrc(cachedLearningImageSrc);
+      setLearningImageSelectionKey(activeLearningImageKey);
       setIsLearningImageLoading(false);
       return;
     }
 
     setIsLearningImageLoading(true);
     setLearningImageSrc(null);
+    setLearningImageSelectionKey(null);
 
     void learningImageLoader()
       .then((src) => {
         if (!cancelled) {
           setLearningImageSrc(src);
+          setLearningImageSelectionKey(activeLearningImageKey);
           setIsLearningImageLoading(false);
         }
       })
@@ -464,7 +495,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     return () => {
       cancelled = true;
     };
-  }, [isComicView, learningImageLoader]);
+  }, [activeLearningImageKey, cachedLearningImageSrc, isComicView, learningImageLoader]);
 
   if (readingDataStatus === 'loading') {
     return (
@@ -534,12 +565,21 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
   );
 
   const renderComicArea = () => {
-    if (isLearningImageLoading) {
-      return <LearningComicLoadingState />;
+    const visibleLearningImageSrc =
+      cachedLearningImageSrc ?? (learningImageSelectionKey === activeLearningImageKey ? learningImageSrc : null);
+
+    if (visibleLearningImageSrc) {
+      return (
+        <LearningComicView
+          imageSrc={visibleLearningImageSrc}
+          imageAlt={learningImageAlt(commentarySource, isBonusSelection, activeGuaNum, activeYaoNum)}
+          isBusy={isLearningImageLoading}
+        />
+      );
     }
 
-    if (learningImageSrc) {
-      return <LearningComicView imageSrc={learningImageSrc} imageAlt={learningImageAlt(commentarySource, isBonusSelection, activeGuaNum, activeYaoNum)} />;
+    if (isLearningImageLoading) {
+      return <LearningComicLoadingState />;
     }
 
     return (

@@ -203,17 +203,16 @@ type BonusYaoItemFixture = {
 
 type IChingSectionProps = ComponentProps<typeof IChingSection>;
 
+const defaultSectionProps: IChingSectionProps = {
+  commentarySource: 'gua',
+  yaoNum: 33,
+  guaNum: 6,
+  guaData: { header: '6. Example Gua', meta: 'Example gua meta' },
+  yaoData: { titleLine: '33. Example Yao', short: 'Short reading', body: 'Body text' },
+};
+
 function renderSection(overrides?: Partial<IChingSectionProps>) {
-  return render(
-    <IChingSection
-      commentarySource="gua"
-      yaoNum={33}
-      guaNum={6}
-      guaData={{ header: '6. Example Gua', meta: 'Example gua meta' }}
-      yaoData={{ titleLine: '33. Example Yao', short: 'Short reading', body: 'Body text' }}
-      {...overrides}
-    />,
-  );
+  return render(<IChingSection {...defaultSectionProps} {...overrides} />);
 }
 
 async function waitForCommentaryReady() {
@@ -266,6 +265,8 @@ describe('IChingSection', () => {
 
     expect(screen.getByTestId('commentary-comic-toggle')).toHaveAttribute('aria-pressed', 'true');
     expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('6.png'));
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('loading', 'eager');
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('fetchpriority', 'high');
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByTestId('commentary-comic-toggle'));
@@ -290,6 +291,8 @@ describe('IChingSection', () => {
 
     expect(screen.getByTestId('commentary-comic-toggle')).toHaveAttribute('aria-pressed', 'true');
     expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('59.png'));
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('loading', 'eager');
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('fetchpriority', 'high');
     expect(screen.queryByTestId('commentary-reading-body')).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByTestId('commentary-comic-toggle'));
@@ -297,6 +300,30 @@ describe('IChingSection', () => {
     expect(screen.getByTestId('commentary-reading-body')).toHaveTextContent('Body text');
     expect(screen.getByText('Yao Keyword Heading')).toBeInTheDocument();
     expect(screen.getByText('Yao keyword commentary body')).toBeInTheDocument();
+  });
+
+  it('clears the comic on uncached switches and reuses cached urls on repeat renders', async () => {
+    const view = renderSection();
+
+    await waitForCommentaryReady();
+    await waitFor(() => {
+      expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('6.png'));
+    });
+
+    view.rerender(<IChingSection {...defaultSectionProps} guaNum={8} />);
+
+    expect(screen.queryByTestId('learning-comic-view')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('learning-comic-image')).not.toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('8.png'));
+    });
+
+    view.rerender(<IChingSection {...defaultSectionProps} guaNum={6} />);
+
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('src', expect.stringContaining('6.png'));
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('loading', 'eager');
+    expect(screen.getByTestId('learning-comic-image')).toHaveAttribute('fetchpriority', 'high');
   });
 
   it('renders commentary lists the same way after the leaf-module load', async () => {
