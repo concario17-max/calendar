@@ -518,7 +518,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
     : [];
 
   const renderCommentaryTextContent = () => (
-    <>
+    <div className="space-y-[var(--reading-block-gap)] pt-2 sm:pt-3">
       {commentaryHeading ? <h5 className={commentaryHeadingClass}>{commentaryHeading}</h5> : null}
 
       {commentarySource === 'yao' && !isBonusSelection ? (
@@ -530,7 +530,7 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
       <div className="space-y-[var(--reading-section-gap)] border-t border-outline-variant/35 pt-[var(--reading-block-gap)]">
         {renderedCommentaryBlocks}
       </div>
-    </>
+    </div>
   );
 
   const renderComicArea = () => {
