@@ -1,27 +1,27 @@
 # Current Task
-- Active: add a bit more breathing room above the commentary heading on gua/yao pages.
+- Active: redesign the mobile header into a smaller, cleaner two-row layout.
 
 # Route
 - Route A
 - Reason: this is a small presentational tweak in one feature component with no new state paths or reviewer fan-out required.
 
 # Writer Slot
-- main: single-write lane for the spacing tweak
+- main: single-write lane for the mobile header tweak
 
 # Contract Freeze
-- Goal: give the commentary heading a little more top spacing so it does not feel cramped.
+- Goal: make the mobile header visually smaller and less cramped while keeping the same controls.
 - Non-goals:
   - do not add new libraries
   - do not change reading outcomes, date mapping, or commentary content
   - do not alter user-provided untracked folders/files
-  - do not redesign the reading card beyond adjusting vertical spacing around the heading
+  - do not redesign the header beyond a mobile-only layout compression
 - Write sets:
   - main:
-    - `src/components/IChingSection.tsx`
+    - `src/components/Header.tsx`
     - `STATE.md`
 - Acceptance criteria:
-  - the commentary heading has a little more breathing room above it
-  - the gua/yao page still renders the same content and controls
+  - the mobile header feels smaller and less crowded
+  - the desktop header remains visually close to the current layout
   - `npm.cmd run lint` and `npm.cmd run build` pass
 - Why this is Route A:
   - this is a small layout-only tweak in one feature component and does not need reviewer coordination.
@@ -30,4 +30,4 @@
 - reviewer: not used for this hotfix
 
 # Last Update
-- 2026-05-26: re-scoped to open up the commentary heading spacing.
+- 2026-05-26: re-scoped to compress the mobile header into a cleaner two-row layout.
