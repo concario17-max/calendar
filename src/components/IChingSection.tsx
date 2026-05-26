@@ -712,23 +712,6 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
               </span>
 
               <div className="flex items-center gap-2">
-                {canShowComicToggle ? (
-                  <button
-                    type="button"
-                    data-testid="commentary-comic-toggle"
-                    aria-pressed={isComicView}
-                    aria-label={isComicView ? '텍스트 해설 보기' : '학습 만화 보기'}
-                    onClick={() => setCommentaryViewMode((current) => (current === 'comic' ? 'text' : 'comic'))}
-                    className={`ui-button inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest sm:h-12 sm:w-12 ${
-                      isComicView
-                        ? 'ui-button--secondary text-secondary'
-                        : 'ui-button--ghost border-outline-variant/60 bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
-                    }`}
-                  >
-                    <Images size={16} strokeWidth={2.2} />
-                  </button>
-                ) : null}
-
                 {selectedDate && onDateChange ? (
                   <div className="flex items-center gap-1">
                     <button
@@ -748,6 +731,23 @@ export const IChingSection: React.FC<IChingSectionProps> = ({
                       <ChevronRight size={18} strokeWidth={2.1} />
                     </button>
                   </div>
+                ) : null}
+
+                {canShowComicToggle ? (
+                  <button
+                    type="button"
+                    data-testid="commentary-comic-toggle"
+                    aria-pressed={isComicView}
+                    aria-label={isComicView ? '텍스트 해설 보기' : '학습 만화 보기'}
+                    onClick={() => setCommentaryViewMode((current) => (current === 'comic' ? 'text' : 'comic'))}
+                    className={`ui-button inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest sm:h-12 sm:w-12 ${
+                      isComicView
+                        ? 'ui-button--secondary text-secondary'
+                        : 'ui-button--ghost border-outline-variant/60 bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high/70 hover:text-on-surface'
+                    }`}
+                  >
+                    <Images size={16} strokeWidth={2.2} />
+                  </button>
                 ) : null}
               </div>
             </div>
